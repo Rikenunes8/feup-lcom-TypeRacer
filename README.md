@@ -1,6 +1,6 @@
 # LCOM Project
 
-LCOM Project for group T&lt;n&gt;G&lt;p&gt;&lt;q&gt;.
+LCOM Project for group T6G08.
 
 Group members:
 
