@@ -19,9 +19,9 @@ int main(int argc, char *argv[]) {
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
-  if (lcf_start(argc, argv))
+  if (lcf_start(argc, argv)){
     return 1;
-
+  }
   // LCF clean up tasks
   // [must be the last statement before return]
   lcf_cleanup();
@@ -31,7 +31,9 @@ int main(int argc, char *argv[]) {
 
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
   /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t st;
+  timer_get_conf(timer, &st);
+  timer_display_conf(timer, st, field);
 
   return 1;
 }

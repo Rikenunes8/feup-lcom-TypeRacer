@@ -35,15 +35,31 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
 
   uint8_t read_command = TIMER_RB_CMD | TIMER_RB_COUNT_ | TIMER_RB_SEL(timer); 
   sys_outb(TIMER_CTRL, read_command); // Prepare timer to be changed
-  util_sys_inb(TIMER_0+timer, st); // Read the changes form the timer
 
+  if (!util_sys_inb(TIMER_0+timer, st)) { // Read the changes form the timer
+    return 0;
+  }
   return 1;
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
                         enum timer_status_field field) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  union timer_status_field_val b;
+  if (field == tsf_all){
+    b.byte = st;
+  }
+  else if (field == tsf_initial){
+    b.in_mode = st;
+  }
+  else if (field == tsf_mode){
+    b.count_mode = st;
+  }
+  else if ( field == tsf_base) {
+    b.bcd = st;
+  }
 
+  if (!timer_print_config(timer, field, b)){
+    return 0;
+  }
   return 1;
 }
