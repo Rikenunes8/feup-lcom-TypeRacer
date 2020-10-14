@@ -53,13 +53,20 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,
   }
   else if (field == tsf_initial)
   {
-    b.in_mode = st;
+    if ((st & TIMER_LSB_MSB) == TIMER_LSB)
+      b.in_mode = 1;
+    else if ((st & TIMER_LSB_MSB) == TIMER_MSB)
+      b.in_mode = 2;
+    else if ((st & TIMER_LSB_MSB) == TIMER_LSB_MSB)
+      b.in_mode = 3;
+    else
+      b.in_mode = 0;
   }
   else if (field == tsf_mode){
-    b.count_mode = st;
+    b.count_mode = st/2 & 0x07;
   }
   else if ( field == tsf_base) {
-    b.bcd = st;
+    b.bcd = st & TIMER_BCD;
   }
 
   if (!timer_print_config(timer, field, b)){
