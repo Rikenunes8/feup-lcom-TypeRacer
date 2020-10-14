@@ -6,9 +6,26 @@
 #include "i8254.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  uint8_t st;
+  uint8_t lsb;
+  uint8_t msb;
+  timer_get_conf(timer, &st);
+  st &= 0x0F;
+  st |= TIMER_LSB_MSB;
+  if (timer == 0)
+    st |= TIMER_SEL0;
+  else if (timer == 1)
+    st |= TIMER_SEL1;
+  else 
+    st |= TIMER_SEL2;
+  
+  sys_outb(TIMER_CTRL, st);
 
+  util_get_LSB(freq, &lsb);
+  sys_outb(TIMER_0+timer, lsb);
+  util_get_MSB(freq, &msb);
+  sys_outb(TIMER_0+timer, msb);
+  
   return 1;
 }
 
