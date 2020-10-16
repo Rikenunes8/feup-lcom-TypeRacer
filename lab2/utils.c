@@ -18,9 +18,10 @@ int (util_sys_inb)(int port, uint8_t *value)
 {  
   uint32_t a32;
   
-  if (!sys_inb(port, &a32)){
-    *value = a32;
-    return 0;
+  if (sys_inb(port, &a32) != 0) {
+    printf("Error in sys_inb()");
+    return 1;
   }
-  return 1;
+  *value = a32;
+  return 0;
 }

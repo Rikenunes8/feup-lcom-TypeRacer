@@ -3,7 +3,6 @@
 
 #include <lcom/lcf.h>
 
-
 #define OK 0
 
 /** @defgroup i8254 i8254

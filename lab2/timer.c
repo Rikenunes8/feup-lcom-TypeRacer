@@ -53,12 +53,16 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st)
 {
 
   uint8_t read_command = TIMER_RB_CMD | TIMER_RB_COUNT_ | TIMER_RB_SEL(timer); 
-  if (sys_outb(TIMER_CTRL, read_command) != OK) // Prepare timer to be changed
+  if (sys_outb(TIMER_CTRL, read_command) != OK){ // Prepare timer to be changed
+    printf("Error in sys_outb()");
     return 1;
+  }
 
-  if (!util_sys_inb(TIMER_0+timer, st)) // Read the changes form the timer
-    return 0;
-  return 1;
+  if (util_sys_inb(TIMER_0+timer, st) != OK) { // Read the changes form the timer
+    printf("Error in util_sys_inb()");
+    return 1;
+  }
+  return 0;
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
@@ -86,8 +90,9 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,
     b.bcd = st & TIMER_BCD;
   }
 
-  if (!timer_print_config(timer, field, b)){
-    return 0;
+  if (timer_print_config(timer, field, b) != OK){
+    printf("Error in timer_print_config\n");
+    return 1;
   }
-  return 1;
+  return 0;
 }
