@@ -6,9 +6,8 @@
 #include "i8254.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
-  uint8_t st;
-  uint8_t lsb;
-  uint8_t msb;
+  uint8_t st, lsb, msb;
+  uint16_t auxFreq = TIMER_FREQ/freq;
   timer_get_conf(timer, &st);
   st &= 0x0F;
   st |= TIMER_LSB_MSB;
@@ -18,15 +17,17 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
     st |= TIMER_SEL1;
   else 
     st |= TIMER_SEL2;
-  
-  sys_outb(TIMER_CTRL, st);
+  if (sys_outb(TIMER_CTRL, st) != OK)
+    return 1;
 
-  util_get_LSB(freq, &lsb);
-  sys_outb(TIMER_0+timer, lsb);
-  util_get_MSB(freq, &msb);
-  sys_outb(TIMER_0+timer, msb);
+  util_get_LSB(auxFreq, &lsb);
+  if (sys_outb(TIMER_0+timer, lsb) != OK)
+    return 1;
+  util_get_MSB(auxFreq, &msb);
+  if (sys_outb(TIMER_0+timer, msb) != OK)
+    return 1;
   
-  return 1;
+  return 0;
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
@@ -52,12 +53,11 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st)
 {
 
   uint8_t read_command = TIMER_RB_CMD | TIMER_RB_COUNT_ | TIMER_RB_SEL(timer); 
-  sys_outb(TIMER_CTRL, read_command); // Prepare timer to be changed
+  if (sys_outb(TIMER_CTRL, read_command) != OK) // Prepare timer to be changed
+    return 1;
 
   if (!util_sys_inb(TIMER_0+timer, st)) // Read the changes form the timer
-  { 
     return 0;
-  }
   return 1;
 }
 
