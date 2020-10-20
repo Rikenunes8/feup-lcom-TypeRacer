@@ -1,6 +1,7 @@
 #include <lcom/lcf.h>
 
 #include <lcom/lab3.h>
+#include <lcom/lab3.h>
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -29,10 +30,15 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int(kbd_test_scan)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+int(kbd_test_scan)() 
+{
+  /* incompleto */
+  //subscribe KBC interrupts
+  uint8_t bit_no = 1;
+  kbc_subscribe_int(&bit_no);
 
+  //unsubscribe KBC interrupts
+  kbc_unsubscribe_int();
   return 1;
 }
 
