@@ -1,7 +1,7 @@
 #include <lcom/lcf.h>
 
 #include <lcom/lab3.h>
-#include <lcom/lab3.h>
+#include <keyboard.h>
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -36,6 +36,45 @@ int(kbd_test_scan)()
   //subscribe KBC interrupts
   uint8_t bit_no = 1;
   kbc_subscribe_int(&bit_no);
+
+  int ipc_status;
+  message msg;
+
+  uint32_t irq_set = BIT(bit_no);
+  int r, i = 0;
+  while( i ) { /* You may want to use a different condition */
+
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
+    { 
+        printf("driver_receive failed with: %d", r);
+        continue;
+    }
+    if (is_ipc_notify(ipc_status)) 
+    {   /* received notification */
+        switch (_ENDPOINT_P(msg.m_source)) 
+        {
+            case HARDWARE: /* hardware interrupt notification */				
+                if (msg.m_notify.interrupts & irq_set) 
+                { /* subscribed interrupt */
+                  printf("Received interrupt\n");   /* process it */
+                  kbc_ih();
+                  if (counter%60 == 0)
+                  {
+                    i++;
+                    timer_print_elapsed_time();
+                  }
+                }
+                break;
+            default:
+              // printf("Receive no interrupt\n");
+              break; /* no other notifications expected: do nothing */	
+        }
+    } 
+    else 
+    {  /* received a standard message, not a notification */
+       /* no standard messages expected: do nothing */
+    }
 
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();
