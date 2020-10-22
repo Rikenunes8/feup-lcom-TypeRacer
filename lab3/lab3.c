@@ -59,11 +59,7 @@ int(kbd_test_scan)()
                 { /* subscribed interrupt */
                   printf("Received interrupt\n");   /* process it */
                   kbc_ih();
-                  if (counter%60 == 0)
-                  {
-                    i++;
-                    timer_print_elapsed_time();
-                  }
+                  
                 }
                 break;
             default:
@@ -75,6 +71,7 @@ int(kbd_test_scan)()
     {  /* received a standard message, not a notification */
        /* no standard messages expected: do nothing */
     }
+  }  
 
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();

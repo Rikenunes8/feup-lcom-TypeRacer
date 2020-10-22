@@ -1,9 +1,9 @@
-#include <lcom/keyboard.h>
+#include <keyboard.h>
 
 
 static int hook_id;
 
-int keyboard_subscribe_int(uint8_t *bit_no) 
+int (kbc_subscribe_int)(uint8_t *bit_no) 
 {
   hook_id = *bit_no;
   if (sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id) != OK) 
@@ -15,7 +15,7 @@ int keyboard_subscribe_int(uint8_t *bit_no)
   
 }
 
-int keyboard_unsubscribe_int() 
+int (kbc_unsubscribe_int)() 
 {
   if (sys_irqrmpolicy(&hook_id) != OK) 
   {
@@ -28,5 +28,5 @@ int keyboard_unsubscribe_int()
 
 void (kbc_ih)()
 {
-    uint8_t 
+    
 }

@@ -6,9 +6,9 @@
 #include <i8042.h>
 
 
-int keyboard_subscribe_int(uint8_t *bit_no);
+int (kbc_subscribe_int)(uint8_t *bit_no);
 
-int keyboard_unsubscribe_int(); 
+int (kbc_unsubscribe_int)(); 
 
 /**
  *  Handles keyboard interrupts (C implementation)
@@ -19,6 +19,6 @@ int keyboard_unsubscribe_int();
 
     All communication with other code must be done via global variables, static if possible.    
  */
-void kbc_ih();
+void (kbc_ih)();
 
 #endif /* _LCOM_KEYBOARD_H */
