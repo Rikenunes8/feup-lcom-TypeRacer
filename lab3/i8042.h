@@ -16,9 +16,10 @@
 
 /* Status register */
 #define OBF      BIT(0) /* Output buffer full */
-#define IBF      BIT(1) /* Input buffer full */
+#define IBF      BIT(1) /* Input buffer is full */
 #define TIMEOUT  BIT(6) /* Receive time out error */
 #define PARITY   BIT(7) /* Parity error */
 
+#define ESC_KEY   0x81
 
 #endif /* _LCOM_I8042_H */
