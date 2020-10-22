@@ -1,7 +1,6 @@
 #include <keyboard.h>
 
 
-static int hook_id;
 
 int (kbc_subscribe_int)(uint8_t *bit_no) 
 {
@@ -28,5 +27,33 @@ int (kbc_unsubscribe_int)()
 
 void (kbc_ih)()
 {
-    
+    //Read the scancode byte from the output buffer. 
+    uint32_t st;
+
+    while(1) 
+    {
+        //lê a informação de STAT_REG
+        if(sys_inb(STAT_REG, &st) != OK)
+        {
+          printf("Error in sys_inb()");
+          return;
+        }
+        /* loop while 8042 output buffer is empty */
+        if(st & OBF) 
+        {
+          if ( (stat &(KBC_PAR_ERR | KBC_TO_ERR)) == 0 )
+          {
+            if(sys_inb(OUT_BUF, &data) != OK)
+            {
+              printf("Error in sys_inb()");
+              return;
+            }
+          }
+          else
+            return;
+        }
+        //delay(WAIT_KBC); // e.g. tickdelay()
+    }
+
+    return;
 }

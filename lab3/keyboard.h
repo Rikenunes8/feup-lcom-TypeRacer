@@ -4,6 +4,10 @@
 
 #include <lcom/lcf.h>
 #include <i8042.h>
+#include <utils.h>
+
+static int hook_id;
+static int32_t data;
 
 
 int (kbc_subscribe_int)(uint8_t *bit_no);

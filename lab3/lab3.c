@@ -42,8 +42,9 @@ int(kbd_test_scan)()
 
   uint32_t irq_set = BIT(bit_no);
   int r, i = 0;
-  while( i ) { /* You may want to use a different condition */
 
+  while(data != ESC_KEY) 
+  { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
     { 
@@ -59,6 +60,8 @@ int(kbd_test_scan)()
                 { /* subscribed interrupt */
                   printf("Received interrupt\n");   /* process it */
                   kbc_ih();
+                  //assemble the scancode
+                  
                   
                 }
                 break;
