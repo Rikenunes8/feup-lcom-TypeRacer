@@ -7,6 +7,7 @@
 
 int hook_id;
 uint32_t scancode;
+int counter;
 
 
 int (kbc_subscribe_int)(uint8_t *bit_no);
@@ -23,6 +24,7 @@ int (kbc_unsubscribe_int)();
     All communication with other code must be done via global variables, static if possible.    
  */
 void (kbc_ih)();
+
 
 
 

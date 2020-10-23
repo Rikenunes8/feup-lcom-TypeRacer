@@ -27,33 +27,36 @@ int (kbc_unsubscribe_int)()
 
 void (kbc_ih)()
 {
-    //Read the scancode byte from the output buffer. 
-    uint32_t st;
 
-    while(1) 
+  //Read the scancode byte from the output buffer. 
+  uint32_t st;
+
+  for(int i = 0; i <= 3; i++)
+  {
+    //lê a informação de STAT_REG
+    if(sys_inb(STAT_REG, &st) != OK)
     {
-        //lê a informação de STAT_REG
-        if(sys_inb(STAT_REG, &st) != OK)
+      printf("Error in sys_inb()");
+      return;
+    }
+    counter++;
+    /* loop while 8042 output buffer is empty */
+    if(st & OBF) 
+    {
+      if ( (st & (PARITY | TIMEOUT)) == 0 )
+      {
+        if(sys_inb(OUT_BUF, &scancode) != OK)
         {
           printf("Error in sys_inb()");
           return;
         }
-        /* loop while 8042 output buffer is empty */
-        if(st & OBF) 
-        {
-          if ( (st & (PARITY | TIMEOUT)) == 0 )
-          {
-            if(sys_inb(OUT_BUF, &scancode) != OK)
-            {
-              printf("Error in sys_inb()");
-              return;
-            }
-          }
-          else
-            return;
-        }
-        tickdelay(WAIT_KBC); // e.g. tickdelay()
+        counter++;
+      }
+      else
+        return;
     }
+    //tickdelay(micros_to_ticks(WAIT_KBC)); // e.g. tickdelay()
+  }
 
     return;
 }

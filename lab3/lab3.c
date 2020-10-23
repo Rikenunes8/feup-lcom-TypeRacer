@@ -60,9 +60,8 @@ int(kbd_test_scan)()
                 if (msg.m_notify.interrupts & irq_set) 
                 { 
                   /* subscribed interrupt */
-                  printf("Received interrupt\n");   /* process it */
                   kbc_ih();
-
+  
                   //assemble the scancode
                   if(scancode == 0xE0)
                   {     
@@ -99,6 +98,7 @@ int(kbd_test_scan)()
   }  
 
   //print the number of sys_inb kernell calls
+  kbd_print_no_sysinb(counter);
 
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();
