@@ -33,17 +33,18 @@ int main(int argc, char *argv[]) {
 int(kbd_test_scan)() 
 {
   /* incompleto */
-  //subscribe KBC interrupts
   uint8_t bit_no = 1;
-  kbc_subscribe_int(&bit_no);
-
   int ipc_status;
   message msg;
-
   uint32_t irq_set = BIT(bit_no);
-  int r, i = 0;
+  int r = 0;
+  uint8_t bytes[2];
+  bool make; //true is makecode; false otherwise
+  
+  //subscribe KBC interrupts
+  kbc_subscribe_int(&bit_no);
 
-  while(data != ESC_KEY) 
+  while(scancode != ESC_KEY) 
   { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
@@ -57,10 +58,31 @@ int(kbd_test_scan)()
         {
             case HARDWARE: /* hardware interrupt notification */				
                 if (msg.m_notify.interrupts & irq_set) 
-                { /* subscribed interrupt */
+                { 
+                  /* subscribed interrupt */
                   printf("Received interrupt\n");   /* process it */
                   kbc_ih();
+
                   //assemble the scancode
+                  if(scancode == 0xE0)
+                  {     
+                    bytes[0] = 0xE0;  
+                    bytes[1] = scancode & 0x0000FFFF;
+                    if((bytes[1]>>7) == 1) //breakcode
+                      make = false;
+                    else //makecode
+                      make = true;
+                    kbd_print_scancode(make, 2, bytes);           
+                  }
+                  else
+                  {
+                    bytes[0] = scancode;
+                    if((scancode>>7) == 1) //breakcode
+                      make = false;
+                    else //makecode
+                      make = true;
+                      kbd_print_scancode(make, 1, bytes);
+                  }
                   
                   
                 }
@@ -75,6 +97,8 @@ int(kbd_test_scan)()
        /* no standard messages expected: do nothing */
     }
   }  
+
+  //print the number of sys_inb kernell calls
 
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();

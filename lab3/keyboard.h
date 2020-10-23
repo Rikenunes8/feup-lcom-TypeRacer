@@ -4,10 +4,9 @@
 
 #include <lcom/lcf.h>
 #include <i8042.h>
-#include <utils.h>
 
-static int hook_id;
-static int32_t data;
+int hook_id;
+uint32_t scancode;
 
 
 int (kbc_subscribe_int)(uint8_t *bit_no);
@@ -24,5 +23,7 @@ int (kbc_unsubscribe_int)();
     All communication with other code must be done via global variables, static if possible.    
  */
 void (kbc_ih)();
+
+
 
 #endif /* _LCOM_KEYBOARD_H */

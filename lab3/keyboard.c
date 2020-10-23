@@ -41,9 +41,9 @@ void (kbc_ih)()
         /* loop while 8042 output buffer is empty */
         if(st & OBF) 
         {
-          if ( (stat &(KBC_PAR_ERR | KBC_TO_ERR)) == 0 )
+          if ( (st & (PARITY | TIMEOUT)) == 0 )
           {
-            if(sys_inb(OUT_BUF, &data) != OK)
+            if(sys_inb(OUT_BUF, &scancode) != OK)
             {
               printf("Error in sys_inb()");
               return;
@@ -52,7 +52,7 @@ void (kbc_ih)()
           else
             return;
         }
-        //delay(WAIT_KBC); // e.g. tickdelay()
+        tickdelay(WAIT_KBC); // e.g. tickdelay()
     }
 
     return;

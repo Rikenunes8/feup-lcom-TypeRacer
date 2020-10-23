@@ -22,4 +22,6 @@
 
 #define ESC_KEY   0x81
 
+#define WAIT_KBC 20000
+
 #endif /* _LCOM_I8042_H */
