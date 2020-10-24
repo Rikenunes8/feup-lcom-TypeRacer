@@ -5,9 +5,14 @@
 
 #define OK 0
 
+#define DELAY_US    20000
+
+
 #define KEYBOARD1_IRQ 1 /* Keyboard 1 IRQ line */
 
 /* I/O port addresses */
+#define READ_CB    0x20 /* Read command byte register */
+#define WRITE_CB    0x60 /* Write command byte register */
 #define OUT_BUF    0x60 /* Output buffer register */
 #define IN_BUF     0x64 /* Input buffer register */
 
@@ -21,7 +26,5 @@
 #define PARITY   BIT(7) /* Parity error */
 
 #define ESC_KEY   0x81
-
-#define WAIT_KBC 20000
 
 #endif /* _LCOM_I8042_H */

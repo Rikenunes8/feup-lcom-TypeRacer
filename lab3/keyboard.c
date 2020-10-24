@@ -1,6 +1,8 @@
 #include <keyboard.h>
 
-
+static int hook_id;
+uint32_t scancode;
+int counter;
 
 int (kbc_subscribe_int)(uint8_t *bit_no) 
 {
@@ -18,7 +20,7 @@ int (kbc_unsubscribe_int)()
 {
   if (sys_irqrmpolicy(&hook_id) != OK) 
   {
-    printf("Error in sys_irqsetpolicy()\n");
+    printf("Error in sys_irqrmpolicy()\n");
     return 1;
   }
   return 0;
@@ -55,7 +57,6 @@ void (kbc_ih)()
       else
         return;
     }
-    //tickdelay(micros_to_ticks(WAIT_KBC)); // e.g. tickdelay()
   }
 
     return;

@@ -5,11 +5,6 @@
 #include <lcom/lcf.h>
 #include <i8042.h>
 
-int hook_id;
-uint32_t scancode;
-int counter;
-
-
 int (kbc_subscribe_int)(uint8_t *bit_no);
 
 int (kbc_unsubscribe_int)(); 
