@@ -87,7 +87,7 @@ int(kbd_test_scan)()
           }
           break;
         default:
-        // printf("Receive no interrupt\n");
+          printf("Receive no interrupt\n");
           break; /* no other notifications expected: do nothing */	
       }
     } 
@@ -107,45 +107,31 @@ int(kbd_test_scan)()
   return 1;
 }
 
+
 int(kbd_test_poll)() {
   uint32_t st;
-  uint32_t cb_before, cb_after = 0x00000076;
+  //uint32_t cmb_before, cmb_after;
+  uint32_t cmb_after;
   uint8_t bytes[2];
   bool make; //true is makecode; false otherwise
 
-  /* Read command byte*/
-  if (sys_outb(IN_BUF, READ_CB) != OK){
-    printf("Error in sys_outb()\n");
-    return 1;
-  }
-  if (sys_inb(OUT_BUF, &cb_before) != OK){
-    printf("Error in sys_inb()\n");
-    return 1;
-  }
-  printf("command byte = %x\n", cb_before);
+  //read_cmd_byte(&cmb_before);
 
-  /* Change command byte*/
-  if (sys_outb(IN_BUF, WRITE_CB) != OK){
-    printf("Error in sys_outb()\n");
-    return 1;
-  }
-  if (sys_outb(OUT_BUF, cb_after) != OK){
-    printf("Error in sys_outb()\n");
-    return 1;
-  }
-
+  //while (0){
   while (scancode != ESC_KEY){
-    printf("While scancode: %x\n", scancode);
+    printf("scancode = %x\n", scancode);
     if (sys_inb(STAT_REG, &st)!= OK){
       printf("Error in sys_inb()\n");
       return 1;
     }
+    counter++;
     if (st & OBF){
       if ((st & (PARITY | TIMEOUT)) == 0){
         if (sys_inb(OUT_BUF, &scancode) != OK){
           printf("Error in sys_inb()\n");
           return 1;
         }
+        counter++;
         if ((scancode & 0x000000FF) == 0x000000E0){
           bytes[0] = 0xE0;
           bytes[1] = scancode>>8;
@@ -167,17 +153,12 @@ int(kbd_test_poll)() {
     }
     tickdelay(micros_to_ticks(DELAY_US));
   }
+  
+  // cmb_after = cmb_before | 0x01; 
+  cmb_after = 0x77;
+  write_cmd_byte(&cmb_after);
 
-  /* Change command byte to the first one*/
-  if (sys_outb(IN_BUF, WRITE_CB) != OK){
-    printf("Error in sys_outb()\n");
-    return 1;
-  }
-  if (sys_outb(OUT_BUF, cb_before) != OK){
-    printf("Error in sys_outb()\n");
-    return 1;
-  }
-
+  kbd_print_no_sysinb(counter);
   return 0;
 }
 

@@ -12,7 +12,7 @@
 
 /* I/O port addresses */
 #define READ_CB    0x20 /* Read command byte register */
-#define WRITE_CB    0x60 /* Write command byte register */
+#define WRITE_CB   0x60 /* Write command byte register */
 #define OUT_BUF    0x60 /* Output buffer register */
 #define IN_BUF     0x64 /* Input buffer register */
 
