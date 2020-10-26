@@ -60,13 +60,12 @@ void (kbc_ih)()
   return;
 }
 
-int read_cmd_byte(uint32_t *cmd){
+int (read_cmd_byte(uint32_t *cmd)){
   uint32_t st;
   int i=0, j=0;
 
   while (i<5) {
     sys_inb(STAT_REG, &st);
-    printf("st (read_cmd_byte) = %x\n", st);
     if ((st & IBF) == 0){
       sys_outb(IN_BUF, READ_CB);
       j = 0;
@@ -88,16 +87,14 @@ int read_cmd_byte(uint32_t *cmd){
     printf("Error while\n");
     return 1;
   }
-  printf("cmd_byte read = %x\n", *cmd);
   return 0;
 }
 
-int write_cmd_byte(uint32_t *cmd){
+int (write_cmd_byte(uint32_t *cmd)){
   uint32_t st;
   int i=0, j=0;
   while (i<5) {
     sys_inb(STAT_REG, &st);
-    printf("st (write_cmd_byte) =  %x\n", st);
     if ((st & IBF) == 0){
       sys_outb(IN_BUF, WRITE_CB);
       j = 0;
@@ -119,7 +116,26 @@ int write_cmd_byte(uint32_t *cmd){
     printf("Error while\n");
     return 1;
   }
-  printf("cmd_byte written = %x\n", *cmd);
   return 0;
 }
 
+void (assembleScancode(uint8_t *bytes, size_t size)) {
+  bool make = true; //true is makecode; false otherwise
+  if ((scancode & 0x000000FF) == 0x000000E0){
+    bytes[0] = 0xE0;
+    bytes[1] = scancode>>8;
+    if (bytes[1]>>7 == 1)
+      make = false; // breakcode
+    else
+      make = true; // makecode
+    kbd_print_scancode(make, 2, bytes);
+  }
+  else {
+    bytes[0] = scancode;
+    if (bytes[0]>>7 == 1)
+      make = false; // breakcode
+    else
+      make = true; // makecode
+    kbd_print_scancode(make, 1, bytes);
+  }
+}

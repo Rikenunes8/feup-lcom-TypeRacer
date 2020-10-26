@@ -35,7 +35,6 @@ int main(int argc, char *argv[]) {
 
 int(kbd_test_scan)() 
 {
-  /* incompleto */
   uint8_t bit_no = 1;
 
   int ipc_status;
@@ -43,7 +42,6 @@ int(kbd_test_scan)()
   uint32_t irq_set = BIT(bit_no);
   int r = 0;
   uint8_t bytes[2];
-  bool make; //true is makecode; false otherwise
   
   //subscribe KBC interrupts
   kbc_subscribe_int(&bit_no);
@@ -67,23 +65,7 @@ int(kbd_test_scan)()
             kbc_ih();
   
             //assemble the scancode
-            if ((scancode & 0x000000FF) == 0x000000E0){
-              bytes[0] = 0xE0;
-              bytes[1] = scancode>>8;
-              if (bytes[1]>>7 == 1)
-                make = false; // breakcode
-              else
-                make = true; // makecode
-              kbd_print_scancode(make, 2, bytes);
-            }
-            else{
-              bytes[0] = scancode;
-              if (bytes[0]>>7 == 1)
-                make = false; // breakcode
-              else
-                make = true; // makecode
-              kbd_print_scancode(make, 1, bytes);
-            }
+            assembleScancode(bytes, 2);
           }
           break;
         default:
@@ -108,54 +90,36 @@ int(kbd_test_scan)()
 }
 
 
+
 int(kbd_test_poll)() {
   uint32_t st;
-  //uint32_t cmb_before, cmb_after;
-  uint32_t cmb_after;
+  uint32_t cmb_before, cmb_after;
   uint8_t bytes[2];
-  bool make; //true is makecode; false otherwise
 
-  //read_cmd_byte(&cmb_before);
-
-  //while (0){
   while (scancode != ESC_KEY){
-    printf("scancode = %x\n", scancode);
     if (sys_inb(STAT_REG, &st)!= OK){
       printf("Error in sys_inb()\n");
       return 1;
     }
     counter++;
-    if (st & OBF){
-      if ((st & (PARITY | TIMEOUT)) == 0){
+    if ((st & OBF) != OK) {
+      if ((st & (PARITY | TIMEOUT)) == OK){
         if (sys_inb(OUT_BUF, &scancode) != OK){
           printf("Error in sys_inb()\n");
           return 1;
         }
         counter++;
-        if ((scancode & 0x000000FF) == 0x000000E0){
-          bytes[0] = 0xE0;
-          bytes[1] = scancode>>8;
-          if (bytes[1]>>7 == 1)
-            make = false;
-          else
-            make = true;
-          kbd_print_scancode(make, 2, bytes);
-        }
-        else{
-          bytes[0] = scancode;
-          if (bytes[0]>>7 == 1)
-            make = false;
-          else
-            make = true;
-          kbd_print_scancode(make, 1, bytes);
-        }
+        
+        assembleScancode(bytes, 2);
       }
-    }
+    } 
     tickdelay(micros_to_ticks(DELAY_US));
   }
   
-  // cmb_after = cmb_before | 0x01; 
-  cmb_after = 0x77;
+  read_cmd_byte(&cmb_before);
+
+  cmb_after = cmb_before | 0x01;
+
   write_cmd_byte(&cmb_after);
 
   kbd_print_no_sysinb(counter);
