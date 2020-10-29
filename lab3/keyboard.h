@@ -24,7 +24,7 @@ int (read_cmd_byte(uint32_t *cmd));
 
 int (write_cmd_byte(uint32_t *cmd));
 
-void (assembleScancode(uint8_t *bytes, size_t size));
+void (assemble_scancode(uint8_t *bytes, size_t size));
 
 
 #endif /* _LCOM_KEYBOARD_H */

@@ -119,7 +119,7 @@ int (write_cmd_byte(uint32_t *cmd)){
   return 0;
 }
 
-void (assembleScancode(uint8_t *bytes, size_t size)) {
+void (assemble_scancode(uint8_t *bytes, size_t size)) {
   bool make = true; //true is makecode; false otherwise
   if ((scancode & 0x000000FF) == 0x000000E0){
     bytes[0] = 0xE0;
