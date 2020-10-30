@@ -40,7 +40,9 @@ void (kbc_ih)()
     printf("Error in sys_inb()");
     return;
   }
+  #ifdef LAB3
   counter++;
+  #endif
   /* loop while 8042 output buffer is empty */
   if(st & OBF) 
   {
@@ -51,7 +53,9 @@ void (kbc_ih)()
         printf("Error in sys_inb()");
         return;
       }
+      #ifdef LAB3
       counter++;
+      #endif
     }
     else
       return;
@@ -119,23 +123,30 @@ int (write_cmd_byte(uint32_t *cmd)){
   return 0;
 }
 
-void (assemble_scancode(uint8_t *bytes, size_t size)) {
+void (assemble_scancode(uint8_t *bytes, bool *two_byte)) {
   bool make = true; //true is makecode; false otherwise
+
   if ((scancode & 0x000000FF) == 0x000000E0){
     bytes[0] = 0xE0;
-    bytes[1] = scancode>>8;
-    if (bytes[1]>>7 == 1)
-      make = false; // breakcode
-    else
-      make = true; // makecode
-    kbd_print_scancode(make, 2, bytes);
+    *two_byte = true;
   }
   else {
-    bytes[0] = scancode;
-    if (bytes[0]>>7 == 1)
-      make = false; // breakcode
-    else
-      make = true; // makecode
-    kbd_print_scancode(make, 1, bytes);
+    if (*two_byte) {
+      bytes[1] = scancode;
+      if (bytes[1]>>7 == 1)
+        make = false; // breakcode
+      else
+        make = true; // makecode
+      *two_byte = false;
+      kbd_print_scancode(make, 2, bytes);
+    }
+    else {
+      bytes[0] = scancode;
+      if (bytes[0]>>7 == 1)
+        make = false; // breakcode
+      else
+        make = true; // makecode
+      kbd_print_scancode(make, 1, bytes);
+    }
   }
 }

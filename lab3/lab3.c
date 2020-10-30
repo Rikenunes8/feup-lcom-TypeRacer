@@ -43,6 +43,8 @@ int(kbd_test_scan)()
   uint32_t irq_set = BIT(bit_no);
   int r = 0;
   uint8_t bytes[2];
+  bool sc_two_byte = false;
+
   
   //subscribe KBC interrupts
   kbc_subscribe_int(&bit_no);
@@ -66,7 +68,7 @@ int(kbd_test_scan)()
             kbc_ih();
   
             //assemble the scancode
-            assemble_scancode(bytes, 2);
+            assemble_scancode(bytes, &sc_two_byte);
           }
           break;
         default:
@@ -91,27 +93,32 @@ int(kbd_test_scan)()
 }
 
 
-
 int(kbd_test_poll)() {
   uint32_t st;
   uint32_t cmb_before, cmb_after;
   uint8_t bytes[2];
+  bool sc_two_byte = false;
 
   while (scancode != ESC_KEY){
     if (sys_inb(STAT_REG, &st)!= OK){
       printf("Error in sys_inb()\n");
       return 1;
     }
+    #ifdef LAB3
     counter++;
+    #endif
+    
     if ((st & OBF) != OK) {
       if ((st & (PARITY | TIMEOUT)) == OK){
         if (sys_inb(OUT_BUF, &scancode) != OK){
           printf("Error in sys_inb()\n");
           return 1;
         }
+        #ifdef LAB3
         counter++;
+        #endif
         
-        assemble_scancode(bytes, 2);
+        assemble_scancode(bytes, &sc_two_byte);
       }
     } 
     tickdelay(micros_to_ticks(DELAY_US));
@@ -127,6 +134,7 @@ int(kbd_test_poll)() {
   return 0;
 }
 
+
 int(kbd_test_timed_scan)(uint8_t n) 
 {
 
@@ -139,6 +147,7 @@ int(kbd_test_timed_scan)(uint8_t n)
   uint32_t timer0_int_bit = BIT(bit_no_timer);
   int r = 0;
   uint8_t bytes[2];
+  bool sc_two_byte = false;
 
   //subscribe KBC interrupts
   kbc_subscribe_int(&bit_no_kbd);
@@ -160,21 +169,21 @@ int(kbd_test_timed_scan)(uint8_t n)
       switch (_ENDPOINT_P(msg.m_source)) 
       {
         case HARDWARE: /* hardware interrupt notification */
-        if (msg.m_notify.interrupts &  kbd_int_bit) 
-          { 
-            /* process KBD interrupt request */
-            kbc_ih();
+          if (msg.m_notify.interrupts &  kbd_int_bit) 
+            { 
+              /* process KBD interrupt request */
+              kbc_ih();
   
-            //assemble the scancode
-            assemble_scancode(bytes, 2);
+              //assemble the scancode
+              assemble_scancode(bytes, &sc_two_byte);
 
-            count = 0; //starts counting again
-          }
-        if (msg.m_notify.interrupts & timer0_int_bit)
-          {
-            /* process Timer0 interrupt request */
-            timer_int_handler();
-          }				
+              count = 0; //starts counting again
+            }
+          if (msg.m_notify.interrupts & timer0_int_bit)
+            {
+              /* process Timer0 interrupt request */
+              timer_int_handler();
+            }				
           break;
         default:
           printf("Receive no interrupt\n");
