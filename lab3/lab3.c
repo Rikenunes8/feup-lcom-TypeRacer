@@ -7,8 +7,8 @@
 #include <stdint.h>
 
 extern uint32_t scancode;
-extern int counter; //counter for number os sys_inb
-extern int count; //counter for timer handler
+extern int counter_sys_inb; //counter for number os sys_inb
+extern int timer_counter; //counter for timer handler
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -85,7 +85,7 @@ int(kbd_test_scan)()
   }
 
   //print the number of sys_inb kernell calls
-  kbd_print_no_sysinb(counter);
+  kbd_print_no_sysinb(counter_sys_inb);
 
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();
@@ -105,7 +105,7 @@ int(kbd_test_poll)() {
       return 1;
     }
     #ifdef LAB3
-    counter++;
+    counter_sys_inb++;
     #endif
     
     if ((st & OBF) != OK) {
@@ -115,7 +115,7 @@ int(kbd_test_poll)() {
           return 1;
         }
         #ifdef LAB3
-        counter++;
+        counter_sys_inb++;
         #endif
         
         assemble_scancode(bytes, &sc_two_byte);
@@ -130,7 +130,7 @@ int(kbd_test_poll)() {
 
   write_cmd_byte(&cmb_after);
 
-  kbd_print_no_sysinb(counter);
+  kbd_print_no_sysinb(counter_sys_inb);
   return 0;
 }
 
@@ -156,7 +156,7 @@ int(kbd_test_timed_scan)(uint8_t n)
   timer_subscribe_int(&bit_no_timer);
 
  //number of ticks = frequency (60 Hz, base frequency) * number of seconds (n)
-  while((scancode != ESC_KEY) && (count < n*60))
+  while((scancode != ESC_KEY) && (timer_counter < n*60))
   { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
@@ -177,7 +177,7 @@ int(kbd_test_timed_scan)(uint8_t n)
               //assemble the scancode
               assemble_scancode(bytes, &sc_two_byte);
 
-              count = 0; //starts counting again
+              timer_counter = 0; //starts counting again
             }
           if (msg.m_notify.interrupts & timer0_int_bit)
             {
@@ -199,7 +199,7 @@ int(kbd_test_timed_scan)(uint8_t n)
   }
 
   //print the number of sys_inb kernell calls
-  kbd_print_no_sysinb(counter);
+  kbd_print_no_sysinb(counter_sys_inb);
 
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();

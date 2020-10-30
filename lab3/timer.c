@@ -6,6 +6,8 @@
 #include "i8254.h"
 
 static int hook_id;
+int timer_counter;
+
 
 int (util_sys_inb)(int port, uint8_t *value) 
 {  
@@ -64,10 +66,9 @@ int (timer_unsubscribe_int)() {
   
 }
 
-int count;
 void (timer_int_handler)()
 {
-  count++;
+  timer_counter++;
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) 

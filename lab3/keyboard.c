@@ -2,7 +2,7 @@
 
 static int hook_id;
 uint32_t scancode;
-int counter;
+int counter_sys_inb = 0;
 
 int (kbc_subscribe_int)(uint8_t *bit_no) 
 {
@@ -40,9 +40,7 @@ void (kbc_ih)()
     printf("Error in sys_inb()");
     return;
   }
-  #ifdef LAB3
-  counter++;
-  #endif
+  counter_sys_inb++;
   /* loop while 8042 output buffer is empty */
   if(st & OBF) 
   {
@@ -53,9 +51,7 @@ void (kbc_ih)()
         printf("Error in sys_inb()");
         return;
       }
-      #ifdef LAB3
-      counter++;
-      #endif
+      counter_sys_inb++;
     }
     else
       return;
