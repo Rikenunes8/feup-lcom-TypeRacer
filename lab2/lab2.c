@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern int counter;
+extern int timer_counter;
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -67,7 +67,7 @@ int(timer_test_int)(uint8_t time) {
                 if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
                   printf("Received interrupt\n");   /* process it */
                   timer_int_handler();
-                  if (counter%60 == 0){
+                  if (timer_counter%60 == 0){
                     i++;
                     timer_print_elapsed_time();
                   }
