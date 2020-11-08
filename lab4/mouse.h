@@ -4,9 +4,9 @@
 #include <lcom/lcf.h>
 #include <i8042.h>
 
-int (mouse_subscribe_int)(uint8_t *bit_no);
+int (kbc_subscribe_int)(uint8_t *bit_no, uint8_t irq);
 
-int (mouse_unsubscribe_int)(); 
+int (kbc_unsubscribe_int)(); 
 
 /**
  *  Handles mouse interrupts (C implementation)
@@ -18,5 +18,9 @@ int (mouse_unsubscribe_int)();
     All communication with other code must be done via global variables, static if possible.    
  */
 void (mouse_ih)();
+
+int (kbc_write_byte)(uint8_t cmd, uint8_t arg);
+
+void assemble_packet(struct packet *pp, bool *fail_packet);
 
 #endif /* _LCOM_MOUSE_H */
