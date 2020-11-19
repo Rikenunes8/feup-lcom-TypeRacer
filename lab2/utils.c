@@ -10,10 +10,11 @@ int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
 
 int(util_get_MSB)(uint16_t val, uint8_t *msb) {
 
-  *msb = (val & 0xFF00)/256;
+  *msb = (val & 0xFF00)/256; //move 8 bits para a direita 
   return 0;
 }
 
+//Nós só precisamos de ler 1 byte (8 bits), por isso usamos esta função para ler apenas 1 byte
 int (util_sys_inb)(int port, uint8_t *value) 
 {  
   uint32_t a32;

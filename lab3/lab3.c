@@ -92,6 +92,11 @@ int(kbd_test_scan)()
   return 1;
 }
 
+/*
+Nas interrupções, só se verifica se OBF está cheio quando já se sabe que ele está cheio (ou seja, quando se gera a interrupção)
+Com polling, verifica-se se OBF está cheio a cada iteração (ou a cada 20 ms por causa do delay).
+Se estiver cheio, faz assemble_scancode(), senão volta a verificar na próxima iteração.
+*/
 
 int(kbd_test_poll)() {
   uint32_t st;
@@ -123,6 +128,10 @@ int(kbd_test_poll)() {
     } 
     tickdelay(micros_to_ticks(DELAY_US));
   }
+
+  //Antes de acabar o programa deve-se ler o command byte, 
+  //alterá-lo de modo a ativar de novo as interrupções do teclado, 
+  //escrever no input buffer e sair
   
   read_cmd_byte(&cmb_before);
 

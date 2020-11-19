@@ -1,0 +1,40 @@
+- Como funcionam as macros do tipo #define SOMETHING BIT(n)? 
+
+    #define S1 BIT(0) -> 0...0001
+
+    #define S1 BIT(3) -> (1 << 3) -> 0...0100
+
+    BIT(n) -> (1 << n)
+
+    As macros estão sempre a 1 na posição n e só servem como auxiliar para saber o que está nos registos
+    (fazendo st & MACRO obtenho o resultado de st)
+
+-uint8_t -> 8 bits
+-uint32_t -> 32 bits
+
+-Uso | (operador OU) para juntar bits (ex: BIT(1) | BIT(2) | BIT(3) -> 0..01110)
+
+-número de ticks = número de segundos * frequecy
+
+-HEX    BINÁRIO
+ 0 ---- 0000
+ 1 ---- 0001
+ 2 ---- 0010
+ 3 ---- 0011
+ 4 ---- 0100
+ 5 ---- 0101
+ 6 ---- 0110
+ 7 ---- 0111
+ 8 ---- 1000
+ 9 ---- 1001
+ A ---- 1010
+ B ---- 1011
+ C ---- 1100
+ D ---- 1101
+ E ---- 1110
+ F ---- 1111
+
+-int sys_outb(int port, u32_t byte); -> prepara uma informação (byte) para enviar 
+                                        diz ao port que vamos enviar uma determinada informação (diz que informação é essa enviando um comando, que é o byte)
+
+-int sys_inb(int port, u32_t *byte); -> lê a informação que preparámos em sys_outb e coloca essa informação em byte
