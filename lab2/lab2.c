@@ -67,7 +67,7 @@ int(timer_test_int)(uint8_t time) {
                 if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
                   printf("Received interrupt\n");   /* process it */
                   timer_int_handler();
-                  if (timer_counter%60 == 0){
+                  if (timer_counter%60 == 0){ //por definição, as interrupções são geradas 60 vezes por segundo
                     i++;
                     timer_print_elapsed_time();
                   }
