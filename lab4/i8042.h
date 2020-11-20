@@ -19,9 +19,21 @@
 #define WRT_MOUSE  0xD4 /* Write byte to mouse*/
 
 /* Mouse commands */
-#define DIS_DR     0xF5 /* Disable data reporting */
 #define ENB_DR     0xF4 /* Enable ddata reporting */
+#define DIS_DR     0xF5 /* Disable data reporting */
+#define SET_RM     0xF0 /* Set remote mode */ 
+#define SET_SM     0xEA /* Set stream mode */
 #define ST_REQUEST 0xE9 /* Get mouse configuration */
+
+/* Mouse Byte 1 */
+#define LB      BIT(0)
+#define RB      BIT(1)
+#define MB      BIT(2)
+#define CTRL_B  BIT(3)
+#define MSB_X   BIT(4)
+#define MSB_Y   BIT(5)
+#define XOV     BIT(6)
+#define YOV     BIT(7)
 
 /* Flags send by mouse */
 #define ACK        0xFA /* Everything ok */

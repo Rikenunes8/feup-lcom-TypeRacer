@@ -30,38 +30,19 @@ int (kbc_unsubscribe_int)()
 
 void (mouse_ih)()
 {
-
   //Read the scancode byte from the output buffer. 
   uint32_t st;
 
-  
     //lê a informação de STAT_REG
-  if(sys_inb(STAT_REG, &st) != OK)
-  {
+  if(sys_inb(STAT_REG, &st) != OK) {
     printf("Error in sys_inb()");
     return;
   }
   /* loop while 8042 output buffer is empty */
-  if(st & OBF) 
-  {
-    if ( (st & (PARITY | TIMEOUT)) == 0 )
-    {
-      if (st & AUX)
-      {
-        if(sys_inb(OUT_BUF, &packet_byte) != OK)
-        {
-          printf("Error in sys_inb()");
-          return;
-        } 
-      }  
-      else
-      {
-        if(sys_inb(OUT_BUF, &scancode) != OK)
-        {
-          printf("Error in sys_inb()");
-          return;
-        }      
-      }
+  if ( (st & (PARITY | TIMEOUT)) == 0 ) {  
+    if(sys_inb(OUT_BUF, &packet_byte) != OK) {
+      printf("Error in sys_inb()");
+      return;
     }
   }
   return;
@@ -79,8 +60,12 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
         sys_outb(OUT_BUF, arg);
         sys_inb(OUT_BUF, &st);
         if (st == ACK) {
+          //printf("ACK\n");
           return 0;
         }   
+        else {
+          printf("%d ERROR", i);
+        }
       }
     }
     i++;
@@ -93,35 +78,37 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
   return 0;
 }
 
+
 void assemble_packet(struct packet *pp, bool *fail_packet) {
   if (packet_byte_counter%3 == 0) {
-    if (!(packet_byte & 0x08)) {
+    if (!(packet_byte & CTRL_B)) {
       *fail_packet = true;
       return;
     }
     else {
       pp->bytes[0] = packet_byte;
-      pp->lb = packet_byte & 0x01;
-      pp->rb = packet_byte & 0x02;
-      pp->mb = packet_byte & 0x04;
-      pp->x_ov = packet_byte & 0x40;
-      pp->y_ov = packet_byte & 0x80;
+      pp->lb = packet_byte & LB;
+      pp->rb = packet_byte & RB;
+      pp->mb = packet_byte & MB;
+      pp->x_ov = packet_byte & XOV;
+      pp->y_ov = packet_byte & YOV;
       packet_byte_counter++;
       *fail_packet = false;
     }
   }
   else if(packet_byte_counter%3 == 1) {
     pp->bytes[1] = packet_byte;
-    if (pp->bytes[0] & 0x10)
-      pp->delta_x = -packet_byte;
+    if (pp->bytes[0] & MSB_X)
+      pp->delta_x = packet_byte | 0xFF00 ;
     else
       pp->delta_x = packet_byte;
+      
     packet_byte_counter++;
   }
   else {
     pp->bytes[2] = packet_byte;
-    if (pp->bytes[0] & 0x20)
-      pp->delta_y = -packet_byte;
+    if (pp->bytes[0] & MSB_Y)
+      pp->delta_y = packet_byte | 0xFF00;
     else
       pp->delta_y = packet_byte;
     packet_byte_counter++;
