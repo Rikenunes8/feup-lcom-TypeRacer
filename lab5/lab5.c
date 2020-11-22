@@ -2,6 +2,8 @@
 #include <lcom/lcf.h>
 
 #include <lcom/lab5.h>
+#include <machine/int86.h>
+#include <vbe.h>
 
 #include <stdint.h>
 #include <stdio.h>
@@ -32,11 +34,29 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-int(video_test_init)(uint16_t mode, uint8_t delay) {
+int(video_test_init)(uint16_t mode, uint8_t delay) 
+{
   /* To be completed */
-  printf("%s(0x%03x, %u): under construction\n", __func__, mode, delay);
+  reg86_t r;
+  memset(&r, 0, sizeof(r)); //clears r
+  r.ax = VBE_FUNCTION | SET_VBE_MODE; // VBE call, function 02 -- set VBE mode
+  r.bx = BIT(14) | mode; // set bit 14: linear framebuffer
+  r.intno = 0x10;
+  if(sys_int86(&r) != OK) 
+  {
+    printf("set_vbe_mode: sys_int86() failed \n");
+    return 1;
+  }
 
-  return 1;
+  sleep(delay);
+
+  if(vg_exit() != OK)
+  {
+    printf("Error in vg_exit() \n");
+    return 1;
+  };
+
+  return 0;
 }
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
