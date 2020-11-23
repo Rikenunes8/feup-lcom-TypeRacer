@@ -66,6 +66,8 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
     util_sys_inb(STAT_REG, &st);
     if ((st & IBF) == 0){
       sys_outb(IN_BUF, cmd);
+      if (arg == 0)
+        return 1;
       util_sys_inb(STAT_REG, &st);
       if ((st & IBF) == 0){
         sys_outb(OUT_BUF, arg);
@@ -75,7 +77,7 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
           return 0;
         }   
         else {
-          printf("%d ERROR\n", i);
+          //printf("%d ERROR\n", i);
         }
       }
     }

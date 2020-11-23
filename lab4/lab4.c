@@ -167,25 +167,21 @@ int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
 int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
   struct packet pp;
 
-  while (packet_byte_counter/3 < cnt) {
-    kbc_write_byte(WRT_MOUSE, ST_REQUEST);
-
-    for (int i = 0;i<3;i++) {
-      mouse_ih();
-
+  while (cnt>0) {
+    kbc_write_byte(WRT_MOUSE, READ_DATA);
+    mouse_ih();
+    if (packet_byte_counter == 3) {
+      cnt--;
+      packet_byte_counter = 0;
       assemble_packet(&pp);
+      mouse_print_packet(&pp);
+      tickdelay(micros_to_ticks(period*1000));
     }
-
-    if (packet_byte_counter%3 == 0) {
-        mouse_print_packet(&pp);
-    }
-
-    tickdelay(period);
   }
 
   kbc_write_byte(WRT_MOUSE, SET_SM);
   kbc_write_byte(WRT_MOUSE, DIS_DR);
-  minix_get_dflt_kbc_cmd_byte();
+  kbc_write_byte(minix_get_dflt_kbc_cmd_byte(), 0);
   return 0;
 }
 
