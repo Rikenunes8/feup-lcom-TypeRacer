@@ -4,6 +4,7 @@
 #include <lcom/lab5.h>
 #include <machine/int86.h>
 #include <vbe.h>
+#include <graphic.h>
 
 #include <stdint.h>
 #include <stdio.h>
@@ -36,17 +37,10 @@ int main(int argc, char *argv[]) {
 
 int(video_test_init)(uint16_t mode, uint8_t delay) 
 {
-  /* To be completed */
-  reg86_t r;
-  memset(&r, 0, sizeof(r)); //clears r
-  r.ax = VBE_FUNCTION | SET_VBE_MODE; // VBE call, function 02 -- set VBE mode
-  r.bx = BIT(14) | mode; // set bit 14: linear framebuffer
-  r.intno = 0x10;
-  if(sys_int86(&r) != OK) 
-  {
-    printf("set_vbe_mode: sys_int86() failed \n");
-    return 1;
-  }
+  vbe_mode_info_t info;
+  vbe_get_mode_info(mode, &info);
+
+  graphic_init(mode, &info);
 
   sleep(delay);
 
