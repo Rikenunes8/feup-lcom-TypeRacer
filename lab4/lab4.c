@@ -11,6 +11,7 @@
 #include <mouse.h>
 
 extern uint32_t packet_byte_counter;
+extern bool fail_packet;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -38,15 +39,20 @@ int main(int argc, char *argv[]) {
 
 
 int (mouse_test_packet)(uint32_t cnt) {
-
-  //mouse_enable_data_reporting();
+  /*if (mouse_enable_data_reporting() != OK) {
+    printf("Error enable reporting\n");
+    return 1;
+  }*/
   kbc_write_byte(WRT_MOUSE, ENB_DR);
 
   uint8_t bit_no = 12;
 
-  kbc_subscribe_int(&bit_no, MOUSE12_IRQ);
+  if (kbc_subscribe_int(&bit_no, MOUSE12_IRQ) != 0) {
+    printf("Error kbc_subscribe\n");
+    return 0;
+  }
 
-  bool fail_packet = false;
+
   int ipc_status;
   message msg;
   uint32_t irq_set = BIT(bit_no);
@@ -54,7 +60,7 @@ int (mouse_test_packet)(uint32_t cnt) {
   
   struct packet pp;
 
-  while(packet_byte_counter/3 < cnt) { 
+  while( cnt>0) { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
         printf("driver_receive failed with: %d", r);
@@ -66,12 +72,13 @@ int (mouse_test_packet)(uint32_t cnt) {
           if (msg.m_notify.interrupts & irq_set) { 
             /* mouse interrupt */ 
             mouse_ih();
-
-            assemble_packet(&pp, &fail_packet);
-
-            if (packet_byte_counter%3 == 0) {
+            if (packet_byte_counter == 3) {
+              cnt--;
+              packet_byte_counter = 0;
+              assemble_packet(&pp);
               mouse_print_packet(&pp);
             }
+            
           }
           break;
         default:
@@ -94,7 +101,6 @@ int (mouse_test_packet)(uint32_t cnt) {
 extern int timer_counter;
 
 int (mouse_test_async)(uint8_t idle_time) {
-  //mouse_enable_data_reporting();
   kbc_write_byte(WRT_MOUSE, ENB_DR);
 
   uint8_t bit_no_mouse = 12;
@@ -103,7 +109,6 @@ int (mouse_test_async)(uint8_t idle_time) {
   kbc_subscribe_int(&bit_no_mouse, MOUSE12_IRQ);
   timer_subscribe_int(&bit_no_timer);
 
-  bool fail_packet = false;
   int ipc_status;
   message msg;
   uint32_t irq_set_mouse = BIT(bit_no_mouse);
@@ -111,9 +116,8 @@ int (mouse_test_async)(uint8_t idle_time) {
   int r = 0;
   
   struct packet pp;
-  printf("Time to end: %d\n", idle_time * sys_hz());
 
-  while((uint32_t)timer_counter < ( idle_time * sys_hz())) { 
+  while(timer_counter < (int)(idle_time * sys_hz())) { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
         printf("driver_receive failed with: %d", r);
@@ -122,15 +126,18 @@ int (mouse_test_async)(uint8_t idle_time) {
     if (is_ipc_notify(ipc_status)) {   /* received notification */
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: /* hardware interrupt notification */				
+          if (msg.m_notify.interrupts & irq_set_timer) { 
+            timer_int_handler();
+          }
           if (msg.m_notify.interrupts & irq_set_mouse) { 
             /* mouse interrupt */ 
             mouse_ih();
-
-            assemble_packet(&pp, &fail_packet);
+            if (packet_byte_counter == 3) {
+              packet_byte_counter = 0;
+              assemble_packet(&pp);
+              mouse_print_packet(&pp);
+            }
             timer_counter = 0;
-          }
-          if (msg.m_notify.interrupts & irq_set_timer) { 
-            timer_int_handler();
           }
           break;
         default:
@@ -142,11 +149,7 @@ int (mouse_test_async)(uint8_t idle_time) {
       /* received a standard message, not a notification */
        /* no standard messages expected: do nothing */
     }
-    if (packet_byte_counter%3 == 0) {
-      mouse_print_packet(&pp);
-    }
     tickdelay(micros_to_ticks(DELAY_US));
-    printf("Timer counter: %d\n", timer_counter);
   }
 
   timer_unsubscribe_int();
@@ -162,7 +165,6 @@ int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
 }
 
 int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
-  bool fail_packet = false;
   struct packet pp;
 
   while (packet_byte_counter/3 < cnt) {
@@ -171,7 +173,7 @@ int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
     for (int i = 0;i<3;i++) {
       mouse_ih();
 
-      assemble_packet(&pp, &fail_packet);
+      assemble_packet(&pp);
     }
 
     if (packet_byte_counter%3 == 0) {
@@ -186,3 +188,4 @@ int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
   minix_get_dflt_kbc_cmd_byte();
   return 0;
 }
+
