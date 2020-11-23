@@ -21,6 +21,6 @@ void (mouse_ih)();
 
 int (kbc_write_byte)(uint8_t cmd, uint8_t arg);
 
-void assemble_packet(struct packet *pp, bool *fail_packet);
+void assemble_packet(struct packet *pp);
 
 #endif /* _LCOM_MOUSE_H */

@@ -23,7 +23,7 @@
 #define DIS_DR     0xF5 /* Disable data reporting */
 #define SET_RM     0xF0 /* Set remote mode */ 
 #define SET_SM     0xEA /* Set stream mode */
-#define ST_REQUEST 0xE9 /* Get mouse configuration */
+#define READ_DATA  0xEB /* Get mouse configuration */
 
 /* Mouse Byte 1 */
 #define LB      BIT(0)
