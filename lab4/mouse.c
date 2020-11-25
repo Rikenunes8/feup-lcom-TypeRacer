@@ -2,7 +2,6 @@
 
 static int hook_id;
 static uint8_t PACKET[3];
-bool fail_packet = false;
 uint32_t packet_byte_counter = 0;
 
 
@@ -91,30 +90,46 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
   return 0;
 }
 
-
 void assemble_packet(struct packet *pp) {
   //printf("count %d\n", packet_byte_counter);
-  if (packet_byte_counter%3 == 0 && !fail_packet) {
-    //printf("%x, %x, %x\n", PACKET[0], PACKET[1], PACKET[2]);
-    pp->bytes[0] = PACKET[0];
-    pp->lb = PACKET[0] & LB;
-    pp->rb = PACKET[0] & RB;
-    pp->mb = PACKET[0] & MB;
-    pp->x_ov = PACKET[0] & XOV;
-    pp->y_ov = PACKET[0] & YOV;
+  //printf("%x, %x, %x\n", PACKET[0], PACKET[1], PACKET[2]);
+  pp->bytes[0] = PACKET[0];
+  pp->lb = PACKET[0] & LB;
+  pp->rb = PACKET[0] & RB;
+  pp->mb = PACKET[0] & MB;
+  pp->x_ov = PACKET[0] & XOV;
+  pp->y_ov = PACKET[0] & YOV;
 
-    pp->bytes[1] = PACKET[1];
-    if (pp->bytes[0] & MSB_X)
-      pp->delta_x = PACKET[1] | 0xFF00 ;
-    else
-      pp->delta_x = PACKET[1];
+  pp->bytes[1] = PACKET[1];
+  if (pp->bytes[0] & MSB_X)
+    pp->delta_x = PACKET[1] | 0xFF00 ;
+  else
+    pp->delta_x = PACKET[1];
 
-    pp->bytes[2] = PACKET[2];
-    if (pp->bytes[0] & MSB_Y)
-      pp->delta_y = PACKET[2] | 0xFF00;
-    else
-      pp->delta_y = PACKET[2];
-  }
-  
+  pp->bytes[2] = PACKET[2];
+  if (pp->bytes[0] & MSB_Y)
+    pp->delta_y = PACKET[2] | 0xFF00;
+  else
+    pp->delta_y = PACKET[2];  
+  return;
+}
+
+void mouse_events(Mouse_event *event, struct packet *pp) {
+  if ((pp->lb && pp->mb) || (pp->lb && pp->rb) || (pp->mb && pp->rb) || (pp->lb && pp->mb && pp->rb))
+    *event = MANY_DOWN;
+  else if (pp->lb)
+    *event = LB_DOWN;
+  else if (*event == LB_DOWN && !pp->lb)
+    *event = LB_UP;
+  else if (pp->mb)
+    *event = MB_DOWN;
+  else if (*event == MB_DOWN && !pp->mb)
+    *event = MB_UP;
+  else if(pp->rb)
+    *event = RB_DOWN;
+  else if(*event == RB_DOWN && !pp->rb)
+    *event = RB_UP;
+  else
+    *event = MOVE;
   return;
 }
