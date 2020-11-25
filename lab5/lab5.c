@@ -5,9 +5,12 @@
 #include <machine/int86.h>
 #include <vbe.h>
 #include <graphic.h>
+#include <keyboard.h>
 
 #include <stdint.h>
 #include <stdio.h>
+
+extern uint32_t scancode;
 
 // Any header files included below this line should have been created by you
 
@@ -40,7 +43,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay)
   vbe_mode_info_t info;
   vbe_get_mode_info(mode, &info);
 
-  graphic_init(mode, &info);
+  graphic_init(mode, &info, SET_VBE_MODE);
 
   sleep(delay);
 
@@ -56,10 +59,65 @@ int(video_test_init)(uint16_t mode, uint8_t delay)
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
                           uint16_t width, uint16_t height, uint32_t color) {
   /* To be completed */
-  printf("%s(0x%03X, %u, %u, %u, %u, 0x%08x): under construction\n",
-         __func__, mode, x, y, width, height, color);
+  uint8_t bit_no = 1;
+  int ipc_status;
+  message msg;
+  uint32_t irq_set = BIT(bit_no);
+  int r = 0;
 
-  return 1;
+  // usar o keyboard para ler a tecla ESC
+  //subscribe KBC interrupts
+  kbc_subscribe_int(&bit_no);
+
+  //mudar para modo gráfico
+  //map the video memory to the process' adress space
+  vbe_mode_info_t info;
+  vbe_get_mode_info(mode, &info);
+  graphic_init(mode, &info, RET_VBE_MODE);
+
+  //draw a rectangle
+  vg_draw_rectangle(x, y, width, height, color);
+
+  //sair através da ESC key
+  while(scancode != ESC_KEY) 
+  { 
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
+    { 
+        printf("driver_receive failed with: %d", r);
+        continue;
+    }
+    if (is_ipc_notify(ipc_status)) 
+    {   /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) 
+      {
+        case HARDWARE: /* hardware interrupt notification */				
+          if (msg.m_notify.interrupts & irq_set) 
+          { 
+            /* subscribed interrupt */
+            kbc_ih();
+          }
+          break;
+        default:
+          printf("Receive no interrupt\n");
+          break; /* no other notifications expected: do nothing */	
+      }
+    } 
+    
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+
+  //unsubscribe KBC interrupts
+  kbc_unsubscribe_int();
+
+  //return to text mode
+  if(vg_exit() != OK)
+  {
+    printf("Error in vg_exit() \n");
+    return 1;
+  };
+
+  return 0;
 }
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
