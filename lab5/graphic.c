@@ -36,7 +36,7 @@ int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function)
     r.intno = 0x10;
     if(sys_int86(&r) != OK) 
     {
-        printf("set_vbe_mode: sys_int86() failed \n");
+        printf("sys_int86() failed \n");
         return 1;
     }
     return 0;
@@ -48,9 +48,19 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
 
 int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
 {
-    for(int i=0; i < len; i++)
+    int no_bytes;
+
+    if(bits_per_pixel == 15)
+        no_bytes = (bits_per_pixel+7)/8;
+    else
+        no_bytes = (bits_per_pixel)/8;
+
+    for(int j=0; j < len; j++)
     {
-        
+        // copiar ((bits_per_pixel+7)/8) bytes do espaço de memória color para o espaço de memória dest
+        void *dest = video_mem + (y * h_res + x) * no_bytes;
+        dest = &color;
+        printf("aqui");
     }
     return 0;
 }
@@ -59,7 +69,7 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
 {
     for(int i=0; i < height; i++)
     {
-        vg_draw_hline(x, y, width, color);
+        vg_draw_hline(x, i, width, color);
 
     }
     return 0;
