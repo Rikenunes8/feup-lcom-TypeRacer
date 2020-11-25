@@ -73,7 +73,7 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   //map the video memory to the process' adress space
   vbe_mode_info_t info;
   vbe_get_mode_info(mode, &info);
-  graphic_init(mode, &info, RET_VBE_MODE);
+  graphic_init(mode, &info, SET_VBE_MODE);
 
   //draw a rectangle
   vg_draw_rectangle(x, y, width, height, color);

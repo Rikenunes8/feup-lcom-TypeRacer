@@ -43,6 +43,14 @@ int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function)
 }
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
+    printf("draw_pixel: (%d, %d)\n", x, y);
+    uint8_t BBP = (bits_per_pixel+7)/8;
+    uint16_t dest = (y*h_res + x)*BBP;
+    printf("video_mem[dest+i]: %x", &video_mem[dest]);
+    for (uint8_t i = 0; i < BBP; i++) {
+        video_mem[dest+i] = (uint8_t)color;
+        color = color >> 8;
+    }
     return 0;
 }
 
@@ -50,17 +58,18 @@ int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
 {
     for(int i=0; i < len; i++)
     {
-        
+        graphic_pixel(x+i, y, color);
     }
     return 0;
 }
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
 {
+    //printf("BPP: %d\n", (bits_per_pixel+7)/8);
+    //printf("video_mem: %x\n", video_mem);
     for(int i=0; i < height; i++)
     {
-        vg_draw_hline(x, y, width, color);
-
+        vg_draw_hline(x, y+i, width, color);
     }
     return 0;
 }	

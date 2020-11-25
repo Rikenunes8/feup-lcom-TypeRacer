@@ -1,0 +1,2551 @@
+@lcflib.a:2019, lcf_start
+  video_test_rectangle(mode, x, y, width, height, color)
+> video_test_rectangle(0x105, 100, 350, 20, 20, 0x00000010 [16])
+  @keyboard.c:10, kbc_subscribe_int
+    sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id)
+  > sys_irqsetpolicy(1, 3, addr: 0x822de4c [1])
+  < sys_irqsetpolicy(1, 3, addr: 0x822de4c [10]) -> (ret: 0)
+  @lab5.c:75, video_test_rectangle
+    vbe_get_mode_info(mode, &info)
+  > vbe_get_mode_info(0x105, addr: 0xeffff4d0)
+  < vbe_get_mode_info(0x105, addr: 0xeffff4d0 [0xe0000000, 1024x768, Indexed (8 BPP) <768 KiB>]) -> (ret: 0)
+  @graphic.c:23, graphic_init
+    sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr)
+  > sys_privctl(SELF, SYS_PRIV_ADD_MEM, addr: 0xeffff478 [0xe0000000 - 0xe0168000 <1.40625 MiB>])
+  < sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) -> (ret: 0)
+  @graphic.c:27, graphic_init
+    vm_map_phys(SELF, (void*)mr.mr_base, vram_size)
+  < vm_map_phys(SELF, addr: 0xe0000000, 1.40625 MiB) -> (ret: 0xef893000)
+  @graphic.c:37, graphic_init
+    sys_int86(&r)
+  > sys_int86(addr: 0xeffff450 [AX: 4f02, BX: 4105, CX: 0000, DX: 0000, ES: 0000, DI: 0000])
+  < sys_int86(addr: 0xeffff450 [AX: 004f, BX: 4105, CX: 0000, DX: 0000, ES: 0000, DI: 0000]) -> (ret: 0)
+  @lab5.c:79, video_test_rectangle
+    vg_draw_rectangle(x, y, width, height, color)
+  > vg_draw_rectangle(100, 350, 20, 20, 0x00000010 [16])
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a864"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a865"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a866"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a867"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a868"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a869"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a86a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a86b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a86c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a86d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a86e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a86f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a870"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a871"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a872"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a873"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a874"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a875"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a876"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 350)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89a877"
+    < vg_draw_hline(100, 350, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac64"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac65"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac66"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac67"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac68"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac69"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac6a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac6b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac6c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac6d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac6e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac6f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac70"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac71"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac72"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac73"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac74"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac75"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac76"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 351)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ac77"
+    < vg_draw_hline(100, 351, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b064"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b065"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b066"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b067"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b068"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b069"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b06a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b06b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b06c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b06d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b06e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b06f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b070"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b071"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b072"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b073"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b074"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b075"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b076"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 352)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b077"
+    < vg_draw_hline(100, 352, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b464"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b465"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b466"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b467"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b468"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b469"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b46a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b46b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b46c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b46d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b46e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b46f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b470"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b471"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b472"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b473"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b474"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b475"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b476"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 353)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b477"
+    < vg_draw_hline(100, 353, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b864"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b865"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b866"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b867"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b868"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b869"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b86a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b86b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b86c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b86d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b86e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b86f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b870"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b871"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b872"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b873"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b874"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b875"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b876"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 354)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89b877"
+    < vg_draw_hline(100, 354, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc64"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc65"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc66"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc67"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc68"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc69"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc6a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc6b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc6c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc6d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc6e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc6f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc70"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc71"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc72"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc73"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc74"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc75"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc76"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 355)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89bc77"
+    < vg_draw_hline(100, 355, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c064"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c065"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c066"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c067"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c068"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c069"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c06a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c06b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c06c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c06d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c06e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c06f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c070"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c071"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c072"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c073"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c074"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c075"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c076"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 356)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c077"
+    < vg_draw_hline(100, 356, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c464"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c465"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c466"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c467"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c468"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c469"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c46a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c46b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c46c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c46d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c46e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c46f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c470"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c471"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c472"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c473"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c474"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c475"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c476"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 357)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c477"
+    < vg_draw_hline(100, 357, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c864"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c865"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c866"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c867"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c868"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c869"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c86a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c86b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c86c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c86d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c86e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c86f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c870"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c871"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c872"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c873"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c874"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c875"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c876"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 358)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89c877"
+    < vg_draw_hline(100, 358, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc64"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc65"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc66"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc67"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc68"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc69"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc6a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc6b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc6c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc6d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc6e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc6f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc70"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc71"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc72"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc73"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc74"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc75"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc76"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 359)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89cc77"
+    < vg_draw_hline(100, 359, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d064"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d065"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d066"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d067"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d068"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d069"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d06a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d06b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d06c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d06d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d06e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d06f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d070"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d071"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d072"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d073"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d074"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d075"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d076"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 360)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d077"
+    < vg_draw_hline(100, 360, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d464"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d465"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d466"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d467"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d468"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d469"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d46a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d46b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d46c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d46d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d46e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d46f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d470"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d471"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d472"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d473"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d474"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d475"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d476"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 361)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d477"
+    < vg_draw_hline(100, 361, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d864"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d865"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d866"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d867"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d868"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d869"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d86a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d86b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d86c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d86d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d86e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d86f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d870"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d871"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d872"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d873"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d874"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d875"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d876"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 362)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89d877"
+    < vg_draw_hline(100, 362, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc64"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc65"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc66"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc67"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc68"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc69"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc6a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc6b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc6c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc6d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc6e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc6f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc70"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc71"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc72"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc73"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc74"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc75"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc76"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 363)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89dc77"
+    < vg_draw_hline(100, 363, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e064"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e065"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e066"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e067"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e068"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e069"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e06a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e06b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e06c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e06d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e06e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e06f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e070"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e071"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e072"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e073"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e074"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e075"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e076"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 364)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e077"
+    < vg_draw_hline(100, 364, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e464"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e465"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e466"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e467"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e468"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e469"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e46a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e46b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e46c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e46d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e46e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e46f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e470"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e471"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e472"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e473"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e474"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e475"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e476"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 365)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e477"
+    < vg_draw_hline(100, 365, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e864"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e865"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e866"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e867"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e868"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e869"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e86a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e86b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e86c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e86d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e86e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e86f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e870"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e871"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e872"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e873"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e874"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e875"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e876"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 366)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89e877"
+    < vg_draw_hline(100, 366, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec64"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec65"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec66"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec67"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec68"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec69"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec6a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec6b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec6c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec6d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec6e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec6f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec70"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec71"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec72"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec73"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec74"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec75"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec76"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 367)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89ec77"
+    < vg_draw_hline(100, 367, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f064"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f065"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f066"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f067"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f068"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f069"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f06a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f06b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f06c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f06d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f06e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f06f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f070"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f071"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f072"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f073"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f074"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f075"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f076"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 368)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f077"
+    < vg_draw_hline(100, 368, 20, 0x00000010 [16]) -> (ret: 0)
+    @graphic.c:72, vg_draw_rectangle
+      vg_draw_hline(x, y+i, width, color)
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (100, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f464"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (101, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f465"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (102, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f466"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (103, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f467"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (104, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f468"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (105, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f469"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (106, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f46a"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (107, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f46b"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (108, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f46c"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (109, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f46d"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (110, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f46e"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (111, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f46f"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (112, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f470"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (113, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f471"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (114, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f472"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (115, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f473"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (116, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f474"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (117, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f475"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (118, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f476"
+      @graphic.c:46, graphic_pixel
+        printf("draw_pixel: (%d, %d)\n", x, y)
+        "draw_pixel: (119, 369)"
+      @graphic.c:49, graphic_pixel
+        printf("video_mem[dest+i]: %x", &video_mem[dest])
+        "video_mem[dest+i]: ef89f477"
+    < vg_draw_hline(100, 369, 20, 0x00000010 [16]) -> (ret: 0)
+  < vg_draw_rectangle(100, 350, 20, 20, 0x00000010 [16]) -> (ret: 0)
+  @lab5.c:85, video_test_rectangle
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff5d0, addr: 0xeffff614)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab5.c:98, video_test_rectangle
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff3fc)
+    < sys_inb(0x64, addr: 0xeffff3fc [0x1d = 0b00011101])
+    @keyboard.c:49, kbc_ih
+      sys_inb(OUT_BUF, &scancode)
+    > sys_inb(0x60, addr: 0x8249bf0)
+    < sys_inb(0x60, addr: 0x8249bf0 [0x9c = 0b10011100])
+  @lab5.c:107, video_test_rectangle
+    micros_to_ticks(DELAY_US)
+  @lab5.c:107, video_test_rectangle
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab5.c:85, video_test_rectangle
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff5d0, addr: 0xeffff614)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab5.c:98, video_test_rectangle
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff3fc)
+    < sys_inb(0x64, addr: 0xeffff3fc [0x1d = 0b00011101])
+    @keyboard.c:49, kbc_ih
+      sys_inb(OUT_BUF, &scancode)
+    > sys_inb(0x60, addr: 0x8249bf0)
+    < sys_inb(0x60, addr: 0x8249bf0 [0x01 = 0b00000001])
+  @lab5.c:107, video_test_rectangle
+    micros_to_ticks(DELAY_US)
+  @lab5.c:107, video_test_rectangle
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab5.c:85, video_test_rectangle
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff5d0, addr: 0xeffff614)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab5.c:98, video_test_rectangle
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff3fc)
+    < sys_inb(0x64, addr: 0xeffff3fc [0x1d = 0b00011101])
+    @keyboard.c:49, kbc_ih
+      sys_inb(OUT_BUF, &scancode)
+    > sys_inb(0x60, addr: 0x8249bf0)
+    < sys_inb(0x60, addr: 0x8249bf0 [0x81 = 0b10000001])
+  @lab5.c:107, video_test_rectangle
+    micros_to_ticks(DELAY_US)
+  @lab5.c:107, video_test_rectangle
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @keyboard.c:21, kbc_unsubscribe_int
+    sys_irqrmpolicy(&hook_id)
+  > sys_irqrmpolicy(addr: 0x822de4c [10])
+  < sys_irqrmpolicy(addr: 0x822de4c [10]) -> (ret: 0)
+  @lab5.c:114, video_test_rectangle
+    vg_exit()
+  < vg_exit() -> (ret: 0)
+< video_test_rectangle(0x105, 100, 350, 20, 20, 0x00000010 [16]) -> (ret: 0)
