@@ -76,7 +76,7 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   graphic_init(mode, &info, SET_VBE_MODE);
 
   //draw a rectangle
-  vg_draw_rectangle(x, y, width, height, color);
+  //vg_draw_rectangle(x, y, width, height, color);
 
   //sair através da ESC key
   while(scancode != ESC_KEY) 
@@ -103,10 +103,11 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
           break; /* no other notifications expected: do nothing */	
       }
     } 
-    
+    //draw a rectangle
+    //vg_draw_rectangle(x, y, width, height, color);
+
     tickdelay(micros_to_ticks(DELAY_US));
   }
-
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();
 
