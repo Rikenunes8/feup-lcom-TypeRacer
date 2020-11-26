@@ -103,8 +103,6 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
           break; /* no other notifications expected: do nothing */	
       }
     } 
-    //draw a rectangle
-    //vg_draw_rectangle(x, y, width, height, color);
 
     tickdelay(micros_to_ticks(DELAY_US));
   }

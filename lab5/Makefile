@@ -6,7 +6,7 @@ SRCS = lab5.c, graphic.c, keyboard.c
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
-CPPFLAGS += -pedantic -O3
+CPPFLAGS += -pedantic
 
 # list of library dependencies (LCF library)
 DPADD += ${LIBLCF}
