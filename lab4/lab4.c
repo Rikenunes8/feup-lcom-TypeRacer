@@ -66,13 +66,17 @@ int (mouse_test_packet)(uint32_t cnt) {
         printf("driver_receive failed with: %d", r);
         continue;
     }
-    if (is_ipc_notify(ipc_status)) {   /* received notification */
-      switch (_ENDPOINT_P(msg.m_source)) {
+    if (is_ipc_notify(ipc_status)) 
+    {   /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) 
+      {
         case HARDWARE: /* hardware interrupt notification */				
-          if (msg.m_notify.interrupts & irq_set) { 
+          if (msg.m_notify.interrupts & irq_set) 
+          { 
             /* mouse interrupt */ 
             mouse_ih();
-            if (packet_byte_counter == 3) {
+            if (packet_byte_counter == 3) 
+            {
               cnt--;
               packet_byte_counter = 0;
               assemble_packet(&pp);
