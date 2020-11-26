@@ -44,13 +44,15 @@ int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function)
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     printf("draw_pixel: (%d, %d)\n", x, y);
-    uint8_t BBP = (bits_per_pixel+7)/8;
-    uint16_t dest = (y*h_res + x)*BBP;
+    uint8_t BPP = (bits_per_pixel+7)/8;
+    /*uint16_t dest = (y*h_res + x)*BPP;
     printf("video_mem[dest+i]: %x", &video_mem[dest]);
-    for (uint8_t i = 0; i < BBP; i++) {
+    for (uint8_t i = 0; i < BPP; i++) {
         video_mem[dest+i] = (uint8_t)color;
         color = color >> 8;
-    }
+    }*/
+    memcpy(&video_mem[((y*h_res)+x)*BPP], &color, BPP); 
+
     return 0;
 }
 
@@ -59,10 +61,6 @@ int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
     for(int j=0; j < len; j++)
     {
         graphic_pixel(x+j, y, color);
-        /*// copiar ((bits_per_pixel+7)/8) bytes do espaço de memória color para o espaço de memória dest
-        void *dest = video_mem + (y * h_res + x) * no_bytes;
-        dest = &color;
-        printf("aqui");*/
     }
     return 0;
 }
