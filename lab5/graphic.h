@@ -9,6 +9,7 @@ int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function);
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color);
 
+int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y);
 
 #endif /* _LCOM_VG_H */
 

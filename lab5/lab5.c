@@ -128,10 +128,66 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
 }
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u): under construction\n", __func__, xpm, x, y);
+  uint8_t bit_no = 1;
+  int ipc_status;
+  message msg;
+  uint32_t irq_set = BIT(bit_no);
+  int r = 0;
+  uint16_t mode = 0x105;
 
-  return 1;
+  // usar o keyboard para ler a tecla ESC
+  //subscribe KBC interrupts
+  kbc_subscribe_int(&bit_no);
+
+  //mudar para modo gráfico
+  //map the video memory to the process' adress space
+  vbe_mode_info_t info;
+  vbe_get_mode_info(mode, &info);
+  graphic_init(mode, &info, SET_VBE_MODE);
+
+  
+  graphic_xpm(xpm, x, y);
+
+
+  //sair através da ESC key
+  while(scancode != ESC_KEY) 
+  { 
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
+    { 
+        printf("driver_receive failed with: %d", r);
+        continue;
+    }
+    if (is_ipc_notify(ipc_status)) 
+    {   /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) 
+      {
+        case HARDWARE: /* hardware interrupt notification */				
+          if (msg.m_notify.interrupts & irq_set) 
+          { 
+            /* subscribed interrupt */
+            kbc_ih();
+          }
+          break;
+        default:
+          printf("Receive no interrupt\n");
+          break; /* no other notifications expected: do nothing */	
+      }
+    } 
+
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  //unsubscribe KBC interrupts
+  kbc_unsubscribe_int();
+
+  //return to text mode
+  if(vg_exit() != OK)
+  {
+    printf("Error in vg_exit() \n");
+    return 1;
+  };
+
+  return 0;
 }
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,

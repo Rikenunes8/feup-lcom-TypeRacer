@@ -55,6 +55,19 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     return 0;
 }
 
+int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
+  xpm_image_t img;
+  uint8_t *map;
+  map = xpm_load(xpm, XPM_INDEXED, &img);
+
+  for (uint16_t i = 0; i < img.height; i++) {
+    for (uint16_t j = 0; j < img.width; j++) {
+      graphic_pixel(x + j, y + i, map[i*img.width + j]);
+    }
+  }     
+  return 0;
+}
+
 int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
 {
     for(int j=0; j < len; j++)
