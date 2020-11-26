@@ -90,6 +90,7 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
     printf("Error while\n");
     return 1;
   }
+  return 0;
 }
 
 void assemble_packet(struct packet *pp) {

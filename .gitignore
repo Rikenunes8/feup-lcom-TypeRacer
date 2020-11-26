@@ -1,3 +1,5 @@
 .minix-src
 *.o
 .vscode
+output.txt
+trace.txt
