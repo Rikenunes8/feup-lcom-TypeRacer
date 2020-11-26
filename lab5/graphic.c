@@ -43,15 +43,14 @@ int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function)
 }
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
-    //printf("draw_pixel: (%d, %d)\n", x, y); -> printf que tava a dar lag 
     uint8_t BPP = (bits_per_pixel+7)/8;
-    /*uint16_t dest = (y*h_res + x)*BPP;
-    printf("video_mem[dest+i]: %x", &video_mem[dest]);
+    char* dest = video_mem;
+    dest += (y*h_res + x)*BPP;
     for (uint8_t i = 0; i < BPP; i++) {
-        video_mem[dest+i] = (uint8_t)color;
+        *(dest+i) = (uint8_t)color;
         color = color >> 8;
-    }*/
-    memcpy(&video_mem[((y*h_res)+x)*BPP], &color, BPP); 
+    }
+    //memcpy(&video_mem[((y*h_res)+x)*BPP], &color, BPP); 
 
     return 0;
 }
