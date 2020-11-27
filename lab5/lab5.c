@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 extern uint32_t scancode;
-
+extern int timer_counter;
 // Any header files included below this line should have been created by you
 
 int main(int argc, char *argv[]) {
@@ -42,8 +42,8 @@ int(video_test_init)(uint16_t mode, uint8_t delay)
 {
   vbe_mode_info_t info;
   vbe_get_mode_info(mode, &info);
-
-  graphic_init(mode, &info, SET_VBE_MODE);
+  graphic_def(&info);
+  graphic_init(mode, SET_VBE_MODE);
 
   sleep(delay);
 
@@ -73,7 +73,8 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   //map the video memory to the process' adress space
   vbe_mode_info_t info;
   vbe_get_mode_info(mode, &info);
-  graphic_init(mode, &info, SET_VBE_MODE);
+  graphic_def(&info);
+  graphic_init(mode, SET_VBE_MODE);
 
   //draw a rectangle
   vg_draw_rectangle(x, y, width, height, color);
@@ -143,7 +144,8 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   //map the video memory to the process' adress space
   vbe_mode_info_t info;
   vbe_get_mode_info(mode, &info);
-  graphic_init(mode, &info, SET_VBE_MODE);
+  graphic_def(&info);
+  graphic_init(mode, SET_VBE_MODE);
 
   
   graphic_xpm(xpm, x, y);
@@ -192,11 +194,129 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
 int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
                      int16_t speed, uint8_t fr_rate) {
-  /* To be completed */
-  printf("%s(%8p, %u, %u, %u, %u, %d, %u): under construction\n",
-         __func__, xpm, xi, yi, xf, yf, speed, fr_rate);
+  uint8_t timer_bit_no = 0;
+  uint8_t kbd_bit_no = 1;
+  int ipc_status;
+  message msg;
+  uint32_t timer_irq_set = BIT(timer_bit_no);
+  uint32_t kbd_irq_set = BIT(kbd_bit_no);
+  int r = 0;
+  uint16_t mode = 0x105;
+  bool axis; // Positive to move in yy, negative to move in xx
+  int16_t way;
+  uint8_t frame_counter = 0;
 
-  return 1;
+  // usar o keyboard para ler a tecla ESC
+  //subscribe KBC interrupts
+  kbc_subscribe_int(&kbd_bit_no);
+  timer_subscribe_int(&timer_bit_no);
+
+  //mudar para modo gráfico
+  //map the video memory to the process' adress space
+  vbe_mode_info_t info;
+  vbe_get_mode_info(mode, &info);
+  graphic_def(&info);
+  graphic_init(mode, SET_VBE_MODE);
+
+
+  if (xi == xf) {
+    axis = true;
+    if (yi < yf)
+      way = 1;
+    else 
+      way = -1;
+  }
+  else {
+    axis = false;
+    if (xi < xf)
+      way = 1;
+    else 
+      way = -1;
+  }
+    
+  printf("(xf, yf): (%d, %d)\n", xf, yf);
+
+  //sair através da ESC key
+  while(scancode != ESC_KEY) 
+  { 
+    if (yi != yf || xi != xf) {
+      if (timer_counter%(60/fr_rate) == 0) {
+        printf("(xi, y1): (%d, %d)\n", xi, yi);
+        if (speed > 0) { 
+          graphic_xpm(xpm, xi, yi);
+          if (axis) {
+            yi += way*speed;
+            if (speed > abs(yf-yi))
+              speed = abs(yf - yi);
+          }
+          else {
+            xi += way*speed;
+            if (speed > abs(xf-xi))
+              speed = abs(xf - xi);
+          }
+        }
+        else {
+          if (frame_counter%(-speed) == 0) {
+            frame_counter = 0;
+            graphic_xpm(xpm, xi, yi);
+            if (axis)
+              yi += 1*way;
+            else
+              xi += 1*way;
+          }
+          frame_counter++;
+        }
+      }
+    }
+    
+    
+
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
+    { 
+        printf("driver_receive failed with: %d", r);
+        continue;
+    }
+    if (is_ipc_notify(ipc_status)) 
+    {   /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) 
+      {
+        case HARDWARE: /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & timer_irq_set) {
+            timer_int_handler();
+            if (timer_counter == 60) {
+              timer_counter = 0;
+            }
+          }				
+          if (msg.m_notify.interrupts & kbd_irq_set) 
+          { 
+            /* subscribed interrupt */
+            kbc_ih();
+          }
+          break;
+        default:
+          printf("Receive no interrupt\n");
+          break; /* no other notifications expected: do nothing */	
+      }
+    } 
+
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
+  printf("(xi, y1): (%d, %d)\n", xi, yi);
+
+
+  timer_unsubscribe_int();
+  //unsubscribe KBC interrupts
+  kbc_unsubscribe_int();
+
+  //return to text mode
+  if(vg_exit() != OK)
+  {
+    printf("Error in vg_exit() \n");
+    return 1;
+  };
+
+  return 0;
 }
 
 int(video_test_controller)() {

@@ -5,8 +5,7 @@ static uint32_t h_res;  /* Frame horizontal (x) resolution */
 static uint32_t v_res;  /* Frame vertical (y) resolution */
 static uint32_t bits_per_pixel;
 
-int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function) 
-{
+int graphic_def(vbe_mode_info_t *info) {
     // Define characteristics of the mode static.
     h_res = info->XResolution; 
     v_res = info->YResolution;
@@ -20,15 +19,21 @@ int graphic_init(uint16_t mode, vbe_mode_info_t *info, uint8_t vbe_function)
     mr.mr_limit = mr.mr_base + vram_size; // End of virtual memory
 
     //get permissions
-    if (sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) != OK) 
+    if (sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) != OK) {
         printf("Error sys_privctl\n");
+        return 1;
+    }
 
     /* Map memory */
     video_mem = vm_map_phys(SELF, (void*)mr.mr_base, vram_size); //endereço base 
 
     if(video_mem == MAP_FAILED)
         panic("couldn't map video memory");
-    
+    return 0;
+}
+
+int graphic_init(uint16_t mode, uint8_t vbe_function) 
+{
     reg86_t r;
     memset(&r, 0, sizeof(r)); //clears r
     r.ax = VBE_FUNCTION | vbe_function; // VBE call, function 02 -- set VBE mode
