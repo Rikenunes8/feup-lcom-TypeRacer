@@ -6,7 +6,7 @@ PROG=proj
 .PATH: ${.CURDIR}/headers
 
 # source code files to be compiled
-SRCS = timer.c utils.c
+SRCS = proj.c utils.c timer.c keyboard.c mouse.c 
 IPATHS = -I./src -I./headers
 
 # additional compilation flags
