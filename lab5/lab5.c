@@ -203,7 +203,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
   int r = 0;
   uint16_t mode = 0x105;
   bool axis; // Positive to move in yy, negative to move in xx
-  int16_t step;
+  int16_t way;
   uint8_t frame_counter = 0;
 
   // usar o keyboard para ler a tecla ESC
@@ -222,16 +222,16 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
   if (xi == xf) {
     axis = true;
     if (yi < yf)
-      step = speed;
+      way = 1;
     else 
-      step = -speed;
+      way = -1;
   }
   else {
     axis = false;
     if (xi < xf)
-      step = speed;
+      way = 1;
     else 
-      step = -speed;
+      way = -1;
   }
     
   printf("(xf, yf): (%d, %d)\n", xf, yf);
@@ -245,14 +245,14 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
         if (speed > 0) { 
           graphic_xpm(xpm, xi, yi);
           if (axis) {
-            yi += step;
-            if (abs(step) > abs(yf-yi))
-              step = yf - yi;
+            yi += way*speed;
+            if (speed > abs(yf-yi))
+              speed = abs(yf - yi);
           }
           else {
-            xi += step;
-            if (abs(step) > abs(xf-xi))
-              step = xf - xi;
+            xi += way*speed;
+            if (speed > abs(xf-xi))
+              speed = abs(xf - xi);
           }
         }
         else {
@@ -260,9 +260,9 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
             frame_counter = 0;
             graphic_xpm(xpm, xi, yi);
             if (axis)
-              yi += 1;
+              yi += 1*way;
             else
-              xi += 1;
+              xi += 1*way;
           }
           frame_counter++;
         }
@@ -302,6 +302,8 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
 
     tickdelay(micros_to_ticks(DELAY_US));
   }
+  printf("(xi, y1): (%d, %d)\n", xi, yi);
+
 
   timer_unsubscribe_int();
   //unsubscribe KBC interrupts
