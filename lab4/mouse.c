@@ -72,7 +72,7 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
         sys_outb(OUT_BUF, arg);
         util_sys_inb(OUT_BUF, &st);
         if (st == ACK) {
-          printf("ACK\n");
+          //printf("ACK\n");
           return 0;
         }   
         else if (st == NACK) {

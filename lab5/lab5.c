@@ -41,7 +41,8 @@ int main(int argc, char *argv[]) {
 int(video_test_init)(uint16_t mode, uint8_t delay) 
 {
   vbe_mode_info_t info;
-  vbe_get_mode_info(mode, &info);
+  //vbe_get_mode_info(mode, &info);
+  graphic_get_mode_info(mode, &info);
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
 
@@ -72,7 +73,8 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   //mudar para modo gráfico
   //map the video memory to the process' adress space
   vbe_mode_info_t info;
-  vbe_get_mode_info(mode, &info);
+  //vbe_get_mode_info(mode, &info);
+  graphic_get_mode_info(mode, &info);
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
 
@@ -143,12 +145,13 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   //mudar para modo gráfico
   //map the video memory to the process' adress space
   vbe_mode_info_t info;
-  vbe_get_mode_info(mode, &info);
+  //vbe_get_mode_info(mode, &info);
+  graphic_get_mode_info(mode, &info);
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
 
   
-  graphic_xpm(xpm, x, y);
+  graphic_xpm(xpm, x, y, false);
 
 
   //sair através da ESC key
@@ -214,7 +217,8 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
   //mudar para modo gráfico
   //map the video memory to the process' adress space
   vbe_mode_info_t info;
-  vbe_get_mode_info(mode, &info);
+  //vbe_get_mode_info(mode, &info);
+  graphic_get_mode_info(mode, &info);
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
 
@@ -233,45 +237,13 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
     else 
       way = -1;
   }
-    
-  printf("(xf, yf): (%d, %d)\n", xf, yf);
+  // First image
+  graphic_xpm(xpm, xi, yi, false);
 
   //sair através da ESC key
   while(scancode != ESC_KEY) 
   { 
-    if (yi != yf || xi != xf) {
-      if (timer_counter%(60/fr_rate) == 0) {
-        printf("(xi, y1): (%d, %d)\n", xi, yi);
-        if (speed > 0) { 
-          graphic_xpm(xpm, xi, yi);
-          if (axis) {
-            yi += way*speed;
-            if (speed > abs(yf-yi))
-              speed = abs(yf - yi);
-          }
-          else {
-            xi += way*speed;
-            if (speed > abs(xf-xi))
-              speed = abs(xf - xi);
-          }
-        }
-        else {
-          if (frame_counter%(-speed) == 0) {
-            frame_counter = 0;
-            graphic_xpm(xpm, xi, yi);
-            if (axis)
-              yi += 1*way;
-            else
-              xi += 1*way;
-          }
-          frame_counter++;
-        }
-      }
-    }
-    
-    
-
-    /* Get a request message. */
+      /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
     { 
         printf("driver_receive failed with: %d", r);
@@ -300,10 +272,38 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
       }
     } 
 
+    if (yi != yf || xi != xf) {
+      if (timer_counter%(sys_hz()/fr_rate) == 0) {
+        if (speed > 0) { 
+          graphic_xpm(xpm, xi, yi, true);
+          if (axis) {
+            yi += way*speed;
+            if (speed > abs(yf-yi))
+              speed = abs(yf - yi);
+          }
+          else {
+            xi += way*speed;
+            if (speed > abs(xf-xi))
+              speed = abs(xf - xi);
+          } 
+          graphic_xpm(xpm, xi, yi, false);
+        }
+        else {
+          frame_counter++;
+          if (frame_counter%(-speed) == 0) {
+            frame_counter = 0;
+            graphic_xpm(xpm, xi, yi, true);
+            if (axis)
+              yi += way;
+            else
+              xi += way;
+            graphic_xpm(xpm, xi, yi, false);
+          }
+        }
+      }
+    }
     tickdelay(micros_to_ticks(DELAY_US));
   }
-  printf("(xi, y1): (%d, %d)\n", xi, yi);
-
 
   timer_unsubscribe_int();
   //unsubscribe KBC interrupts
@@ -320,8 +320,10 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
 }
 
 int(video_test_controller)() {
-  /* To be completed */
-  printf("%s(): under construction\n", __func__);
-
-  return 1;
+  vg_vbe_contr_info_t info;
+  
+  graphic_cntrl_info(&info);
+  
+  vg_display_vbe_contr_info(&info);
+  return 0;
 }

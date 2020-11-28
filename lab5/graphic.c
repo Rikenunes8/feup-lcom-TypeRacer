@@ -5,6 +5,30 @@ static uint32_t h_res;  /* Frame horizontal (x) resolution */
 static uint32_t v_res;  /* Frame vertical (y) resolution */
 static uint32_t bits_per_pixel;
 
+int graphic_get_mode_info(uint16_t mode, vbe_mode_info_t *info) {
+    mmap_t map;
+    void* ptr = lm_alloc(sizeof(info), &map);
+
+    reg86_t r;
+    memset(&r, 0, sizeof(r)); //clears r
+    //r.ax = VBE_FUNCTION | RET_VBE_CONTROLLER; // VBE call, function 00h -- ret VBE controller information
+    r.ax = VBE_FUNCTION | RET_VBE_MODE;
+    r.es = PB2BASE(map.phys);
+    r.di = PB2OFF(map.phys);
+    r.cx = mode;
+    r.intno = 0x10;
+
+    if(sys_int86(&r) != OK) {
+        printf("sys_int86() failed \n");
+        return 1;
+    }
+
+    memcpy(info, ptr, sizeof(*info));
+    lm_free(&map);
+
+    return 0;
+}
+
 int graphic_def(vbe_mode_info_t *info) {
     // Define characteristics of the mode static.
     h_res = info->XResolution; 
@@ -60,17 +84,51 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     return 0;
 }
 
-int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
+int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans) {
+  if (!trans)
+    printf("graphic\n");
   xpm_image_t img;
   uint8_t *map;
   map = xpm_load(xpm, XPM_INDEXED, &img);
 
   for (uint16_t i = 0; i < img.height; i++) {
     for (uint16_t j = 0; j < img.width; j++) {
-      graphic_pixel(x + j, y + i, map[i*img.width + j]);
+      if (!trans)  
+        graphic_pixel(x + j, y + i, map[i*img.width + j]);
+      else
+        graphic_pixel(x + j, y + i, xpm_transparency_color(XPM_INDEXED));
     }
   }     
   return 0;
+}
+
+int graphic_cntrl_info(vg_vbe_contr_info_t *info) {
+    
+    mmap_t map;
+    void* ptr = lm_alloc(sizeof(info), &map);
+    ((char*)ptr)[0] = 'V';
+    ((char*)ptr)[1] = 'B';
+    ((char*)ptr)[2] = 'E';
+    ((char*)ptr)[3] = '2';
+
+    reg86_t r;
+    memset(&r, 0, sizeof(r)); //clears r
+    //r.ax = VBE_FUNCTION | RET_VBE_CONTROLLER; // VBE call, function 00h -- ret VBE controller information
+    r.ax = 0x4F00;
+    r.es = PB2BASE(map.phys);
+    r.di = PB2OFF(map.phys);
+    r.intno = 0x10;
+
+    if(sys_int86(&r) != OK) {
+        printf("sys_int86() failed \n");
+        return 1;
+    }
+
+    memcpy(info, ptr, sizeof(*info));
+    lm_free(&map);
+
+    return 0;
+
 }
 
 int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
@@ -92,3 +150,4 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
     }
     return 0;
 }	
+
