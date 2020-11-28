@@ -1,6 +1,27 @@
-#include <lcom/lcf.h>
+#include <../headers/utils.h>
 
-#include <stdint.h>
+static int hook_id;
+
+int subscribe_int(uint8_t *bit_no, uint8_t irq, int policy) 
+{
+  hook_id = *bit_no;
+  if (sys_irqsetpolicy(irq, policy, &hook_id) != OK)  
+  {
+    printf("Error in sys_irqsetpolicy()\n");
+    return 1;
+  }
+  return 0;
+}
+
+int unsubscribe_int() 
+{
+  if (sys_irqrmpolicy(&hook_id) != OK) 
+  {
+    printf("Error in sys_irqrmpolicy()\n");
+    return 1;
+  }
+  return 0;
+}
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
 

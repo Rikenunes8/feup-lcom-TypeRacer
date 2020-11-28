@@ -3,8 +3,6 @@
 
 #include <lcom/lcf.h>
 
-#define OK 0
-
 /*
  * Constants for programming the i8254 Timer.
  */

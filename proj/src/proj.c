@@ -1,5 +1,3 @@
-#include <lcom/lcf.h>
-#include <lcom/proj.h>
 #include "../headers/proj.h"
 
 int main(int argc, char *argv[]) {
@@ -28,5 +26,6 @@ int main(int argc, char *argv[]) {
 
 int(proj_main_loop)(int argc, char *argv[])
 {
-    printf("Ola");
+    printf("Ola!");
+    return 0;
 }
