@@ -85,18 +85,16 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
 }
 
 int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans) {
-  if (!trans)
-    printf("graphic\n");
   xpm_image_t img;
   uint8_t *map;
-  map = xpm_load(xpm, XPM_INDEXED, &img);
+  map = xpm_load(xpm, XPM_GRAY_8_8_8, &img);
 
   for (uint16_t i = 0; i < img.height; i++) {
     for (uint16_t j = 0; j < img.width; j++) {
       if (!trans)  
         graphic_pixel(x + j, y + i, map[i*img.width + j]);
       else
-        graphic_pixel(x + j, y + i, xpm_transparency_color(XPM_INDEXED));
+        graphic_pixel(x + j, y + i, xpm_transparency_color(XPM_GRAY_8_8_8));
     }
   }     
   return 0;
@@ -114,7 +112,7 @@ int graphic_cntrl_info(vg_vbe_contr_info_t *info) {
     reg86_t r;
     memset(&r, 0, sizeof(r)); //clears r
     //r.ax = VBE_FUNCTION | RET_VBE_CONTROLLER; // VBE call, function 00h -- ret VBE controller information
-    r.ax = 0x4F00;
+    r.ax = VBE_FUNCTION|RET_VBE_CONTROLLER;
     r.es = PB2BASE(map.phys);
     r.di = PB2OFF(map.phys);
     r.intno = 0x10;
