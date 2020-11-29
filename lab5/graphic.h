@@ -17,5 +17,7 @@ int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans);
 
 int graphic_cntrl_info(vg_vbe_contr_info_t *info);
 
+int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step);
+
 #endif /* _LCOM_VG_H */
 
