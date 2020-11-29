@@ -47,7 +47,7 @@ int(kbd_test_scan)()
 
   
   //subscribe KBC interrupts
-  kbc_subscribe_int(&bit_no);
+  subscribe_int(&bit_no, KEYBOARD1_IRQ, true);
 
   while(scancode != ESC_KEY) 
   { 
@@ -104,7 +104,7 @@ int(kbd_test_scan)()
   kbd_print_no_sysinb(counter_sys_inb);
 
   //unsubscribe KBC interrupts
-  kbc_unsubscribe_int();
+  subscribe_int(&bit_no, KEYBOARD1_IRQ, false);
   return 1;
 }
 

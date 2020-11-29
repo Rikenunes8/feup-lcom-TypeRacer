@@ -4,6 +4,12 @@ static char *video_mem;  /* Address to which VRAM is mapped */
 static uint32_t h_res;  /* Frame horizontal (x) resolution */
 static uint32_t v_res;  /* Frame vertical (y) resolution */
 static uint32_t bits_per_pixel;
+static uint8_t red_screen_mask;
+static uint8_t green_screen_mask;
+static uint8_t blue_screen_mask;
+static uint8_t red_position;
+static uint8_t green_position;
+static uint8_t blue_position;
 
 int graphic_get_mode_info(uint16_t mode, vbe_mode_info_t *info) {
     mmap_t map;
@@ -34,6 +40,16 @@ int graphic_def(vbe_mode_info_t *info) {
     h_res = info->XResolution; 
     v_res = info->YResolution;
     bits_per_pixel = info->BitsPerPixel;
+    red_screen_mask = info->RedMaskSize;
+    green_screen_mask = info->GreenMaskSize;
+    blue_screen_mask = info->BlueMaskSize;
+    red_position = info->RedFieldPosition;
+    green_position = info->GreenFieldPosition;
+    blue_position = info->BlueFieldPosition;
+
+    printf("red_position %d\n", red_position);
+    printf("green_position %d\n", green_position);
+    printf("blue_position %d\n", blue_position);
 
     struct minix_mem_range mr;
     unsigned int vram_size;  // VRAM's size, but you can use the frame-buffer size, instead 		    
@@ -151,3 +167,48 @@ int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, 
     return 0;
 }	
 
+
+int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step)
+{
+    uint16_t x = 0;
+    uint16_t y = 0;
+    uint16_t width = h_res/no_rectangles;
+    uint16_t height = v_res/no_rectangles;
+    uint32_t color = 0;
+    uint8_t red_first, green_first, blue_first;
+
+    if(mode == 0x105)
+        for(int stripe_y = 0; stripe_y < no_rectangles; stripe_y++)
+        {
+            for(int stripe_x = 0; stripe_x < no_rectangles; stripe_x++)
+            {
+                color = (first + (stripe_y * no_rectangles + stripe_x) * step) % (1 << bits_per_pixel);
+                vg_draw_rectangle(x, y, width, height, color);
+                x = x + width;
+            }
+            y = y + height;
+        }
+    else //direct-color models
+    {
+        for(int stripe_y = 0; stripe_y < no_rectangles; stripe_y++)
+        {
+            for(int stripe_x = 0; stripe_x < no_rectangles; stripe_x++)
+            {
+                red_first = ((first>>red_position) + stripe_x * step) % (1 << red_screen_mask);
+                green_first = ((first>>green_position) + stripe_y * step) % (1 << green_screen_mask);
+                blue_first = ((first>>blue_position) + (stripe_x + stripe_y) * step) % (1 << blue_screen_mask);
+                printf("aqui\n");
+                printf("red: %x\n", red_first);
+                printf("green: %x\n", green_first);
+                printf("blue: %x\n", blue_first);
+                color = red_first | green_first | blue_first;
+                vg_draw_rectangle(x, y, width, height, color);
+                x = x + width;
+            }
+            y = y + height;
+        }
+        
+    }
+
+        return 0;
+}
