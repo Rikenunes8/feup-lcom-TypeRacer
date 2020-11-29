@@ -129,7 +129,7 @@ int graphic_cntrl_info(vg_vbe_contr_info_t *info) {
 
 }
 
-int32_t get_char_xpm(char c) {
+uint8_t get_char_xpm(char c) {
     switch (c) {
         case '0': return 0;
         case '1': return 1;

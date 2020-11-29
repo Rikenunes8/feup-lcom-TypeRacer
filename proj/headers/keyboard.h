@@ -20,10 +20,14 @@ int (kbc_unsubscribe_int)();
  */
 void (kbc_ih)();
 
-int (read_cmd_byte(uint32_t *cmd));
+int read_cmd_byte(uint8_t *cmd);
 
-int (write_cmd_byte(uint32_t *cmd));
+int write_cmd_byte(uint8_t *cmd);
 
-void (assemble_scancode(uint8_t *bytes, bool *two_byte));
+void assemble_scancode(uint8_t *bytes);
+
+void print_scancode(uint8_t *bytes);
+
+uint8_t get_scancode_char(uint8_t *bytes);
 
 #endif /* _LCOM_KEYBOARD_H */
