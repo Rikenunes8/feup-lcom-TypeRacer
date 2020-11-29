@@ -17,5 +17,7 @@ int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans);
 
 int graphic_cntrl_info(vg_vbe_contr_info_t *info);
 
+int32_t get_char_xpm(char c);
+
 #endif /* _LCOM_VG_H */
 
