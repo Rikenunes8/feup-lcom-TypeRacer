@@ -1,0 +1,1896 @@
+@lcflib.a:2019, lcf_start
+  kbd_test_scan()
+  @keyboard.c:10, kbc_subscribe_int
+    sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id)
+  > sys_irqsetpolicy(1, 3, addr: 0x822ef3c [1])
+  < sys_irqsetpolicy(1, 3, addr: 0x822ef3c [10]) -> (ret: 0)
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x9c = 0b10011100])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x9c"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x9c]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x10 = 0b00010000])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x10"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x10]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x90 = 0b10010000])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x90"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x90]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x11 = 0b00010001])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x11"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x11]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x91 = 0b10010001])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x91"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x91]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x12 = 0b00010010])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x12"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x12]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x92 = 0b10010010])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x92"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x92]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x47 = 0b01000111])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x47"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x47]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xc7 = 0b11000111])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xc7"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xc7]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x49 = 0b01001001])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x49"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x49]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xc9 = 0b11001001])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xc9"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xc9]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x51 = 0b01010001])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x51"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x51]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xd1 = 0b11010001])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xd1"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xd1]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x4f = 0b01001111])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x4f"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x4f]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xcf = 0b11001111])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xcf"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xcf]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0f = 0b00001111])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0f"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0f]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8f = 0b10001111])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8f"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8f]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x29 = 0b00101001])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x29"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x29]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xa9 = 0b10101001])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0xa9"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0xa9]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x53 = 0b01010011])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x53"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x53]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xd3 = 0b11010011])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xd3"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xd3]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x0e = 0b00001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x0e"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x0e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x8e = 0b10001110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x8e"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x8e]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x4b = 0b01001011])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x4b"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x4b]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xcb = 0b11001011])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xcb"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xcb]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x4d = 0b01001101])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x4d"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x4d]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xcd = 0b11001101])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xcd"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xcd]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x48 = 0b01001000])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x48"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x48]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xc8 = 0b11001000])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xc8"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xc8]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x50 = 0b01010000])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Makecode: 0xe0 0x50"
+  < kbd_print_scancode(true, 2, addr: 0xeffff70e [0xe0, 0x50]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xe0 = 0b11100000])
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xd0 = 0b11010000])
+  @lab3.c:79, kbd_test_scan
+    kbd_print_scancode(make, 2, bytes)
+    "Breakcode: 0xe0 0xd0"
+  < kbd_print_scancode(false, 2, addr: 0xeffff70e [0xe0, 0xd0]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x56 = 0b01010110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x56"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x56]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0xd6 = 0b11010110])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0xd6"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0xd6]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x01 = 0b00000001])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Makecode: 0x01"
+  < kbd_print_scancode(true, 1, addr: 0xeffff70e [0x01]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:55, kbd_test_scan
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff710, addr: 0xeffff754)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000010]>)
+  @lab3.c:68, kbd_test_scan
+    kbc_ih()
+    @keyboard.c:38, kbc_ih
+      sys_inb(STAT_REG, &st)
+    > sys_inb(0x64, addr: 0xeffff64c)
+    < sys_inb(0x64, addr: 0xeffff64c [0x1d = 0b00011101])
+    @timer.c:16, util_sys_inb
+      sys_inb(port, &a32)
+    > sys_inb(0x60, addr: 0xeffff628)
+    < sys_inb(0x60, addr: 0xeffff628 [0x81 = 0b10000001])
+  @lab3.c:86, kbd_test_scan
+    kbd_print_scancode(make, 1, bytes)
+    "Breakcode: 0x81"
+  < kbd_print_scancode(false, 1, addr: 0xeffff70e [0x81]) -> (ret: 0)
+  @lab3.c:100, kbd_test_scan
+    micros_to_ticks(DELAY_US)
+  @lab3.c:100, kbd_test_scan
+    tickdelay(micros_to_ticks(DELAY_US))
+  > tickdelay(1 [16.7 ms])
+  @lab3.c:104, kbd_test_scan
+    kbd_print_no_sysinb(counter_sys_inb)
+    "sys_inb_calls: 170"
+  @keyboard.c:21, kbc_unsubscribe_int
+    sys_irqrmpolicy(&hook_id)
+  > sys_irqrmpolicy(addr: 0x822ef3c [10])
+  < sys_irqrmpolicy(addr: 0x822ef3c [10]) -> (ret: 0)

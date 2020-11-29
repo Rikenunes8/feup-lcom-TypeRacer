@@ -6,7 +6,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern uint32_t scancode;
+extern uint8_t scancode;
 extern int counter_sys_inb; //counter for number os sys_inb
 extern int timer_counter; //counter for timer handler
 
@@ -43,7 +43,7 @@ int(kbd_test_scan)()
   uint32_t irq_set = BIT(bit_no);
   int r = 0;
   uint8_t bytes[2];
-  bool sc_two_byte = false;
+  bool make;
 
   
   //subscribe KBC interrupts
@@ -68,7 +68,24 @@ int(kbd_test_scan)()
             kbc_ih();
   
             //assemble the scancode
-            assemble_scancode(bytes, &sc_two_byte);
+            //assemble_scancode(bytes, &sc_two_byte);
+            parse_scancode(bytes);
+            if (!(bytes[0] == 0xE0 && bytes[1] == 0x00)) {
+              if (bytes[0] == 0xE0) {
+                if (bytes[1]>>7 == 1) //0x92 example
+                  make = false; // breakcode
+                else //0x12 example
+                  make = true; // makecode
+                kbd_print_scancode(make, 2, bytes);
+              }
+              else {
+                if (bytes[0]>>7 == 1) //0x92 example
+                  make = false; // breakcode
+                else //0x12 example
+                  make = true; // makecode
+                kbd_print_scancode(make, 1, bytes);
+              }
+            }
           }
           break;
         default:
@@ -79,8 +96,7 @@ int(kbd_test_scan)()
     else 
     {  /* received a standard message, not a notification */
        /* no standard messages expected: do nothing */
-    }
-    
+    }    
     tickdelay(micros_to_ticks(DELAY_US));
   }
 
@@ -102,7 +118,7 @@ int(kbd_test_poll)() {
   uint32_t st;
   uint32_t cmb_before, cmb_after;
   uint8_t bytes[2];
-  bool sc_two_byte = false;
+  bool make;
 
   while (scancode != ESC_KEY){
     if (sys_inb(STAT_REG, &st)!= OK){
@@ -115,7 +131,7 @@ int(kbd_test_poll)() {
     
     if ((st & OBF) != OK) {
       if ((st & (PARITY | TIMEOUT)) == OK){
-        if (sys_inb(OUT_BUF, &scancode) != OK){
+        if (util_sys_inb(OUT_BUF, &scancode) != OK){
           printf("Error in sys_inb()\n");
           return 1;
         }
@@ -123,7 +139,23 @@ int(kbd_test_poll)() {
         counter_sys_inb++;
         #endif
         
-        assemble_scancode(bytes, &sc_two_byte);
+        parse_scancode(bytes);
+        if (!(bytes[0] == 0xE0 && bytes[1] == 0x00)) {
+          if (bytes[0] == 0xE0) {
+            if (bytes[1]>>7 == 1) //0x92 example
+              make = false; // breakcode
+            else //0x12 example
+              make = true; // makecode
+            kbd_print_scancode(make, 2, bytes);
+          }
+          else {
+            if (bytes[0]>>7 == 1) //0x92 example
+              make = false; // breakcode
+            else //0x12 example
+              make = true; // makecode
+            kbd_print_scancode(make, 1, bytes);
+          }
+        }
       }
     } 
     tickdelay(micros_to_ticks(DELAY_US));
@@ -156,7 +188,7 @@ int(kbd_test_timed_scan)(uint8_t n)
   uint32_t timer0_int_bit = BIT(bit_no_timer);
   int r = 0;
   uint8_t bytes[2];
-  bool sc_two_byte = false;
+  bool make;
 
   //subscribe KBC interrupts
   kbc_subscribe_int(&bit_no_kbd);
@@ -184,7 +216,23 @@ int(kbd_test_timed_scan)(uint8_t n)
               kbc_ih();
   
               //assemble the scancode
-              assemble_scancode(bytes, &sc_two_byte);
+              parse_scancode(bytes);
+              if (!(bytes[0] == 0xE0 && bytes[1] == 0x00)) {
+                if (bytes[0] == 0xE0) {
+                  if (bytes[1]>>7 == 1) //0x92 example
+                    make = false; // breakcode
+                  else //0x12 example
+                    make = true; // makecode
+                  kbd_print_scancode(make, 2, bytes);
+                }
+                else {
+                  if (bytes[0]>>7 == 1) //0x92 example
+                    make = false; // breakcode
+                  else //0x12 example
+                    make = true; // makecode
+                  kbd_print_scancode(make, 1, bytes);
+                }
+              }
 
               timer_counter = 0; //starts counting again
             }
