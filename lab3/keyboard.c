@@ -1,7 +1,7 @@
 #include <keyboard.h>
 
 static int hook_id;
-uint32_t scancode;
+uint8_t scancode;
 int counter_sys_inb = 0;
 
 int (kbc_subscribe_int)(uint8_t *bit_no) 
@@ -46,7 +46,7 @@ void (kbc_ih)()
   {
     if ( (st & (PARITY | TIMEOUT)) == 0 ) //check if there was some communications error
     {
-      if(sys_inb(OUT_BUF, &scancode) != OK) //lê a informação de OUT_BUF e coloca-a em scancode
+      if(util_sys_inb(OUT_BUF, &scancode) != OK) //lê a informação de OUT_BUF e coloca-a em scancode
       {
         printf("Error in sys_inb()");
         return;
@@ -124,7 +124,7 @@ int (write_cmd_byte(uint32_t *cmd)){
   return 0;
 }
 
-void (assemble_scancode(uint8_t *bytes, bool *two_byte)) {
+/*void (assemble_scancode(uint8_t *bytes, bool *two_byte)) {
   bool make = true; //true is makecode; false otherwise
 
   //scancode tem 32 bits (4bits * 8digitos = 32)
@@ -150,6 +150,23 @@ void (assemble_scancode(uint8_t *bytes, bool *two_byte)) {
       else
         make = true; // makecode
       kbd_print_scancode(make, 1, bytes);
+    }
+  }
+}
+*/
+
+void parse_scancode(uint8_t *bytes) {
+  if ((scancode & 0xFF) == 0xE0) {
+    bytes[0] = scancode;
+    bytes[1] = 0x00;
+  }
+  else {
+    if ((bytes[0] == 0xE0) && (bytes[1] == 0x00)) {
+      bytes[1] = scancode;
+    }
+    else {
+      bytes[0] = scancode;
+      bytes[1] = 0x00;
     }
   }
 }

@@ -1,10 +1,10 @@
 #include <keyboard.h>
 
-//static int hook_id;
+static int hook_id;
 uint32_t scancode;
 int counter_sys_inb = 0;
 
-/* VER UTILS 
+// VER UTILS 
 int (kbc_subscribe_int)(uint8_t *bit_no) 
 {
   hook_id = *bit_no;
@@ -26,7 +26,7 @@ int (kbc_unsubscribe_int)()
   }
   return 0;
   
-}*/
+}
 
 void (kbc_ih)()
 {
@@ -41,7 +41,6 @@ void (kbc_ih)()
     printf("Error in sys_inb()");
     return;
   }
-  counter_sys_inb++;
   /* loop while 8042 output buffer is empty */
   if(st & OBF) // entra no if se output buffer está cheio e se tem algo para ler (o scancode)
   {
@@ -52,7 +51,6 @@ void (kbc_ih)()
         printf("Error in sys_inb()");
         return;
       }
-      counter_sys_inb++;
     }
     else
       return;
@@ -98,27 +96,21 @@ int (read_cmd_byte(uint32_t *cmd)){
 
 int (write_cmd_byte(uint32_t *cmd)){
   uint32_t st;
-  int i=0, j=0;
+  int i=0;
   while (i<5) {
     sys_inb(STAT_REG, &st);
     if ((st & IBF) == 0){
       sys_outb(IN_BUF, WRITE_CB);
-      j = 0;
-      while (j<5){
-        sys_inb(STAT_REG, &st);
-        if ((st & IBF) == 0){
-          sys_outb(OUT_BUF, *cmd);
-          break;
-        }
-        j++;
-        tickdelay(micros_to_ticks(DELAY_US));
-      }      
-      break;
+      sys_inb(STAT_REG, &st);
+      if ((st & IBF) == 0){
+        sys_outb(OUT_BUF, *cmd);
+        break;
+      }
     }
     i++;
     tickdelay(micros_to_ticks(DELAY_US));
   }
-  if (i==5 | j == 5) {
+  if (i==5) {
     printf("Error while\n");
     return 1;
   }
