@@ -1,6 +1,7 @@
+#include <lcom/lcf.h>
 #include <../headers/utils.h>
 
-static int hook_id;
+/*static int hook_id;
 
 int subscribe_int(uint8_t *bit_no, uint8_t irq, int policy) 
 {
@@ -21,7 +22,7 @@ int unsubscribe_int()
     return 1;
   }
   return 0;
-}
+}*/
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
 

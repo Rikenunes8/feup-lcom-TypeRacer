@@ -84,7 +84,7 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     return 0;
 }
 
-int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans) {
+int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans, uint32_t color) {
   xpm_image_t img;
   uint8_t *map;
   map = xpm_load(xpm, XPM_INDEXED, &img);
@@ -94,7 +94,7 @@ int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans) {
       if (!trans)  
         graphic_pixel(x + j, y + i, map[i*img.width + j]);
       else
-        graphic_pixel(x + j, y + i, xpm_transparency_color(XPM_INDEXED));
+        graphic_pixel(x + j, y + i, color);
     }
   }     
   return 0;

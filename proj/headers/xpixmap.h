@@ -1,3 +1,6 @@
+#ifndef _LCOM_XPIXMAP_H
+#define _LCOM_XPIXMAP_H
+
 #include <lcom/xpm.h>
 /* XPM */
 
@@ -1357,3 +1360,5 @@ xpm_map_t letters[] = {
     char_a_xpm, char_b_xpm, char_c_xpm, char_d_xpm, char_e_xpm, char_f_xpm, char_g_xpm, char_h_xpm, char_i_xpm, char_j_xpm, char_k_xpm, char_l_xpm, char_m_xpm, char_n_xpm, char_o_xpm, char_p_xpm, char_q_xpm, char_r_xpm, char_s_xpm, char_t_xpm, char_u_xpm, char_v_xpm, char_w_xpm, char_x_xpm, char_y_xpm, char_z_xpm,
     char_space_xpm, char_colon_xpm, char_semicolon_xpm, char_comma_xpm, char_dot_xpm, char_exclamation_xpm, char_question_xpm, char_apostrophe_xpm, char_quotation_xpm
 }; 
+
+#endif //_LCOM_XPIXMAP_H
