@@ -4,9 +4,9 @@ static char *video_mem;  /* Address to which VRAM is mapped */
 static uint32_t h_res;  /* Frame horizontal (x) resolution */
 static uint32_t v_res;  /* Frame vertical (y) resolution */
 static uint32_t bits_per_pixel;
-static uint8_t red_screen_mask;
-static uint8_t green_screen_mask;
-static uint8_t blue_screen_mask;
+static uint8_t red_mask_size;
+static uint8_t green_mask_size;
+static uint8_t blue_mask_size;
 static uint8_t red_position;
 static uint8_t green_position;
 static uint8_t blue_position;
@@ -40,16 +40,16 @@ int graphic_def(vbe_mode_info_t *info) {
     h_res = info->XResolution; 
     v_res = info->YResolution;
     bits_per_pixel = info->BitsPerPixel;
-    red_screen_mask = info->RedMaskSize;
-    green_screen_mask = info->GreenMaskSize;
-    blue_screen_mask = info->BlueMaskSize;
+    red_mask_size = info->RedMaskSize;
+    green_mask_size = info->GreenMaskSize;
+    blue_mask_size = info->BlueMaskSize;
     red_position = info->RedFieldPosition;
     green_position = info->GreenFieldPosition;
     blue_position = info->BlueFieldPosition;
 
-    printf("red_position %d\n", red_position);
-    printf("green_position %d\n", green_position);
-    printf("blue_position %d\n", blue_position);
+    printf("red_size %d\n", red_mask_size);
+    printf("green_size %d\n", green_mask_size);
+    printf("blue_size %d\n", blue_mask_size);
 
     struct minix_mem_range mr;
     unsigned int vram_size;  // VRAM's size, but you can use the frame-buffer size, instead 		    
@@ -175,7 +175,10 @@ int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_
     uint16_t width = h_res/no_rectangles;
     uint16_t height = v_res/no_rectangles;
     uint32_t color = 0;
-    uint8_t red_first, green_first, blue_first;
+    uint8_t red_part= first>>red_position;
+    uint8_t green_part= first>>green_position;
+    uint8_t blue_part= first>>blue_position;
+    uint8_t red, green, blue;
 
     if(mode == 0x105)
         for(int stripe_y = 0; stripe_y < no_rectangles; stripe_y++)
@@ -194,14 +197,10 @@ int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_
         {
             for(int stripe_x = 0; stripe_x < no_rectangles; stripe_x++)
             {
-                red_first = ((first>>red_position) + stripe_x * step) % (1 << red_screen_mask);
-                green_first = ((first>>green_position) + stripe_y * step) % (1 << green_screen_mask);
-                blue_first = ((first>>blue_position) + (stripe_x + stripe_y) * step) % (1 << blue_screen_mask);
-                printf("aqui\n");
-                printf("red: %x\n", red_first);
-                printf("green: %x\n", green_first);
-                printf("blue: %x\n", blue_first);
-                color = red_first | green_first | blue_first;
+                red = (red_part + stripe_x * step) % (1 << red_mask_size);
+                green = (green_part + stripe_y * step) % (1 << green_mask_size);
+                blue = (blue_part + (stripe_x + stripe_y) * step) % (1 << blue_mask_size);
+                color = red<<red_position | green<<green_position | blue<<blue_position;
                 vg_draw_rectangle(x, y, width, height, color);
                 x = x + width;
             }
