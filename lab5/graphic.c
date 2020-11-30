@@ -183,6 +183,7 @@ int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_
     if(mode == 0x105)
         for(int stripe_y = 0; stripe_y < no_rectangles; stripe_y++)
         {
+            x = 0;
             for(int stripe_x = 0; stripe_x < no_rectangles; stripe_x++)
             {
                 color = (first + (stripe_y * no_rectangles + stripe_x) * step) % (1 << bits_per_pixel);
@@ -195,6 +196,7 @@ int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_
     {
         for(int stripe_y = 0; stripe_y < no_rectangles; stripe_y++)
         {
+            x = 0;
             for(int stripe_x = 0; stripe_x < no_rectangles; stripe_x++)
             {
                 red = (red_part + stripe_x * step) % (1 << red_mask_size);
