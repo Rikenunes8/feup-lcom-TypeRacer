@@ -1,4 +1,2 @@
-red_size 0
-green_size 0
-blue_size 0
 graphic
+Erro, pixel fora do ecrã

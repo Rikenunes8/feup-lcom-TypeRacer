@@ -103,6 +103,9 @@ int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans) {
   uint8_t *map;
   map = xpm_load(xpm, XPM_INDEXED, &img);
 
+  if(x < 0 || x > h_res || y < 0 || y > v_res)
+    printf("Erro, pixel fora do ecrã");
+
   for (uint16_t i = 0; i < img.height; i++) {
     for (uint16_t j = 0; j < img.width; j++) {
       if (!trans)  
@@ -154,6 +157,8 @@ int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
 {
+    if(x < 0 || x > h_res || y < 0 || y > v_res)
+        printf("Erro, pixel fora do ecrã");
     //printf("BPP: %d\n", (bits_per_pixel+7)/8);
     //printf("video_mem: %x\n", video_mem);
     for(int i=0; i < height; i++)
