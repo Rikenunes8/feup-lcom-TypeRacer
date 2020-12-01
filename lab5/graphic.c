@@ -47,10 +47,6 @@ int graphic_def(vbe_mode_info_t *info) {
     green_position = info->GreenFieldPosition;
     blue_position = info->BlueFieldPosition;
 
-    printf("red_size %d\n", red_mask_size);
-    printf("green_size %d\n", green_mask_size);
-    printf("blue_size %d\n", blue_mask_size);
-
     struct minix_mem_range mr;
     unsigned int vram_size;  // VRAM's size, but you can use the frame-buffer size, instead 		    
 

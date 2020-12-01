@@ -1,3 +1,4 @@
-red_size 8
-green_size 8
-blue_size 8
+red_size 0
+green_size 0
+blue_size 0
+graphic
