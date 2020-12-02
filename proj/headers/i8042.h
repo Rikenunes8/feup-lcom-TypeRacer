@@ -53,6 +53,9 @@
 #define TIMEOUT  BIT(6) /* Receive time out error */
 #define PARITY   BIT(7) /* Parity error */
 
+
+/* Keys */
 #define ESC_KEY   0x81
+
 
 #endif /* _LCOM_I8042_H */

@@ -7,17 +7,21 @@ extern xpm_map_t letters[];
 extern uint8_t scancode;
 
 void race_init(char *text, size_t len) {
-  uint8_t bytes[2];
-  Char * text_int = malloc(len*sizeof(Char));
+  uint8_t scancode_bytes[2];
+  // Prepare space to allocate text
+  Char * text_Char = malloc(len*sizeof(Char));
   
   int16_t x = 0;
   int16_t y = 0;  
   for (size_t i = 0; i < len; i++) {
-    text_int[i].index = get_char_xpm(text[i]);
-    text_int[i].posx = 20 + x*(10+2);
-    text_int[i].posy = 20 + y*(14+3);
-    x++;
-    if (20+x>90 && text_int[i].index == 62) {// 62 => ' '
+    // Set index of char draw in letters
+    text_Char[i].index = get_char_xpm(text[i]);
+    // Set position where to be drawn
+    text_Char[i].posx = 20 + x*(10+2);
+    text_Char[i].posy = 20 + y*(14+3);
+    x++; // Next horizontal position
+    // If the char is ' ' and x passed the limit set next vertical position
+    if (20+x>90 && text_Char[i].index == 62) {
         y++; 
         x = 0;
     }
@@ -25,13 +29,13 @@ void race_init(char *text, size_t len) {
 
   // Draw text
   for (size_t n = 0; n < len; n++) {
-    graphic_xpm(letters[text_int[n].index], text_int[n].posx, text_int[n].posy, false, 0);
+    graphic_xpm(letters[text_Char[n].index], text_Char[n].posx, text_Char[n].posy, false, 0);
   }
 
   // Prepare array to write
-  Char * digited_text = malloc((len+10)*sizeof(Char));
-  size_t n_keys = 0;
-  size_t correct_keys = 0;
+  Char * typed_text = malloc((len+10)*sizeof(Char));
+  size_t n_keys = 0; // Number of elements in typed_text
+  size_t correct_keys = 0; // Matched elements
   uint8_t aux_key;
 
   // Prepare keyboard interruptions
@@ -56,13 +60,14 @@ void race_init(char *text, size_t len) {
           if (msg.m_notify.interrupts & kbd_irq_set) { 
             /* subscribed interrupt */
             kbc_ih();
-            assemble_scancode(bytes);
-            
-            if (!(bytes[0] == 0xE0 && bytes[1] == 0x00)) {
-              aux_key = get_scancode_char(bytes);
-              if (aux_key == 100) break;
-              update_digited_text(aux_key, digited_text, &n_keys);
-              update_correct_keys(digited_text, &n_keys, text_int, &correct_keys);
+            assemble_scancode(scancode_bytes);
+            // If scancode is all set
+            if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {
+              // Get typed key
+              aux_key = get_scancode_char(scancode_bytes);
+              if (aux_key == 100) break; // If not a char to draw
+              update_typed_text(aux_key, typed_text, &n_keys);
+              update_correct_keys(typed_text, &n_keys, text_Char, &correct_keys);
             }
             
           }
@@ -74,54 +79,61 @@ void race_init(char *text, size_t len) {
     } 
     tickdelay(micros_to_ticks(DELAY_US));
   }
-  free(text_int);
-  free(digited_text);
+  free(text_Char);
+  free(typed_text);
   //unsubscribe KBC interrupts
   kbc_unsubscribe_int();
 }
 
-void update_digited_text(uint8_t aux_key, Char * digited_text, size_t *n_keys) {
+void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys) {
   Char key;
   Char previous_key;
-
+  // If not the first key typed, find the previous one
   if (*n_keys != 0)
-    previous_key = digited_text[*n_keys-1];
+    previous_key = typed_text[*n_keys-1];
+  
   key.index = aux_key;
+  // If typed key is able to be drawn
   if (key.index != 100 && key.index != 200) {
+    // Set position to the first typed key
     if (*n_keys == 0) {
       key.posx = 20;
       key.posy = 400;
     }
-    else {
+    else { // Set position to non first typed keys
+      // If previous key is a space and and is after a limit set position to next vertical pos
       if (previous_key.posx > 900 && previous_key.index == 62) {
         key.posx = 20;
         key.posy = previous_key.posy + (14+3);
       }
-      else {
+      else { // Set next horizontal position and keep previous vertical position
         key.posx = previous_key.posx + (10+2);
         key.posy = previous_key.posy;
       }
     }
-      
+    // Draw new typed key
     graphic_xpm(letters[key.index], key.posx, key.posy, false, 0);
-    digited_text[*n_keys] = key;
-    (*n_keys)++;
+    typed_text[*n_keys] = key; // Add new typed key to array typed text
+    (*n_keys)++; // Increment number of elements in array
   }
-  else if(key.index == 200) {
-    if (*n_keys != 0) {
-      (*n_keys)--;
-      graphic_xpm(letters[digited_text[*n_keys].index], digited_text[*n_keys].posx, digited_text[*n_keys].posy, true, 63);
+  else if(key.index == 200) { // If key typed is backspace
+    if (*n_keys != 0) { // If there are keys in typed_text to be erased
+      (*n_keys)--; // Decrement number of elements in typed_text array
+      // Draw white rectangle in last element position
+      graphic_xpm(letters[typed_text[*n_keys].index], typed_text[*n_keys].posx, typed_text[*n_keys].posy, true, 63);
     }
   }
 }
 
-void update_correct_keys(Char* digited_text, size_t *n_keys, Char* text_int, size_t *correct_keys) {
+void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys) {
+  // If comparing key typed with corresponding char in the same position of text
   if (*correct_keys == *n_keys-1){
-    if (text_int[*correct_keys].index == digited_text[*n_keys-1].index)
+    // If they are same chars increment number of correct keys, otherwise ignore
+    if (text_Char[*correct_keys].index == typed_text[*n_keys-1].index)
       (*correct_keys)++;
   }
   else if (*correct_keys > *n_keys) {
-    *correct_keys = *n_keys;
+    *correct_keys = *n_keys; // No more correct keys than typed
   }
 }
 

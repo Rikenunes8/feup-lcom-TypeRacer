@@ -137,9 +137,9 @@ void assemble_scancode(uint8_t *bytes) {
 void print_scancode(uint8_t *bytes) {
   bool make;
   if (bytes[0] == 0xE0) {
-    if (bytes[1]>>7 == 1) //0x92 example
+    if (bytes[1]>>7 == 1) //0x92e0 example
       make = false; // breakcode
-    else //0x12 example
+    else //0x12e0 example
       make = true; // makecode
     kbd_print_scancode(make, 2, bytes);
   }
