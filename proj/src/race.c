@@ -1,7 +1,4 @@
 #include "../headers/race.h"
-#include "../headers/xpixmap.h"
-#include "../headers/graphic.h"
-#include "../headers/keyboard.h"
 
 extern xpm_map_t letters[];
 extern uint8_t scancode;
@@ -62,7 +59,8 @@ void race_init(char *text, size_t len) {
             kbc_ih();
             assemble_scancode(scancode_bytes);
             // If scancode is all set
-            if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {
+            if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) 
+            {
               // Get typed key
               aux_key = get_scancode_char(scancode_bytes);
               if (aux_key == 100) break; // If not a char to draw
