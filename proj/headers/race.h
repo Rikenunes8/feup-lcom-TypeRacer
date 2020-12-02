@@ -19,14 +19,14 @@ typedef struct {
     uint8_t index;
     uint16_t posx;
     uint16_t posy;
-    enum Char_state state;
+    //enum Char_state state;
 } Char;
 
 /*
  * @param text: text to draw
  * @param len: lenght of that text
  */
-void race_init(char *text, size_t len);
+void race_init(const char *text, size_t len);
 
 /* Processes the typed text and writes it to the screen 
  * @param aux_key: number corresponding to a scancode of the typed key 
@@ -44,13 +44,16 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys);
 void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys);
 
 /*
- * @param text: text info to display on the screen
+ * @param text: text to display on the screen
+ * @param text_Char: place to where convert text in order to be drawable 
  * @param len: lenght of text
- * @param x_position: x position where to write the text
- * @param y_position: y position where to write the text
- * 
- * meter malloc antes desta função
+ * @param x_position: x position where start writing the text
+ * @param y_position: y position where start writing the text
  */
-int display_text(Char *text, size_t len, int16_t x_position, int16_t y_position);
+int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position);
+
+void display_time(int time, uint16_t x, uint16_t y);
+
+
 
 #endif

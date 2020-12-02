@@ -7,37 +7,13 @@ extern uint8_t scancode;
 extern int timer_counter;
 int no_seconds = 0;
 
-void race_init(char *text, size_t len) {
+void race_init(const char *text, size_t len) {
   uint8_t scancode_bytes[2];
   // Prepare space to allocate text
   Char * text_Char = malloc(len*sizeof(Char));
-  
-  // Set chars to be drawn
-  int16_t x = 0;
-  int16_t y = 0;  
-  for (size_t i = 0; i < len; i++) {
-    // Set index of char draw in letters
-    text_Char[i].index = get_char_xpm(text[i]);
-    text_Char[i].state = WRONG;
-    // Set position where to be drawn
-    text_Char[i].posx = 20 + x*(10+2);
-    text_Char[i].posy = 20 + y*(14+3);
-    x++; // Next horizontal position
-    // If the char is ' ' and x passed the limit set next vertical position
-    if (20+x*(10+2)>900 && text_Char[i].index == 62) {
-        y++; 
-        x = 0;
-    }
-  }
 
-  uint8_t * map;
-  xpm_image_t img;
-  // Draw text
-  for (size_t n = 0; n < len; n++) {
-    //graphic_Char_xpm_load(&map, &img, XPM_INDEXED, letters[text_Char[n].index], text_Char[n].state);
-    graphic_xpm_load(&map, &img, XPM_INDEXED, letters[text_Char[n].index]);
-    graphic_xpm(map, &img, text_Char[n].posx, text_Char[n].posy);
-  }
+  display_time(no_seconds, 20, 20);
+  display_text(text, text_Char, len, 20, 100);
 
   // Prepare array to write
   Char * typed_text = malloc((len+10)*sizeof(Char));
@@ -91,6 +67,7 @@ void race_init(char *text, size_t len) {
             if(timer_counter % 60 == 0)
             {
               no_seconds = no_seconds + 1;
+              display_time(no_seconds, 20, 20);
 
               //printf("no_seconds: %d\n", no_seconds);
               //timer_print_elapsed_time();
@@ -107,9 +84,9 @@ void race_init(char *text, size_t len) {
   }
 
   //displays total number of seconds (incomplete)
-  char str[20];    //empty string to store no_seconds
-  sprintf(str, "%d", no_seconds); //casts the number no_seconds to the string str
+  display_time(no_seconds, 20, 20);
   //printf("\nstr: %s", str);
+  sleep(2);
 
 
   free(text_Char);
@@ -176,3 +153,44 @@ void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size
   }
 }
 
+int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) {
+  // Set chars to be drawn
+  uint16_t x = 0;
+  uint16_t y = 0;  
+  for (size_t i = 0; i < len; i++) {
+    // Set index of char draw in letters
+    text_Char[i].index = get_char_xpm(text[i]);
+    //text_Char[i].state = WRONG;
+    
+    // Set position where to be drawn
+    text_Char[i].posx = x_position + x*(10+2);
+    text_Char[i].posy = y_position + y*(14+3);
+    x++; // Next horizontal position
+    // If the char is ' ' and x passed the limit set next vertical position
+    if (x_position+x*(10+2)>get_h_res()-100 && text_Char[i].index == SPACE) {
+        y++; 
+        x = 0;
+    }
+  }
+
+  uint8_t * map;
+  xpm_image_t img;
+  // Draw text
+  for (size_t n = 0; n < len; n++) {
+    //graphic_Char_xpm_load(&map, &img, XPM_INDEXED, letters[text_Char[n].index], text_Char[n].state);
+    graphic_xpm_load(&map, &img, XPM_INDEXED, letters[text_Char[n].index]);
+    graphic_xpm(map, &img, text_Char[n].posx, text_Char[n].posy);
+  }
+  return 0;
+}
+
+void display_time(int time, uint16_t x, uint16_t y) {
+  char str[20];    //empty string to store no_seconds
+  sprintf(str, "%d", no_seconds); //casts the number no_seconds to the string str
+  
+  Char* str_Char = malloc(strlen(str)*sizeof(Char)); // Convert string of chars to string of Chars
+
+  display_text(str, str_Char, strlen(str), x, y);
+
+  free(str_Char);
+}
