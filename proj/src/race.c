@@ -1,6 +1,8 @@
 #include "../headers/race.h"
+#include "../headers/xpixmap.h"
 
-extern char** letters[];
+
+extern xpm_map_t letters[];
 extern uint8_t scancode;
 
 void race_init(char *text, size_t len) {
@@ -14,6 +16,7 @@ void race_init(char *text, size_t len) {
   for (size_t i = 0; i < len; i++) {
     // Set index of char draw in letters
     text_Char[i].index = get_char_xpm(text[i]);
+    text_Char[i].state = WRONG;
     // Set position where to be drawn
     text_Char[i].posx = 20 + x*(10+2);
     text_Char[i].posy = 20 + y*(14+3);
@@ -25,9 +28,13 @@ void race_init(char *text, size_t len) {
     }
   }
 
+  uint8_t * map;
+  xpm_image_t img;
   // Draw text
   for (size_t n = 0; n < len; n++) {
-    graphic_xpm(letters[text_Char[n].index], text_Char[n].posx, text_Char[n].posy);
+    //graphic_Char_xpm_load(&map, &img, XPM_INDEXED, letters[text_Char[n].index], text_Char[n].state);
+    graphic_xpm_load(&map, &img, XPM_INDEXED, letters[text_Char[n].index]);
+    graphic_xpm(map, &img, text_Char[n].posx, text_Char[n].posy);
   }
 
   // Prepare array to write
@@ -85,8 +92,11 @@ void race_init(char *text, size_t len) {
 }
 
 void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys) {
+  uint8_t *map;
+  xpm_image_t img;
   Char key;
   Char previous_key;
+  
   // If not the first key typed, find the previous one
   if (*n_keys != 0)
     previous_key = typed_text[*n_keys-1];
@@ -111,7 +121,8 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys) {
       }
     }
     // Draw new typed key
-    graphic_xpm(letters[key.index], key.posx, key.posy);
+    graphic_xpm_load(&map, &img, XPM_INDEXED, letters[key.index]);
+    graphic_xpm(map, &img, key.posx, key.posy);
     typed_text[*n_keys] = key; // Add new typed key to array typed text
     (*n_keys)++; // Increment number of elements in array
   }

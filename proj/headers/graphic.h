@@ -15,7 +15,11 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color);
 
 int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color);
 
-int graphic_xpm(char** xpm, uint16_t x, uint16_t y);
+//int graphic_Char_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm, uint8_t state);
+
+int graphic_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm);
+
+int graphic_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y);
 
 int graphic_cntrl_info(vg_vbe_contr_info_t *info);
 

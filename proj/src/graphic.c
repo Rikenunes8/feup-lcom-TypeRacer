@@ -96,18 +96,43 @@ int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
   return 0;
 }	
 
-int graphic_Char_xpm_load(uint8_t * map, xpm_image_t *img) {
-  return 1;
+/*int graphic_Char_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm, uint8_t state) {
+  char aux[17][10];
+  for (int i = 0; i < 17; i++) {
+    strcpy(aux[i], xpm[i]);
+  }
+
+  if (state == 0) {
+  }
+  else if (state == 1) {
+    if (aux[1][2] == '6') {
+      aux[1][2] = '1'; aux[1][3] = '7';
+    }
+    else {
+      aux[2][2] = '1'; aux[2][3] = '7';
+    }
+  }
+  else if (state == 2) {
+    if (xpm[1][2] == '0') {
+      xpm[1][2] = '2';
+    }
+    else {
+      xpm[2][2] = '2';
+    }
+  }
+  *map = xpm_load((const char **)xpm, type, img);
+  return 0;
+}*/
+
+int graphic_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm) {
+  *map = xpm_load(xpm, type, img);
+  return 0;
 }
 
-int graphic_xpm(char** xpm, uint16_t x, uint16_t y) {
-  xpm_image_t img;
-  uint8_t *map;
-  map = xpm_load((const char **)xpm, XPM_INDEXED, &img);
-
-  for (uint16_t i = 0; i < img.height; i++) {
-    for (uint16_t j = 0; j < img.width; j++) {
-      graphic_pixel(x + j, y + i, map[i*img.width + j]);
+int graphic_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y) {
+  for (uint16_t i = 0; i < img->height; i++) {
+    for (uint16_t j = 0; j < img->width; j++) {
+      graphic_pixel(x + j, y + i, map[i*img->width + j]);
     }
   }     
   return 0;
