@@ -43,6 +43,14 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys);
  */
 void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys);
 
-
+/*
+ * @param text: text info to display on the screen
+ * @param len: lenght of text
+ * @param x_position: x position where to write the text
+ * @param y_position: y position where to write the text
+ * 
+ * meter malloc antes desta função
+ */
+int display_text(Char *text, size_t len, int16_t x_position, int16_t y_position);
 
 #endif

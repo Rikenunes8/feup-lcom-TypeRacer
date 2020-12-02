@@ -4,6 +4,8 @@
 
 extern xpm_map_t letters[];
 extern uint8_t scancode;
+extern int timer_counter;
+int no_seconds = 0;
 
 void race_init(char *text, size_t len) {
   uint8_t scancode_bytes[2];
@@ -47,6 +49,11 @@ void race_init(char *text, size_t len) {
   uint8_t kbd_bit_no = 1;
   uint32_t kbd_irq_set = BIT(kbd_bit_no);
   kbc_subscribe_int(&kbd_bit_no);
+
+  // Prepare timer interruptions
+  uint8_t timer_bit_no = 0;
+  uint32_t timer_irq_set = BIT(timer_bit_no);
+  timer_subscribe_int(&timer_bit_no);
     
   int ipc_status;
   message msg;
@@ -77,6 +84,19 @@ void race_init(char *text, size_t len) {
             }
             
           }
+          if (msg.m_notify.interrupts & timer_irq_set) 
+          { 
+            /* subscribed interrupt */
+            timer_int_handler();
+            if(timer_counter % 60 == 0)
+            {
+              no_seconds = no_seconds + 1;
+
+              //printf("no_seconds: %d\n", no_seconds);
+              //timer_print_elapsed_time();
+            }
+            
+          }
           break;
         default:
           printf("Receive no interrupt\n");
@@ -85,10 +105,18 @@ void race_init(char *text, size_t len) {
     } 
     tickdelay(micros_to_ticks(DELAY_US));
   }
+
+  //displays total number of seconds (incomplete)
+  char str[20];    //empty string to store no_seconds
+  sprintf(str, "%d", no_seconds); //casts the number no_seconds to the string str
+  //printf("\nstr: %s", str);
+
+
   free(text_Char);
   free(typed_text);
-  //unsubscribe KBC interrupts
+  //unsubscribe interrupts
   kbc_unsubscribe_int();
+  timer_unsubscribe_int();
 }
 
 void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys) {
