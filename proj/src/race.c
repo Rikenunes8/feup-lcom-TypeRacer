@@ -1,6 +1,6 @@
 #include "../headers/race.h"
 
-extern xpm_map_t letters[];
+extern char** letters[];
 extern uint8_t scancode;
 
 void race_init(char *text, size_t len) {
@@ -8,6 +8,7 @@ void race_init(char *text, size_t len) {
   // Prepare space to allocate text
   Char * text_Char = malloc(len*sizeof(Char));
   
+  // Set chars to be drawn
   int16_t x = 0;
   int16_t y = 0;  
   for (size_t i = 0; i < len; i++) {

@@ -96,10 +96,14 @@ int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
   return 0;
 }	
 
-int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
+int graphic_Char_xpm_load(uint8_t * map, xpm_image_t *img) {
+  return 1;
+}
+
+int graphic_xpm(char** xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
   uint8_t *map;
-  map = xpm_load(xpm, XPM_INDEXED, &img);
+  map = xpm_load((const char **)xpm, XPM_INDEXED, &img);
 
   for (uint16_t i = 0; i < img.height; i++) {
     for (uint16_t j = 0; j < img.width; j++) {

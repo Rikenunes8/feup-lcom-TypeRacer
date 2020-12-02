@@ -6,6 +6,11 @@
 #include "../headers/graphic.h"
 #include "../headers/keyboard.h"
 
+enum Char_state {
+  NORMAL,
+  WRONG,
+  RIGHT
+};
 /* Represents a drawn char
  * index: number corresponding to a char
  * posx: x position where the char is drawn
@@ -15,6 +20,7 @@ typedef struct {
     uint8_t index;
     uint16_t posx;
     uint16_t posy;
+    enum Char_state state;
 } Char;
 
 /*
