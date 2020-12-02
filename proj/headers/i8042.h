@@ -57,5 +57,10 @@
 /* Keys */
 #define ESC_KEY   0x81
 
+/* Keys map */
+#define SPACE     62
+#define NOTHING   100
+#define BACKSPACE 200
+
 
 #endif /* _LCOM_I8042_H */

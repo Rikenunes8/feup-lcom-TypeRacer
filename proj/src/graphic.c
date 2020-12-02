@@ -1,9 +1,11 @@
-#include <graphic.h>
+#include <../headers/graphic.h>
 
 static char *video_mem;  /* Address to which VRAM is mapped */
+static char *fr_buffer;  /* Address to auxiliar buffer */
 static uint32_t h_res;  /* Frame horizontal (x) resolution */
 static uint32_t v_res;  /* Frame vertical (y) resolution */
 static uint32_t bits_per_pixel;
+static uint32_t BPP;
 
 int graphic_get_mode_info(uint16_t mode, vbe_mode_info_t *info) {
     mmap_t map;
@@ -34,12 +36,13 @@ int graphic_def(vbe_mode_info_t *info) {
     h_res = info->XResolution; 
     v_res = info->YResolution;
     bits_per_pixel = info->BitsPerPixel;
+    BPP = (bits_per_pixel+7)/8;
 
     struct minix_mem_range mr;
     unsigned int vram_size;  // VRAM's size, but you can use the frame-buffer size, instead 		    
 
     mr.mr_base = info->PhysBasePtr; // Start of virtual memory
-    vram_size = h_res * v_res * (bits_per_pixel+7)/8;
+    vram_size = h_res * v_res * BPP;
     mr.mr_limit = mr.mr_base + vram_size; // End of virtual memory
 
     //get permissions
@@ -50,7 +53,7 @@ int graphic_def(vbe_mode_info_t *info) {
 
     /* Map memory */
     video_mem = vm_map_phys(SELF, (void*)mr.mr_base, vram_size); //endereço base 
-
+    fr_buffer = (char*)malloc(vram_size);
     if(video_mem == MAP_FAILED)
         panic("couldn't map video memory");
     return 0;
@@ -72,7 +75,7 @@ int graphic_init(uint16_t mode, uint8_t vbe_function)
 }
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
-    uint8_t BPP = (bits_per_pixel+7)/8;
+    if (x>h_res || y>v_res) return 1;
     char* dest = video_mem;
     dest += (y*h_res + x)*BPP;
     for (uint8_t i = 0; i < BPP; i++) {
@@ -84,17 +87,23 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     return 0;
 }
 
-int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans, uint32_t color) {
+int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
+{
+  for(int i=0; i < height; i++){
+    for (int j=0; j < width; j++)
+      graphic_pixel(x+j, y+i, color);
+  }
+  return 0;
+}	
+
+int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
   xpm_image_t img;
   uint8_t *map;
   map = xpm_load(xpm, XPM_INDEXED, &img);
 
   for (uint16_t i = 0; i < img.height; i++) {
     for (uint16_t j = 0; j < img.width; j++) {
-      if (!trans)  
-        graphic_pixel(x + j, y + i, map[i*img.width + j]);
-      else
-        graphic_pixel(x + j, y + i, color);
+      graphic_pixel(x + j, y + i, map[i*img.width + j]);
     }
   }     
   return 0;
@@ -127,6 +136,14 @@ int graphic_cntrl_info(vg_vbe_contr_info_t *info) {
 
     return 0;
 
+}
+
+void fr_buffer_to_video_mem() {
+  memcpy(video_mem, fr_buffer, h_res*v_res*BPP);
+}
+
+void graphic_set_background(uint32_t color) {
+  memset(fr_buffer, color, h_res*v_res*BPP);
 }
 
 uint8_t get_char_xpm(char c) {
@@ -206,23 +223,11 @@ uint8_t get_char_xpm(char c) {
     }
 }
 
-int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
-{
-    for(int j=0; j < len; j++)
-    {
-        graphic_pixel(x+j, y, color);
-    }
-    return 0;
-}
+uint32_t get_h_res() {return h_res;}
 
-int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
-{
-    //printf("BPP: %d\n", (bits_per_pixel+7)/8);
-    //printf("video_mem: %x\n", video_mem);
-    for(int i=0; i < height; i++)
-    {
-        vg_draw_hline(x, y+i, width, color);
-    }
-    return 0;
-}	
+uint32_t get_v_res() {return v_res;}
+
+void destroy_fr_bufffer() {
+  free(fr_buffer);
+}
 

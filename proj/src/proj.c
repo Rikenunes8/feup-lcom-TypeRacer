@@ -33,8 +33,8 @@ int main(int argc, char *argv[]) {
 
 int(proj_main_loop)(int argc, char *argv[])
 {
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  char text[] = "Yeah, they got you where they want you."; 
+  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
+  //char text[] = "Yeah, they got you where they want you."; 
   
   vbe_mode_info_t info;
   uint16_t mode = 0x105;
@@ -42,12 +42,14 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
   
-  vg_draw_rectangle(0,0,1024, 768, 63);
+  //graphic_set_background(63);
+  //fr_buffer_to_video_mem();
+  graphic_draw_rectangle(0,0,get_h_res(), get_v_res(), 63);
   sleep(2);
 
   race_init(text, strlen(text));
   
-
+  destroy_fr_bufffer();
   vg_exit();
   return 0;
 }

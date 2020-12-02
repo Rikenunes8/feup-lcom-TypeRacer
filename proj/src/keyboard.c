@@ -1,4 +1,4 @@
-#include <keyboard.h>
+#include <../headers/keyboard.h>
 
 static int hook_id;
 uint32_t scancode;
@@ -236,13 +236,13 @@ uint8_t get_scancode_char(uint8_t *bytes) {
       }
     }
     switch (bytes[0]) {
-      case 0x39: return 62; // ' '
-      case 0x36: shift_left = true; return 100;
-      case 0x2a: shift_right = true; return 100;
-      case 0xb6: shift_left = false; return 100;
-      case 0xaa: shift_right = false; return 100;
-      case 0x0e: return 200; // backspace
-      default: return 100;
+      case 0x39: return SPACE; // ' '
+      case 0x36: shift_left = true; return NOTHING;
+      case 0x2a: shift_right = true; return NOTHING;
+      case 0xb6: shift_left = false; return NOTHING;
+      case 0xaa: shift_right = false; return NOTHING;
+      case 0x0e: return BACKSPACE; // backspace
+      default: return NOTHING;
     }
   }
   return 100;

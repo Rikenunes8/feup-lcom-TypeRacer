@@ -21,7 +21,7 @@ void race_init(char *text, size_t len) {
     text_Char[i].posy = 20 + y*(14+3);
     x++; // Next horizontal position
     // If the char is ' ' and x passed the limit set next vertical position
-    if (20+x>90 && text_Char[i].index == 62) {
+    if (20+x*(10+2)>900 && text_Char[i].index == 62) {
         y++; 
         x = 0;
     }
@@ -29,7 +29,7 @@ void race_init(char *text, size_t len) {
 
   // Draw text
   for (size_t n = 0; n < len; n++) {
-    graphic_xpm(letters[text_Char[n].index], text_Char[n].posx, text_Char[n].posy, false, 0);
+    graphic_xpm(letters[text_Char[n].index], text_Char[n].posx, text_Char[n].posy);
   }
 
   // Prepare array to write
@@ -112,7 +112,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys) {
       }
     }
     // Draw new typed key
-    graphic_xpm(letters[key.index], key.posx, key.posy, false, 0);
+    graphic_xpm(letters[key.index], key.posx, key.posy);
     typed_text[*n_keys] = key; // Add new typed key to array typed text
     (*n_keys)++; // Increment number of elements in array
   }
@@ -120,7 +120,8 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys) {
     if (*n_keys != 0) { // If there are keys in typed_text to be erased
       (*n_keys)--; // Decrement number of elements in typed_text array
       // Draw white rectangle in last element position
-      graphic_xpm(letters[typed_text[*n_keys].index], typed_text[*n_keys].posx, typed_text[*n_keys].posy, true, 63);
+      graphic_draw_rectangle(typed_text[*n_keys].posx, typed_text[*n_keys].posy, 10, 14, 63);
+      //graphic_xpm(letters[typed_text[*n_keys].index], typed_text[*n_keys].posx, typed_text[*n_keys].posy, true, 63);
     }
   }
 }
