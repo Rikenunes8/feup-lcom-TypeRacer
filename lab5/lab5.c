@@ -195,7 +195,17 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   message msg;
   uint32_t irq_set = BIT(bit_no);
   int r = 0;
-  uint16_t mode = 0x105;
+  uint16_t mode = 0x115;
+  
+  enum xpm_image_type type;
+  switch (mode) {
+    case 0x105: type = XPM_INDEXED; break;
+    case 0x110: type = XPM_1_5_5_5; break;
+    case 0x115: type = XPM_8_8_8; break;
+    case 0x11A: type = XPM_5_6_5; break;
+    case 0x14C: type = XPM_8_8_8_8; break;
+  }
+
 
   // usar o keyboard para ler a tecla ESC
   //subscribe KBC interrupts
@@ -209,8 +219,10 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
 
+  // Para testar 0x105 comentar proxima linha, alterar argumento new para xpm em graphic_general_xpm e alterar mode
+  xpm_map_t new = (const xpm_row_t*)&ubuntu_xpm;
   
-  graphic_xpm(xpm, x, y, false);
+  graphic_general_xpm(new, x, y, type);
 
 
   //sair através da ESC key

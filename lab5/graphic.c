@@ -10,6 +10,7 @@ static uint8_t blue_mask_size;
 static uint8_t red_position;
 static uint8_t green_position;
 static uint8_t blue_position;
+static bool direct_color; /* True if the mode set is direct color, false otherwise*/
 
 int graphic_get_mode_info(uint16_t mode, vbe_mode_info_t *info) {
     mmap_t map;
@@ -46,6 +47,9 @@ int graphic_def(vbe_mode_info_t *info) {
     red_position = info->RedFieldPosition;
     green_position = info->GreenFieldPosition;
     blue_position = info->BlueFieldPosition;
+    
+    direct_color = info->MemoryModel == 0x06;
+    
 
     struct minix_mem_range mr;
     unsigned int vram_size;  // VRAM's size, but you can use the frame-buffer size, instead 		    
@@ -96,15 +100,34 @@ int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     return 0;
 }
 
+int graphic_general_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, enum xpm_image_type type) {
+  xpm_image_t img;
+  uint8_t *map;
+  uint8_t BPP = (bits_per_pixel+7)/8;
+  uint32_t color;
+  map = xpm_load(xpm, type, &img);
+  
+
+  for (uint16_t i = 0; i < img.height; i++) {
+    for (uint16_t j = 0; j < img.width; j++) {
+      // Set first byte of pixel's color
+      color = map[(i*img.width + j)*BPP];
+      // Set next bytes of pixel's color if it is more than 1 BPP
+      for (int n = 1; n < BPP; n++) {
+        color |= map[(i*img.width + j)*BPP + n]<<(8*n);
+      }
+      // If color is transparent don't draw it
+      if (color != xpm_transparency_color(type))  
+        graphic_pixel(x + j, y + i, color);
+    }
+  }     
+  return 0;
+}
+
 int graphic_xpm(xpm_map_t xpm, uint16_t x, uint16_t y, bool trans) {
-  if (!trans)
-    printf("graphic\n");
   xpm_image_t img;
   uint8_t *map;
   map = xpm_load(xpm, XPM_INDEXED, &img);
-
-  if(x < 0 || x > h_res || y < 0 || y > v_res)
-    printf("Erro, pixel fora do ecrã");
 
   for (uint16_t i = 0; i < img.height; i++) {
     for (uint16_t j = 0; j < img.width; j++) {
@@ -157,8 +180,6 @@ int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color)
 
 int(vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
 {
-    if(x < 0 || x > h_res || y < 0 || y > v_res)
-        printf("Erro, pixel fora do ecrã");
     //printf("BPP: %d\n", (bits_per_pixel+7)/8);
     //printf("video_mem: %x\n", video_mem);
     for(int i=0; i < height; i++)
@@ -176,18 +197,20 @@ int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_
     uint16_t width = h_res/no_rectangles;
     uint16_t height = v_res/no_rectangles;
     uint32_t color = 0;
-    uint8_t red_part= first>>red_position;
-    uint8_t green_part= first>>green_position;
-    uint8_t blue_part= first>>blue_position;
+    uint8_t red_part= (first>>red_position) % BIT(red_mask_size);
+    uint8_t green_part= (first>>green_position) % BIT(green_mask_size);
+    uint8_t blue_part= (first>>blue_position) % BIT(blue_mask_size);
     uint8_t red, green, blue;
 
-    if(mode == 0x105)
+    // If not a direct color mode
+    if(!direct_color)
         for(int stripe_y = 0; stripe_y < no_rectangles; stripe_y++)
         {
             x = 0;
             for(int stripe_x = 0; stripe_x < no_rectangles; stripe_x++)
-            {
+            {   
                 color = (first + (stripe_y * no_rectangles + stripe_x) * step) % (1 << bits_per_pixel);
+                printf("Color: %d\n", color);
                 vg_draw_rectangle(x, y, width, height, color);
                 x = x + width;
             }
@@ -212,5 +235,5 @@ int vg_draw_pattern(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_
         
     }
 
-        return 0;
+  return 0;
 }
