@@ -156,6 +156,10 @@ void print_scancode(uint8_t *bytes) {
 uint8_t get_scancode_char(uint8_t *bytes) {
   //indicates that is a two_byte scancode
   if (bytes[0] == 0xE0) {
+    switch (bytes[1]) {
+      case 0x4b: return L_ARROW;
+      case 0x4d: return R_ARROW;
+    }
   }
   else {
     if (!shift_right && !shift_left) {

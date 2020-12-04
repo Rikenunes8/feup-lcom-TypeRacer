@@ -61,6 +61,8 @@
 #define SPACE     62
 #define NOTHING   100
 #define BACKSPACE 200
+#define L_ARROW   101
+#define R_ARROW   102
 
 
 #endif /* _LCOM_I8042_H */

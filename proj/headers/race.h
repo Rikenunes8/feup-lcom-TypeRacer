@@ -5,22 +5,11 @@
 #include "../headers/graphic.h"
 #include "../headers/keyboard.h"
 
-enum Char_state {
-  NORMAL,
-  WRONG,
-  RIGHT
-};
-/* Represents a drawn char
- * index: number corresponding to a char
- * posx: x position where the char is drawn
- * posy: y position where the char is drawn 
- */
-typedef struct {
-    uint8_t index;
-    uint16_t posx;
-    uint16_t posy;
-    //enum Char_state state;
-} Char;
+#define X_STRT_TYPE  20
+#define Y_STRT_TYPE  400
+#define X_STRT_TEXT  20
+#define Y_STRT_TEXT  100
+
 
 /*
  * @param text: text to draw
@@ -32,8 +21,9 @@ void race_init(const char *text, size_t len);
  * @param aux_key: number corresponding to a scancode of the typed key 
  * @param typed_text: array with the typed chars, representing the text typed by the user
  * @param n_keys: lenght of typed_text
+ * @param current_key: 
  */
-void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys);
+void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_t *current_key);
 
 /* Compares the typed text with the displayed text and counts the correct chars typed
  * @param typed_text: array with typed chars
@@ -53,6 +43,11 @@ void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size
 int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position);
 
 void display_time(int time, uint16_t x, uint16_t y);
+
+void display_Char(Char *c);
+
+void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
+
 
 
 

@@ -96,46 +96,50 @@ int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
   return 0;
 }	
 
-/*int graphic_Char_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm, uint8_t state) {
-  char aux[17][10];
-  for (int i = 0; i < 17; i++) {
-    strcpy(aux[i], xpm[i]);
-  }
-
-  if (state == 0) {
-  }
-  else if (state == 1) {
-    if (aux[1][2] == '6') {
-      aux[1][2] = '1'; aux[1][3] = '7';
-    }
-    else {
-      aux[2][2] = '1'; aux[2][3] = '7';
-    }
-  }
-  else if (state == 2) {
-    if (xpm[1][2] == '0') {
-      xpm[1][2] = '2';
-    }
-    else {
-      xpm[2][2] = '2';
-    }
-  }
-  *map = xpm_load((const char **)xpm, type, img);
-  return 0;
-}*/
-
 int graphic_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm) {
   *map = xpm_load(xpm, type, img);
   return 0;
 }
 
 int graphic_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y) {
+  uint32_t color;
   for (uint16_t i = 0; i < img->height; i++) {
     for (uint16_t j = 0; j < img->width; j++) {
-      graphic_pixel(x + j, y + i, map[i*img->width + j]);
+      // Set first byte of pixel's color
+      color = map[(i*img->width + j)*BPP];
+      // Set next bytes of pixel's color if it is more than 1 BPP
+      for (uint32_t n = 1; n < BPP; n++) {
+        color |= map[(i*img->width + j)*BPP + n]<<(8*n);
+      }
+      // If color is transparent don't draw it
+      if (color != xpm_transparency_color(img->type))  
+        graphic_pixel(x + j, y + i, color);
     }
   }     
   return 0;
+}
+
+int graphic_Char_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y, Char_state state) {
+  uint32_t color;
+  for (uint16_t i = 0; i < img->height; i++) {
+    for (uint16_t j = 0; j < img->width; j++) {
+      // Set first byte of pixel's color
+      color = map[(i*img->width + j)*BPP];
+      // Set next bytes of pixel's color if it is more than 1 BPP
+      for (uint32_t n = 1; n < BPP; n++) {
+        color |= map[(i*img->width + j)*BPP + n]<<(8*n);
+      }
+      if (state == WRONG && color == 0x000000)
+        color = 0xFF0000;
+      else if (state == RIGHT && color == 0x000000)
+        color = 0x00FF00;
+      // If color is transparent don't draw it
+      if (color != xpm_transparency_color(img->type))  
+        graphic_pixel(x + j, y + i, color);
+    }
+  }     
+  return 0;
+
 }
 
 int graphic_cntrl_info(vg_vbe_contr_info_t *info) {

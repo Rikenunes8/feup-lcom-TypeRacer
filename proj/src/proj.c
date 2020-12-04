@@ -37,19 +37,19 @@ int(proj_main_loop)(int argc, char *argv[])
   char text[] = "Yeah, they got you where they want you."; 
   
   vbe_mode_info_t info;
-  uint16_t mode = 0x105;
+  uint16_t mode = 0x115;
   graphic_get_mode_info(mode, &info);
   graphic_def(&info);
   graphic_init(mode, SET_VBE_MODE);
   
-  //graphic_set_background(63);
+  //graphic_set_background(0xFFFFFF);
   //fr_buffer_to_video_mem();
-  graphic_draw_rectangle(0,0,get_h_res(), get_v_res(), 63);
+  graphic_draw_rectangle(0,0,get_h_res(), get_v_res(), WHITE);
   sleep(2);
 
   race_init(text, strlen(text));
   
-  destroy_fr_bufffer();
+  //destroy_fr_bufffer();
   vg_exit();
   return 0;
 }

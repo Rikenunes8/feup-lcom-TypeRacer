@@ -6,9 +6,9 @@
 
 
 static xpm_row_t char_0_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -25,9 +25,9 @@ static xpm_row_t char_0_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_1_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "    ..    ",
 "    ..    ",
 "  ....    ",
@@ -44,9 +44,9 @@ static xpm_row_t char_1_xpm[] = {
 ".........."};
 
 static xpm_row_t char_2_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -63,9 +63,9 @@ static xpm_row_t char_2_xpm[] = {
 ".........."};
 
 static xpm_row_t char_3_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -82,9 +82,9 @@ static xpm_row_t char_3_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_4_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "    ....  ",
 "    ....  ",
 "  ..  ..  ",
@@ -101,9 +101,9 @@ static xpm_row_t char_4_xpm[] = {
 "      ..  "};
 
 static xpm_row_t char_5_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "  ........",
@@ -120,9 +120,9 @@ static xpm_row_t char_5_xpm[] = {
 "        .."};
 
 static xpm_row_t char_6_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..        ",
@@ -139,9 +139,9 @@ static xpm_row_t char_6_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_7_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "........  ",
@@ -158,9 +158,9 @@ static xpm_row_t char_7_xpm[] = {
 "..  ......"};
 
 static xpm_row_t char_8_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -177,9 +177,9 @@ static xpm_row_t char_8_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_9_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -196,9 +196,9 @@ static xpm_row_t char_9_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_A_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -215,9 +215,9 @@ static xpm_row_t char_A_xpm[] = {
 "..      .."};
 
 static xpm_row_t char_B_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "        ..",
 "        ..",
 "  ......  ",
@@ -234,9 +234,9 @@ static xpm_row_t char_B_xpm[] = {
 "        .."};
 
 static xpm_row_t char_C_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -253,9 +253,9 @@ static xpm_row_t char_C_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_D_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "        ..",
 "        ..",
 "  ......  ",
@@ -272,9 +272,9 @@ static xpm_row_t char_D_xpm[] = {
 "        .."};
 
 static xpm_row_t char_E_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "  ........",
@@ -291,9 +291,9 @@ static xpm_row_t char_E_xpm[] = {
 "          "};
 
 static xpm_row_t char_F_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "  ........",
@@ -310,9 +310,9 @@ static xpm_row_t char_F_xpm[] = {
 "  ........"};
 
 static xpm_row_t char_G_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -329,9 +329,9 @@ static xpm_row_t char_G_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_H_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -348,9 +348,9 @@ static xpm_row_t char_H_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_I_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "....  ....",
@@ -367,9 +367,9 @@ static xpm_row_t char_I_xpm[] = {
 "          "};
 
 static xpm_row_t char_J_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "........  ",
@@ -386,9 +386,9 @@ static xpm_row_t char_J_xpm[] = {
 "..      .."};
 
 static xpm_row_t char_K_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -405,9 +405,9 @@ static xpm_row_t char_K_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_L_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ........",
 "  ........",
 "  ........",
@@ -424,9 +424,9 @@ static xpm_row_t char_L_xpm[] = {
 "          "};
 
 static xpm_row_t char_M_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "    ..    ",
@@ -443,9 +443,9 @@ static xpm_row_t char_M_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_N_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -462,9 +462,9 @@ static xpm_row_t char_N_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_O_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -481,9 +481,9 @@ static xpm_row_t char_O_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_P_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "        ..",
 "        ..",
 "  ......  ",
@@ -500,9 +500,9 @@ static xpm_row_t char_P_xpm[] = {
 "  ........"};
 
 static xpm_row_t char_Q_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -519,9 +519,9 @@ static xpm_row_t char_Q_xpm[] = {
 "  ....  .."};
 
 static xpm_row_t char_R_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "        ..",
 "        ..",
 "  ......  ",
@@ -538,9 +538,9 @@ static xpm_row_t char_R_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_S_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ........",
 "  ........",
 "..        ",
@@ -557,9 +557,9 @@ static xpm_row_t char_S_xpm[] = {
 "........  "};
 
 static xpm_row_t char_T_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "....  ....",
@@ -576,9 +576,9 @@ static xpm_row_t char_T_xpm[] = {
 "....  ...."};
 
 static xpm_row_t char_U_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -595,9 +595,9 @@ static xpm_row_t char_U_xpm[] = {
 "..      .."};
 
 static xpm_row_t char_V_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -614,9 +614,9 @@ static xpm_row_t char_V_xpm[] = {
 "....  ...."};
 
 static xpm_row_t char_W_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -633,9 +633,9 @@ static xpm_row_t char_W_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_X_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -652,9 +652,9 @@ static xpm_row_t char_X_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_Y_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......  ",
 "  ......  ",
 "  ......  ",
@@ -671,9 +671,9 @@ static xpm_row_t char_Y_xpm[] = {
 "....  ...."};
 
 static xpm_row_t char_Z_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "          ",
 "          ",
 "........  ",
@@ -690,9 +690,9 @@ static xpm_row_t char_Z_xpm[] = {
 "          "};
 
 static xpm_row_t char_a_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -709,9 +709,9 @@ static xpm_row_t char_a_xpm[] = {
 "  ........"};
 
 static xpm_row_t char_b_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ........",
 "  ........",
 "  ........",
@@ -728,9 +728,9 @@ static xpm_row_t char_b_xpm[] = {
 "        .."};
 
 static xpm_row_t char_c_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -747,9 +747,9 @@ static xpm_row_t char_c_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_d_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "        ..",
 "        ..",
 "        ..",
@@ -766,9 +766,9 @@ static xpm_row_t char_d_xpm[] = {
 "  ........"};
 
 static xpm_row_t char_e_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -785,9 +785,9 @@ static xpm_row_t char_e_xpm[] = {
 "  ........"};
 
 static xpm_row_t char_f_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "    ....  ",
 "    ....  ",
 "  ..      ",
@@ -804,9 +804,9 @@ static xpm_row_t char_f_xpm[] = {
 "  ..      "};
 
 static xpm_row_t char_g_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -823,9 +823,9 @@ static xpm_row_t char_g_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_h_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ........",
 "  ........",
 "  ........",
@@ -842,9 +842,9 @@ static xpm_row_t char_h_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_i_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "    ..    ",
 "    ..    ",
 "          ",
@@ -861,9 +861,9 @@ static xpm_row_t char_i_xpm[] = {
 ".........."};
 
 static xpm_row_t char_j_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "        ..",
 "        ..",
 "          ",
@@ -880,9 +880,9 @@ static xpm_row_t char_j_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_k_xpm[] = {
-"10 14 2",
-"  0",
-". 63",
+"10 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ........",
 "  ........",
 "  ........",
@@ -899,9 +899,9 @@ static xpm_row_t char_k_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_l_xpm[] = {
-"8 14 2",
-"  0",
-". 63",
+"8 14 2 1",
+" 	c #000000",
+".	c #FFFFFF",
 "  ......",
 "  ......",
 "  ......",
@@ -918,9 +918,9 @@ static xpm_row_t char_l_xpm[] = {
 "..      "};
 
 static xpm_row_t char_m_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -937,9 +937,9 @@ static xpm_row_t char_m_xpm[] = {
 "..      .."};
 
 static xpm_row_t char_n_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -956,9 +956,9 @@ static xpm_row_t char_n_xpm[] = {
 "..      .."};
 
 static xpm_row_t char_o_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -975,9 +975,9 @@ static xpm_row_t char_o_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_p_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -994,9 +994,9 @@ static xpm_row_t char_p_xpm[] = {
 "..        "};
 
 static xpm_row_t char_q_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1013,9 +1013,9 @@ static xpm_row_t char_q_xpm[] = {
 "        .."};
 
 static xpm_row_t char_r_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1032,9 +1032,9 @@ static xpm_row_t char_r_xpm[] = {
 "..        "};
 
 static xpm_row_t char_s_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1051,9 +1051,9 @@ static xpm_row_t char_s_xpm[] = {
 "........  "};
 
 static xpm_row_t char_t_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ..      ",
 "  ..      ",
 "  ..      ",
@@ -1070,9 +1070,9 @@ static xpm_row_t char_t_xpm[] = {
 "    ....  "};
 
 static xpm_row_t char_u_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1089,9 +1089,9 @@ static xpm_row_t char_u_xpm[] = {
 "  ........"};
 
 static xpm_row_t char_v_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1108,9 +1108,9 @@ static xpm_row_t char_v_xpm[] = {
 "    ..    "};
 
 static xpm_row_t char_w_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1127,9 +1127,9 @@ static xpm_row_t char_w_xpm[] = {
 "  ..  ..  "};
 
 static xpm_row_t char_x_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1146,9 +1146,9 @@ static xpm_row_t char_x_xpm[] = {
 "..      .."};
 
 static xpm_row_t char_y_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1165,9 +1165,9 @@ static xpm_row_t char_y_xpm[] = {
 "  ......  "};
 
 static xpm_row_t char_z_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1184,9 +1184,9 @@ static xpm_row_t char_z_xpm[] = {
 ".........."};
 
 static xpm_row_t char_space_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1203,9 +1203,9 @@ static xpm_row_t char_space_xpm[] = {
 "          "};
 
 static xpm_row_t char_colon_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "    ..    ",
@@ -1222,9 +1222,9 @@ static xpm_row_t char_colon_xpm[] = {
 "          "};
 
 static xpm_row_t char_semicolon_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "    ..    ",
@@ -1241,9 +1241,9 @@ static xpm_row_t char_semicolon_xpm[] = {
 "  ..      "};
 
 static xpm_row_t char_comma_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1260,9 +1260,9 @@ static xpm_row_t char_comma_xpm[] = {
 "  ..      "};
 
 static xpm_row_t char_dot_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "          ",
 "          ",
 "          ",
@@ -1279,9 +1279,9 @@ static xpm_row_t char_dot_xpm[] = {
 "    ..    "};
 
 static xpm_row_t char_exclamation_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "    ..    ",
 "    ..    ",
 "    ..    ",
@@ -1298,9 +1298,9 @@ static xpm_row_t char_exclamation_xpm[] = {
 "    ..    "};
 
 static xpm_row_t char_question_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ......  ",
 "  ......  ",
 "..      ..",
@@ -1317,9 +1317,9 @@ static xpm_row_t char_question_xpm[] = {
 "    ..    "};
 
 static xpm_row_t char_apostrophe_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "    ..    ",
 "    ..    ",
 "    ..    ",
@@ -1336,9 +1336,9 @@ static xpm_row_t char_apostrophe_xpm[] = {
 "          "};
 
 static xpm_row_t char_quotation_xpm[] = {
-"10 14 2",
-"  63",
-". 0",
+"10 14 2 1",
+" 	c #FFFFFF",
+".	c #000000",
 "  ..  ..  ",
 "  ..  ..  ",
 "  ..  ..  ",
