@@ -252,7 +252,7 @@ uint8_t get_char_xpm(char c) {
         case '?': return 68;
         case '\'': return 69;
         case '\"': return 70;
-        default: return 0;
+        default: return 100;
     }
 }
 

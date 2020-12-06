@@ -31,7 +31,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
  * @param text_Char: array with chars displayed on the screen and that the user is suppose to type
  * @param correct_keys: counter that counts the correct keys typed
  */
-void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys);
+void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys, size_t *len);
 
 /*
  * @param text: text to display on the screen
