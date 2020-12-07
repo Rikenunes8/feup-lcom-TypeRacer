@@ -161,8 +161,11 @@ uint8_t get_scancode_char(uint8_t *bytes) {
       case 0x4d: return R_ARROW;
     }
   }
-  else {
-    if (!shift_right && !shift_left) {
+  else 
+  {
+    //"normal" scancodes where we don't press the shift key
+    if (!shift_right && !shift_left) 
+    {
       switch (bytes[0]) {
         case 0x0b: return 0; // '0'
         case 0x02: return 1; // '1'
@@ -205,7 +208,9 @@ uint8_t get_scancode_char(uint8_t *bytes) {
         case 0x0c: return 69; // '''
       }
     }
-    else {
+    else 
+    {
+      //scancodes where we press the shift key
       switch (bytes[0]) {
         case 0x1e: return 10; // 'A'
         case 0x30: return 11;
@@ -240,6 +245,8 @@ uint8_t get_scancode_char(uint8_t *bytes) {
         case 0x03: return 70; // '"'
       }
     }
+
+    //other scancodes
     switch (bytes[0]) {
       case 0x39: return SPACE; // ' '
       case 0x36: shift_left = true; return NOTHING;

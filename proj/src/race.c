@@ -5,17 +5,21 @@
 extern xpm_map_t letters[];
 extern uint8_t scancode;
 extern int timer_counter;
-int no_seconds = 0;
 
 static size_t MAX_LEN;
 
-void race_init(const char *text, size_t len) {
+void race_init(const char *text, size_t len) 
+{
   uint8_t scancode_bytes[2];
+  size_t no_seconds = 0; // counts the number of seconds
+  size_t no_minutes = 0; //counts the number of minutes
+  size_t count_backspaces = 0; //counts the number of backspaces
+
   // Prepare space to allocate text
   Char * text_Char = malloc(len*sizeof(Char));
 
-  display_time(no_seconds, 20, 20);
-  display_text(text, text_Char, len, X_STRT_TEXT, Y_STRT_TEXT);
+  display_integer(no_seconds, 20, 20);
+  display_text(text, text_Char, len, X_TEXT, Y_TEXT);
 
   // Prepare array to write
   MAX_LEN = len+10; // Margin of 10 more Chars to write in typed_text
@@ -34,12 +38,13 @@ void race_init(const char *text, size_t len) {
   uint8_t timer_bit_no = 0;
   uint32_t timer_irq_set = BIT(timer_bit_no);
   timer_subscribe_int(&timer_bit_no);
+
     
   int ipc_status;
   message msg;
   int r = 0;
   //sair através da ESC key
-  while(scancode != ESC_KEY && correct_keys != len) 
+  while(scancode != ESC_KEY /*&& correct_keys != len*/) 
   { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
@@ -50,7 +55,7 @@ void race_init(const char *text, size_t len) {
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: /* hardware interrupt notification */				
           if (msg.m_notify.interrupts & kbd_irq_set) { 
-            /* subscribed interrupt */
+            /* subscribed KBC interrupt */
             kbc_ih();
             assemble_scancode(scancode_bytes);
             // If scancode is all set
@@ -59,6 +64,9 @@ void race_init(const char *text, size_t len) {
               // Get typed key
               aux_key = get_scancode_char(scancode_bytes);
               if (aux_key == 100) break; // If not a char to draw, break
+
+              if (aux_key == BACKSPACE) count_backspaces++; //counts number of backspaces typed
+
 
               update_typed_text(aux_key, typed_text, &n_keys, &current_key);
               // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
@@ -73,12 +81,25 @@ void race_init(const char *text, size_t len) {
           }
           if (msg.m_notify.interrupts & timer_irq_set) 
           { 
-            /* subscribed interrupt */
+            /* subscribed TIMER 0 interrupts */
             timer_int_handler();
             if(timer_counter % 60 == 0)
             {
-              no_seconds = no_seconds + 1;
-              display_time(no_seconds, 20, 20);              
+              no_seconds++;
+              if(no_seconds == 60)
+              {
+                no_minutes++;
+                no_seconds = 0;
+              }
+              display_integer(no_minutes, 20, 20); 
+              char text_quotation[] = " : ";
+              Char * text_quotation_Char = malloc(len*sizeof(Char));
+              display_text(text_quotation, text_quotation_Char, strlen(text_quotation), 30, 20);
+              display_integer(no_seconds, 60, 20);
+              free(text_quotation_Char);     
+
+              display_results(no_minutes, no_seconds, correct_keys, count_backspaces, n_keys, len);
+         
             }
             
           }
@@ -91,14 +112,15 @@ void race_init(const char *text, size_t len) {
     tickdelay(micros_to_ticks(DELAY_US));
   }
 
-  //displays total number of seconds (incomplete)
-  display_time(no_seconds, 20, 20);
-  //printf("\nstr: %s", str);
-  sleep(2);
+  //displays the results
+  display_results(no_minutes, no_seconds, correct_keys, count_backspaces, n_keys, len);
+
+  sleep(5);
 
 
   free(text_Char);
   free(typed_text);
+
   //unsubscribe interrupts
   kbc_unsubscribe_int();
   timer_unsubscribe_int();
@@ -133,7 +155,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
       display_Char(&typed_text[n]);
     
     // Draw current key bar
-    if (*current_key == 0) graphic_draw_rectangle(X_STRT_TYPE-1, Y_STRT_TYPE, 1, CHAR_H, BLACK);
+    if (*current_key == 0) graphic_draw_rectangle(X_TYPE-1, Y_TYPE, 1, CHAR_H, BLACK);
     else graphic_draw_rectangle(typed_text[*current_key-1].posx+CHAR_W, typed_text[*current_key-1].posy, 1, CHAR_H, BLACK);
   }
   else if (key.index == L_ARROW) {
@@ -145,14 +167,14 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
     (*current_key)--; // Decrement index of the cursor in typed_text array
     
     // Draw current key bar
-    if (*current_key == 0) graphic_draw_rectangle(X_STRT_TYPE-1, Y_STRT_TYPE, 1, CHAR_H, BLACK);
+    if (*current_key == 0) graphic_draw_rectangle(X_TYPE-1, Y_TYPE, 1, CHAR_H, BLACK);
     else graphic_draw_rectangle(typed_text[*current_key-1].posx+CHAR_W, typed_text[*current_key-1].posy, 1, CHAR_H, BLACK);
   }
   else if (key.index == R_ARROW) {
     if (*current_key == *n_keys) return; // Don't allow cursor to advance when it's at the end
 
     // Erase previous key bar
-    if (*current_key == 0) graphic_draw_rectangle(X_STRT_TYPE-1, Y_STRT_TYPE, 1, CHAR_H, WHITE);
+    if (*current_key == 0) graphic_draw_rectangle(X_TYPE-1, Y_TYPE, 1, CHAR_H, WHITE);
     else graphic_draw_rectangle(typed_text[*current_key-1].posx+CHAR_W, typed_text[*current_key-1].posy, 1, CHAR_H, WHITE);
     
     (*current_key)++; // Increment index of the cursor in typed_text array
@@ -166,8 +188,8 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
 
     // Set position to the first typed key
     if (*current_key == 0) {
-      key.posx = X_STRT_TYPE;
-      key.posy = Y_STRT_TYPE;
+      key.posx = X_TYPE;
+      key.posy = Y_TYPE;
     }
     else { // Set position to non first typed keys
       // Find the previous key
@@ -175,7 +197,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
 
       // If previous key is a space and and is after a limit set position to next vertical pos
       if (previous_key.posx > 900 && previous_key.index == SPACE) {
-        key.posx = X_STRT_TYPE;
+        key.posx = X_TYPE;
         key.posy = previous_key.posy + (CHAR_H+3);
       }
       else { // Set next horizontal position and keep previous vertical position
@@ -185,7 +207,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
     }
 
     // Erase current key bar
-    if (*current_key == 0) graphic_draw_rectangle(X_STRT_TYPE-1, Y_STRT_TYPE, 1, CHAR_H, WHITE);
+    if (*current_key == 0) graphic_draw_rectangle(X_TYPE-1, Y_TYPE, 1, CHAR_H, WHITE);
     else graphic_draw_rectangle(typed_text[*current_key-1].posx+CHAR_W, typed_text[*current_key-1].posy, 1, CHAR_H, WHITE);
     
     // Add Char to typed_text
@@ -277,9 +299,10 @@ int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_posit
   return 0;
 }
 
-void display_time(int time, uint16_t x, uint16_t y) {
+void display_integer(int integer, uint16_t x, uint16_t y) {
   char str[20];    //empty string to store no_seconds
-  sprintf(str, "%d", time); //casts the number no_seconds to the string str
+
+  sprintf(str, "%d", integer); //casts the number no_seconds to the string str
   
   Char* str_Char = malloc(strlen(str)*sizeof(Char)); // Convert string of chars to string of Chars
 
@@ -288,6 +311,20 @@ void display_time(int time, uint16_t x, uint16_t y) {
   free(str_Char);
 }
 
+void display_float(float decimal, uint16_t x, uint16_t y) 
+{
+  char str[20];    //empty string to store no_seconds
+
+  sprintf(str, "%.2f", decimal); //casts the number no_seconds to the string str
+  
+  Char* str_Char = malloc(strlen(str)*sizeof(Char)); // Convert string of chars to string of Chars
+
+  display_text(str, str_Char, strlen(str), x, y);
+
+  free(str_Char);
+}
+
+
 void display_Char(Char *c) {
   uint8_t * map;
   xpm_image_t img;
@@ -295,13 +332,54 @@ void display_Char(Char *c) {
   graphic_Char_xpm(map, &img, c->posx, c->posy, c->state);
 }
 
+void display_results(size_t no_minutes, size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len)
+{
+  //displays time in format minutes:seconds
+  char text_time[] = "Total time: ";
+  Char * text_time_Char = malloc(len*sizeof(Char));
+  display_text(text_time, text_time_Char, strlen(text_time), X_TIME, Y_TIME);
+  display_integer(no_minutes, X_TIME_RESULT, Y_TIME_RESULT); 
+  char text_quotation[] = " : ";
+  Char * text_quotation_Char = malloc(len*sizeof(Char));
+  display_text(text_quotation, text_quotation_Char, strlen(text_quotation), X_TIME_RESULT + 10, Y_TIME_RESULT);
+  display_integer(no_seconds, X_TIME_RESULT + 40, Y_TIME_RESULT);  
+
+  //displays caracters per minute (CPM)
+  char text_CPM_intro[] = "Your speed: ";
+  Char * text_CPM_intro_Char = malloc(len*sizeof(Char));
+  display_text(text_CPM_intro, text_CPM_intro_Char, strlen(text_CPM_intro), X_CPM_INTRO, Y_CPM_INTRO);
+  size_t CPM = (correct_keys * 60) / (float)(no_seconds+(60*no_minutes));
+  display_integer(CPM, X_CPM_RESULT, Y_CPM_RESULT);
+  char text_CPM[] = "caracters per minute ";
+  Char * text_CPM_Char = malloc(len*sizeof(Char));
+  display_text(text_CPM, text_CPM_Char, strlen(text_CPM), X_CPM, Y_CPM);
+
+  //displays accuracy
+  char text_accuracy[] = "Accuracy: ";
+  Char * text_accuracy_Char = malloc(len*sizeof(Char));
+  display_text(text_accuracy, text_accuracy_Char, strlen(text_accuracy), 20, 500);
+  float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
+  display_float(accuracy, 160, 500);
+  //char text_percentage[] = "%%";
+  //Char * text_percentage_Char = malloc(len*sizeof(Char));
+  //display_text(text_percentage, text_percentage_Char, strlen(text_percentage), 250, 450);
+
+  free(text_time_Char);
+  free(text_CPM_intro_Char);
+  free(text_CPM_Char);
+  free(text_accuracy_Char);
+  free(text_quotation_Char); 
+  //free(text_percentage_Char);
+
+}
+
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
   uint16_t x;
   uint16_t y;
   // Recognize coors of the begin
   if (begin == 0) {
-     x = X_STRT_TYPE;
-     y = Y_STRT_TYPE;
+     x = X_TYPE;
+     y = Y_TYPE;
   }
   // Recognize coors of the key indexed before begin
   else {
@@ -319,7 +397,7 @@ void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
     // If the char is ' ' and x passed the limit set next vertical position
     if (x>get_h_res()-100 && typed_text[i].index == SPACE) {
       y += CHAR_H+3; 
-      x = X_STRT_TYPE;
+      x = X_TYPE;
     }
   }
 }

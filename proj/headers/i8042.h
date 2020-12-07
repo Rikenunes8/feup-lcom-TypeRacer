@@ -55,7 +55,8 @@
 
 
 /* Keys */
-#define ESC_KEY   0x81
+#define ESC_KEY     0x81
+#define ENTER_KEY   0x1c
 
 /* Keys map */
 #define SPACE     62

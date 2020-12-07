@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 int(proj_main_loop)(int argc, char *argv[])
 {
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  char text[] = "Yeah, they got you where they want you."; 
+  char text[] = "Yeah, ya."; 
   
   vbe_mode_info_t info;
   uint16_t mode = 0x115;
