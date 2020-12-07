@@ -70,6 +70,8 @@ void display_integer(int integer, uint16_t x, uint16_t y);
  */
 void display_float(float decimal, uint16_t x, uint16_t y);
 
+void display_time(uint16_t seconds, uint16_t x, uint16_t y);
+
 void display_Char(Char *c);
 
 /*

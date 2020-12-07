@@ -243,6 +243,7 @@ uint8_t get_scancode_char(uint8_t *bytes) {
         case 0x02: return 67; // '!'
         case 0x0c: return 68; // '?'
         case 0x03: return 70; // '"'
+        case 0x06: return 71; // '%'
       }
     }
 

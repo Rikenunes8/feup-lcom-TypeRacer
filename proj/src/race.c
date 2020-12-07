@@ -11,9 +11,9 @@ static size_t MAX_LEN;
 void race_init(const char *text, size_t len) 
 {
   uint8_t scancode_bytes[2];
-  size_t no_seconds = 0; // counts the number of seconds
-  size_t no_minutes = 0; //counts the number of minutes
-  size_t count_backspaces = 0; //counts the number of backspaces
+  uint16_t no_seconds = 0; // counts the number of seconds
+  uint16_t no_minutes = 0; //counts the number of minutes
+  uint16_t count_backspaces = 0; //counts the number of backspaces
 
   // Prepare space to allocate text
   Char * text_Char = malloc(len*sizeof(Char));
@@ -44,7 +44,7 @@ void race_init(const char *text, size_t len)
   message msg;
   int r = 0;
   //sair através da ESC key
-  while(scancode != ESC_KEY /*&& correct_keys != len*/) 
+  while(scancode != ESC_KEY && correct_keys != len) 
   { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
@@ -63,7 +63,7 @@ void race_init(const char *text, size_t len)
             {
               // Get typed key
               aux_key = get_scancode_char(scancode_bytes);
-              if (aux_key == 100) break; // If not a char to draw, break
+              if (aux_key == NOTHING) break; // If not a char to draw, break
 
               if (aux_key == BACKSPACE) count_backspaces++; //counts number of backspaces typed
 
@@ -72,12 +72,10 @@ void race_init(const char *text, size_t len)
               // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
               update_correct_keys(typed_text, &n_keys, text_Char, &correct_keys, &len);
               
-              //display_time(correct_keys, 700, 20);
-              //display_time(n_keys, 500, 20);
-              //display_time(current_key, 300, 20);
+              display_integer(correct_keys, 700, 20);
+              display_integer(n_keys, 500, 20);
+              display_integer(current_key, 300, 20);
             }
-
-            
           }
           if (msg.m_notify.interrupts & timer_irq_set) 
           { 
@@ -86,19 +84,20 @@ void race_init(const char *text, size_t len)
             if(timer_counter % 60 == 0)
             {
               no_seconds++;
-              if(no_seconds == 60)
+              if(no_seconds%60 == 0)
               {
                 no_minutes++;
-                no_seconds = 0;
+                //no_seconds = 0;
               }
-              display_integer(no_minutes, 20, 20); 
+              display_time(no_seconds, 20, 20);
+              /*display_integer(no_minutes, 20, 20); 
               char text_quotation[] = " : ";
               Char * text_quotation_Char = malloc(len*sizeof(Char));
               display_text(text_quotation, text_quotation_Char, strlen(text_quotation), 30, 20);
               display_integer(no_seconds, 60, 20);
-              free(text_quotation_Char);     
+              free(text_quotation_Char);*/
 
-              display_results(no_minutes, no_seconds, correct_keys, count_backspaces, n_keys, len);
+              display_results(no_minutes, no_seconds%60, correct_keys, count_backspaces, n_keys, len);
          
             }
             
@@ -113,7 +112,7 @@ void race_init(const char *text, size_t len)
   }
 
   //displays the results
-  display_results(no_minutes, no_seconds, correct_keys, count_backspaces, n_keys, len);
+  display_results(no_minutes, no_seconds%60, correct_keys, count_backspaces, n_keys, len);
 
   sleep(5);
 
@@ -196,7 +195,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
       previous_key = typed_text[*current_key-1];
 
       // If previous key is a space and and is after a limit set position to next vertical pos
-      if (previous_key.posx > 900 && previous_key.index == SPACE) {
+      if (previous_key.posx > get_h_res()-100 && previous_key.index == SPACE) {
         key.posx = X_TYPE;
         key.posy = previous_key.posy + (CHAR_H+3);
       }
@@ -233,8 +232,15 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
 }
 
 void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys, size_t *len) {
-  *correct_keys = 0; // Reset counting of matched keys
-  size_t n = 0;
+  size_t n;
+  // If no need to review all letters
+  if (*correct_keys == *n_keys-1) {
+    n = *correct_keys;
+  }
+  else {
+    *correct_keys = 0; // Reset counting of matched keys
+    n = 0;
+  }
   // while keys match paint text_Char's Chars green
   while (typed_text[n].index == text_Char[n].index && n<*n_keys && *n_keys<*len+1) {
     (*correct_keys)++;
@@ -254,23 +260,6 @@ void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size
   }
     
   return;
-  
-  /*
-  // If comparing key typed with corresponding char in the same position of text
-  if (*correct_keys == *n_keys-1){
-    // If they are same chars increment number of correct keys, otherwise ignore
-    if (text_Char[*correct_keys].index == typed_text[*n_keys-1].index) {
-      (*correct_keys)++;
-      //text_Char[*n_keys-1].state = RIGHT;
-      //display_Char(&typed_text[*n_keys-1]);
-    }
-      
-  }
-  else if (*correct_keys > *n_keys) {
-    *correct_keys = *n_keys; // No more correct keys than typed
-  }*/
-
-
 }
 
 int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) {
@@ -324,6 +313,16 @@ void display_float(float decimal, uint16_t x, uint16_t y)
   free(str_Char);
 }
 
+void display_time(uint16_t seconds, uint16_t x, uint16_t y) {
+  char time[20];    //empty string to store no_seconds
+  sprintf(time, "%d : %d", seconds/60, seconds%60); //casts the number no_seconds to the string str
+  
+  Char* time_Char = malloc(strlen(time)*sizeof(Char)); // Convert string of chars to string of Chars
+
+  display_text(time, time_Char, strlen(time), x, y);
+
+  free(time_Char);
+}
 
 void display_Char(Char *c) {
   uint8_t * map;
@@ -359,6 +358,7 @@ void display_results(size_t no_minutes, size_t no_seconds, size_t correct_keys, 
   Char * text_accuracy_Char = malloc(len*sizeof(Char));
   display_text(text_accuracy, text_accuracy_Char, strlen(text_accuracy), 20, 500);
   float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
+  if (accuracy < 0) accuracy = 0;
   display_float(accuracy, 160, 500);
   //char text_percentage[] = "%%";
   //Char * text_percentage_Char = malloc(len*sizeof(Char));
