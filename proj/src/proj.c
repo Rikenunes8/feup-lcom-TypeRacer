@@ -4,6 +4,7 @@
 #include "../headers/proj.h"
 #include "../headers/graphic.h"
 #include "../headers/race.h"
+//#include "../headers/menus.h"
 #include <machine/int86.h>
 
 
@@ -48,6 +49,17 @@ int(proj_main_loop)(int argc, char *argv[])
   sleep(2);
 
   race_init(text, strlen(text));
+
+  /*
+  if(main_menu() == 0)
+  {
+    return 0;
+  }
+  else
+  {
+    printf("Erro\n");
+  }*/
+  
   
   //destroy_fr_bufffer();
   vg_exit();
