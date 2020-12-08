@@ -4,7 +4,7 @@
 #include "../headers/proj.h"
 #include "../headers/graphic.h"
 #include "../headers/race.h"
-//#include "../headers/menus.h"
+#include "../headers/menus.h"
 #include <machine/int86.h>
 
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 
 int(proj_main_loop)(int argc, char *argv[])
 {
-  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
+  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
   //char text[] = "Yeah, ya."; 
   
   vbe_mode_info_t info;
@@ -49,8 +49,10 @@ int(proj_main_loop)(int argc, char *argv[])
   sleep(2);
 
   race_init(text, strlen(text));
+  
+  //display_main_menu(); -> displays the menu
 
-  /*
+  /* Vai para a state machine dos menus
   if(main_menu() == 0)
   {
     return 0;

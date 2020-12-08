@@ -1,26 +1,30 @@
 #include <../headers/menus.h>
+#include <../headers/xpixmap.h>
+#include <../headers/graphic.h>
+
 
 int main_menu()
 {
+    /* Mouse stuff
     if (kbc_write_byte(WRT_MOUSE, ENB_DR) != 0) // Enable data report
     return 1;
 
     uint8_t bit_no = 12;
-
     if (kbc_subscribe_int(&bit_no, MOUSE12_IRQ) != 0) 
     {
         printf("Error kbc_subscribe\n");
         return 1;
     }
 
-    
     Menu_state state = MAIN;
     Menu_event event;
     int32_t move_x = 0, move_y = 0, errorx = 0, errory = 0;
     int32_t dx, dy;
+    struct packet pp;*/
+
+    /*Keyboard stuff*/
 
 
-    struct packet pp;
     int ipc_status;
     message msg;
     uint32_t irq_set = BIT(bit_no);
@@ -28,20 +32,20 @@ int main_menu()
 
     while(state != EXIT) 
     { 
-    /* Get a request message. */
+    //Get a request message. 
         if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
         { 
             printf("driver_receive failed with: %d", r);
             continue;
         }
         if (is_ipc_notify(ipc_status)) 
-        {   /* received notification */
+        {   // received notification 
             switch (_ENDPOINT_P(msg.m_source)) 
             {
-                case HARDWARE: /* hardware interrupt notification */				
+                case HARDWARE: // hardware interrupt notification 				
                     if (msg.m_notify.interrupts & irq_set) 
                     { 
-                        /* mouse interrupt */ 
+                        // mouse interrupt 
                         mouse_ih();
                         if (packet_byte_counter == 3) 
                         {
@@ -139,13 +143,13 @@ int main_menu()
                     break;
                 default:
                   printf("Receive no interrupt\n");
-                  break; /* no other notifications expected: do nothing */	
+                  break; // no other notifications expected: do nothing 	
             }
         } 
         else 
         {  
-          /* received a standard message, not a notification */
-          /* no standard messages expected: do nothing */
+          //received a standard message, not a notification 
+          //no standard messages expected: do nothing 
         }
     tickdelay(micros_to_ticks(DELAY_US));
     }
@@ -154,4 +158,16 @@ int main_menu()
   kbc_unsubscribe_int();
   kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
   return 1;
+}
+
+void display_main_menu()
+{
+  uint8_t * map;
+  xpm_image_t img;
+  xpm_map_t xpm = menu;
+  map = xpm_load(xpm, XPM_8_8_8, &img);
+  graphic_Char_xpm(map, &img, 0, 0, NORMAL);
+
+  sleep(5);
+  return;
 }

@@ -28,21 +28,4 @@ void assemble_packet(struct packet *pp);
 
 void mouse_events(Mouse_event *event, struct packet *pp);
 
-/*
- * Por implementar
- * events:
- *  - click_on_race
- *  - click_on_race_with_friend
- *  - click_on_best_results
- *  - click_on_exit
- *  - click_on_try_again_race
- *  - click_on_try_again_friends_race
- *  - click_on_save_results
- *  - type_ESC 
- * 
- * recebe o pacote e retorna o evento correspondente. 
- * If e else, em que se retorna cada evento caso se clique no botão correspondente (right button num intervalos de posições correctas)
- * subscrever keyboard e mouse
-*/
-Menu_event* read_event(struct packet *pp):
 #endif /* _LCOM_MOUSE_H */
