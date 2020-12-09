@@ -157,8 +157,10 @@ uint8_t get_scancode_char(uint8_t *bytes) {
   //indicates that is a two_byte scancode
   if (bytes[0] == 0xE0) {
     switch (bytes[1]) {
-      case 0x4b: return L_ARROW;
-      case 0x4d: return R_ARROW;
+      case 0x4b: return L_ARROW; //left arrow
+      case 0x4d: return R_ARROW; //right arrow
+      case 0x48: return T_ARROW; //top arrow
+      case 0x50: return D_ARROW; //down arrow
     }
   }
   else 
@@ -255,6 +257,7 @@ uint8_t get_scancode_char(uint8_t *bytes) {
       case 0xb6: shift_left = false; return NOTHING;
       case 0xaa: shift_right = false; return NOTHING;
       case 0x0e: return BACKSPACE; // backspace
+      case 0x81: return ESC;
       default: return NOTHING;
     }
   }

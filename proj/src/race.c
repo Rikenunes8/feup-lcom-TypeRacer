@@ -32,7 +32,7 @@ void race_init(const char *text, size_t len)
   // Prepare keyboard interruptions
   uint8_t kbd_bit_no = 1;
   uint32_t kbd_irq_set = BIT(kbd_bit_no);
-  kbc_subscribe_int(&kbd_bit_no);
+  //kbc_subscribe_int(&kbd_bit_no);
 
   // Prepare timer interruptions
   uint8_t timer_bit_no = 0;
@@ -44,7 +44,7 @@ void race_init(const char *text, size_t len)
   message msg;
   int r = 0;
   //sair através da ESC key
-  while(scancode != ESC_KEY && correct_keys != len) 
+  while(/*scancode != ESC_KEY &&*/ correct_keys != len) 
   { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
@@ -114,15 +114,16 @@ void race_init(const char *text, size_t len)
   //displays the results
   display_results(no_minutes, no_seconds%60, correct_keys, count_backspaces, n_keys, len);
 
-  sleep(5);
 
 
   free(text_Char);
   free(typed_text);
 
   //unsubscribe interrupts
-  kbc_unsubscribe_int();
+  //kbc_unsubscribe_int();
   timer_unsubscribe_int();
+
+  return;
 }
 
 void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_t *current_key) {

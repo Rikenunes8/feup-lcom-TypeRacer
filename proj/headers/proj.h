@@ -5,4 +5,8 @@
 #include <stdint.h>
 #include <stdio.h>
 
+int subscribe_all();
+
+int unsubscribe_all();
+
 #endif

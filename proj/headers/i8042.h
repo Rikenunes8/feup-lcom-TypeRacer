@@ -55,7 +55,6 @@
 
 
 /* Keys */
-#define ESC_KEY     0x81
 #define ENTER_KEY   0x1c
 
 /* Keys map */
@@ -64,6 +63,9 @@
 #define BACKSPACE 200
 #define L_ARROW   101
 #define R_ARROW   102
+#define T_ARROW   103
+#define D_ARROW   104
+#define ESC       105
 
 
 #endif /* _LCOM_I8042_H */

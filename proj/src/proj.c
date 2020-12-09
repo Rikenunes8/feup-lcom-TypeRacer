@@ -45,25 +45,39 @@ int(proj_main_loop)(int argc, char *argv[])
   
   //graphic_set_background(0xFFFFFF);
   //fr_buffer_to_video_mem();
-  graphic_draw_rectangle(0,0,get_h_res(), get_v_res(), WHITE);
-  sleep(2);
+  //graphic_draw_rectangle(0,0,get_h_res(), get_v_res(), WHITE);
+  //sleep(2);
 
-  race_init(text, strlen(text));
+  //race_init(text, strlen(text));
+
+  subscribe_all();
   
-  //display_main_menu(); -> displays the menu
-
-  /* Vai para a state machine dos menus
-  if(main_menu() == 0)
-  {
-    return 0;
-  }
-  else
+  display_main_menu();
+  // Vai para a state machine dos menus
+  if(main_menu() != 0)
   {
     printf("Erro\n");
-  }*/
+  }
   
   
   //destroy_fr_bufffer();
+  unsubscribe_all();
+  sleep(5);
   vg_exit();
   return 0;
 }
+
+int subscribe_all()
+{
+  uint8_t kbd_bit_no = 1;
+  kbc_subscribe_int(&kbd_bit_no);
+
+  return 0;
+}
+
+int unsubscribe_all()
+{
+  kbc_unsubscribe_int();
+  return 0;
+}
+

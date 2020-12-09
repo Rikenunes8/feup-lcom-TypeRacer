@@ -82,6 +82,6 @@ void display_main_menu();
  * If e else, em que se retorna cada evento caso se clique no botão correspondente (right button num intervalos de posições correctas)
  * subscrever keyboard e mouse
 */
-Menu_event* read_event(struct packet *pp, scancode...):
+Menu_event read_event(/*struct packet *pp,*/ uint8_t aux_key);
 
 #endif /* _LCOM_MOUSE_H */
