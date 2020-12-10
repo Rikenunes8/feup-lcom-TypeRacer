@@ -1,17 +1,11 @@
-#ifndef _LCOM_MOUSE_H
-#define _LCOM_MOUSE_H
+#ifndef _LCOM_MENUS_H
+#define _LCOM_MENUS_H
 
 #include <lcom/lcf.h>
 
-typedef enum
-{
-    MAIN,
-    RACE,
-    RACE_WITH_FRIEND,
-    BEST_RESULTS,
-    RESULTS,
-    EXIT
-} Menu_state;
+#include "../headers/mouse.h"
+
+
 
 typedef enum
 {
@@ -26,7 +20,8 @@ typedef enum
     type_down_arrow,
     type_top_arrow,
     type_right_arrow,
-    type_left_arrow
+    type_left_arrow, 
+    none
     
 } Menu_event;
 
@@ -54,6 +49,13 @@ typedef enum
 #define exit_y_top   267
 #define exit_y_down  329
 
+#define RACE_CHOICE          1
+#define FRIEND_RACE_CHOICE   4
+#define BEST_RESULTS_CHOICE  3
+#define EXIT_CHOICE          2
+
+
+
 /*
  * Main menu
  * @return int: 0 if exits with success; 1 if error
@@ -63,7 +65,6 @@ int main_menu();
 void display_main_menu();
 
 /*
- * Por implementar
  * events:
  *  - click_on_race
  *  - click_on_race_with_friend
@@ -77,11 +78,14 @@ void display_main_menu();
  *  - type_top_arrow
  *  - type_right_arrow
  *  - type_left_arrow
+ *  - none
  * 
  * recebe o pacote e retorna o evento correspondente. 
  * If e else, em que se retorna cada evento caso se clique no botão correspondente (right button num intervalos de posições correctas)
  * subscrever keyboard e mouse
 */
-Menu_event read_event(/*struct packet *pp,*/ uint8_t aux_key);
+Menu_event read_kbd_event(uint8_t aux_key);
+Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y);
 
-#endif /* _LCOM_MOUSE_H */
+
+#endif /* _LCOM_MENUS_H */

@@ -2,14 +2,18 @@
 #define _LCOM_MOUSE_H
 
 #include <lcom/lcf.h>
-#include <i8042.h>
+#include <../headers/i8042.h>
 
-typedef enum {INIT, DRAW1, VERTEX, DRAW2, FINAL} State;
-typedef enum {LB_DOWN, LB_UP, MB_DOWN, MB_UP, RB_DOWN, RB_UP, MANY_DOWN, MOVE} Mouse_event;
+typedef enum {LB_DOWN, LB_UP, MB_DOWN, MB_UP, RB_DOWN, RB_UP, MANY_DOWN, MOVE} Mouse_event_t;
 
-int (kbc_subscribe_int)(uint8_t *bit_no, uint8_t irq);
+typedef struct {
+  Mouse_event_t ev;
+  int32_t dx; int32_t dy;
+} Mouse_event;
 
-int (kbc_unsubscribe_int)(); 
+int (mouse_subscribe_int)(uint8_t *bit_no);
+
+int (mouse_unsubscribe_int)(); 
 
 /**
  *  Handles mouse interrupts (C implementation)

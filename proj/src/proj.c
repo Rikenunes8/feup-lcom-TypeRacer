@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
 int(proj_main_loop)(int argc, char *argv[])
 {
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  //char text[] = "Yeah, ya."; 
+  char text[] = "Yeah, ya."; 
   
   vbe_mode_info_t info;
   uint16_t mode = 0x115;
@@ -50,19 +50,46 @@ int(proj_main_loop)(int argc, char *argv[])
 
   //race_init(text, strlen(text));
 
-  subscribe_all();
+  //subscribe_all();
+  Menu_state state = MENU;
+  uint8_t choice = 0;
+
   
-  display_main_menu();
   // Vai para a state machine dos menus
-  if(main_menu() != 0)
-  {
-    printf("Erro\n");
+  while (state != EXIT) {
+    
+    switch (state) {
+      case MENU:
+        if(main_menu(&choice) != 0) return 1;
+        if (choice == RACE_CHOICE)
+          state = RACE;
+        else if (choice == FRIEND_RACE_CHOICE)
+          state = RACE_WITH_FRIEND;
+        else if (choice == BEST_RESULTS_CHOICE)
+          state = BEST_RESULTS_CHOICE;
+        if (choice == EXIT_CHOICE)
+          state = EXIT;
+        break;
+      case RACE:
+        printf("RACE\n");
+        graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-32, WHITE);
+        race_init(text, strlen(text));
+        state = MENU;
+        break;
+      case RACE_WITH_FRIEND:
+        break;
+      case BEST_RESULTS:
+        break;
+      case EXIT:
+        break;
+      default:
+        break;
+    }
   }
   
   
   //destroy_fr_bufffer();
-  unsubscribe_all();
-  sleep(5);
+  //unsubscribe_all();
   vg_exit();
   return 0;
 }
@@ -70,14 +97,14 @@ int(proj_main_loop)(int argc, char *argv[])
 int subscribe_all()
 {
   uint8_t kbd_bit_no = 1;
-  kbc_subscribe_int(&kbd_bit_no);
+  kbd_subscribe_int(&kbd_bit_no);
 
   return 0;
 }
 
 int unsubscribe_all()
 {
-  kbc_unsubscribe_int();
+  kbd_unsubscribe_int();
   return 0;
 }
 

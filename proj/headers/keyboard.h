@@ -5,9 +5,9 @@
 #include <lcom/lcf.h>
 #include <../headers/i8042.h>
 
-int (kbc_subscribe_int)(uint8_t *bit_no);
+int (kbd_subscribe_int)(uint8_t *bit_no);
 
-int (kbc_unsubscribe_int)(); 
+int (kbd_unsubscribe_int)(); 
 
 /**
  *  Handles keyboard interrupts (C implementation)

@@ -6,7 +6,7 @@ uint32_t scancode;
 static bool shift_right = false;
 static bool shift_left = false;
 
-int (kbc_subscribe_int)(uint8_t *bit_no) 
+int (kbd_subscribe_int)(uint8_t *bit_no) 
 {
   hook_id = *bit_no;
   if (sys_irqsetpolicy(KEYBOARD1_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id) != OK) 
@@ -18,7 +18,7 @@ int (kbc_subscribe_int)(uint8_t *bit_no)
   
 }
 
-int (kbc_unsubscribe_int)() 
+int (kbd_unsubscribe_int)() 
 {
   if (sys_irqrmpolicy(&hook_id) != OK) 
   {
@@ -42,10 +42,11 @@ void (kbc_ih)()
     printf("Error in sys_inb()");
     return;
   }
-  /* loop while 8042 output buffer is empty */
-  if(st & OBF) // entra no if se output buffer está cheio e se tem algo para ler (o scancode)
+  
+  if ((st & AUX) != 0) return;
+  if ( (st & (PARITY | TIMEOUT)) == 0 ) //check if there was some communications error
   {
-    if ( (st & (PARITY | TIMEOUT)) == 0 ) //check if there was some communications error
+    if(st & OBF) // entra no if se output buffer está cheio e se tem algo para ler (o scancode)
     {
       if(sys_inb(OUT_BUF, &scancode) != OK) //lê a informação de OUT_BUF e coloca-a em scancode
       {
@@ -53,8 +54,6 @@ void (kbc_ih)()
         return;
       }
     }
-    else
-      return;
   }
   
   return;

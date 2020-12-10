@@ -1,16 +1,18 @@
-#include <mouse.h>
-
-//static int hook_id;
+#include "../headers/mouse.h"
+  
+static int hook_id;
 static uint8_t PACKET[3];
-uint32_t packet_byte_counter = 0;
+uint8_t packet_byte_counter = 0;
+int32_t mouse_x = 0;
+int32_t mouse_y = 0;
 
 
-/* VER UTILS
-int (kbc_subscribe_int)(uint8_t *bit_no, uint8_t irq) 
+
+int (mouse_subscribe_int)(uint8_t *bit_no) 
 {
   hook_id = *bit_no;
-  if (sys_irqsetpolicy(irq, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id) != OK) 
-  //if (sys_irqsetpolicy(MOUSE12_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id) != OK) 
+  //if (sys_irqsetpolicy(irq, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id) != OK) 
+  if (sys_irqsetpolicy(MOUSE12_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id) != OK) 
   {
     printf("Error in sys_irqsetpolicy()\n");
     return 1;
@@ -18,7 +20,7 @@ int (kbc_subscribe_int)(uint8_t *bit_no, uint8_t irq)
   return 0;
 }
 
-int (kbc_unsubscribe_int)() 
+int (mouse_unsubscribe_int)() 
 {
   if (sys_irqrmpolicy(&hook_id) != OK) 
   {
@@ -26,7 +28,7 @@ int (kbc_unsubscribe_int)()
     return 1;
   }
   return 0;
-} */
+}
 
 void (mouse_ih)()
 {
@@ -39,6 +41,7 @@ void (mouse_ih)()
     return;
 
   /* loop while 8042 output buffer is empty */
+  if ((st & AUX) == 0) return;
   if ((st & (PARITY | TIMEOUT)) == OK ) {  
     if ((st & OBF) != 0) {
       if(util_sys_inb(OUT_BUF, &packet_byte) != OK)
@@ -72,7 +75,7 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
         sys_outb(OUT_BUF, arg);
         util_sys_inb(OUT_BUF, &st);
         if (st == ACK) {
-          printf("ACK\n");
+          //printf("ACK\n");
           return 0;
         }   
         else if (st == NACK) {
@@ -94,8 +97,6 @@ int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
 }
 
 void assemble_packet(struct packet *pp) {
-  //printf("count %d\n", packet_byte_counter);
-  //printf("%x, %x, %x\n", PACKET[0], PACKET[1], PACKET[2]);
   pp->bytes[0] = PACKET[0];
   pp->lb = PACKET[0] & LB;
   pp->rb = PACKET[0] & RB;
@@ -119,20 +120,22 @@ void assemble_packet(struct packet *pp) {
 
 void mouse_events(Mouse_event *event, struct packet *pp) {
   if ((pp->lb && pp->mb) || (pp->lb && pp->rb) || (pp->mb && pp->rb) || (pp->lb && pp->mb && pp->rb))
-    *event = MANY_DOWN;
+    event->ev = MANY_DOWN;
   else if (pp->lb)
-    *event = LB_DOWN;
-  else if (*event == LB_DOWN && !pp->lb)
-    *event = LB_UP;
+    event->ev = LB_DOWN;
+  else if (event->ev == LB_DOWN && !pp->lb)
+    event->ev = LB_UP;
   else if (pp->mb)
-    *event = MB_DOWN;
-  else if (*event == MB_DOWN && !pp->mb)
-    *event = MB_UP;
+    event->ev = MB_DOWN;
+  else if (event->ev == MB_DOWN && !pp->mb)
+    event->ev = MB_UP;
   else if(pp->rb)
-    *event = RB_DOWN;
-  else if(*event == RB_DOWN && !pp->rb)
-    *event = RB_UP;
+    event->ev = RB_DOWN;
+  else if(event->ev == RB_DOWN && !pp->rb)
+    event->ev = RB_UP;
   else
-    *event = MOVE;
+    event->ev = MOVE;
+  event->dx = pp->delta_x;
+  event->dy = pp->delta_y;
   return;
 }

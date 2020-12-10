@@ -32,7 +32,7 @@ void race_init(const char *text, size_t len)
   // Prepare keyboard interruptions
   uint8_t kbd_bit_no = 1;
   uint32_t kbd_irq_set = BIT(kbd_bit_no);
-  //kbc_subscribe_int(&kbd_bit_no);
+  kbd_subscribe_int(&kbd_bit_no);
 
   // Prepare timer interruptions
   uint8_t timer_bit_no = 0;
@@ -120,7 +120,7 @@ void race_init(const char *text, size_t len)
   free(typed_text);
 
   //unsubscribe interrupts
-  //kbc_unsubscribe_int();
+  kbd_unsubscribe_int();
   timer_unsubscribe_int();
 
   return;

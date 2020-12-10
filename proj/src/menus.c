@@ -1,176 +1,178 @@
-#include <../headers/menus.h>
-#include <../headers/xpixmap.h>
-#include <../headers/graphic.h>
-#include <../headers/race.h>
+#include "../headers/menus.h"
+#include "../headers/xpixmap.h"
+#include "../headers/graphic.h"
+#include "../headers/keyboard.h"
+#include "../headers/timer.h"
 
-
-int main_menu()
+int main_menu(uint8_t *choice)
 {
-    /* Mouse stuff
-    if (kbc_write_byte(WRT_MOUSE, ENB_DR) != 0) // Enable data report
-    return 1;
+  /* Timer stuff */
+  extern uint32_t timer_counter;
+  uint8_t timer_bit_no = 0;
+  timer_subscribe_int(&timer_bit_no);
+  uint32_t timer_irq_set = BIT(timer_bit_no);
 
-    uint8_t bit_no = 12;
-    if (kbc_subscribe_int(&bit_no, MOUSE12_IRQ) != 0) 
-    {
-        printf("Error kbc_subscribe\n");
-        return 1;
+  /*Mouse stuff*/
+  kbc_write_byte(WRT_MOUSE, ENB_DR);
+  uint8_t mouse_bit_no = 12;
+  mouse_subscribe_int(&mouse_bit_no);
+  uint32_t mouse_irq_set = BIT(mouse_bit_no);
+  extern int32_t mouse_x; extern int32_t mouse_y;
+  struct packet pp;
+  extern uint8_t packet_byte_counter;
+  Mouse_event mouse_event; mouse_event.ev = MOVE;
+  uint8_t *map_mouse; xpm_image_t img_mouse;
+  graphic_xpm_load(&map_mouse, &img_mouse, XPM_8_8_8, (xpm_map_t)mouse_xpm);
+
+
+  /*Keyboard stuff*/
+  uint8_t scancode_bytes[2];
+  uint8_t kbd_bit_no = 1;
+  kbd_subscribe_int(&kbd_bit_no);
+  uint32_t kbd_irq_set = BIT(kbd_bit_no);
+
+
+  *choice = 0;
+  uint8_t aux_key;
+  display_main_menu();
+
+  Menu_event event;
+  int ipc_status;
+  message msg;
+  int r = 0;
+
+  while(*choice == 0) { 
+  //Get a request message. 
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+        printf("driver_receive failed with: %d", r);
+        continue;
     }
-
-    int32_t move_x = 0, move_y = 0, errorx = 0, errory = 0;
-    int32_t dx, dy;
-    struct packet pp;*/
-
-    /*Keyboard stuff*/
-    uint8_t scancode_bytes[2];
-    uint8_t kbd_bit_no = 1;
-    uint32_t kbd_irq_set = BIT(kbd_bit_no);
-
-    uint8_t aux_key;
-
-    Menu_state state = MAIN;
-    Menu_event event;
-    int ipc_status;
-    message msg;
-    int r = 0;
-
-    while(state != EXIT) 
-    { 
-    //Get a request message. 
-        if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) 
-        { 
-            printf("driver_receive failed with: %d", r);
-            continue;
-        }
-        if (is_ipc_notify(ipc_status)) 
-        {   // received notification 
-            switch (_ENDPOINT_P(msg.m_source)) 
-            {
-                case HARDWARE: // hardware interrupt notification 				
-                    if (msg.m_notify.interrupts & kbd_irq_set) 
-                    { 
-                        // keyboard interrupt 
-                        kbc_ih();
-                        assemble_scancode(scancode_bytes);
-                        // If scancode is all set
-                        if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00))  
-                        {
-                            // Get typed key
-                            aux_key = get_scancode_char(scancode_bytes);
-                            /*
-                            read_event não implementado
-                            ideia de função:
-                            Menu_event* read_event(struct packet *pp)
-                            recebe o pacote e retorna o evento correspondente
-                            ver mouse.h
-                            */
-                            event = read_event(/*&pp,*/ aux_key);
-                            
-                            switch (state) 
-                            {
-                              case MAIN:
-                                printf("MAIN\n");
-                                if (event == click_on_race || event == type_left_arrow) 
-                                {
-                                    state = RACE;
-                                }
-                                /*
-                                else if (event == click_on_race_with_friend || event == type_down_arrow) 
-                                {
-                                    state = RACE_WITH_FRIEND;
-                                }
-                                else if (event == click_on_best_results || event == type_top_arrow) 
-                                {
-                                    state = BEST_RESULTS;
-                                }*/
-                                else if (event == click_on_exit || event == type_right_arrow) 
-                                {
-                                    state = EXIT;
-                                }
-                                else 
-                                {
-                                  printf("Event not available here\n");
-                                  state = EXIT;
-                                }
-                                break;
-                              case RACE:
-                                printf("RACE\n");
-                                graphic_draw_rectangle(16,16,800-32, 600-32, WHITE);
-                                char text[] = "Yeah, ya.";
-                                race_init(text, strlen(text));
-                                //state = RESULTS;
-                                display_main_menu();
-                                state = MAIN;
-                                if (event == type_ESC) 
-                                {
-                                    display_main_menu();
-                                    state = MAIN;
-                                }
-                                break;
-                              /*case RACE_WITH_FRIEND:
-                                printf("RACE_WITH_FRIEND\n");
-                                friend_race_init();
-                                state = RESULTS;
-                                if (event == type_ESC) 
-                                {
-                                    state = MAIN;
-                                }
-                                break;
-                              case BEST_RESULTS:
-                                printf("BEST_RESULTS\n");
-                                display_best_results();
-                                if (event == type_ESC) 
-                                {
-                                    state = MAIN;
-                                }
-                                break;
-                              case RESULTS:
-                                printf("RESULTS\n");
-                                display_results();
-                                if (event == click_on_try_again_race) 
-                                {
-                                    state = RACE;
-                                }
-                                else if (event == click_on_try_again_friends_race) 
-                                {
-                                    state = RACE_WITH_FRIEND;
-                                }
-                                else if (event == click_on_save_results) 
-                                {
-                                    save_results();
-                                    state = RESULTS;
-                                }
-                                else if (event == type_ESC) 
-                                {
-                                    state = MAIN;
-                                }
-                                break;
-                              case EXIT:
-                                printf("EXIT\n");
-                                return 0;*/
-                              default:
-                                printf("Other state (like released key\n");
-                            }
-                        }
-                    }
-                    break;
+    if (is_ipc_notify(ipc_status)) {  // received notification 
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: // hardware interrupt notification 				
+          if (msg.m_notify.interrupts & kbd_irq_set) { 
+            // keyboard interrupt 
+            kbc_ih();
+            assemble_scancode(scancode_bytes);
+            // If scancode is all set
+            if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {
+              // Get typed key
+              aux_key = get_scancode_char(scancode_bytes);
+              event = read_kbd_event(aux_key);
+              switch (event) {
+                printf("EVENTS\n");
+                case type_left_arrow:  
+                  printf("LEFT_ARROW\n");
+                  *choice = RACE_CHOICE;
+                  break;
+                case type_right_arrow:
+                  *choice = EXIT_CHOICE;
+                  break;
+                case type_top_arrow:
+                  *choice = BEST_RESULTS_CHOICE;
+                  break;
+                case type_down_arrow:
+                  *choice = FRIEND_RACE_CHOICE;
+                  break;
                 default:
-                  printf("Receive no interrupt\n");
-                  break; // no other notifications expected: do nothing 	
+                  break;
+              }
             }
-        } 
-        else 
-        {  
-          //received a standard message, not a notification 
-          //no standard messages expected: do nothing 
-        }
-    tickdelay(micros_to_ticks(DELAY_US));
+          }
+          if (msg.m_notify.interrupts & mouse_irq_set) {
+            mouse_ih();
+            if (packet_byte_counter == 3) {
+              if (*choice != 0) continue;
+              packet_byte_counter = 0;
+              assemble_packet(&pp);
+              mouse_events(&mouse_event, &pp);
+              event = read_mouse_event(&mouse_event, &mouse_x, &mouse_y);
+              switch (event) {
+                case click_on_race:  
+                  *choice = RACE_CHOICE;
+                  break;
+                case click_on_exit:
+                  *choice = EXIT_CHOICE;
+                  break;
+                case click_on_best_results:
+                  *choice = BEST_RESULTS_CHOICE;
+                  break;
+                case click_on_race_with_friend:
+                  *choice = FRIEND_RACE_CHOICE;
+                  break;
+                default:
+                  break;
+              }
+            }    
+          }
+          if (msg.m_notify.interrupts & timer_irq_set) {
+            timer_int_handler();
+            if (timer_counter%15 == 0) {
+              timer_counter = 0;
+              graphic_xpm(map_mouse, &img_mouse, mouse_x, -mouse_y);
+            }
+          }
+          break;
+        default:
+          printf("Receive no interrupt\n");
+          break; // no other notifications expected: do nothing 	
+      }
+    } 
+    else 
+    {  
+      //received a standard message, not a notification 
+      //no standard messages expected: do nothing 
     }
-    printf("END\n");
+    tickdelay(micros_to_ticks(DELAY_US));
+  }
 
-  //kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
+  timer_unsubscribe_int();
+  kbd_unsubscribe_int();
+  mouse_unsubscribe_int();  
+  kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
   return 0;
 }
+                            /*case RACE_WITH_FRIEND:
+                              printf("RACE_WITH_FRIEND\n");
+                              friend_race_init();
+                              state = RESULTS;
+                              if (event == type_ESC) 
+                              {
+                                  state = MAIN;
+                              }
+                              break;
+                            case BEST_RESULTS:
+                              printf("BEST_RESULTS\n");
+                              display_best_results();
+                              if (event == type_ESC) 
+                              {
+                                  state = MAIN;
+                              }
+                              break;
+                            case RESULTS:
+                              printf("RESULTS\n");
+                              display_results();
+                              if (event == click_on_try_again_race) 
+                              {
+                                  state = RACE;
+                              }
+                              else if (event == click_on_try_again_friends_race) 
+                              {
+                                  state = RACE_WITH_FRIEND;
+                              }
+                              else if (event == click_on_save_results) 
+                              {
+                                  save_results();
+                                  state = RESULTS;
+                              }
+                              else if (event == type_ESC) 
+                              {
+                                  state = MAIN;
+                              }
+                              break;
+                            case EXIT:
+                              printf("EXIT\n");
+                              return 0;*/
 
 void display_main_menu()
 {
@@ -183,7 +185,7 @@ void display_main_menu()
   return;
 }
 
-Menu_event read_event(/*struct packet *pp,*/ uint8_t aux_key)
+Menu_event read_kbd_event(uint8_t aux_key)
 {
   if(aux_key == L_ARROW)
     return type_left_arrow;
@@ -196,6 +198,32 @@ Menu_event read_event(/*struct packet *pp,*/ uint8_t aux_key)
   else if(aux_key == ESC)
     return type_ESC;
   else 
-    return 0;
+    return none;
 }
 
+Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y)
+{  
+  *mouse_x += ev->dx;
+  *mouse_y += ev->dy;
+  if (*mouse_x > (int32_t)get_h_res())
+    *mouse_x = (int32_t)get_h_res();
+  if (*mouse_x < 0)
+    *mouse_x = 0;
+  if (*mouse_y < -(int32_t)get_v_res())
+    *mouse_y = -(int32_t)get_v_res();
+  if (*mouse_y > 0)
+    *mouse_y = 0;
+
+  if (ev->ev == LB_DOWN) {
+    if (*mouse_x > race_x_left && *mouse_x < race_x_right && -(*mouse_y) > race_y_top &&  -(*mouse_y) < race_y_down)
+      return click_on_race;
+    else if (*mouse_x > friend_race_x_left && *mouse_x < friend_race_x_right && -(*mouse_y) > friend_race_y_top &&  -(*mouse_y) < friend_race_y_down)
+      return click_on_race_with_friend;
+    else if (*mouse_x > best_results_x_left && *mouse_x < best_results_x_right && -(*mouse_y) > best_results_y_top &&  -(*mouse_y) < best_results_y_down)
+      return click_on_best_results;
+    else if (*mouse_x > exit_x_left && *mouse_x < exit_x_right && -(*mouse_y) > exit_y_top &&  -(*mouse_y) < exit_y_down)
+      return click_on_exit;
+  }
+  
+  return none;
+}

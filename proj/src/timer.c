@@ -2,7 +2,7 @@
 
 
 static int hook_id;
-int timer_counter = 0;
+uint32_t timer_counter = 0;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   uint8_t st, lsb, msb;
