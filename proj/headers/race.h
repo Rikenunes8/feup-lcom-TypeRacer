@@ -23,6 +23,7 @@
 #define X_CPM  210           //x position of displayed text: "caracters per minute"
 #define Y_CPM  450           //y position of displayed text: "caracters per minute"
 
+
 /*
  * @param text: text to draw
  * @param len: lenght of that text
@@ -82,11 +83,12 @@ void display_Char(Char *c);
  * @param correct_keys: number of correct keys typed
  * @param count_backspaces: number of backspaces "typed"
  * @param len: lenght of the displayed text
+ * @param real_time: true if I want so see the results in real time; false if I want to see the final results
  */
-void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len);
+void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len, bool real_time);
+
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
-
 
 
 
