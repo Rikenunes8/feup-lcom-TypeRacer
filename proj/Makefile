@@ -12,7 +12,8 @@ IPATHS = -I./src -I./headers
 
 # additional compilation flags
 # "-Wall -Wextra -Werror -I . -std=c11 -Wno-unused-parameter" are already set
-CPPFLAGS += -pedantic ${IPATHS}
+# CPPFLAGS += -pedantic ${IPATHS}
+CPPFLAGS += -pedantic ${IPATHS} -D __LCOM_OPTIMIZED__
 
 # list of library dependencies (LCF library)
 DPADD += ${LIBLCF}

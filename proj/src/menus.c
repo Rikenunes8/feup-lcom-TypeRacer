@@ -45,6 +45,13 @@ int main_menu(Menu_state *state)
     if (is_ipc_notify(ipc_status)) {  // received notification 
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: // hardware interrupt notification 				
+          if (msg.m_notify.interrupts & timer_irq_set) {
+            timer_int_handler();
+            if (timer_counter%2 == 0) {
+              graphic_xpm(map_mouse, &img_mouse, mouse_x, -mouse_y);
+              fr_buffer_to_video_mem();
+            }
+          }
           if (msg.m_notify.interrupts & kbd_irq_set) { 
             // keyboard interrupt 
             kbc_ih();
@@ -97,13 +104,6 @@ int main_menu(Menu_state *state)
                   break;
               }
             }    
-          }
-          if (msg.m_notify.interrupts & timer_irq_set) {
-            timer_int_handler();
-            if (timer_counter%15 == 0) {
-              timer_counter = 0;
-              graphic_xpm(map_mouse, &img_mouse, mouse_x, -mouse_y);
-            }
           }
           break;
         default:
@@ -184,12 +184,12 @@ Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y)
 {  
   *mouse_x += ev->dx;
   *mouse_y += ev->dy;
-  if (*mouse_x > (int32_t)get_h_res())
-    *mouse_x = (int32_t)get_h_res();
+  if (*mouse_x > (int32_t)get_h_res()-20)
+    *mouse_x = (int32_t)get_h_res()-20;
   if (*mouse_x < 0)
     *mouse_x = 0;
-  if (*mouse_y < -(int32_t)get_v_res())
-    *mouse_y = -(int32_t)get_v_res();
+  if (*mouse_y < -(int32_t)get_v_res()+28)
+    *mouse_y = -(int32_t)get_v_res()+28;
   if (*mouse_y > 0)
     *mouse_y = 0;
 
