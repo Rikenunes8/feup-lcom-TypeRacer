@@ -44,7 +44,7 @@ void race_init(const char *text, size_t len)
   uint32_t timer_irq_set = BIT(timer_bit_no);
   timer_subscribe_int(&timer_bit_no);
 
-  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
+  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
 
 
 
@@ -93,7 +93,7 @@ void race_init(const char *text, size_t len)
               no_seconds++;
 <<<<<<< HEAD
 
-              display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
+              display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
             }
             
 ||||||| 296bcae
@@ -119,8 +119,7 @@ void race_init(const char *text, size_t len)
   }
 
   //displays the results
-  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
-
+  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
   sleep(5);
 
 
@@ -341,86 +340,30 @@ void display_Char(Char *c) {
   graphic_Char_xpm(map, &img, c->posx, c->posy, c->state);
 }
 
-void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len, bool real_time)
+void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len)
 {
+  //displays time in format minutes:seconds
+  display_time(no_seconds, 110, 32);
+
+  //displays caracters per minute (CPM)
   size_t CPM = (correct_keys * 60) / (float)(no_seconds);
+  char CPM_text[20]; 
+  sprintf(CPM_text, "%d cpm  ", CPM);
+  Char * text_CPM_Char = malloc(strlen(CPM_text)*sizeof(Char));
+  display_text(CPM_text, text_CPM_Char, strlen(CPM_text), 370, 32);
+
+
+  //displays accuracy
+  
   float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
   if (accuracy < 0 || n_keys == 0) accuracy = 0;
+  char accuracy_text[20]; 
+  sprintf(accuracy_text, "%.1f %%  ", accuracy);
+  Char * text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
+  display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
 
-  Char * text_CPM_Char = NULL;
-  Char * text_accuracy_Char = NULL;
-  Char * text_time_Char = NULL;
-
-  if(real_time == true)
-  {
-    //displays time in format minutes:seconds
-    display_time(no_seconds, 110, 32);
-
-    //displays caracters per minute (CPM)
-    char CPM_text[20]; 
-    sprintf(CPM_text, "%d cpm  ", CPM);
-    text_CPM_Char = malloc(strlen(CPM_text)*sizeof(Char));
-    display_text(CPM_text, text_CPM_Char, strlen(CPM_text), 370, 32);
-
-    //displays accuracy
-    char accuracy_text[20]; 
-    sprintf(accuracy_text, "%.1f %%  ", accuracy);
-    text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
-    display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
-
-  }
-  else
-  {
-    uint8_t * map;
-    xpm_image_t img;
-
-    //background image
-    xpm_map_t xpm = background;
-    map = xpm_load(xpm, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 0, 0, NORMAL);
-
-    //int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
-    //white rectangle between (150, 100) and (650, 500)
-    graphic_draw_rectangle(150,100, 500, 400, WHITE); 
-
-    //"RESULTS" word
-    xpm_map_t xpm_results = results_word;
-    map = xpm_load(xpm_results, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 160, 110, NORMAL); 
-
-    //speed symbol
-    xpm_map_t xpm_speed = speed_symbol;
-    map = xpm_load(xpm_speed, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 170, 190, NORMAL);
-    char CPM_text[20]; 
-    sprintf(CPM_text, "Your speed: %d cpm   ", CPM);
-    text_CPM_Char = malloc(strlen(CPM_text)*sizeof(Char));
-    display_text(CPM_text, text_CPM_Char, strlen(CPM_text), 250, 210);
-
-    //time symbol
-    xpm_map_t xpm_time = time_symbol;
-    map = xpm_load(xpm_time, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 170, 270, NORMAL);
-    char time_text[20]; 
-    sprintf(time_text, "Time: %d : %d", no_seconds/60, no_seconds%60);
-    text_time_Char = malloc(strlen(time_text)*sizeof(Char));
-    display_text(time_text, text_time_Char, strlen(time_text), 250, 290);
-
-    //accuracy symbol
-    xpm_map_t xpm_accuracy = accuracy_symbol;
-    map = xpm_load(xpm_accuracy, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 170, 350, NORMAL);
-    char accuracy_text[20]; 
-    sprintf(accuracy_text, "Accuracy: %.1f %%  ", accuracy);
-    text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
-    display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 250, 370);
-    
-  }
-
-  free(text_time_Char);
   free(text_CPM_Char);
   free(text_accuracy_Char);
-  
 
 }
 
@@ -452,5 +395,3 @@ void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
     }
   }
 }
-
-
