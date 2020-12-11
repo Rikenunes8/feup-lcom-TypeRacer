@@ -68,7 +68,6 @@ static xpm_row_t dashed_line[] = {
 "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ",
 "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                "};
 
-
 static xpm_row_t results_word[] = {
 "247 47 17 1",
 " 	c #FFFFFF",
@@ -667,5 +666,7 @@ static xpm_row_t accuracy_symbol[] = {
 "                            . . . . . . . . . . . . . . . . . . . . . .                             ",
 "                                . . . . . . . . . . . . . . . . . .                                 ",
 "                                        . . . . . . . . . .                                         "};
+
+
 
 #endif //_LCOM_OTHERS_H

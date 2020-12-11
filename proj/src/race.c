@@ -345,7 +345,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   Char * text_accuracy_Char = NULL;
   Char * text_time_Char = NULL;
 
-  if(real_time)
+  if(real_time == true)
   {
     //displays time in format minutes:seconds
     display_time(no_seconds, 110, 32);
@@ -363,7 +363,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
 
   }
-  else // End race results page
+  else
   {
     uint8_t * map;
     xpm_image_t img;
@@ -446,5 +446,3 @@ void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
     }
   }
 }
-
-
