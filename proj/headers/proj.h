@@ -4,6 +4,10 @@
 #include <lcom/lcf.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "../headers/graphic.h"
+#include "../headers/race.h"
+#include "../headers/menus.h"
+#include <machine/int86.h>
 
 typedef enum
 {

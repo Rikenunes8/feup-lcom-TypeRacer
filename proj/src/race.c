@@ -1,5 +1,4 @@
 #include "../headers/race.h"
-#include "../headers/xpixmap.h"
 
 
 extern xpm_map_t letters[];
@@ -12,13 +11,12 @@ void race_init(const char *text, size_t len)
 {
   uint8_t scancode_bytes[2];
   uint16_t no_seconds = 0; // counts the number of seconds
-  uint16_t no_minutes = 0; //counts the number of minutes
   uint16_t count_backspaces = 0; //counts the number of backspaces
 
   // Prepare space to allocate text
   Char * text_Char = malloc(len*sizeof(Char));
 
-  display_integer(no_seconds, 20, 20);
+  //display_time(no_seconds, 32, 32);
   display_text(text, text_Char, len, X_TEXT, Y_TEXT);
 
   // Prepare array to write
@@ -39,7 +37,8 @@ void race_init(const char *text, size_t len)
   uint32_t timer_irq_set = BIT(timer_bit_no);
   timer_subscribe_int(&timer_bit_no);
 
-    
+  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
+
   int ipc_status;
   message msg;
   int r = 0;
@@ -72,9 +71,9 @@ void race_init(const char *text, size_t len)
               // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
               update_correct_keys(typed_text, &n_keys, text_Char, &correct_keys, &len);
               
-              display_integer(correct_keys, 700, 20);
-              display_integer(n_keys, 500, 20);
-              display_integer(current_key, 300, 20);
+              //display_integer(correct_keys, 700, 20);
+              //display_integer(n_keys, 500, 20);
+              //display_integer(current_key, 300, 20);
             }
           }
           if (msg.m_notify.interrupts & timer_irq_set) 
@@ -84,21 +83,8 @@ void race_init(const char *text, size_t len)
             if(timer_counter % 60 == 0)
             {
               no_seconds++;
-              if(no_seconds%60 == 0)
-              {
-                no_minutes++;
-                //no_seconds = 0;
-              }
-              display_time(no_seconds, 20, 20);
-              /*display_integer(no_minutes, 20, 20); 
-              char text_quotation[] = " : ";
-              Char * text_quotation_Char = malloc(len*sizeof(Char));
-              display_text(text_quotation, text_quotation_Char, strlen(text_quotation), 30, 20);
-              display_integer(no_seconds, 60, 20);
-              free(text_quotation_Char);*/
 
-              display_results(no_minutes, no_seconds%60, correct_keys, count_backspaces, n_keys, len);
-         
+              display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
             }
             
           }
@@ -112,7 +98,7 @@ void race_init(const char *text, size_t len)
   }
 
   //displays the results
-  display_results(no_minutes, no_seconds%60, correct_keys, count_backspaces, n_keys, len);
+  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
 
 
 
@@ -263,7 +249,8 @@ void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size
   return;
 }
 
-int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) {
+int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) 
+{
   // Set chars to be drawn
   uint16_t x = 0;
   uint16_t y = 0;  
@@ -315,8 +302,8 @@ void display_float(float decimal, uint16_t x, uint16_t y)
 }
 
 void display_time(uint16_t seconds, uint16_t x, uint16_t y) {
-  char time[20];    //empty string to store no_seconds
-  sprintf(time, "%d : %d", seconds/60, seconds%60); //casts the number no_seconds to the string str
+  char time[20]; 
+  sprintf(time, "%d : %d", seconds/60, seconds%60); 
   
   Char* time_Char = malloc(strlen(time)*sizeof(Char)); // Convert string of chars to string of Chars
 
@@ -332,45 +319,28 @@ void display_Char(Char *c) {
   graphic_Char_xpm(map, &img, c->posx, c->posy, c->state);
 }
 
-void display_results(size_t no_minutes, size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len)
+void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len)
 {
   //displays time in format minutes:seconds
-  char text_time[] = "Total time: ";
-  Char * text_time_Char = malloc(len*sizeof(Char));
-  display_text(text_time, text_time_Char, strlen(text_time), X_TIME, Y_TIME);
-  display_integer(no_minutes, X_TIME_RESULT, Y_TIME_RESULT); 
-  char text_quotation[] = " : ";
-  Char * text_quotation_Char = malloc(len*sizeof(Char));
-  display_text(text_quotation, text_quotation_Char, strlen(text_quotation), X_TIME_RESULT + 10, Y_TIME_RESULT);
-  display_integer(no_seconds, X_TIME_RESULT + 40, Y_TIME_RESULT);  
+  display_time(no_seconds, 110, 32);
 
   //displays caracters per minute (CPM)
-  char text_CPM_intro[] = "Your speed: ";
-  Char * text_CPM_intro_Char = malloc(len*sizeof(Char));
-  display_text(text_CPM_intro, text_CPM_intro_Char, strlen(text_CPM_intro), X_CPM_INTRO, Y_CPM_INTRO);
-  size_t CPM = (correct_keys * 60) / (float)(no_seconds+(60*no_minutes));
-  display_integer(CPM, X_CPM_RESULT, Y_CPM_RESULT);
-  char text_CPM[] = "caracters per minute ";
-  Char * text_CPM_Char = malloc(len*sizeof(Char));
-  display_text(text_CPM, text_CPM_Char, strlen(text_CPM), X_CPM, Y_CPM);
+  size_t CPM = (correct_keys * 60) / (float)(no_seconds);
+  char CPM_text[20]; 
+  sprintf(CPM_text, "%d cpm  ", CPM);
+  Char * text_CPM_Char = malloc(strlen(CPM_text)*sizeof(Char));
+  display_text(CPM_text, text_CPM_Char, strlen(CPM_text), 370, 32);
+
 
   //displays accuracy
-  char text_accuracy[] = "Accuracy: ";
-  Char * text_accuracy_Char = malloc(len*sizeof(Char));
-  display_text(text_accuracy, text_accuracy_Char, strlen(text_accuracy), 20, 500);
   float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
-  if (accuracy < 0) accuracy = 0;
-  display_float(accuracy, 160, 500);
-  //char text_percentage[] = "%%";
-  //Char * text_percentage_Char = malloc(len*sizeof(Char));
-  //display_text(text_percentage, text_percentage_Char, strlen(text_percentage), 250, 450);
+  char accuracy_text[20]; 
+  sprintf(accuracy_text, "%.1f %%", accuracy);
+  Char * text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
+  display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
 
-  free(text_time_Char);
-  free(text_CPM_intro_Char);
   free(text_CPM_Char);
   free(text_accuracy_Char);
-  free(text_quotation_Char); 
-  //free(text_percentage_Char);
 
 }
 

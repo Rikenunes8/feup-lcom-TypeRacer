@@ -1,11 +1,4 @@
-#include <lcom/lcf.h>
-
-
 #include "../headers/proj.h"
-#include "../headers/graphic.h"
-#include "../headers/race.h"
-#include "../headers/menus.h"
-#include <machine/int86.h>
 
 
 int main(int argc, char *argv[]) {
@@ -35,7 +28,7 @@ int main(int argc, char *argv[]) {
 int(proj_main_loop)(int argc, char *argv[])
 {
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  char text[] = "Yeah, ya."; 
+  char text[] = "Yeah."; 
   
   vbe_mode_info_t info;
   uint16_t mode = 0x115;
@@ -51,6 +44,9 @@ int(proj_main_loop)(int argc, char *argv[])
   //race_init(text, strlen(text));
 
   //subscribe_all();
+
+
+  
   Menu_state state = MENU;
   uint8_t choice = 0;
 
@@ -72,7 +68,7 @@ int(proj_main_loop)(int argc, char *argv[])
         break;
       case RACE:
         printf("RACE\n");
-        graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-32, WHITE);
+        display_race_background();
         race_init(text, strlen(text));
         state = MENU;
         break;

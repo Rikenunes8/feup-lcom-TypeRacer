@@ -2,15 +2,17 @@
 #define _LCOM_RACE_H
 
 #include <lcom/lcf.h>
+#include "../xpm/letters.h"
+#include "../xpm/others.h"
 #include "../headers/graphic.h"
 #include "../headers/keyboard.h"
 
 
 /* (x, y) coordinates for starting positions of the displayed texts*/
-#define X_TYPE  20           //x position of typed text
-#define Y_TYPE  200          //y position of typed text
-#define X_TEXT  20           //x position of displayed text
-#define Y_TEXT  100          //y position of displayed text
+#define X_TYPE  40           //x position of typed text
+#define Y_TYPE  426          //y position of typed text
+#define X_TEXT  40           //x position of displayed text
+#define Y_TEXT  260          //y position of displayed text
 #define X_TIME  20           //x position of displayed text: "Total time:"
 #define Y_TIME  400          //y position of displayed text: "Total time:"
 #define X_TIME_RESULT  160   //x position of displayed text: no_seconds
@@ -82,7 +84,7 @@ void display_Char(Char *c);
  * @param count_backspaces: number of backspaces "typed"
  * @param len: lenght of the displayed text
  */
-void display_results(size_t no_minutes, size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len);
+void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len);
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
 

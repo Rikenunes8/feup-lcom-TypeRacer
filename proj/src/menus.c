@@ -1,8 +1,4 @@
 #include "../headers/menus.h"
-#include "../headers/xpixmap.h"
-#include "../headers/graphic.h"
-#include "../headers/keyboard.h"
-#include "../headers/timer.h"
 
 int main_menu(uint8_t *choice)
 {
@@ -183,6 +179,32 @@ void display_main_menu()
   graphic_Char_xpm(map, &img, 0, 0, NORMAL);
 
   return;
+}
+
+void display_race_background()
+{
+  uint8_t * map;
+  xpm_image_t img;
+  xpm_map_t xpm = background;
+  map = xpm_load(xpm, XPM_8_8_8, &img);
+  graphic_Char_xpm(map, &img, 0, 0, NORMAL);
+  graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-32, WHITE);
+
+  //draws the text box with variable dimensions (incomplete)
+  //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
+  //graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
+  int max_height = 150;
+  int width = 736;
+  graphic_draw_rectangle(32, 418, width, max_height, BLACK); 
+  graphic_draw_rectangle(32, 252, width, max_height, BLACK); 
+
+  graphic_draw_rectangle(34, 420, width-4, max_height-4, WHITE); 
+  graphic_draw_rectangle(34, 254, width-4, max_height-4, WHITE);
+
+  xpm_map_t xpm_ = dashed_line;
+  map = xpm_load(xpm_, XPM_8_8_8, &img);
+  graphic_Char_xpm(map, &img, 16, 110, NORMAL);
+
 }
 
 Menu_event read_kbd_event(uint8_t aux_key)

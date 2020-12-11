@@ -3,7 +3,14 @@
 
 #include <lcom/lcf.h>
 
+#include "../xpm/letters.h"
+#include "../xpm/menu.h"
+#include "../xpm/background.h"
+#include "../xpm/others.h"
 #include "../headers/mouse.h"
+#include "../headers/graphic.h"
+#include "../headers/keyboard.h"
+#include "../headers/timer.h"
 
 
 
@@ -62,7 +69,15 @@ typedef enum
  */
 int main_menu();
 
+/*
+ * Displays image for the main menu
+ */
 void display_main_menu();
+
+/*
+ * Displays image for the race background
+ */
+void display_race_background();
 
 /*
  * events:

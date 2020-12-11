@@ -4,6 +4,7 @@ PROG=proj
 # folders
 .PATH: ${.CURDIR}/src
 .PATH: ${.CURDIR}/headers
+.PATH: ${.CURDIR}/xpm
 
 # source code files to be compiled
 SRCS = proj.c utils.c timer.c keyboard.c mouse.c graphic.c race.c menus.c
