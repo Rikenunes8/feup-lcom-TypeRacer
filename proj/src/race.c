@@ -91,22 +91,12 @@ void race_init(const char *text, size_t len)
             timer_int_handler();
             if(timer_counter % 60 == 0) {
               no_seconds++;
-<<<<<<< HEAD
 
               display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
             }
-            
-||||||| 296bcae
 
-              display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
-            }
-            
-=======
-              display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
-            }        
             if (timer_counter%2 == 0)
               fr_buffer_to_video_mem();
->>>>>>> be905cc754791aa822c7520aadc31dcf3cb02571
           }
           break;
         default:
@@ -117,11 +107,15 @@ void race_init(const char *text, size_t len)
 
     tickdelay(micros_to_ticks(DELAY_US));
   }
+  
+  /*display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
+  fr_buffer_to_video_mem();
+  sleep(5);*/
 
   //displays the results
-  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
-
-  sleep(5);
+  /*display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
+  fr_buffer_to_video_mem();
+  sleep(5);*/
 
 
   free(text_Char);
@@ -351,7 +345,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   Char * text_accuracy_Char = NULL;
   Char * text_time_Char = NULL;
 
-  if(real_time == true)
+  if(real_time)
   {
     //displays time in format minutes:seconds
     display_time(no_seconds, 110, 32);
@@ -369,7 +363,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
 
   }
-  else
+  else // End race results page
   {
     uint8_t * map;
     xpm_image_t img;

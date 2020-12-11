@@ -31,7 +31,7 @@ int graphic_get_mode_info(uint16_t mode, vbe_mode_info_t *info);
 
 int graphic_def(vbe_mode_info_t *info);
 
-int graphic_init(uint16_t mode, uint8_t vbe_function);
+int graphic_init(uint16_t mode);
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color);
 

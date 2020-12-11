@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  //lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
+  lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
@@ -26,22 +26,19 @@ int main(int argc, char *argv[]) {
 }
 
 int(proj_main_loop)(int argc, char *argv[])
-{
-  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  //char text[] = "Yeah."; 
-  
+{ 
   vbe_mode_info_t info;
   uint16_t mode = 0x115;
   graphic_get_mode_info(mode, &info);
   graphic_def(&info);
-  graphic_init(mode, SET_VBE_MODE);
+  graphic_init(mode);
 
   //subscribe_all();
 
-
+  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
+  char text[] = "Yeah, they got you."; 
   
   Menu_state state = MENU;
-
   
   // Vai para a state machine dos menus
   while (state != EXIT) {

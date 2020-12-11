@@ -53,18 +53,18 @@ int graphic_def(vbe_mode_info_t *info) {
 
     /* Map memory */
     video_mem = vm_map_phys(SELF, (void*)mr.mr_base, vram_size); //endereço base 
-    fr_buffer = (char*)malloc(vram_size);
-    
+    fr_buffer = (char*)malloc(vram_size); // auxiliar buffer
+
     if(video_mem == MAP_FAILED)
         panic("couldn't map video memory");
     return 0;
 }
 
-int graphic_init(uint16_t mode, uint8_t vbe_function) 
+int graphic_init(uint16_t mode) 
 {
     reg86_t r;
     memset(&r, 0, sizeof(r)); //clears r
-    r.ax = VBE_FUNCTION | vbe_function; // VBE call, function 02 -- set VBE mode
+    r.ax = VBE_FUNCTION | SET_VBE_MODE; // VBE call, function 02 -- set VBE mode
     r.bx = BIT(14) | mode; // set bit 14: linear framebuffer
     r.intno = 0x10;
     if(sys_int86(&r) != OK) 
