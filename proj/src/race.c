@@ -1,4 +1,7 @@
 #include "../headers/race.h"
+#include "../xpm/letters.h"
+#include "../xpm/others.h"
+#include "../headers/menus.h"
 
 
 extern xpm_map_t letters[];
@@ -9,6 +12,8 @@ static size_t MAX_LEN;
 
 void race_init(const char *text, size_t len) 
 {
+  display_race_background();
+
   uint8_t scancode_bytes[2];
   uint16_t no_seconds = 0; // counts the number of seconds
   uint16_t count_backspaces = 0; //counts the number of backspaces
@@ -25,7 +30,7 @@ void race_init(const char *text, size_t len)
   size_t n_keys = 0; // Number of elements in typed_text
   size_t current_key = 0; // Index of the element corresponding to where the cursor is
   size_t correct_keys = 0; // Matched elements between typed_text and text_Char
-  uint8_t aux_key;
+  uint8_t aux_key = NOTHING;
 
   // Prepare keyboard interruptions
   uint8_t kbd_bit_no = 1;
@@ -43,7 +48,7 @@ void race_init(const char *text, size_t len)
   message msg;
   int r = 0;
   //sair através da ESC key
-  while(/*scancode != ESC_KEY &&*/ correct_keys != len) 
+  while(aux_key != ESC && correct_keys != len) 
   { 
     /* Get a request message. */
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
@@ -63,7 +68,7 @@ void race_init(const char *text, size_t len)
               // Get typed key
               aux_key = get_scancode_char(scancode_bytes);
               if (aux_key == NOTHING) break; // If not a char to draw, break
-
+              if (aux_key == ESC) break;
               if (aux_key == BACKSPACE) count_backspaces++; //counts number of backspaces typed
 
 
@@ -99,7 +104,7 @@ void race_init(const char *text, size_t len)
 
   //displays the results
   display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
-
+  sleep(5);
 
 
   free(text_Char);
@@ -333,9 +338,11 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
 
 
   //displays accuracy
+  
   float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
+  if (accuracy < 0 || n_keys == 0) accuracy = 0;
   char accuracy_text[20]; 
-  sprintf(accuracy_text, "%.1f %%", accuracy);
+  sprintf(accuracy_text, "%.1f %%  ", accuracy);
   Char * text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
   display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
 

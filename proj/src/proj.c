@@ -27,8 +27,8 @@ int main(int argc, char *argv[]) {
 
 int(proj_main_loop)(int argc, char *argv[])
 {
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  char text[] = "Yeah."; 
+  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
+  //char text[] = "Yeah."; 
   
   vbe_mode_info_t info;
   uint16_t mode = 0x115;
@@ -48,7 +48,6 @@ int(proj_main_loop)(int argc, char *argv[])
 
   
   Menu_state state = MENU;
-  uint8_t choice = 0;
 
   
   // Vai para a state machine dos menus
@@ -56,19 +55,10 @@ int(proj_main_loop)(int argc, char *argv[])
     
     switch (state) {
       case MENU:
-        if(main_menu(&choice) != 0) return 1;
-        if (choice == RACE_CHOICE)
-          state = RACE;
-        else if (choice == FRIEND_RACE_CHOICE)
-          state = RACE_WITH_FRIEND;
-        else if (choice == BEST_RESULTS_CHOICE)
-          state = BEST_RESULTS_CHOICE;
-        if (choice == EXIT_CHOICE)
-          state = EXIT;
+        if(main_menu(&state) != 0) return 1;
         break;
       case RACE:
         printf("RACE\n");
-        display_race_background();
         race_init(text, strlen(text));
         state = MENU;
         break;

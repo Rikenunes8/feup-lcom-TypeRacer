@@ -16,6 +16,16 @@
 
 typedef enum
 {
+    MENU,
+    RACE,
+    RACE_WITH_FRIEND,
+    BEST_RESULTS,
+    RESULTS,
+    EXIT
+} Menu_state;
+
+typedef enum
+{
     click_on_race,
     click_on_race_with_friend,
     click_on_best_results,
@@ -56,18 +66,12 @@ typedef enum
 #define exit_y_top   267
 #define exit_y_down  329
 
-#define RACE_CHOICE          1
-#define FRIEND_RACE_CHOICE   4
-#define BEST_RESULTS_CHOICE  3
-#define EXIT_CHOICE          2
-
-
 
 /*
  * Main menu
  * @return int: 0 if exits with success; 1 if error
  */
-int main_menu();
+int main_menu(Menu_state *state);
 
 /*
  * Displays image for the main menu

@@ -2,8 +2,7 @@
 #define _LCOM_RACE_H
 
 #include <lcom/lcf.h>
-#include "../xpm/letters.h"
-#include "../xpm/others.h"
+
 #include "../headers/graphic.h"
 #include "../headers/keyboard.h"
 

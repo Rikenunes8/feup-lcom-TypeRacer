@@ -1,6 +1,6 @@
 #include "../headers/menus.h"
 
-int main_menu(uint8_t *choice)
+int main_menu(Menu_state *state)
 {
   /* Timer stuff */
   extern uint32_t timer_counter;
@@ -28,7 +28,6 @@ int main_menu(uint8_t *choice)
   uint32_t kbd_irq_set = BIT(kbd_bit_no);
 
 
-  *choice = 0;
   uint8_t aux_key;
   display_main_menu();
 
@@ -37,7 +36,7 @@ int main_menu(uint8_t *choice)
   message msg;
   int r = 0;
 
-  while(*choice == 0) { 
+  while(*state == MENU) { 
   //Get a request message. 
     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
         printf("driver_receive failed with: %d", r);
@@ -56,19 +55,17 @@ int main_menu(uint8_t *choice)
               aux_key = get_scancode_char(scancode_bytes);
               event = read_kbd_event(aux_key);
               switch (event) {
-                printf("EVENTS\n");
                 case type_left_arrow:  
-                  printf("LEFT_ARROW\n");
-                  *choice = RACE_CHOICE;
+                  *state = RACE;
                   break;
                 case type_right_arrow:
-                  *choice = EXIT_CHOICE;
+                  *state = EXIT;
                   break;
                 case type_top_arrow:
-                  *choice = BEST_RESULTS_CHOICE;
+                  *state = BEST_RESULTS;
                   break;
                 case type_down_arrow:
-                  *choice = FRIEND_RACE_CHOICE;
+                  *state = RACE_WITH_FRIEND;
                   break;
                 default:
                   break;
@@ -78,23 +75,23 @@ int main_menu(uint8_t *choice)
           if (msg.m_notify.interrupts & mouse_irq_set) {
             mouse_ih();
             if (packet_byte_counter == 3) {
-              if (*choice != 0) continue;
+              if (*state != MENU) continue;
               packet_byte_counter = 0;
               assemble_packet(&pp);
               mouse_events(&mouse_event, &pp);
               event = read_mouse_event(&mouse_event, &mouse_x, &mouse_y);
               switch (event) {
                 case click_on_race:  
-                  *choice = RACE_CHOICE;
+                  *state = RACE;
                   break;
                 case click_on_exit:
-                  *choice = EXIT_CHOICE;
+                  *state = EXIT;
                   break;
                 case click_on_best_results:
-                  *choice = BEST_RESULTS_CHOICE;
+                  *state = BEST_RESULTS;
                   break;
                 case click_on_race_with_friend:
-                  *choice = FRIEND_RACE_CHOICE;
+                  *state = RACE_WITH_FRIEND;
                   break;
                 default:
                   break;
@@ -128,47 +125,7 @@ int main_menu(uint8_t *choice)
   kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
   return 0;
 }
-                            /*case RACE_WITH_FRIEND:
-                              printf("RACE_WITH_FRIEND\n");
-                              friend_race_init();
-                              state = RESULTS;
-                              if (event == type_ESC) 
-                              {
-                                  state = MAIN;
-                              }
-                              break;
-                            case BEST_RESULTS:
-                              printf("BEST_RESULTS\n");
-                              display_best_results();
-                              if (event == type_ESC) 
-                              {
-                                  state = MAIN;
-                              }
-                              break;
-                            case RESULTS:
-                              printf("RESULTS\n");
-                              display_results();
-                              if (event == click_on_try_again_race) 
-                              {
-                                  state = RACE;
-                              }
-                              else if (event == click_on_try_again_friends_race) 
-                              {
-                                  state = RACE_WITH_FRIEND;
-                              }
-                              else if (event == click_on_save_results) 
-                              {
-                                  save_results();
-                                  state = RESULTS;
-                              }
-                              else if (event == type_ESC) 
-                              {
-                                  state = MAIN;
-                              }
-                              break;
-                            case EXIT:
-                              printf("EXIT\n");
-                              return 0;*/
+
 
 void display_main_menu()
 {
