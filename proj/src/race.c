@@ -31,6 +31,8 @@ void race_init(const char *text, size_t len)
   size_t current_key = 0; // Index of the element corresponding to where the cursor is
   size_t correct_keys = 0; // Matched elements between typed_text and text_Char
   uint8_t aux_key = NOTHING;
+  timer_counter = 0;
+
 
   // Prepare keyboard interruptions
   uint8_t kbd_bit_no = 1;
@@ -43,6 +45,8 @@ void race_init(const char *text, size_t len)
   timer_subscribe_int(&timer_bit_no);
 
   display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
+
+
 
   int ipc_status;
   message msg;
@@ -57,7 +61,7 @@ void race_init(const char *text, size_t len)
     }
     if (is_ipc_notify(ipc_status)) {   /* received notification */
       switch (_ENDPOINT_P(msg.m_source)) {
-        case HARDWARE: /* hardware interrupt notification */				
+        case HARDWARE: /* hardware interrupt notification */	
           if (msg.m_notify.interrupts & kbd_irq_set) { 
             /* subscribed KBC interrupt */
             kbc_ih();
@@ -85,13 +89,12 @@ void race_init(const char *text, size_t len)
           { 
             /* subscribed TIMER 0 interrupts */
             timer_int_handler();
-            if(timer_counter % 60 == 0)
-            {
+            if(timer_counter % 60 == 0) {
               no_seconds++;
-
               display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
-            }
-            
+            }        
+            if (timer_counter%2 == 0)
+              fr_buffer_to_video_mem();
           }
           break;
         default:
@@ -99,12 +102,13 @@ void race_init(const char *text, size_t len)
           break; /* no other notifications expected: do nothing */	
       }
     } 
+
     tickdelay(micros_to_ticks(DELAY_US));
   }
 
   //displays the results
   display_results(no_seconds, correct_keys, count_backspaces, n_keys, len);
-  sleep(5);
+  sleep(1);
 
 
   free(text_Char);

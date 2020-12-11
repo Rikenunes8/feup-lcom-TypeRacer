@@ -54,6 +54,7 @@ int graphic_def(vbe_mode_info_t *info) {
     /* Map memory */
     video_mem = vm_map_phys(SELF, (void*)mr.mr_base, vram_size); //endereço base 
     fr_buffer = (char*)malloc(vram_size);
+    
     if(video_mem == MAP_FAILED)
         panic("couldn't map video memory");
     return 0;
@@ -76,13 +77,17 @@ int graphic_init(uint16_t mode, uint8_t vbe_function)
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
     if (x>h_res || y>v_res) return 1;
-    char* dest = video_mem;
+
+    /* Outro método
+    char* dest = fr_buffer;
     dest += (y*h_res + x)*BPP;
     for (uint8_t i = 0; i < BPP; i++) {
         *(dest+i) = (uint8_t)color;
         color = color >> 8;
-    }
+    }*/
+
     //memcpy(&video_mem[((y*h_res)+x)*BPP], &color, BPP); 
+    memcpy(&fr_buffer[((y*h_res)+x)*BPP], &color, BPP); 
 
     return 0;
 }
