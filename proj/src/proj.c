@@ -35,8 +35,8 @@ int(proj_main_loop)(int argc, char *argv[])
 
   //subscribe_all();
 
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  char text[] = "Yeah, they got you."; 
+  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
+  //char text[] = "aa."; 
   
   Menu_state state = MENU;
   

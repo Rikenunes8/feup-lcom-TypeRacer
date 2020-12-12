@@ -138,6 +138,12 @@ void display_main_menu()
   return;
 }
 
+void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
+{
+  graphic_draw_rectangle(x, y, width, height, BLACK); 
+  graphic_draw_rectangle(x+2, y+2, width-4, height-4, WHITE); 
+}
+
 void display_race_background()
 {
   uint8_t * map;
@@ -150,13 +156,8 @@ void display_race_background()
   //draws the text box with variable dimensions (incomplete)
   //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
   //graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
-  int max_height = 150;
-  int width = 736;
-  graphic_draw_rectangle(32, 418, width, max_height, BLACK); 
-  graphic_draw_rectangle(32, 252, width, max_height, BLACK); 
-
-  graphic_draw_rectangle(34, 420, width-4, max_height-4, WHITE); 
-  graphic_draw_rectangle(34, 254, width-4, max_height-4, WHITE);
+  graphic_draw_bordered_rectangle(32, 418, 736, 150);
+  graphic_draw_bordered_rectangle(32, 252, 736, 150);
 
   xpm_map_t xpm_ = dashed_line;
   map = xpm_load(xpm_, XPM_8_8_8, &img);

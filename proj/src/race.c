@@ -107,15 +107,11 @@ void race_init(const char *text, size_t len)
 
     tickdelay(micros_to_ticks(DELAY_US));
   }
-  
-  /*display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
-  fr_buffer_to_video_mem();
-  sleep(5);*/
 
   //displays the results
-  /*display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
+  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
   fr_buffer_to_video_mem();
-  sleep(5);*/
+  sleep(5);
 
 
   free(text_Char);
@@ -341,9 +337,8 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
   if (accuracy < 0 || n_keys == 0) accuracy = 0;
 
-  Char * text_CPM_Char = NULL;
-  Char * text_accuracy_Char = NULL;
-  Char * text_time_Char = NULL;
+  Char * text_Char = NULL;
+  char text[20];
 
   if(real_time == true)
   {
@@ -351,16 +346,14 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     display_time(no_seconds, 110, 32);
 
     //displays caracters per minute (CPM)
-    char CPM_text[20]; 
-    sprintf(CPM_text, "%d cpm  ", CPM);
-    text_CPM_Char = malloc(strlen(CPM_text)*sizeof(Char));
-    display_text(CPM_text, text_CPM_Char, strlen(CPM_text), 370, 32);
+    sprintf(text, "%d cpm  ", CPM);
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 370, 32);
 
     //displays accuracy
-    char accuracy_text[20]; 
-    sprintf(accuracy_text, "%.1f %%  ", accuracy);
-    text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
-    display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 620, 32);
+    sprintf(text, "%.1f %%  ", accuracy);
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 620, 32);
 
   }
   else
@@ -386,36 +379,49 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     xpm_map_t xpm_speed = speed_symbol;
     map = xpm_load(xpm_speed, XPM_8_8_8, &img);
     graphic_Char_xpm(map, &img, 170, 190, NORMAL);
-    char CPM_text[20]; 
-    sprintf(CPM_text, "Your speed: %d cpm   ", CPM);
-    text_CPM_Char = malloc(strlen(CPM_text)*sizeof(Char));
-    display_text(CPM_text, text_CPM_Char, strlen(CPM_text), 250, 210);
+    sprintf(text, "Your speed: %d cpm   ", CPM);
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 250, 210);
 
     //time symbol
     xpm_map_t xpm_time = time_symbol;
     map = xpm_load(xpm_time, XPM_8_8_8, &img);
     graphic_Char_xpm(map, &img, 170, 270, NORMAL);
-    char time_text[20]; 
-    sprintf(time_text, "Time: %d : %d", no_seconds/60, no_seconds%60);
-    text_time_Char = malloc(strlen(time_text)*sizeof(Char));
-    display_text(time_text, text_time_Char, strlen(time_text), 250, 290);
+    sprintf(text, "Time: %d : %d", no_seconds/60, no_seconds%60);
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 250, 290);
 
     //accuracy symbol
     xpm_map_t xpm_accuracy = accuracy_symbol;
     map = xpm_load(xpm_accuracy, XPM_8_8_8, &img);
     graphic_Char_xpm(map, &img, 170, 350, NORMAL);
-    char accuracy_text[20]; 
-    sprintf(accuracy_text, "Accuracy: %.1f %%  ", accuracy);
-    text_accuracy_Char = malloc(strlen(accuracy_text)*sizeof(Char));
-    display_text(accuracy_text, text_accuracy_Char, strlen(accuracy_text), 250, 370);
+    sprintf(text, "Accuracy: %.1f %%  ", accuracy);
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 250, 370);
+
+    //"Try again?" button
+    graphic_draw_bordered_rectangle(180, 420, 150, 50);
+    sprintf(text, "Try again?");
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 190, 440);
+
+    //"Save results" button
+    graphic_draw_bordered_rectangle(340, 420, 170, 50);
+    sprintf(text, "Save results");
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 350, 440);
+
+    //"Exit" button
+    graphic_draw_bordered_rectangle(520, 420, 100, 50);
+    sprintf(text, "Exit");
+    text_Char = malloc(strlen(text)*sizeof(Char));
+    display_text(text, text_Char, strlen(text), 530, 440);
+
     
   }
 
-  free(text_time_Char);
-  free(text_CPM_Char);
-  free(text_accuracy_Char);
+  free(text_Char);
   
-
 }
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {

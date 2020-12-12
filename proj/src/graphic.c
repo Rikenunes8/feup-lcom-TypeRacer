@@ -100,6 +100,7 @@ int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t heig
   }
   return 0;
 }	
+	
 
 int graphic_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type, xpm_map_t xpm) {
   *map = xpm_load(xpm, type, img);

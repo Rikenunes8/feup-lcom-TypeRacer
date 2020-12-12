@@ -79,6 +79,12 @@ int main_menu(Menu_state *state);
 void display_main_menu();
 
 /*
+ * Draws a white rectangle with a black border
+*/
+void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height);
+
+
+/*
  * Displays image for the race background
  */
 void display_race_background();
