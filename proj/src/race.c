@@ -6,7 +6,7 @@
 
 extern xpm_map_t letters[];
 extern uint8_t scancode;
-extern int timer_counter;
+extern uint32_t timer_counter;
 
 static size_t MAX_LEN;
 
@@ -17,6 +17,7 @@ void race_init(const char *text, size_t len)
   uint8_t scancode_bytes[2];
   uint16_t no_seconds = 0; // counts the number of seconds
   uint16_t count_backspaces = 0; //counts the number of backspaces
+  //int frames = 0;
 
   // Prepare space to allocate text
   Char * text_Char = malloc(len*sizeof(Char));
@@ -95,17 +96,19 @@ void race_init(const char *text, size_t len)
               display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
             }
 
-            if (timer_counter%2 == 0)
+            if (timer_counter%2 == 0) {
               fr_buffer_to_video_mem();
+              //display_integer(frames, 50, 50);
+              //frames++;  
+            }
+              
           }
           break;
         default:
           printf("Receive no interrupt\n");
           break; /* no other notifications expected: do nothing */	
       }
-    } 
-
-    tickdelay(micros_to_ticks(DELAY_US));
+    }
   }
 
   //displays the results

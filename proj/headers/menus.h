@@ -11,6 +11,7 @@
 #include "../headers/graphic.h"
 #include "../headers/keyboard.h"
 #include "../headers/timer.h"
+#include "../headers/sprite.h"
 
 
 

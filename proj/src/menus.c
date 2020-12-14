@@ -13,12 +13,13 @@ int main_menu(Menu_state *state)
   uint8_t mouse_bit_no = 12;
   mouse_subscribe_int(&mouse_bit_no);
   uint32_t mouse_irq_set = BIT(mouse_bit_no);
-  extern int32_t mouse_x; extern int32_t mouse_y;
+  //extern int32_t mouse_x; extern int32_t mouse_y;
   struct packet pp;
   extern uint8_t packet_byte_counter;
   Mouse_event mouse_event; mouse_event.ev = MOVE;
-  uint8_t *map_mouse; xpm_image_t img_mouse;
-  graphic_xpm_load(&map_mouse, &img_mouse, XPM_8_8_8, (xpm_map_t)mouse_xpm);
+  //uint8_t *map_mouse; xpm_image_t img_mouse;
+  //graphic_xpm_load(&map_mouse, &img_mouse, XPM_8_8_8, (xpm_map_t)mouse_xpm);
+  Sprite* mouse = create_sprite((xpm_map_t)mouse_xpm, 0, 0, 0, 0);
 
 
   /*Keyboard stuff*/
@@ -29,7 +30,8 @@ int main_menu(Menu_state *state)
 
 
   uint8_t aux_key;
-  display_main_menu();
+  Sprite* main_menu = create_sprite((xpm_map_t)menu, 0, 0, 0, 0);
+  //display_main_menu();
 
   Menu_event event;
   int ipc_status;
@@ -48,7 +50,10 @@ int main_menu(Menu_state *state)
           if (msg.m_notify.interrupts & timer_irq_set) {
             timer_int_handler();
             if (timer_counter%2 == 0) {
-              graphic_xpm(map_mouse, &img_mouse, mouse_x, -mouse_y);
+              draw_sprite(main_menu, main_menu->x, main_menu->y);
+              draw_sprite(mouse, mouse->x, -mouse->y);
+              //graphic_xpm(map_mouse, &img_mouse, mouse_x, -mouse_y);
+              
               fr_buffer_to_video_mem();
             }
           }
@@ -86,7 +91,7 @@ int main_menu(Menu_state *state)
               packet_byte_counter = 0;
               assemble_packet(&pp);
               mouse_events(&mouse_event, &pp);
-              event = read_mouse_event(&mouse_event, &mouse_x, &mouse_y);
+              event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
               switch (event) {
                 case click_on_race:  
                   *state = RACE;
@@ -116,9 +121,10 @@ int main_menu(Menu_state *state)
       //received a standard message, not a notification 
       //no standard messages expected: do nothing 
     }
-    tickdelay(micros_to_ticks(DELAY_US));
+    //tickdelay(micros_to_ticks(DELAY_US));
   }
-
+  destroy_sprite(mouse);
+  destroy_sprite(main_menu);
   timer_unsubscribe_int();
   kbd_unsubscribe_int();
   mouse_unsubscribe_int();  
