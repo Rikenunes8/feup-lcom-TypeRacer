@@ -37,7 +37,6 @@ void destroy_sprite(Sprite *sprite) {
 }
 
 
-
 void draw_sprite(Sprite* sprite, int32_t x, int32_t y) {
   uint32_t color;
   for (int32_t i = 0; i < sprite->height; i++) {
@@ -54,7 +53,6 @@ void draw_sprite(Sprite* sprite, int32_t x, int32_t y) {
     }
   }
 }
-void move_cursor(Sprite *fig, int xstep, int ystep, char *base);
 
 AnimSprite * create_asprite(char *base, char *pic1[], ...);
 

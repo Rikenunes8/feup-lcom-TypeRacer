@@ -65,15 +65,8 @@ int animate_sprite(Sprite* sprite);
  */
 void destroy_sprite(Sprite *sprite);
 
-/** Move in memory whose address is 'base', the 'fig' cursor, a
- * standard sprite, from its current position to a new position
- * 'xstep' and 'ystep' away.  
- * The cursor is erased from its present position in xor-mode and draw
- * in the new position also oin xor-mode.
- * The first time this function is called it only draws the cursor at the
- * current position.
- */ 
-void move_cursor(Sprite *fig, int xstep, int ystep, char *base);
+int set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
+
 
 void draw_sprite(Sprite* sprite, int32_t x, int32_t y);
 

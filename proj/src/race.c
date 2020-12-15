@@ -13,6 +13,7 @@ static size_t MAX_LEN;
 void race_init(const char *text, size_t len) 
 {
   display_race_background();
+  Sprite* car = create_sprite(yellow_car_xpm, 50, 200, 0, 0);
 
   uint8_t scancode_bytes[2];
   uint16_t no_seconds = 0; // counts the number of seconds
@@ -94,10 +95,17 @@ void race_init(const char *text, size_t len)
               no_seconds++;
 
               display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
+
             }
 
-            if (timer_counter%2 == 0) {
+            if (timer_counter%1 == 0) {
+              graphic_draw_rectangle(50, 200, 570, 50, WHITE);
+              display_integer(correct_keys*520/len, 50, 150);
+              set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);
+              
+              draw_sprite(car, car->x, car->y);
               fr_buffer_to_video_mem();
+
               //display_integer(frames, 50, 50);
               //frames++;  
             }
@@ -318,7 +326,7 @@ void display_float(float decimal, uint16_t x, uint16_t y)
 
 void display_time(uint16_t seconds, uint16_t x, uint16_t y) {
   char time[20]; 
-  sprintf(time, "%d : %d", seconds/60, seconds%60); 
+  sprintf(time, "%d : %d ", seconds/60, seconds%60); 
   
   Char* time_Char = malloc(strlen(time)*sizeof(Char)); // Convert string of chars to string of Chars
 

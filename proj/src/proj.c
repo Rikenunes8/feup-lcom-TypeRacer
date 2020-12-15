@@ -54,8 +54,10 @@ int(proj_main_loop)(int argc, char *argv[])
         state = MENU;
         break;
       case RACE_WITH_FRIEND:
+        state = MENU;
         break;
       case BEST_RESULTS:
+        state = MENU;
         break;
       case EXIT:
         break;
