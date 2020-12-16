@@ -4,7 +4,8 @@
 #include <lcom/lcf.h>
 
 #include "../headers/graphic.h"
-#include "../headers/keyboard.h"
+#include "../headers/menus.h"
+
 
 
 /* (x, y) coordinates for starting positions of the displayed texts*/
@@ -29,13 +30,20 @@
  */
 void race_init(const char *text, size_t len);
 
+void race_end();
+
+void race_process_timer_int(uint32_t counter);
+
+void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
+
+
 /* Processes the typed text and writes it to the screen 
  * @param aux_key: number corresponding to a scancode of the typed key 
  * @param typed_text: array with the typed chars, representing the text typed by the user
  * @param n_keys: lenght of typed_text
  * @param current_key: 
  */
-void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_t *current_key);
+void update_typed_text(uint8_t aux_key);
 
 /* Compares the typed text with the displayed text and counts the correct chars typed
  * @param typed_text: array with typed chars
@@ -43,7 +51,7 @@ void update_typed_text(uint8_t aux_key, Char * typed_text, size_t *n_keys, size_
  * @param text_Char: array with chars displayed on the screen and that the user is suppose to type
  * @param correct_keys: counter that counts the correct keys typed
  */
-void update_correct_keys(Char* typed_text, size_t *n_keys, Char* text_Char, size_t *correct_keys, size_t *len);
+void update_correct_keys();
 
 /*
  * Displays text defined
@@ -73,7 +81,7 @@ void display_float(float decimal, uint16_t x, uint16_t y);
 
 void display_time(uint16_t seconds, uint16_t x, uint16_t y);
 
-void display_Char(Char *c);
+void display_Char(Char* c);
 
 /*
  * Displays the results

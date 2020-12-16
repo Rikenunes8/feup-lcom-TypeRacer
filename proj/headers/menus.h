@@ -72,12 +72,19 @@ typedef enum
  * Main menu
  * @return int: 0 if exits with success; 1 if error
  */
-int main_menu(Menu_state *state);
+//int main_menu(Menu_state *state);
 
 /*
  * Displays image for the main menu
  */
-void display_main_menu();
+//void display_main_menu();
+
+void menus_proccess_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse);
+
+void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key);
+
+void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
+
 
 /*
  * Draws a white rectangle with a black border
