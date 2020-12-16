@@ -3,8 +3,12 @@
 
 #include <lcom/lcf.h>
 
+#include "../xpm/letters.h"
+#include "../xpm/others.h"
+#include "../xpm/background.h"
 #include "../headers/graphic.h"
 #include "../headers/menus.h"
+#include "../headers/keyboard.h"
 
 
 
@@ -13,16 +17,18 @@
 #define Y_TYPE  426          //y position of typed text
 #define X_TEXT  40           //x position of displayed text
 #define Y_TEXT  260          //y position of displayed text
-#define X_TIME  20           //x position of displayed text: "Total time:"
-#define Y_TIME  400          //y position of displayed text: "Total time:"
-#define X_TIME_RESULT  160   //x position of displayed text: no_seconds
-#define Y_TIME_RESULT  400   //y position of displayed text: no_seconds
-#define X_CPM_INTRO  20      //x position of displayed text: "Your speed:"
-#define Y_CPM_INTRO  450     //y position of displayed text: "Your speed:"
-#define X_CPM_RESULT  160    //x position of displayed text: CPM
-#define Y_CPM_RESULT  450    //y position of displayed text: CPM
-#define X_CPM  210           //x position of displayed text: "caracters per minute"
-#define Y_CPM  450           //y position of displayed text: "caracters per minute"
+
+#define X_TRY_AGAIN_BEGIN  250     //x top-left position of "Try again" rectangle 
+#define Y_TRY_AGAIN_BEGIN  420     //y top-left position of "Try again" rectangle 
+#define X_TRY_AGAIN_END    400     //x down-right position of "Try again" rectangle
+#define Y_TRY_AGAIN_END    470     //y down-right position of "Try again" rectangle  
+
+#define X_EXIT_BEGIN  450     //x top-left position of "Exit" rectangle 
+#define Y_EXIT_BEGIN  420     //y top-left position of "Exit" rectangle 
+#define X_EXIT_END    550     //x down-right position of "Exit" rectangle
+#define Y_EXIT_END    470     //y down-right position of "Exit" rectangle  
+
+
 
 /*
  * @param text: text to draw

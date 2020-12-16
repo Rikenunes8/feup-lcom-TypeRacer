@@ -35,8 +35,8 @@ int(proj_main_loop)(int argc, char *argv[])
 
   //subscribe_all();
 
-  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  //char text[] = "aa."; 
+  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
+  char text[] = "aa."; 
   
   
   /* Timer stuff */
@@ -93,7 +93,7 @@ int(proj_main_loop)(int argc, char *argv[])
                 race_process_timer_int(timer_counter);
                 break;
               case RESULTS:
-                state = MENU;
+                printf("aqui timer results\n");
                 break;
               case RACE_WITH_FRIEND:
                 state = MENU;
@@ -126,10 +126,16 @@ int(proj_main_loop)(int argc, char *argv[])
                   break;
                 case RACE:
                   race_process_kbd_int(&state, aux_key);
-                  if (state != RACE)
+                  if (state == RESULTS)
+                  {
                     race_end();
+                  }
                   break;
                 case RESULTS:
+                  printf("aqui kbd results\n");
+                  race_end();
+                  printf("aqui\n");
+                  sleep(5);
                   state = MENU;
                   break;
                 case RACE_WITH_FRIEND:

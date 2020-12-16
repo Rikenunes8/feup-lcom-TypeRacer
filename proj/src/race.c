@@ -1,7 +1,4 @@
 #include "../headers/race.h"
-#include "../headers/keyboard.h"
-#include "../xpm/letters.h"
-#include "../xpm/others.h"
 
 
 
@@ -23,6 +20,8 @@ static Char * typed_text;
 
 static Sprite* car;
 
+static Sprite* balloon;
+
 
 void race_init(const char *text, size_t l) {
   len = l;
@@ -35,12 +34,13 @@ void race_init(const char *text, size_t l) {
   timer_counter = 0;
 }
 
-void race_end() {
-  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
-  sleep(5);
+void race_end() 
+{
   destroy_sprite(car);
+  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
   free(text_Char);
   free(typed_text);
+  return;
 }
 
 void race_process_timer_int(uint32_t counter) {
@@ -54,6 +54,7 @@ void race_process_timer_int(uint32_t counter) {
   }
 }
 
+
 void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   if (aux_key == NOTHING) return; // If not a char to draw, break
   if (aux_key == ESC) {
@@ -62,11 +63,11 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   }
   if (aux_key == BACKSPACE) count_backspaces++; //counts number of backspaces typed
 
-  printf("Aux: %d\n", aux_key);
   update_typed_text(aux_key);
   // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
   update_correct_keys();
-  if (correct_keys == len) {
+  if (correct_keys == len) 
+  {
     printf("RESULTS\n");
     *state = RESULTS;
   }
@@ -309,10 +310,14 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     display_text(text, text_Char, strlen(text), 620, 32);
     free(text_Char);
   }
-  else
+  else //results page
   {
     uint8_t * map;
     xpm_image_t img;
+
+    balloon = create_sprite(red_balloon, 0, 0, 0, 0);
+    set_sprite(balloon, balloon->x, balloon->y, balloon->xspeed, balloon->yspeed);    
+    draw_sprite(balloon, balloon->x, balloon->y);
 
     //background image
     xpm_map_t xpm = background;
@@ -355,26 +360,21 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     display_text(text, text_Char, strlen(text), 250, 370);
     free(text_Char);
 
-    //"Try again?" button
-    graphic_draw_bordered_rectangle(180, 420, 150, 50);
-    sprintf(text, "Try again?");
+    //"Try again" button
+    graphic_draw_bordered_rectangle(X_TRY_AGAIN_BEGIN, Y_TRY_AGAIN_BEGIN, 150, 50);
+    sprintf(text, "TRY AGAIN");
     text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 190, 440);
-    free(text_Char);
-
-    //"Save results" button
-    graphic_draw_bordered_rectangle(340, 420, 170, 50);
-    sprintf(text, "Save results");
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 350, 440);
+    display_text(text, text_Char, strlen(text), X_TRY_AGAIN_BEGIN + 20, Y_TRY_AGAIN_BEGIN + 20);
     free(text_Char);
 
     //"Exit" button
-    graphic_draw_bordered_rectangle(520, 420, 100, 50);
-    sprintf(text, "Exit");
+    graphic_draw_bordered_rectangle(X_EXIT_BEGIN, Y_EXIT_BEGIN, 100, 50);
+    sprintf(text, "EXIT");
     text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 530, 440);
+    display_text(text, text_Char, strlen(text), X_EXIT_BEGIN + 25, Y_EXIT_BEGIN + 20);
     free(text_Char);
+
+    destroy_sprite(balloon);
   }  
 }
 
