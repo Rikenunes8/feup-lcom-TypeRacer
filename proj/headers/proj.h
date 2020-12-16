@@ -7,6 +7,7 @@
 #include "../headers/graphic.h"
 #include "../headers/race.h"
 #include "../headers/menus.h"
+#include "../headers/sprite.h"
 #include <machine/int86.h>
 
 int subscribe_all();

@@ -13,11 +13,13 @@
 }*/
 
 void menus_proccess_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse) {
-  if (counter%1 == 0) {
+  if (counter%1 == 0) 
+  {
     draw_sprite(main_menu, main_menu->x, main_menu->y);
     draw_sprite(mouse, mouse->x, -mouse->y);
   }
 }
+
 
 void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
   Menu_event event;

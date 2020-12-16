@@ -20,7 +20,6 @@ static Char * typed_text;
 
 static Sprite* car;
 
-static Sprite* balloon;
 
 
 void race_init(const char *text, size_t l) {
@@ -74,7 +73,34 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   return;
 }
 
+void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse)
+{
+  Menu_event event;
+  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
+  switch (event) {
+    case click_on_race:  
+      *state = RACE;
+      break;
+    case click_on_exit:
+      *state = EXIT;
+      break;
+    case click_on_best_results:
+      *state = BEST_RESULTS;
+      break;
+    case click_on_race_with_friend:
+      *state = RACE_WITH_FRIEND;
+      break;
+    default:
+      break;
+  }
 
+}
+
+void results_process_timer_int(uint32_t timer_counter)
+{
+  if (timer_counter == 60)
+    timer_counter = 0; 
+}
 
 void update_typed_text(uint8_t aux_key) {
   Char key;
@@ -312,12 +338,9 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   }
   else //results page
   {
+
     uint8_t * map;
     xpm_image_t img;
-
-    balloon = create_sprite(red_balloon, 0, 0, 0, 0);
-    set_sprite(balloon, balloon->x, balloon->y, balloon->xspeed, balloon->yspeed);    
-    draw_sprite(balloon, balloon->x, balloon->y);
 
     //background image
     xpm_map_t xpm = background;
@@ -327,6 +350,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     //int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
     //white rectangle between (150, 100) and (650, 500)
     graphic_draw_rectangle(150,100, 500, 400, WHITE); 
+
 
     //"RESULTS" word
     xpm_map_t xpm_results = results_word;
@@ -374,8 +398,77 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     display_text(text, text_Char, strlen(text), X_EXIT_BEGIN + 25, Y_EXIT_BEGIN + 20);
     free(text_Char);
 
-    destroy_sprite(balloon);
+    draw_balloon((xpm_map_t)blue_balloon, 250, 300, 10, 300, 2, 4);
+
   }  
+}
+
+void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
+{
+  bool axis; // Positive to move in yy, negative to move in xx
+  int16_t way;
+  uint8_t frame_counter = 0;
+
+  if (xi == xf) 
+  {
+    axis = true;
+    if (yi < yf)
+      way = 1;
+    else 
+      way = -1;
+  }
+  else {
+    axis = false;
+    if (xi < xf)
+      way = 1;
+    else 
+      way = -1;
+  }
+
+  // First image
+  xpm_image_t img;
+  uint8_t * map = xpm_load(blue_balloon, XPM_8_8_8, &img);
+  graphic_xpm(map, &img, xi, yi);
+
+  if (yi != yf || xi != xf) 
+  {
+      if (timer_counter%(60/fr_rate) == 0) 
+      {
+        printf("aqui\n");
+        if (speed > 0) 
+        { 
+          graphic_xpm(map, &img, xi, yi);
+          if (axis) 
+          {
+            yi += way*speed;
+            if (speed > abs(yf-yi))
+              speed = abs(yf - yi);
+          }
+          else 
+          {
+            xi += way*speed;
+            if (speed > abs(xf-xi))
+              speed = abs(xf - xi);
+          } 
+          graphic_xpm(map, &img, xi, yi);
+        }
+        else 
+        {
+          frame_counter++;
+          if (frame_counter%(-speed) == 0) 
+          {
+            frame_counter = 0;
+            graphic_xpm(map, &img, xi, yi);
+            if (axis)
+              yi += way;
+            else
+              xi += way;
+            graphic_xpm(map, &img, xi, yi);
+          }
+        }
+      }
+  }
+
 }
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {

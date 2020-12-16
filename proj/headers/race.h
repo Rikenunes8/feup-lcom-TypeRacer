@@ -101,6 +101,12 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
 
+void results_process_timer_int(uint32_t counter);
+
+void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
+
+void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
+
 
 
 

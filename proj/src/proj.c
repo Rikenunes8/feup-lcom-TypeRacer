@@ -33,14 +33,13 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_def(&info);
   graphic_init(mode);
 
-  //subscribe_all();
-
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
   char text[] = "aa."; 
   
   
   /* Timer stuff */
   extern uint32_t timer_counter;
+  timer_counter = 0;
   uint8_t timer_bit_no = 0;
   timer_subscribe_int(&timer_bit_no);
   uint32_t timer_irq_set = BIT(timer_bit_no);
@@ -93,7 +92,9 @@ int(proj_main_loop)(int argc, char *argv[])
                 race_process_timer_int(timer_counter);
                 break;
               case RESULTS:
-                printf("aqui timer results\n");
+                //timer_counter = 0;
+                //results_process_timer_int(timer_counter);
+                //printf("timer_counter: %d\n", timer_counter);
                 break;
               case RACE_WITH_FRIEND:
                 state = MENU;
@@ -134,9 +135,8 @@ int(proj_main_loop)(int argc, char *argv[])
                 case RESULTS:
                   printf("aqui kbd results\n");
                   race_end();
-                  printf("aqui\n");
-                  sleep(5);
-                  state = MENU;
+                  sleep(2);
+                  state = EXIT;
                   break;
                 case RACE_WITH_FRIEND:
                   state = MENU;
@@ -160,6 +160,8 @@ int(proj_main_loop)(int argc, char *argv[])
               switch (state) {
                 case MENU:
                   menus_proccess_mouse_int(&state, mouse_event, mouse);
+                  if (state == RACE)
+                    race_init(text, strlen(text));
                   break;
                 case RACE:
                   //race_process_mouse_int(aux_key);
@@ -200,22 +202,8 @@ int(proj_main_loop)(int argc, char *argv[])
   kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
 
   destroy_fr_bufffer();
-  //unsubscribe_all();
   vg_exit();
   return 0;
 }
 
-int subscribe_all()
-{
-  uint8_t kbd_bit_no = 1;
-  kbd_subscribe_int(&kbd_bit_no);
-
-  return 0;
-}
-
-int unsubscribe_all()
-{
-  kbd_unsubscribe_int();
-  return 0;
-}
 
