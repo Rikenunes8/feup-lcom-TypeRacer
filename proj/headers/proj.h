@@ -10,8 +10,4 @@
 #include "../headers/sprite.h"
 #include <machine/int86.h>
 
-int subscribe_all();
-
-int unsubscribe_all();
-
 #endif

@@ -15,6 +15,7 @@ typedef enum {
   WRONG,
   RIGHT
 } Char_state;
+
 /* Represents a drawn char
  * index: number corresponding to a char
  * posx: x position where the char is drawn

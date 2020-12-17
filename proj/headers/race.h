@@ -5,6 +5,7 @@
 
 #include "../xpm/letters.h"
 #include "../xpm/others.h"
+#include "../xpm/balloons.h"
 #include "../xpm/background.h"
 #include "../headers/graphic.h"
 #include "../headers/menus.h"
@@ -14,33 +15,24 @@
 
 /* (x, y) coordinates for starting positions of the displayed texts*/
 #define X_TYPE  40           //x position of typed text
-#define Y_TYPE  426          //y position of typed text
+//#define Y_TYPE  426          //y position of typed text
 #define X_TEXT  40           //x position of displayed text
-#define Y_TEXT  260          //y position of displayed text
+#define Y_TEXT  140          //y position of displayed text
 
-#define X_TRY_AGAIN_BEGIN  250     //x top-left position of "Try again" rectangle 
-#define Y_TRY_AGAIN_BEGIN  420     //y top-left position of "Try again" rectangle 
-#define X_TRY_AGAIN_END    400     //x down-right position of "Try again" rectangle
-#define Y_TRY_AGAIN_END    470     //y down-right position of "Try again" rectangle  
-
-#define X_EXIT_BEGIN  450     //x top-left position of "Exit" rectangle 
-#define Y_EXIT_BEGIN  420     //y top-left position of "Exit" rectangle 
-#define X_EXIT_END    550     //x down-right position of "Exit" rectangle
-#define Y_EXIT_END    470     //y down-right position of "Exit" rectangle  
-
+#define MAX_NO_LINES 8 //maximum number of lines that the text can have
 
 
 /*
  * @param text: text to draw
  * @param len: lenght of that text
  */
-void race_init(const char *text, size_t len);
+void race_init(const char *text, size_t len, size_t no_lines);
 
 void race_end();
 
 void race_process_timer_int(uint32_t counter);
 
-void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
+void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typed);
 
 
 /* Processes the typed text and writes it to the screen 
@@ -49,7 +41,7 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
  * @param n_keys: lenght of typed_text
  * @param current_key: 
  */
-void update_typed_text(uint8_t aux_key);
+void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed);
 
 /* Compares the typed text with the displayed text and counts the correct chars typed
  * @param typed_text: array with typed chars
@@ -99,15 +91,17 @@ void display_Char(Char* c);
  */
 void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len, bool real_time);
 
-void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
-
-void results_process_timer_int(uint32_t counter);
+void rearrange_coors_text(Char* typed_text, size_t begin, size_t end, uint16_t y_pos_typed);
 
 void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
+void results_proccess_timer_int(uint32_t counter, Sprite* mouse);
 
+void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 
+void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines);
 
+void display_race_background(size_t no_lines);
 #endif

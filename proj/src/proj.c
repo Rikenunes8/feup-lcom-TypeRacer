@@ -33,8 +33,16 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_def(&info);
   graphic_init(mode);
 
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet.";
-  char text[] = "aa."; 
+  char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staraya Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
+
+  //no_lines = 4;
+  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
+  
+  //no_lines = 1
+  //char text[] = "aa.";
+  size_t no_lines = 8;
+  uint16_t y_pos_typed = Y_TEXT + (25*no_lines) + 20;
+
   
   
   /* Timer stuff */
@@ -93,8 +101,8 @@ int(proj_main_loop)(int argc, char *argv[])
                 break;
               case RESULTS:
                 //timer_counter = 0;
-                //results_process_timer_int(timer_counter);
                 //printf("timer_counter: %d\n", timer_counter);
+                results_proccess_timer_int(timer_counter, mouse);
                 break;
               case RACE_WITH_FRIEND:
                 state = MENU;
@@ -123,10 +131,10 @@ int(proj_main_loop)(int argc, char *argv[])
                 case MENU:
                   menus_proccess_kbd_int(&state, aux_key);
                   if (state == RACE)
-                    race_init(text, strlen(text));
+                    race_init(text, strlen(text), no_lines);
                   break;
                 case RACE:
-                  race_process_kbd_int(&state, aux_key);
+                  race_process_kbd_int(&state, aux_key, y_pos_typed);
                   if (state == RESULTS)
                   {
                     race_end();
@@ -161,13 +169,13 @@ int(proj_main_loop)(int argc, char *argv[])
                 case MENU:
                   menus_proccess_mouse_int(&state, mouse_event, mouse);
                   if (state == RACE)
-                    race_init(text, strlen(text));
+                    race_init(text, strlen(text), no_lines);
                   break;
                 case RACE:
                   //race_process_mouse_int(aux_key);
                   break;
                 case RESULTS:
-                  state = MENU;
+                  results_proccess_mouse_int(&state, mouse_event, mouse);
                   break;
                 case RACE_WITH_FRIEND:
                   state = MENU;

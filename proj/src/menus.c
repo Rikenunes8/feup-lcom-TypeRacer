@@ -63,32 +63,22 @@ void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite
   }
 }
 
-void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
-{
-  graphic_draw_rectangle(x, y, width, height, BLACK); 
-  graphic_draw_rectangle(x+2, y+2, width-4, height-4, WHITE); 
+void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
+  Menu_event event;
+  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
+  switch (event) 
+  {
+    case click_on_results_exit:  
+      *state = MENU;
+      break;
+    case click_on_try_again_race:
+      *state = RACE;
+      break;
+    default:
+      break;
+  }
 }
 
-void display_race_background()
-{
-  uint8_t * map;
-  xpm_image_t img;
-  xpm_map_t xpm = background;
-  map = xpm_load(xpm, XPM_8_8_8, &img);
-  graphic_Char_xpm(map, &img, 0, 0, NORMAL);
-  graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-32, WHITE);
-
-  //draws the text box with variable dimensions (incomplete)
-  //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
-  //graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
-  graphic_draw_bordered_rectangle(32, 418, 736, 150);
-  graphic_draw_bordered_rectangle(32, 252, 736, 150);
-
-  xpm_map_t xpm_ = dashed_line;
-  map = xpm_load(xpm_, XPM_8_8_8, &img);
-  graphic_Char_xpm(map, &img, 16, 110, NORMAL);
-
-}
 
 Menu_event read_kbd_event(uint8_t aux_key)
 {
@@ -119,7 +109,8 @@ Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y)
   if (*mouse_y > 0)
     *mouse_y = 0;
 
-  if (ev->ev == LB_DOWN) {
+  if (ev->ev == LB_DOWN) 
+  {
     if (*mouse_x > race_x_left && *mouse_x < race_x_right && -(*mouse_y) > race_y_top &&  -(*mouse_y) < race_y_down)
       return click_on_race;
     else if (*mouse_x > friend_race_x_left && *mouse_x < friend_race_x_right && -(*mouse_y) > friend_race_y_top &&  -(*mouse_y) < friend_race_y_down)
@@ -128,6 +119,10 @@ Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y)
       return click_on_best_results;
     else if (*mouse_x > exit_x_left && *mouse_x < exit_x_right && -(*mouse_y) > exit_y_top &&  -(*mouse_y) < exit_y_down)
       return click_on_exit;
+    else if (*mouse_x > try_again_x_left && *mouse_x < try_again_x_right && -(*mouse_y) > try_again_y_top &&  -(*mouse_y) < try_again_y_down)
+      return click_on_try_again_race;
+    else if (*mouse_x > results_exit_x_left && *mouse_x < results_exit_x_right && -(*mouse_y) > results_exit_y_top &&  -(*mouse_y) < results_exit_y_down)
+      return click_on_results_exit;
   }
   
   return none;

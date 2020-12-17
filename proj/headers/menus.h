@@ -31,9 +31,9 @@ typedef enum
     click_on_race_with_friend,
     click_on_best_results,
     click_on_exit,
+    click_on_results_exit,
     click_on_try_again_race,
     click_on_try_again_friends_race,
-    click_on_save_results,
     type_ESC,
     type_down_arrow,
     type_top_arrow,
@@ -67,6 +67,18 @@ typedef enum
 #define exit_y_top   267
 #define exit_y_down  329
 
+/* "Try again" option (x,y) positions */
+#define try_again_x_left   250     
+#define try_again_x_right  400     
+#define try_again_y_top    420     
+#define try_again_y_down   470      
+
+/* "Exit" option (x,y) positions from results page*/
+#define results_exit_x_left   450     //x top-left position of "Exit" rectangle 
+#define results_exit_x_right  550     //y top-left position of "Exit" rectangle 
+#define results_exit_y_top    420     //x down-right position of "Exit" rectangle
+#define results_exit_y_down   470     //y down-right position of "Exit" rectangle  
+
 
 /*
  * Main menu
@@ -85,17 +97,6 @@ void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key);
 
 void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
-
-/*
- * Draws a white rectangle with a black border
-*/
-void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height);
-
-
-/*
- * Displays image for the race background
- */
-void display_race_background();
 
 /*
  * events:
@@ -119,6 +120,8 @@ void display_race_background();
 */
 Menu_event read_kbd_event(uint8_t aux_key);
 Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y);
+
+void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
 
 #endif /* _LCOM_MENUS_H */
