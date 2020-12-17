@@ -26,13 +26,27 @@
  * @param text: text to draw
  * @param len: lenght of that text
  */
-void race_init(const char *text, size_t len, size_t no_lines);
+void race_init(const char *text, size_t len, size_t n_lines);
 
 void race_end();
+
 
 void race_process_timer_int(uint32_t counter);
 
 void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typed);
+
+void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
+
+
+void results_init();
+
+void results_end();
+
+void results_proccess_timer_int(uint32_t counter, Sprite* mouse);
+
+void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key);
+
+void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
 
 /* Processes the typed text and writes it to the screen 
@@ -93,15 +107,11 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end, uint16_t y_pos_typed);
 
-void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
-
-void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
-
-void results_proccess_timer_int(uint32_t counter, Sprite* mouse);
+//void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 
 void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines);
 
-void display_race_background(size_t no_lines);
+void display_race_background();
 #endif

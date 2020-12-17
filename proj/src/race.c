@@ -7,29 +7,38 @@ extern xpm_map_t letters[];
 extern uint32_t timer_counter;
 
 static size_t MAX_LEN;
-static size_t len;
+static size_t len; // text lenght
+static size_t no_lines;
 
-static uint16_t no_seconds = 0; // counts the number of seconds
-static size_t n_keys = 0; // Number of elements in typed_text
-static size_t current_key = 0; // Index of the element corresponding to where the cursor is
-static size_t correct_keys = 0; // Matched elements between typed_text and text_Char
-static uint16_t count_backspaces = 0; //counts the number of backspaces
+static uint16_t no_seconds; // counts the number of seconds
+static size_t n_keys; // Number of elements in typed_text
+static size_t current_key; // Index of the element corresponding to where the cursor is
+static size_t correct_keys; // Matched elements between typed_text and text_Char
+static uint16_t count_backspaces; //counts the number of backspaces
 
 static Char * text_Char;
 static Char * typed_text;
 
 static Sprite* car;
+static Sprite* ballon1;
 
 
-void race_init(const char *text, size_t l, size_t no_lines)
+void race_init(const char *text, size_t l, size_t n_lines)
 {
   len = l;
+  no_lines = n_lines;
+  car = create_sprite(yellow_car_xpm, 50, 90, 0, 0);
   display_race_background(no_lines);
   text_Char = malloc(len*sizeof(Char));
   display_text(text, text_Char, len, X_TEXT, 150);
-  MAX_LEN = len+10; // Margin of 10 more Chars to write in typed_text
+  MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
   typed_text = malloc((MAX_LEN)*sizeof(Char));
   timer_counter = 0;
+  no_seconds = 0;
+  n_keys = 0;
+  current_key = 0;
+  correct_keys = 0;
+  count_backspaces = 0;
 }
 
 void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
@@ -44,8 +53,7 @@ void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines)
 
 }
 
-
-void display_race_background(size_t no_lines)
+void display_race_background()
 {
   uint8_t * map;
   xpm_image_t img;
@@ -54,7 +62,6 @@ void display_race_background(size_t no_lines)
   graphic_Char_xpm(map, &img, 0, 0, NORMAL);
   graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-32, WHITE);
 
-  car = create_sprite(yellow_car_xpm, 50, 90, 0, 0);
 
   //draws the text box with variable dimensions (incomplete)
   //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
@@ -73,6 +80,7 @@ void race_end()
   return;
 }
 
+
 void race_process_timer_int(uint32_t counter) {
   if(counter % 60 == 0)
     no_seconds++;
@@ -84,9 +92,8 @@ void race_process_timer_int(uint32_t counter) {
   }
 }
 
-
 void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typed) {
-  if (aux_key == NOTHING) return; // If not a char to draw, break
+  if (aux_key == NOTHING || aux_key == D_ARROW || aux_key == T_ARROW) return; // If not a char to draw, break
   if (aux_key == ESC) {
     *state = MENU;
     return;
@@ -96,9 +103,7 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typ
   update_typed_text(aux_key, y_pos_typed);
   // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
   update_correct_keys();
-  if (correct_keys == len) 
-  {
-    printf("RESULTS\n");
+  if (correct_keys == len) {
     *state = RESULTS;
   }
   return;
@@ -127,13 +132,58 @@ void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* 
 
 }
 
+
+void results_init() {
+  ballon1 = create_sprite(blue_balloon, 250, 300, 1, 1);
+}
+
+void results_end() {
+  destroy_sprite(ballon1);
+}
+
+
 void results_proccess_timer_int(uint32_t counter, Sprite* mouse) 
 {
-  if (counter%1 == 0) 
+  if (counter%2 == 0) 
   {
+    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
+    draw_sprite(ballon1, ballon1->x, ballon1->y);
+    animate_sprite(ballon1);
     draw_sprite(mouse, mouse->x, -mouse->y);
   }
 }
+
+void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
+  Menu_event event;
+  event = read_kbd_event(aux_key);
+  switch (event) {
+    case type_left_arrow:  
+      *state = RACE;
+      break;
+    case type_right_arrow:
+      *state = MENU;
+      break;
+    default:
+      break;
+  }
+}
+
+void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
+  Menu_event event;
+  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
+  switch (event) 
+  {
+    case click_on_results_exit:  
+      *state = MENU;
+      break;
+    case click_on_try_again_race:
+      *state = RACE;
+      break;
+    default:
+      break;
+  }
+}
+
 
 void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed) 
 {
@@ -431,13 +481,10 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     text_Char = malloc(strlen(text)*sizeof(Char));
     display_text(text, text_Char, strlen(text), results_exit_x_left + 25, results_exit_y_top + 20);
     free(text_Char);
-
-    draw_balloon((xpm_map_t)blue_balloon, 250, 300, 10, 300, 2, 4);
-
   }  
 }
 
-void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
+/*void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
 {
   bool axis; // Positive to move in yy, negative to move in xx
   int16_t way;
@@ -504,7 +551,7 @@ void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t
   }
 
 }
-
+*/
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end, uint16_t y_pos_typed) {
   uint16_t x;
   uint16_t y;

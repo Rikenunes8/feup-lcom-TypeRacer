@@ -121,7 +121,4 @@ void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite
 Menu_event read_kbd_event(uint8_t aux_key);
 Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y);
 
-void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
-
-
 #endif /* _LCOM_MENUS_H */

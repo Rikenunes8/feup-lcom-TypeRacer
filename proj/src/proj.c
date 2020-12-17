@@ -32,15 +32,16 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_get_mode_info(mode, &info);
   graphic_def(&info);
   graphic_init(mode);
-
-  char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staraya Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
-
-  //no_lines = 4;
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
   
-  //no_lines = 1
+  //size_t no_lines = 8;
+  //char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staraya Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
+
+  size_t no_lines = 4;
+  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
+  
+  //size_t no_lines = 1;
   //char text[] = "aa.";
-  size_t no_lines = 8;
+
   uint16_t y_pos_typed = Y_TEXT + (25*no_lines) + 20;
 
   
@@ -77,6 +78,12 @@ int(proj_main_loop)(int argc, char *argv[])
   Menu_state state = MENU;
   uint8_t aux_key = NOTHING;
 
+  bool timer_int = false;
+  bool kbd_int = false;
+  bool mouse_int = false;
+
+
+
   int ipc_status;
   message msg;
   int r = 0;
@@ -92,31 +99,9 @@ int(proj_main_loop)(int argc, char *argv[])
         case HARDWARE: // hardware interrupt notification 				
           if (msg.m_notify.interrupts & timer_irq_set) {
             timer_int_handler();
-            switch (state) {
-              case MENU:
-                menus_proccess_timer_int(timer_counter, main_menu, mouse);
-                break;
-              case RACE:
-                race_process_timer_int(timer_counter);
-                break;
-              case RESULTS:
-                //timer_counter = 0;
-                //printf("timer_counter: %d\n", timer_counter);
-                results_proccess_timer_int(timer_counter, mouse);
-                break;
-              case RACE_WITH_FRIEND:
-                state = MENU;
-                break;
-              case BEST_RESULTS:
-                state = MENU;
-                break;
-              case EXIT:
-                break;
-              default:
-                break;
-            }
+            timer_int = true;
 
-            if (timer_counter%1 == 0) {
+            if (timer_counter%2 == 0) {
               fr_buffer_to_video_mem();
             }
           }
@@ -127,36 +112,7 @@ int(proj_main_loop)(int argc, char *argv[])
             // If scancode is all set
             if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {
               aux_key = get_scancode_char(scancode_bytes);
-              switch (state) {
-                case MENU:
-                  menus_proccess_kbd_int(&state, aux_key);
-                  if (state == RACE)
-                    race_init(text, strlen(text), no_lines);
-                  break;
-                case RACE:
-                  race_process_kbd_int(&state, aux_key, y_pos_typed);
-                  if (state == RESULTS)
-                  {
-                    race_end();
-                  }
-                  break;
-                case RESULTS:
-                  printf("aqui kbd results\n");
-                  race_end();
-                  sleep(2);
-                  state = EXIT;
-                  break;
-                case RACE_WITH_FRIEND:
-                  state = MENU;
-                  break;
-                case BEST_RESULTS:
-                  state = MENU;
-                  break;
-                case EXIT:
-                  break;
-                default:
-                  break;
-              }  
+              kbd_int = true;
             }
           }
           if (msg.m_notify.interrupts & mouse_irq_set) {
@@ -165,29 +121,7 @@ int(proj_main_loop)(int argc, char *argv[])
               packet_byte_counter = 0;
               assemble_packet(&pp);
               mouse_events(&mouse_event, &pp);
-              switch (state) {
-                case MENU:
-                  menus_proccess_mouse_int(&state, mouse_event, mouse);
-                  if (state == RACE)
-                    race_init(text, strlen(text), no_lines);
-                  break;
-                case RACE:
-                  //race_process_mouse_int(aux_key);
-                  break;
-                case RESULTS:
-                  results_proccess_mouse_int(&state, mouse_event, mouse);
-                  break;
-                case RACE_WITH_FRIEND:
-                  state = MENU;
-                  break;
-                case BEST_RESULTS:
-                  state = MENU;
-                  break;
-                case EXIT:
-                  break;
-                default:
-                  break;
-              }  
+              mouse_int = true; 
             }    
           }
           break;
@@ -201,6 +135,67 @@ int(proj_main_loop)(int argc, char *argv[])
       //received a standard message, not a notification 
       //no standard messages expected: do nothing 
     }
+    switch (state) {
+      case MENU:
+        if (kbd_int) {
+          menus_proccess_kbd_int(&state, aux_key);
+          if (state == RACE)
+            race_init(text, strlen(text), no_lines);
+        }
+        if (mouse_int) {
+          if (state != MENU) break;
+          menus_proccess_mouse_int(&state, mouse_event, mouse);
+          if (state == RACE)
+            race_init(text, strlen(text), no_lines);
+        }
+        if (timer_int) {
+          menus_proccess_timer_int(timer_counter, main_menu, mouse);
+        }
+        break;
+      case RACE:
+        if (kbd_int) {
+          race_process_kbd_int(&state, aux_key, y_pos_typed);
+          if (state == RESULTS) {
+            results_init();
+          }
+        }
+        if (timer_int) {
+          race_process_timer_int(timer_counter);
+        }
+        if (state != RACE)
+          race_end();
+        break;
+      case RESULTS:
+        if (timer_int) {
+          results_proccess_timer_int(timer_counter, mouse);
+        }
+        if (kbd_int) {
+          results_proccess_kbd_int(&state, aux_key);
+          if (state == RACE)
+            race_init(text, strlen(text), no_lines);
+        }
+        if (mouse_int) {
+          results_proccess_mouse_int(&state, mouse_event, mouse);
+          if (state == RACE)
+            race_init(text, strlen(text), no_lines);
+        }
+        if (state != RESULTS)
+          results_end();
+        break;
+      case RACE_WITH_FRIEND:
+        state = MENU;
+        break;
+      case BEST_RESULTS:
+        state = MENU;
+        break;
+      case EXIT:
+        break;
+      default:
+        break;
+    }
+    timer_int = false;
+    kbd_int = false;
+    mouse_int = false;
   }
 
   

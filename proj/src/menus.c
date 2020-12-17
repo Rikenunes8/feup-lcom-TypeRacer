@@ -1,25 +1,13 @@
 #include "../headers/menus.h"
 
 
-/*void display_main_menu()
-{
-  uint8_t * map;
-  xpm_image_t img;
-  xpm_map_t xpm = menu;
-  map = xpm_load(xpm, XPM_8_8_8, &img);
-  graphic_Char_xpm(map, &img, 0, 0, NORMAL);
-
-  return;
-}*/
-
 void menus_proccess_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse) {
-  if (counter%1 == 0) 
+  if (counter%2 == 0) 
   {
     draw_sprite(main_menu, main_menu->x, main_menu->y);
     draw_sprite(mouse, mouse->x, -mouse->y);
   }
 }
-
 
 void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
   Menu_event event;
@@ -62,23 +50,6 @@ void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite
       break;
   }
 }
-
-void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
-  Menu_event event;
-  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
-  switch (event) 
-  {
-    case click_on_results_exit:  
-      *state = MENU;
-      break;
-    case click_on_try_again_race:
-      *state = RACE;
-      break;
-    default:
-      break;
-  }
-}
-
 
 Menu_event read_kbd_event(uint8_t aux_key)
 {
