@@ -20,6 +20,7 @@ static Char * text_Char;
 static Char * typed_text;
 
 static Sprite* car;
+static Sprite* results_menu;
 static Sprite* ballon1;
 
 void race_init(const char *text, size_t l, size_t n_lines)
@@ -136,11 +137,13 @@ void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* 
 
 
 void results_init() {
-  ballon1 = create_sprite(blue_balloon, 250, 300, 1, 1);
+  ballon1 = create_sprite(blue_balloon, 400, 300, 1, -2);
+  results_menu = create_sprite(results_page, 0, 0, 0, 0);
 }
 
 void results_end() {
   destroy_sprite(ballon1);
+  destroy_sprite(results_menu);
 }
 
 
@@ -424,14 +427,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   }
   else //results page
   {
-
-    uint8_t * map;
-    xpm_image_t img;
-
-    //results page image
-    xpm_map_t xpm = results_page;
-    map = xpm_load(xpm, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 0, 0, NORMAL);
+    draw_sprite(results_menu, 0, 0);
 
     //Speed text
     sprintf(text, "Your speed: %d cpm   ", CPM);

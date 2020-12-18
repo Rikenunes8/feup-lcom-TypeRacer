@@ -36,11 +36,11 @@ int(proj_main_loop)(int argc, char *argv[])
   //size_t no_lines = 8;
   //char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staraya Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
 
-  size_t no_lines = 4;
-  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
+  //size_t no_lines = 4;
+  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
   
-  //size_t no_lines = 2;
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
+  size_t no_lines = 2;
+  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
   //size_t no_lines = 1;
   //char text[] = "aa.";
 
@@ -100,12 +100,12 @@ int(proj_main_loop)(int argc, char *argv[])
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: // hardware interrupt notification 				
           if (msg.m_notify.interrupts & timer_irq_set) {
-            timer_int_handler();
-            timer_int = true;
-
             if (timer_counter%2 == 0) {
               fr_buffer_to_video_mem();
             }
+            timer_int_handler();
+            timer_int = true;
+
           }
           if (msg.m_notify.interrupts & kbd_irq_set) { 
             // keyboard interrupt 
@@ -139,6 +139,9 @@ int(proj_main_loop)(int argc, char *argv[])
     }
     switch (state) {
       case MENU:
+        if (timer_int) {
+          menus_proccess_timer_int(timer_counter, main_menu, mouse);
+        }
         if (kbd_int) {
           menus_proccess_kbd_int(&state, aux_key);
           if (state == RACE)
@@ -149,9 +152,6 @@ int(proj_main_loop)(int argc, char *argv[])
           menus_proccess_mouse_int(&state, mouse_event, mouse);
           if (state == RACE)
             race_init(text, strlen(text), no_lines);
-        }
-        if (timer_int) {
-          menus_proccess_timer_int(timer_counter, main_menu, mouse);
         }
         break;
       case RACE:
