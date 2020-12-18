@@ -14,7 +14,7 @@
 
 
 /* (x, y) coordinates for starting positions of the displayed texts*/
-#define X_TYPE          40           //x position of typed text
+#define X_TYPE          50           //x position of typed text
 //#define Y_TYPE        426          //y position of typed text
 #define X_TEXT          50           //x position of displayed text
 #define Y_TEXT          150          //y position of displayed text
@@ -118,5 +118,5 @@ void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uin
 
 void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines);
 
-void display_race_background();
+void display_race_background(size_t no_lines);
 #endif

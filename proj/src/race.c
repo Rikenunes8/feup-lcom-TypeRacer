@@ -26,8 +26,8 @@ void race_init(const char *text, size_t l, size_t n_lines)
 {
   len = l;
   no_lines = n_lines;
-  car = create_sprite(yellow_car_xpm, 50, 90, 0, 0);
-  display_race_background();
+  car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
+  display_race_background(n_lines);
   text_Char = malloc(len*sizeof(Char));
   display_text(text, text_Char, len, X_TEXT, Y_TEXT);
   MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
@@ -53,14 +53,15 @@ void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines)
 
 }
 
-void display_race_background()
+void display_race_background(size_t no_lines)
 {
   uint8_t * map;
   xpm_image_t img;
   xpm_map_t xpm = background;
   map = xpm_load(xpm, XPM_8_8_8, &img);
   graphic_Char_xpm(map, &img, 0, 0, NORMAL);
-  graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-32, WHITE);
+  //graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-210-(30*no_lines), WHITE);
+  graphic_draw_rectangle(16,16,get_h_res()-32,120, WHITE);
 
 
   //draws the text box with variable dimensions (incomplete)
@@ -87,7 +88,7 @@ void race_process_timer_int(uint32_t counter) {
     display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
   }
   if (counter%2 == 0) {
-    graphic_draw_rectangle(50, 50, 570, 90, WHITE);
+    graphic_draw_rectangle(50, 50, 570, 70, WHITE);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
   }
