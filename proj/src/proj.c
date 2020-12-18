@@ -44,7 +44,7 @@ int(proj_main_loop)(int argc, char *argv[])
   //size_t no_lines = 1;
   //char text[] = "aa.";
 
-  uint16_t y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
+  y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
 
   
   
@@ -156,7 +156,7 @@ int(proj_main_loop)(int argc, char *argv[])
         break;
       case RACE:
         if (kbd_int) {
-          race_process_kbd_int(&state, aux_key, y_pos_typed);
+          race_process_kbd_int(&state, aux_key);
           if (state == RESULTS) {
             results_init();
           }

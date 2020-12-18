@@ -7,6 +7,7 @@
 #include "../xpm/others.h"
 #include "../xpm/balloons.h"
 #include "../xpm/background.h"
+#include "../xpm/results_page.h"
 #include "../headers/graphic.h"
 #include "../headers/menus.h"
 #include "../headers/keyboard.h"
@@ -17,14 +18,17 @@
 #define X_TYPE          50           //x position of typed text
 //#define Y_TYPE        426          //y position of typed text
 #define X_TEXT          50           //x position of displayed text
-#define Y_TEXT          150          //y position of displayed text
+#define Y_TEXT          170          //y position of displayed text
 #define X_BOX           32
-#define Y_BOX           140
+#define Y_BOX           160
 #define Y_BOX_MARGIN    10          // Y_BOX - Y_TEXT
 #define BOX_WIDTH       736
 #define Y_BTW_BOXES     20          // height between text boxes
 
 #define MAX_NO_LINES 8 //maximum number of lines that the text can have
+
+extern size_t no_lines;
+extern uint16_t y_pos_typed;
 
 
 /*
@@ -38,7 +42,7 @@ void race_end();
 
 void race_process_timer_int(uint32_t counter);
 
-void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typed);
+void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
 
 void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
@@ -60,7 +64,7 @@ void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Spri
  * @param n_keys: lenght of typed_text
  * @param current_key: 
  */
-void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed);
+void update_typed_text(uint8_t aux_key);
 
 /* Compares the typed text with the displayed text and counts the correct chars typed
  * @param typed_text: array with typed chars
@@ -110,7 +114,7 @@ void display_Char(Char* c);
  */
 void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len, bool real_time);
 
-void rearrange_coors_text(Char* typed_text, size_t begin, size_t end, uint16_t y_pos_typed);
+void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
 
 //void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 

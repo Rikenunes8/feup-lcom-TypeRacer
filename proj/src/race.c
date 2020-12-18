@@ -8,7 +8,7 @@ extern uint32_t timer_counter;
 
 static size_t MAX_LEN;
 static size_t len; // text lenght
-static size_t no_lines;
+//static size_t no_lines;
 
 static uint16_t no_seconds; // counts the number of seconds
 static size_t n_keys; // Number of elements in typed_text
@@ -61,7 +61,7 @@ void display_race_background(size_t no_lines)
   map = xpm_load(xpm, XPM_8_8_8, &img);
   graphic_Char_xpm(map, &img, 0, 0, NORMAL);
   //graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-210-(30*no_lines), WHITE);
-  graphic_draw_rectangle(16,16,get_h_res()-32,120, WHITE);
+  graphic_draw_bordered_rectangle(32,16,get_h_res()-64,120);
 
 
   //draws the text box with variable dimensions (incomplete)
@@ -94,7 +94,7 @@ void race_process_timer_int(uint32_t counter) {
   }
 }
 
-void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typed) {
+void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   if (aux_key == NOTHING || aux_key == D_ARROW || aux_key == T_ARROW) return; // If not a char to draw, break
   if (aux_key == ESC) {
     *state = MENU;
@@ -102,7 +102,7 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key, uint16_t y_pos_typ
   }
   if (aux_key == BACKSPACE) count_backspaces++; //counts number of backspaces typed
 
-  update_typed_text(aux_key, y_pos_typed);
+  update_typed_text(aux_key);
   // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
   update_correct_keys();
   if (correct_keys == len) {
@@ -187,7 +187,7 @@ void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Spri
 }
 
 
-void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed) 
+void update_typed_text(uint8_t aux_key) 
 {
   Char key;
   Char previous_key;
@@ -210,14 +210,14 @@ void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed)
     (n_keys)--; // Decrement number of elements in typed_text array
 
     // New coordenates to Chars after changing
-    rearrange_coors_text(typed_text, current_key, n_keys, y_pos_typed); 
+    rearrange_coors_text(typed_text, current_key, n_keys); 
     
     // Display Chars after change until the end
     for (size_t n = current_key; n < n_keys; n++)
       display_Char(&typed_text[n]);
     
     // Draw current key bar
-    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1, y_pos_typed, 1, CHAR_H, BLACK);
+    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1,y_pos_typed, 1, CHAR_H, BLACK);
     else graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, BLACK);
   }
   else if (key.index == L_ARROW) {
@@ -229,7 +229,7 @@ void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed)
     (current_key)--; // Decrement index of the cursor in typed_text array
     
     // Draw current key bar
-    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1, y_pos_typed, 1, CHAR_H, BLACK);
+    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1,y_pos_typed, 1, CHAR_H, BLACK);
     else graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, BLACK);
   }
   else if (key.index == R_ARROW) {
@@ -283,7 +283,7 @@ void update_typed_text(uint8_t aux_key, uint16_t y_pos_typed)
     (n_keys)++; // Increment number of elements in array
     
     // New coordenates to Chars after changing
-    rearrange_coors_text(typed_text, current_key, n_keys, y_pos_typed); 
+    rearrange_coors_text(typed_text, current_key, n_keys); 
 
     // Draw new typed key
     for (size_t n = current_key-1; n < n_keys; n++)
@@ -428,57 +428,36 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
     uint8_t * map;
     xpm_image_t img;
 
-    //background image
-    xpm_map_t xpm = background;
+    //results page image
+    xpm_map_t xpm = results_page;
     map = xpm_load(xpm, XPM_8_8_8, &img);
     graphic_Char_xpm(map, &img, 0, 0, NORMAL);
 
-    //int graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) 
-    //white rectangle between (150, 100) and (650, 500)
-    graphic_draw_rectangle(150,100, 500, 400, WHITE); 
-
-
-    //"RESULTS" word
-    xpm_map_t xpm_results = results_word;
-    map = xpm_load(xpm_results, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 160, 110, NORMAL); 
-
-    //speed symbol
-    xpm_map_t xpm_speed = speed_symbol;
-    map = xpm_load(xpm_speed, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 170, 190, NORMAL);
+    //Speed text
     sprintf(text, "Your speed: %d cpm   ", CPM);
     text_Char = malloc(strlen(text)*sizeof(Char));
     display_text(text, text_Char, strlen(text), 250, 210);
     free(text_Char);
 
-    //time symbol
-    xpm_map_t xpm_time = time_symbol;
-    map = xpm_load(xpm_time, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 170, 270, NORMAL);
+    //Time text
     sprintf(text, "Time: %d : %d", no_seconds/60, no_seconds%60);
     text_Char = malloc(strlen(text)*sizeof(Char));
     display_text(text, text_Char, strlen(text), 250, 290);
     free(text_Char);
 
-    //accuracy symbol
-    xpm_map_t xpm_accuracy = accuracy_symbol;
-    map = xpm_load(xpm_accuracy, XPM_8_8_8, &img);
-    graphic_Char_xpm(map, &img, 170, 350, NORMAL);
+    //Accuracy text
     sprintf(text, "Accuracy: %.1f %%  ", accuracy);
     text_Char = malloc(strlen(text)*sizeof(Char));
     display_text(text, text_Char, strlen(text), 250, 370);
     free(text_Char);
 
-    //"Try again" button
-    graphic_draw_bordered_rectangle(try_again_x_left, try_again_y_top, 150, 50);
+    //Try again text
     sprintf(text, "TRY AGAIN");
     text_Char = malloc(strlen(text)*sizeof(Char));
     display_text(text, text_Char, strlen(text), try_again_x_left + 20, try_again_y_top + 20);
     free(text_Char);
 
-    //"Exit" button
-    graphic_draw_bordered_rectangle(results_exit_x_left, results_exit_y_top, 100, 50);
+    //Exit text
     sprintf(text, "EXIT");
     text_Char = malloc(strlen(text)*sizeof(Char));
     display_text(text, text_Char, strlen(text), results_exit_x_left + 25, results_exit_y_top + 20);
@@ -486,75 +465,7 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   }  
 }
 
-/*void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate)
-{
-  bool axis; // Positive to move in yy, negative to move in xx
-  int16_t way;
-  uint8_t frame_counter = 0;
-
-  if (xi == xf) 
-  {
-    axis = true;
-    if (yi < yf)
-      way = 1;
-    else 
-      way = -1;
-  }
-  else {
-    axis = false;
-    if (xi < xf)
-      way = 1;
-    else 
-      way = -1;
-  }
-
-  // First image
-  xpm_image_t img;
-  uint8_t * map = xpm_load(blue_balloon, XPM_8_8_8, &img);
-  graphic_xpm(map, &img, xi, yi);
-
-  if (yi != yf || xi != xf) 
-  {
-      if (timer_counter%(60/fr_rate) == 0) 
-      {
-        printf("aqui\n");
-        if (speed > 0) 
-        { 
-          graphic_xpm(map, &img, xi, yi);
-          if (axis) 
-          {
-            yi += way*speed;
-            if (speed > abs(yf-yi))
-              speed = abs(yf - yi);
-          }
-          else 
-          {
-            xi += way*speed;
-            if (speed > abs(xf-xi))
-              speed = abs(xf - xi);
-          } 
-          graphic_xpm(map, &img, xi, yi);
-        }
-        else 
-        {
-          frame_counter++;
-          if (frame_counter%(-speed) == 0) 
-          {
-            frame_counter = 0;
-            graphic_xpm(map, &img, xi, yi);
-            if (axis)
-              yi += way;
-            else
-              xi += way;
-            graphic_xpm(map, &img, xi, yi);
-          }
-        }
-      }
-  }
-
-}
-*/
-void rearrange_coors_text(Char* typed_text, size_t begin, size_t end, uint16_t y_pos_typed) {
+void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
   uint16_t x;
   uint16_t y;
   // Recognize coors of the begin
