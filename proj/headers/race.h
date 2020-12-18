@@ -14,10 +14,15 @@
 
 
 /* (x, y) coordinates for starting positions of the displayed texts*/
-#define X_TYPE  40           //x position of typed text
-//#define Y_TYPE  426          //y position of typed text
-#define X_TEXT  40           //x position of displayed text
-#define Y_TEXT  140          //y position of displayed text
+#define X_TYPE          40           //x position of typed text
+//#define Y_TYPE        426          //y position of typed text
+#define X_TEXT          50           //x position of displayed text
+#define Y_TEXT          150          //y position of displayed text
+#define X_BOX           32
+#define Y_BOX           140
+#define Y_BOX_MARGIN    10          // Y_BOX - Y_TEXT
+#define BOX_WIDTH       736
+#define Y_BTW_BOXES     20          // height between text boxes
 
 #define MAX_NO_LINES 8 //maximum number of lines that the text can have
 
