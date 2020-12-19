@@ -60,6 +60,15 @@ void draw_sprite(Sprite* sprite, int32_t x, int32_t y) {
   }
 }
 
+bool check_collison(Sprite* sprite, int32_t x, int32_t y) {
+  return  sprite->x < x && sprite->x+sprite->width > x &&
+          sprite->y < y && sprite->y+sprite->height > y;
+}
+
+
+
+
+
 AnimSprite * create_asprite(char *base, char *pic1[], ...);
 
 int animate_asprite(AnimSprite *fig, char *base);

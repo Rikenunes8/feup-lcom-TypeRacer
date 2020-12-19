@@ -21,26 +21,11 @@ static Char * typed_text;
 
 static Sprite* car;
 static Sprite* results_menu;
-static Sprite* ballon1;
 
-void race_init(const char *text, size_t l, size_t n_lines)
-{
-  len = l;
-  no_lines = n_lines;
-  car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
-  display_race_background(n_lines);
-  text_Char = malloc(len*sizeof(Char));
-  display_text(text, text_Char, len, X_TEXT, Y_TEXT);
-  MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
-  typed_text = malloc((MAX_LEN)*sizeof(Char));
+static size_t no_bubbles;
+static Sprite** bubbles;
+static Sprite* bubble1;
 
-  timer_counter = 0;
-  no_seconds = 0;
-  n_keys = 0;
-  current_key = 0;
-  correct_keys = 0;
-  count_backspaces = 0;
-}
 
 void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
 {
@@ -73,15 +58,33 @@ void display_race_background(size_t no_lines)
 
 }
 
+
+void race_init(const char *text, size_t l, size_t n_lines)
+{
+  len = l;
+  no_lines = n_lines;
+  car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
+  display_race_background(n_lines);
+  text_Char = malloc(len*sizeof(Char));
+  display_text(text, text_Char, len, X_TEXT, Y_TEXT);
+  MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
+  typed_text = malloc((MAX_LEN)*sizeof(Char));
+
+  timer_counter = 0;
+  no_seconds = 0;
+  n_keys = 0;
+  current_key = 0;
+  correct_keys = 0;
+  count_backspaces = 0;
+}
+
 void race_end() 
 {
   destroy_sprite(car);
-  display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
   free(text_Char);
   free(typed_text);
   return;
 }
-
 
 void race_process_timer_int(uint32_t counter) {
   if(counter % 60 == 0) {
@@ -89,7 +92,7 @@ void race_process_timer_int(uint32_t counter) {
     display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
   }
   if (counter%2 == 0) {
-    graphic_draw_rectangle(50, 50, 570, 70, WHITE);
+    graphic_draw_rectangle(50, car->y-1, 570, 50, WHITE);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
   }
@@ -133,60 +136,6 @@ void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* 
       break;
   }
 
-}
-
-
-void results_init() {
-  ballon1 = create_sprite(blue_balloon, 400, 300, 1, -2);
-  results_menu = create_sprite(results_page, 0, 0, 0, 0);
-}
-
-void results_end() {
-  destroy_sprite(ballon1);
-  destroy_sprite(results_menu);
-}
-
-
-void results_proccess_timer_int(uint32_t counter, Sprite* mouse) 
-{
-  if (counter%2 == 0) 
-  {
-    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
-    draw_sprite(ballon1, ballon1->x, ballon1->y);
-    animate_sprite(ballon1);
-    draw_sprite(mouse, mouse->x, -mouse->y);
-  }
-}
-
-void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
-  Menu_event event;
-  event = read_kbd_event(aux_key);
-  switch (event) {
-    case type_left_arrow:  
-      *state = RACE;
-      break;
-    case type_right_arrow:
-      *state = MENU;
-      break;
-    default:
-      break;
-  }
-}
-
-void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
-  Menu_event event;
-  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
-  switch (event) 
-  {
-    case click_on_results_exit:  
-      *state = MENU;
-      break;
-    case click_on_try_again_race:
-      *state = RACE;
-      break;
-    default:
-      break;
-  }
 }
 
 
@@ -488,4 +437,106 @@ void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
       x = X_TYPE;
     }
   }
+}
+
+
+void results_init() {
+  bubble1 = create_sprite(bubble_1, 400, 300, 1, -2);
+  //bubble2 = create_sprite(bubble, 100, 100, 2, 1);
+  Sprite* b[] = {bubble1};
+
+  no_bubbles = 1;
+  bubbles = (Sprite**)malloc(no_bubbles*sizeof(Sprite*));
+  for (size_t i = 0; i < no_bubbles; i++) {
+    bubbles[i] = b[i];
+  }
+  results_menu = create_sprite(results_page, 0, 0, 0, 0);
+}
+
+void results_end() {
+  for (size_t i = 0; i < no_bubbles; i++)
+    destroy_sprite(bubbles[i]);
+  destroy_sprite(results_menu);
+}
+
+void results_proccess_timer_int(uint32_t counter, Sprite* mouse) 
+{
+  if (counter%2 == 0) 
+  {
+    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
+    for (size_t i = 0; i < no_bubbles; i++)
+      move_bubbles(i);   
+    draw_sprite(mouse, mouse->x, -mouse->y);
+  }
+}
+
+void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
+  Menu_event event;
+  event = read_kbd_event(aux_key);
+  switch (event) {
+    case type_left_arrow:  
+      *state = RACE;
+      break;
+    case type_right_arrow:
+      *state = MENU;
+      break;
+    default:
+      break;
+  }
+}
+
+void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
+  Menu_event event;
+  if (mouse_event.ev == LB_DOWN)
+    collison_mouse(mouse);
+  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
+  switch (event) 
+  {
+    case click_on_results_exit:  
+      *state = MENU;
+      break;
+    case click_on_try_again_race:
+      *state = RACE;
+      break;
+    default:
+      break;
+  }
+}
+
+/*void collisons() {
+  for (int i = 0; i < bubbles.size(); i++) {
+    
+  }
+}*/
+
+void collison_mouse(Sprite* mouse) {
+  for (size_t i = 0; i < no_bubbles; i++) {
+    if (check_collison(bubbles[i], mouse->x, -mouse->y)) {
+      bubbles_erase(i);
+      break;
+    }
+  }
+}
+
+void bubbles_erase(size_t n) {
+  Sprite* tmp = bubbles[n];
+  for (size_t i = n; i+1 < no_bubbles; i++) {
+    bubbles[i] = bubbles[i+1];
+  }
+  no_bubbles--;
+  destroy_sprite(tmp);
+}
+
+void move_bubbles(size_t n) {
+  if (bubbles[n]->x < 0)
+    set_sprite(bubbles[n], 0, bubbles[n]->y, -bubbles[n]->xspeed, bubbles[n]->yspeed);
+  if (bubbles[n]->x+bubbles[n]->width > (int32_t)get_h_res())
+    set_sprite(bubbles[n], get_h_res()-bubbles[n]->width, bubbles[n]->y, -bubbles[n]->xspeed, bubbles[n]->yspeed);
+  if (bubbles[n]->y < 0)
+    set_sprite(bubbles[n], bubbles[n]->x, 0, bubbles[n]->xspeed, -bubbles[n]->yspeed);
+  if (bubbles[n]->y+bubbles[n]->height > (int32_t)get_v_res())
+    set_sprite(bubbles[n], bubbles[n]->x, get_v_res()-bubbles[n]->height, bubbles[n]->xspeed, -bubbles[n]->yspeed);
+    
+  draw_sprite(bubbles[n], bubbles[n]->x, bubbles[n]->y);
+  animate_sprite(bubbles[n]);
 }

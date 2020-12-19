@@ -39,10 +39,10 @@ int(proj_main_loop)(int argc, char *argv[])
   //size_t no_lines = 4;
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
   
-  size_t no_lines = 2;
-  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
-  //size_t no_lines = 1;
-  //char text[] = "aa.";
+  //size_t no_lines = 2;
+  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
+  size_t no_lines = 1;
+  char text[] = "aa.";
 
   y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
 

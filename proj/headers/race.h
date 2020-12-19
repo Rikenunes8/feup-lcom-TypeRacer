@@ -5,7 +5,7 @@
 
 #include "../xpm/letters.h"
 #include "../xpm/others.h"
-#include "../xpm/balloons.h"
+#include "../xpm/bubbles.h"
 #include "../xpm/background.h"
 #include "../xpm/results_page.h"
 #include "../headers/graphic.h"
@@ -116,11 +116,20 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
 
 void rearrange_coors_text(Char* typed_text, size_t begin, size_t end);
 
-//void draw_balloon(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 
 void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines);
 
 void display_race_background(size_t no_lines);
+
+
+void collison_mouse(Sprite* mouse);
+
+void bubbles_erase(size_t n);
+
+void move_bubbles(size_t n);
+
+
+
 #endif

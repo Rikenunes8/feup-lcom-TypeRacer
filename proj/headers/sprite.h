@@ -70,6 +70,7 @@ int set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t 
 
 void draw_sprite(Sprite* sprite, int32_t x, int32_t y);
 
+bool check_collison(Sprite* sprite, int32_t x, int32_t y);
 
 /** @} end of sprite */
 
