@@ -23,8 +23,7 @@ static Sprite* car;
 static Sprite* results_menu;
 
 static size_t no_bubbles;
-static Sprite** bubbles;
-static Sprite* bubble1;
+static AnimSprite** bubbles;
 
 
 void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
@@ -441,21 +440,27 @@ void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
 
 
 void results_init() {
-  bubble1 = create_sprite(bubble_1, 400, 300, 1, -2);
-  //bubble2 = create_sprite(bubble, 100, 100, 2, 1);
-  Sprite* b[] = {bubble1};
+  /*AnimSprite* bubble1 = create_asprite(400, 300, 1, -2, 2, 5, bubble_1, bubble_2, bubble_3, bubble_4, bubble_5);
+  set_asprite(bubble1, bubble1->aspeed, bubble1->cur_aspeed, 1);
+  AnimSprite* bubble2 = create_asprite(100, 100, 2, 1, 2, 5, bubble_1, bubble_2, bubble_3, bubble_4, bubble_5);
+  set_asprite(bubble2, bubble2->aspeed, bubble2->cur_aspeed, 1);
+  AnimSprite* b[] = {bubble1, bubble2};*/
 
-  no_bubbles = 1;
-  bubbles = (Sprite**)malloc(no_bubbles*sizeof(Sprite*));
+  int32_t pos[] = {400,300, 100,100};
+  int8_t speeds[] = {1,-2, 2,1};
+
+  no_bubbles = 2;
+  bubbles = (AnimSprite**)malloc(no_bubbles*sizeof(AnimSprite*));
   for (size_t i = 0; i < no_bubbles; i++) {
-    bubbles[i] = b[i];
+    bubbles[i] = create_asprite(pos[2*i], pos[2*i+1], speeds[2*i], speeds[2*i+1], 2, 5, bubble_1, bubble_2, bubble_3, bubble_4, bubble_5);
+    set_asprite(bubbles[i], bubbles[i]->aspeed, bubbles[i]->cur_aspeed, 1);
   }
   results_menu = create_sprite(results_page, 0, 0, 0, 0);
 }
 
 void results_end() {
   for (size_t i = 0; i < no_bubbles; i++)
-    destroy_sprite(bubbles[i]);
+    destroy_asprite(bubbles[i]);
   destroy_sprite(results_menu);
 }
 
@@ -511,32 +516,36 @@ void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Spri
 
 void collison_mouse(Sprite* mouse) {
   for (size_t i = 0; i < no_bubbles; i++) {
-    if (check_collison(bubbles[i], mouse->x, -mouse->y)) {
-      bubbles_erase(i);
+    if (check_asp_collison(bubbles[i], mouse->x, -mouse->y)) {
+      set_asprite(bubbles[i], bubbles[i]->aspeed, bubbles[i]->cur_aspeed, 5);
       break;
     }
   }
 }
 
 void bubbles_erase(size_t n) {
-  Sprite* tmp = bubbles[n];
+  AnimSprite* tmp = bubbles[n];
   for (size_t i = n; i+1 < no_bubbles; i++) {
     bubbles[i] = bubbles[i+1];
   }
   no_bubbles--;
-  destroy_sprite(tmp);
+  destroy_asprite(tmp);
 }
 
 void move_bubbles(size_t n) {
-  if (bubbles[n]->x < 0)
-    set_sprite(bubbles[n], 0, bubbles[n]->y, -bubbles[n]->xspeed, bubbles[n]->yspeed);
-  if (bubbles[n]->x+bubbles[n]->width > (int32_t)get_h_res())
-    set_sprite(bubbles[n], get_h_res()-bubbles[n]->width, bubbles[n]->y, -bubbles[n]->xspeed, bubbles[n]->yspeed);
-  if (bubbles[n]->y < 0)
-    set_sprite(bubbles[n], bubbles[n]->x, 0, bubbles[n]->xspeed, -bubbles[n]->yspeed);
-  if (bubbles[n]->y+bubbles[n]->height > (int32_t)get_v_res())
-    set_sprite(bubbles[n], bubbles[n]->x, get_v_res()-bubbles[n]->height, bubbles[n]->xspeed, -bubbles[n]->yspeed);
+  if (bubbles[n]->sp->x < 0)
+    set_asprite_sprite(bubbles[n], 0, bubbles[n]->sp->y, -bubbles[n]->sp->xspeed, bubbles[n]->sp->yspeed);
+  if (bubbles[n]->sp->x+bubbles[n]->sp->width > (int32_t)get_h_res())
+    set_asprite_sprite(bubbles[n], get_h_res()-bubbles[n]->sp->width, bubbles[n]->sp->y, -bubbles[n]->sp->xspeed, bubbles[n]->sp->yspeed);
+  if (bubbles[n]->sp->y < 0)
+    set_asprite_sprite(bubbles[n], bubbles[n]->sp->x, 0, bubbles[n]->sp->xspeed, -bubbles[n]->sp->yspeed);
+  if (bubbles[n]->sp->y+bubbles[n]->sp->height > (int32_t)get_v_res())
+    set_asprite_sprite(bubbles[n], bubbles[n]->sp->x, get_v_res()-bubbles[n]->sp->height, bubbles[n]->sp->xspeed, -bubbles[n]->sp->yspeed);
     
-  draw_sprite(bubbles[n], bubbles[n]->x, bubbles[n]->y);
-  animate_sprite(bubbles[n]);
+  draw_asprite(bubbles[n]);
+
+  if (bubbles[n]->cur_fig == 4)
+    bubbles_erase(n);
+  else
+    animate_asprite(bubbles[n]);
 }
