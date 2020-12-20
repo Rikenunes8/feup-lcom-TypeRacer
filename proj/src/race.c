@@ -440,16 +440,10 @@ void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
 
 
 void results_init() {
-  /*AnimSprite* bubble1 = create_asprite(400, 300, 1, -2, 2, 5, bubble_1, bubble_2, bubble_3, bubble_4, bubble_5);
-  set_asprite(bubble1, bubble1->aspeed, bubble1->cur_aspeed, 1);
-  AnimSprite* bubble2 = create_asprite(100, 100, 2, 1, 2, 5, bubble_1, bubble_2, bubble_3, bubble_4, bubble_5);
-  set_asprite(bubble2, bubble2->aspeed, bubble2->cur_aspeed, 1);
-  AnimSprite* b[] = {bubble1, bubble2};*/
+  int32_t pos[] = {400,300, 100,100, 600,50, 100,450, 300,0, 500,300, 450,100};
+  int8_t speeds[] = {1,-2, 2,1, 2,3, 1,-5, -4,2, 5,5, -2,9};
 
-  int32_t pos[] = {400,300, 100,100};
-  int8_t speeds[] = {1,-2, 2,1};
-
-  no_bubbles = 2;
+  no_bubbles = 7;
   bubbles = (AnimSprite**)malloc(no_bubbles*sizeof(AnimSprite*));
   for (size_t i = 0; i < no_bubbles; i++) {
     bubbles[i] = create_asprite(pos[2*i], pos[2*i+1], speeds[2*i], speeds[2*i+1], 2, 5, bubble_1, bubble_2, bubble_3, bubble_4, bubble_5);

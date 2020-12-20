@@ -85,6 +85,7 @@ AnimSprite * create_asprite(int32_t x, int32_t y, int8_t x_speed, int8_t y_speed
     xpm_image_t img;
     asp->map[i] = xpm_load(tmp, XPM_8_8_8, &img);
   }
+  va_end(ap);
   return asp;
 }
 
