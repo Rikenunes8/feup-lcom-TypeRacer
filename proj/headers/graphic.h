@@ -9,6 +9,7 @@
 #define CHAR_H  14
 #define WHITE   0xFFFFFF
 #define BLACK   0x000000
+#define KEY_BAR 72
 
 typedef enum {
   NORMAL,

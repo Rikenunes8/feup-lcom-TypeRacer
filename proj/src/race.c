@@ -3,6 +3,7 @@
 
 
 extern xpm_map_t letters[];
+static Char key_bar;
 
 extern uint32_t timer_counter;
 
@@ -19,6 +20,7 @@ static uint16_t count_backspaces; //counts the number of backspaces
 static Char * text_Char;
 static Char * typed_text;
 
+static Sprite* back;
 static Sprite* car;
 static Sprite* results_menu;
 
@@ -40,14 +42,8 @@ void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines)
 
 void display_race_background(size_t no_lines)
 {
-  uint8_t * map;
-  xpm_image_t img;
-  xpm_map_t xpm = background;
-  map = xpm_load(xpm, XPM_8_8_8, &img);
-  graphic_Char_xpm(map, &img, 0, 0, NORMAL);
-  //graphic_draw_rectangle(16,16,get_h_res()-32, get_v_res()-210-(30*no_lines), WHITE);
+  draw_sprite(back, 0, 0);
   graphic_draw_bordered_rectangle(32,16,get_h_res()-64,120);
-
 
   //draws the text box with variable dimensions (incomplete)
   //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
@@ -63,11 +59,14 @@ void race_init(const char *text, size_t l, size_t n_lines)
   len = l;
   no_lines = n_lines;
   car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
-  display_race_background(n_lines);
+  back = create_sprite(background, 0, 0, 0, 0);
   text_Char = malloc(len*sizeof(Char));
-  display_text(text, text_Char, len, X_TEXT, Y_TEXT);
   MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
   typed_text = malloc((MAX_LEN)*sizeof(Char));
+  
+  key_bar.index = KEY_BAR; key_bar.state = NORMAL;
+  key_bar.posx = X_TYPE-1; key_bar.posy = y_pos_typed;
+
 
   timer_counter = 0;
   no_seconds = 0;
@@ -75,11 +74,17 @@ void race_init(const char *text, size_t l, size_t n_lines)
   current_key = 0;
   correct_keys = 0;
   count_backspaces = 0;
+
+  display_race_background(n_lines);
+  display_text(text, text_Char, len, X_TEXT, Y_TEXT);
+
+
 }
 
 void race_end() 
 {
   destroy_sprite(car);
+  destroy_sprite(back);
   free(text_Char);
   free(typed_text);
   return;
@@ -88,9 +93,17 @@ void race_end()
 void race_process_timer_int(uint32_t counter) {
   if(counter % 60 == 0) {
     no_seconds++;
-    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
   }
   if (counter%2 == 0) {
+    display_race_background(no_lines);
+    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
+    for (size_t i = 0; i < len; i++) {
+      display_Char(&text_Char[i]);
+    }
+    for (size_t i = 0; i < n_keys; i++) {
+      display_Char(&typed_text[i]);
+    }
+    display_Char(&key_bar);
     graphic_draw_rectangle(50, car->y-1, 570, 50, WHITE);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
@@ -147,53 +160,34 @@ void update_typed_text(uint8_t aux_key)
 
   if(key.index == BACKSPACE) { // If key typed is backspace
     if (current_key == 0) return;
-
-    // Erase previous key bar
-    graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, WHITE);
-    // Draw white rectangle in last element position since removing a letter decreases the length
-    graphic_draw_rectangle(typed_text[n_keys-1].posx, typed_text[n_keys-1].posy, CHAR_W, CHAR_H, WHITE);
     
     // Eliminate Char of typed_text
     for (uint16_t i = current_key-1; i < n_keys-1; i++) {
       typed_text[i] = typed_text[i+1];
     }
-    (current_key)--; // Decrement index of the cursor in typed_text array
-    (n_keys)--; // Decrement number of elements in typed_text array
+    current_key--; // Decrement index of the cursor in typed_text array
+    n_keys--; // Decrement number of elements in typed_text array
 
     // New coordenates to Chars after changing
     rearrange_coors_text(typed_text, current_key, n_keys); 
-    
-    // Display Chars after change until the end
-    for (size_t n = current_key; n < n_keys; n++)
-      display_Char(&typed_text[n]);
-    
-    // Draw current key bar
-    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1,y_pos_typed, 1, CHAR_H, BLACK);
-    else graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, BLACK);
+        
+    if (current_key == 0) {key_bar.posx = X_TYPE-1; key_bar.posy = y_pos_typed;}
+    else {key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;}
   }
   else if (key.index == L_ARROW) {
     if (current_key == 0) return; // Don't allow cursor to go back when it's at the begin
-
-    // Erase previous key bar
-    graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, WHITE);
     
-    (current_key)--; // Decrement index of the cursor in typed_text array
-    
-    // Draw current key bar
-    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1,y_pos_typed, 1, CHAR_H, BLACK);
-    else graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, BLACK);
+    current_key--; // Decrement index of the cursor in typed_text array
+    // Set key bar position
+    if (current_key == 0) {key_bar.posx = X_TYPE-1; key_bar.posy = y_pos_typed;}
+    else {key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;}
   }
   else if (key.index == R_ARROW) {
     if (current_key == n_keys) return; // Don't allow cursor to advance when it's at the end
-
-    // Erase previous key bar
-    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1, y_pos_typed, 1, CHAR_H, WHITE);
-    else graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, WHITE);
     
-    (current_key)++; // Increment index of the cursor in typed_text array
-    
-    // Draw current key bar
-    graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, BLACK);
+    current_key++; // Increment index of the cursor in typed_text array
+    // Set key bar position
+    key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;
   }
   // If typed key is able to be drawn and does not exceed maximum length allocated
   else if (key.index != NOTHING && n_keys+1<MAX_LEN) {
@@ -218,10 +212,6 @@ void update_typed_text(uint8_t aux_key)
         key.posy = previous_key.posy;
       }
     }
-
-    // Erase current key bar
-    if (current_key == 0) graphic_draw_rectangle(X_TYPE-1, y_pos_typed, 1, CHAR_H, WHITE);
-    else graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, WHITE);
     
     // Add Char to typed_text
     for (size_t i = current_key; i < n_keys+1; i++) {
@@ -230,18 +220,15 @@ void update_typed_text(uint8_t aux_key)
       key = temp;
     }
 
-    (current_key)++; // Increment index of the cursor in typed_text array
-    (n_keys)++; // Increment number of elements in array
+    current_key++; // Increment index of the cursor in typed_text array
+    n_keys++; // Increment number of elements in array
     
     // New coordenates to Chars after changing
     rearrange_coors_text(typed_text, current_key, n_keys); 
 
-    // Draw new typed key
-    for (size_t n = current_key-1; n < n_keys; n++)
-      display_Char(&typed_text[n]);
+    // Set key bar position
+    key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;
 
-    // Draw current key bar
-    graphic_draw_rectangle(typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 1, CHAR_H, BLACK);    
   }
 }
 
