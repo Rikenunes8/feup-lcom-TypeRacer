@@ -72,7 +72,7 @@ void race_process_timer_int(uint32_t counter) {
     no_seconds++;
     set_results();
   }
-  if (counter%2 == 0) {
+  if (counter%6 == 0) {
     display_race_background();
     display_results(true);
     for (size_t i = 0; i < len; i++) {

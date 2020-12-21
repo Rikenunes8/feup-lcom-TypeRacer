@@ -37,10 +37,8 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_init(mode);
   
 
-  //char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staraya Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
-
+  //char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staray Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
-  
   char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
   //char text[] = "aa.";
 
@@ -109,7 +107,7 @@ int(proj_main_loop)(int argc, char *argv[])
             timer_int = true;
 
           }
-          if (msg.m_notify.interrupts & kbd_irq_set) { 
+          if (msg.m_notify.interrupts & kbd_irq_set) {
             // keyboard interrupt 
             kbc_ih();
             assemble_scancode(scancode_bytes);
