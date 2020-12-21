@@ -2,10 +2,8 @@
 
 
 
-extern xpm_map_t letters[];
-static Char key_bar;
-
 extern uint32_t timer_counter;
+static uint8_t **letters_maps;
 
 static size_t MAX_LEN;
 static size_t len; // text lenght
@@ -27,24 +25,23 @@ static Char * typed_text;
 static Sprite* back;
 static Sprite* car;
 static Sprite* results_menu;
+static Sprite* key_bar;
 
 static size_t no_bubbles;
 static AnimSprite** bubbles;
 
 
 // Race page
-void race_init(const char *text, size_t l)
+void race_init(const char *text, size_t l, uint8_t ** maps)
 {
+  letters_maps = maps;
   len = l;
   car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
   back = create_sprite(background, 0, 0, 0, 0);
+  key_bar = create_sprite(key_bar_xpm, X_TYPE-1, y_pos_typed, 0, 0);
   text_Char = malloc(len*sizeof(Char));
   MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
   typed_text = malloc((MAX_LEN)*sizeof(Char));
-  
-  key_bar.index = KEY_BAR; key_bar.state = NORMAL;
-  key_bar.posx = X_TYPE-1; key_bar.posy = y_pos_typed;
-
 
   timer_counter = 0;
   no_seconds = 0;
@@ -64,6 +61,7 @@ void race_end()
 {
   destroy_sprite(car);
   destroy_sprite(back);
+  destroy_sprite(key_bar);
   free(text_Char);
   free(typed_text);
   return;
@@ -83,7 +81,7 @@ void race_process_timer_int(uint32_t counter) {
     for (size_t i = 0; i < n_keys; i++) {
       display_Char(&typed_text[i]);
     }
-    display_Char(&key_bar);
+    draw_sprite(key_bar, key_bar->x, key_bar->y);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
   }
@@ -150,23 +148,23 @@ void update_typed_text(uint8_t aux_key)
     // New coordenates to Chars after changing
     rearrange_coors_text(typed_text, current_key, n_keys); 
         
-    if (current_key == 0) {key_bar.posx = X_TYPE-1; key_bar.posy = y_pos_typed;}
-    else {key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;}
+    if (current_key == 0) set_sprite(key_bar, X_TYPE-1, y_pos_typed, 0, 0);
+    else set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
   }
   else if (key.index == L_ARROW) {
     if (current_key == 0) return; // Don't allow cursor to go back when it's at the begin
     
     current_key--; // Decrement index of the cursor in typed_text array
     // Set key bar position
-    if (current_key == 0) {key_bar.posx = X_TYPE-1; key_bar.posy = y_pos_typed;}
-    else {key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;}
+    if (current_key == 0) set_sprite(key_bar, X_TYPE-1, y_pos_typed, 0, 0);
+    else set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
   }
   else if (key.index == R_ARROW) {
     if (current_key == n_keys) return; // Don't allow cursor to advance when it's at the end
     
     current_key++; // Increment index of the cursor in typed_text array
     // Set key bar position
-    key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;
+    set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
   }
   // If typed key is able to be drawn and does not exceed maximum length allocated
   else if (key.index != NOTHING && n_keys+1<MAX_LEN) {
@@ -206,7 +204,7 @@ void update_typed_text(uint8_t aux_key)
     rearrange_coors_text(typed_text, current_key, n_keys); 
 
     // Set key bar position
-    key_bar.posx = typed_text[current_key-1].posx+CHAR_W; key_bar.posy = typed_text[current_key-1].posy;
+    set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
 
   }
 }
@@ -362,10 +360,10 @@ void display_time(uint16_t seconds, uint16_t x, uint16_t y) {
 }
 
 void display_Char(Char *c) {
-  uint8_t * map;
+  /*uint8_t * map;
   xpm_image_t img;
-  graphic_xpm_load(&map, &img, XPM_8_8_8, letters[c->index]);
-  graphic_Char_xpm(map, &img, c->posx, c->posy, c->state);
+  graphic_xpm_load(&map, &img, XPM_8_8_8, letters[c->index]);*/
+  graphic_Char_xpm(letters_maps[c->index], c->posx, c->posy, c->state);
 }
 
 void display_results(bool real_time)

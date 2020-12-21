@@ -35,7 +35,7 @@ uint16_t y_pos_typed;                //y position of typed text
  * @param text: text to draw
  * @param len: lenght of that text
  */
-void race_init(const char *text, size_t len);
+void race_init(const char *text, size_t len, uint8_t ** maps);
 
 void race_end();
 

@@ -4,6 +4,7 @@
 #include <lcom/lcf.h>
 #include <stdint.h>
 #include <stdio.h>
+#include "../xpm/letters.h"
 #include "../headers/graphic.h"
 #include "../headers/race.h"
 #include "../headers/menus.h"

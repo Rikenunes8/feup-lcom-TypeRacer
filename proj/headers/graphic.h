@@ -43,7 +43,7 @@ int graphic_xpm_load(uint8_t ** map, xpm_image_t *img, enum xpm_image_type type,
 
 int graphic_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y);
 
-int graphic_Char_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y, Char_state state);
+int graphic_Char_xpm(uint8_t *map, uint16_t x, uint16_t y, Char_state state);
 
 int graphic_cntrl_info(vg_vbe_contr_info_t *info);
 
