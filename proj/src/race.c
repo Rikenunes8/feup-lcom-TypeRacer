@@ -9,13 +9,17 @@ extern uint32_t timer_counter;
 
 static size_t MAX_LEN;
 static size_t len; // text lenght
-//static size_t no_lines;
+static size_t no_lines;
+
 
 static uint16_t no_seconds; // counts the number of seconds
 static size_t n_keys; // Number of elements in typed_text
 static size_t current_key; // Index of the element corresponding to where the cursor is
 static size_t correct_keys; // Matched elements between typed_text and text_Char
 static uint16_t count_backspaces; //counts the number of backspaces
+
+static size_t CPM;
+static float accuracy;
 
 static Char * text_Char;
 static Char * typed_text;
@@ -28,36 +32,10 @@ static size_t no_bubbles;
 static AnimSprite** bubbles;
 
 
-void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
-{
-  graphic_draw_rectangle(x, y, width, height, BLACK); 
-  graphic_draw_rectangle(x+2, y+2, width-4, height-4, WHITE); 
-}
-
-void draw_text_box(uint16_t x, uint16_t y, uint16_t width, size_t no_lines)
-{
-  graphic_draw_bordered_rectangle(x, y, width, (CHAR_H+3)*no_lines+2*Y_BOX_MARGIN);
-
-}
-
-void display_race_background(size_t no_lines)
-{
-  draw_sprite(back, 0, 0);
-  graphic_draw_bordered_rectangle(32,16,get_h_res()-64,120);
-
-  //draws the text box with variable dimensions (incomplete)
-  //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
-  //graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
-  draw_text_box(X_BOX, Y_BOX, BOX_WIDTH, no_lines);
-  draw_text_box(X_BOX, Y_BOX + (CHAR_H+3)*no_lines+2*Y_BOX_MARGIN+Y_BTW_BOXES, BOX_WIDTH, no_lines);
-
-}
-
-
-void race_init(const char *text, size_t l, size_t n_lines)
+// Race page
+void race_init(const char *text, size_t l)
 {
   len = l;
-  no_lines = n_lines;
   car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
   back = create_sprite(background, 0, 0, 0, 0);
   text_Char = malloc(len*sizeof(Char));
@@ -75,8 +53,9 @@ void race_init(const char *text, size_t l, size_t n_lines)
   correct_keys = 0;
   count_backspaces = 0;
 
-  display_race_background(n_lines);
-  display_text(text, text_Char, len, X_TEXT, Y_TEXT);
+  no_lines = display_text(text, text_Char, len, X_TEXT, Y_TEXT);
+  display_race_background(no_lines);
+  y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
 
 
 }
@@ -93,10 +72,11 @@ void race_end()
 void race_process_timer_int(uint32_t counter) {
   if(counter % 60 == 0) {
     no_seconds++;
+    set_results();
   }
   if (counter%2 == 0) {
-    display_race_background(no_lines);
-    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, true);
+    display_race_background();
+    display_results(true);
     for (size_t i = 0; i < len; i++) {
       display_Char(&text_Char[i]);
     }
@@ -104,7 +84,6 @@ void race_process_timer_int(uint32_t counter) {
       display_Char(&typed_text[i]);
     }
     display_Char(&key_bar);
-    graphic_draw_rectangle(50, car->y-1, 570, 50, WHITE);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
   }
@@ -263,6 +242,62 @@ void update_correct_keys() {
   return;
 }
 
+void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
+
+  uint16_t x;
+  uint16_t y;
+  // Recognize coors of the begin
+  if (begin == 0) {
+     x = X_TYPE;
+     y = y_pos_typed;
+  }
+  // Recognize coors of the key indexed before begin
+  else {
+    begin--; 
+    x = typed_text[begin].posx;
+    y = typed_text[begin].posy;
+  }
+
+  for (size_t i = begin; i < end; i++) {    
+    // Set position where to be drawn
+    typed_text[i].posx = x;
+    typed_text[i].posy = y;
+
+    x += CHAR_W+2; // Next horizontal position
+    // If the char is ' ' and x passed the limit set next vertical position
+    if (x>get_h_res()-100 && typed_text[i].index == SPACE) {
+      y += CHAR_H+3; 
+      x = X_TYPE;
+    }
+  }
+}
+
+
+void graphic_draw_bordered_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height) 
+{
+  graphic_draw_rectangle(x, y, width, height, BLACK); 
+  graphic_draw_rectangle(x+2, y+2, width-4, height-4, WHITE); 
+}
+
+void draw_text_box(uint16_t x, uint16_t y, uint16_t width)
+{
+  graphic_draw_bordered_rectangle(x, y, width, (CHAR_H+3)*no_lines+2*Y_BOX_MARGIN);
+
+}
+
+void display_race_background()
+{
+  draw_sprite(back, 0, 0);
+  graphic_draw_bordered_rectangle(X_BOX,16,BOX_WIDTH,120);
+
+  //draws the text box with variable dimensions (incomplete)
+  //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
+  //graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
+  draw_text_box(X_BOX, Y_BOX, BOX_WIDTH);
+  draw_text_box(X_BOX, Y_BOX + (CHAR_H+3)*no_lines+2*Y_BOX_MARGIN+Y_BTW_BOXES, BOX_WIDTH);
+
+}
+
 int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) 
 {
   // Set chars to be drawn
@@ -287,7 +322,7 @@ int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_posit
   for (size_t n = 0; n < len; n++) {
     display_Char(&text_Char[n]);
   }
-  return 0;
+  return y+1;
 }
 
 void display_integer(int integer, uint16_t x, uint16_t y) {
@@ -333,11 +368,8 @@ void display_Char(Char *c) {
   graphic_Char_xpm(map, &img, c->posx, c->posy, c->state);
 }
 
-void display_results(size_t no_seconds, size_t correct_keys, size_t count_backspaces, size_t n_keys, size_t len, bool real_time)
+void display_results(bool real_time)
 {
-  size_t CPM = (correct_keys * 60) / (float)(no_seconds);
-  float accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
-  if (accuracy < 0 || n_keys == 0) accuracy = 0;
 
   Char * text_Char = NULL;
   char text[20];
@@ -396,36 +428,14 @@ void display_results(size_t no_seconds, size_t correct_keys, size_t count_backsp
   }  
 }
 
-void rearrange_coors_text(Char* typed_text, size_t begin, size_t end) {
-  uint16_t x;
-  uint16_t y;
-  // Recognize coors of the begin
-  if (begin == 0) {
-     x = X_TYPE;
-     y = y_pos_typed;
-  }
-  // Recognize coors of the key indexed before begin
-  else {
-    begin--; 
-    x = typed_text[begin].posx;
-    y = typed_text[begin].posy;
-  }
-
-  for (size_t i = begin; i < end; i++) {    
-    // Set position where to be drawn
-    typed_text[i].posx = x;
-    typed_text[i].posy = y;
-
-    x += CHAR_W+2; // Next horizontal position
-    // If the char is ' ' and x passed the limit set next vertical position
-    if (x>get_h_res()-100 && typed_text[i].index == SPACE) {
-      y += CHAR_H+3; 
-      x = X_TYPE;
-    }
-  }
+void set_results() {
+  CPM = (correct_keys * 60) / (float)(no_seconds);
+  accuracy = (((float)correct_keys-(float)count_backspaces)/(float)n_keys)*100;
+  if (accuracy < 0 || n_keys == 0) accuracy = 0;
 }
 
 
+// Results page
 void results_init() {
   int32_t pos[] = {400,300, 100,100, 600,50, 100,450, 300,0, 500,300, 450,100};
   int8_t speeds[] = {1,-2, 2,1, 2,3, 1,-5, -4,2, 5,5, -2,9};
@@ -449,7 +459,7 @@ void results_proccess_timer_int(uint32_t counter, Sprite* mouse)
 {
   if (counter%2 == 0) 
   {
-    display_results(no_seconds, correct_keys, count_backspaces, n_keys, len, false);
+    display_results(false);
     for (size_t i = 0; i < no_bubbles; i++)
       move_bubbles(i);   
     draw_sprite(mouse, mouse->x, -mouse->y);

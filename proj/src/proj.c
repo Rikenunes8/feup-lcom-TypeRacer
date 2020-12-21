@@ -41,10 +41,8 @@ int(proj_main_loop)(int argc, char *argv[])
   
   //size_t no_lines = 2;
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
-  size_t no_lines = 1;
   char text[] = "aa.";
 
-  y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
 
   
   
@@ -145,13 +143,13 @@ int(proj_main_loop)(int argc, char *argv[])
         if (kbd_int) {
           menus_proccess_kbd_int(&state, aux_key);
           if (state == RACE)
-            race_init(text, strlen(text), no_lines);
+            race_init(text, strlen(text));
         }
         if (mouse_int) {
           if (state != MENU) break;
           menus_proccess_mouse_int(&state, mouse_event, mouse);
           if (state == RACE)
-            race_init(text, strlen(text), no_lines);
+            race_init(text, strlen(text));
         }
         break;
       case RACE:
@@ -174,12 +172,12 @@ int(proj_main_loop)(int argc, char *argv[])
         if (kbd_int) {
           results_proccess_kbd_int(&state, aux_key);
           if (state == RACE)
-            race_init(text, strlen(text), no_lines);
+            race_init(text, strlen(text));
         }
         if (mouse_int) {
           results_proccess_mouse_int(&state, mouse_event, mouse);
           if (state == RACE)
-            race_init(text, strlen(text), no_lines);
+            race_init(text, strlen(text));
         }
         if (state != RESULTS)
           results_end();

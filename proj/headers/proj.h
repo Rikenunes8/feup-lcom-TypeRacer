@@ -10,7 +10,5 @@
 #include "../headers/sprite.h"
 #include <machine/int86.h>
 
-size_t no_lines;
-uint16_t y_pos_typed; 
 
 #endif
