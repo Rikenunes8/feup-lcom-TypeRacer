@@ -31,11 +31,11 @@ typedef struct {
  */
 typedef struct {
 	Sprite *sp;		///< pointer to first Sprite, the one with overall properties
-	int aspeed;		///< animation speed 
-	int cur_aspeed; ///< current animation speed 
-	int num_fig; 	///< number of pixmaps 
-	int cur_fig; 	///< current pixmap 
-	char **map;     ///< pointer to array of each AnimSprite pixmaps
+	uint8_t aspeed;		///< no. frames per pixmap 
+	uint8_t cur_aspeed; // no. frames left to next change
+	uint8_t num_fig; 	///< number of pixmaps 
+	uint8_t cur_fig; 	///< current pixmap 
+	uint8_t **map;     ///< pointer to array of each AnimSprite pixmaps
 } AnimSprite;
 
 /** Creates with random speeds (not zero) and position
@@ -67,33 +67,33 @@ void destroy_sprite(Sprite *sprite);
 
 int set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
 
-
 void draw_sprite(Sprite* sprite, int32_t x, int32_t y);
 
 bool check_collison(Sprite* sprite, int32_t x, int32_t y);
-
-/** @} end of sprite */
-
-/** @defgroup animsprite AnimSprite
- * @{
- *
- * Animated Sprite related functions
- */
 
 
 /** Create an Animated Sprite from multiple pixmaps
 *   At least one pixmap must be specified.
 */
-AnimSprite * create_asprite(char *base, char *pic1[], ...);
+AnimSprite * create_asprite(int32_t x, int32_t y, int8_t x_speed, int8_t y_speed, uint8_t aspeed, uint8_t no_xpm, xpm_map_t xpm, ...);
 
 /** Animate an Animated Sprite
 */
-int animate_asprite(AnimSprite *fig, char *base);
+void animate_asprite(AnimSprite *asp);
+
+void set_asprite(AnimSprite* asp, uint8_t aspeed, uint8_t cur_aspeed, uint8_t num_fig);
+
+void set_asprite_sprite(AnimSprite* asp, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
 
 /** Destroy an Animated Sprite from video memoty and
 * release all resources allocated.
 */
-void destroy_asprite(AnimSprite *fig, char *base);
+void destroy_asprite(AnimSprite *asp);
+
+void draw_asprite(AnimSprite* asp);
+
+bool check_asp_collison(AnimSprite* asp, int32_t x, int32_t y);
+
 
 /** @} end of sprite */
 

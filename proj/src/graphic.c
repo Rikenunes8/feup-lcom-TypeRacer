@@ -125,22 +125,22 @@ int graphic_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y) {
   return 0;
 }
 
-int graphic_Char_xpm(uint8_t *map, xpm_image_t *img, uint16_t x, uint16_t y, Char_state state) {
+int graphic_Char_xpm(uint8_t *map, uint16_t x, uint16_t y, Char_state state) {
   uint32_t color;
-  for (uint16_t i = 0; i < img->height; i++) {
-    for (uint16_t j = 0; j < img->width; j++) {
+  for (uint16_t i = 0; i < CHAR_H; i++) {
+    for (uint16_t j = 0; j < CHAR_W; j++) {
       // Set first byte of pixel's color
-      color = map[(i*img->width + j)*BPP];
+      color = map[(i*CHAR_W + j)*BPP];
       // Set next bytes of pixel's color if it is more than 1 BPP
       for (uint32_t n = 1; n < BPP; n++) {
-        color |= map[(i*img->width + j)*BPP + n]<<(8*n);
+        color |= map[(i*CHAR_W + j)*BPP + n]<<(8*n);
       }
       if (state == WRONG && color == 0x000000)
         color = 0xFF0000;
       else if (state == RIGHT && color == 0x000000)
         color = 0x00FF00;
       // If color is transparent don't draw it
-      if (color != xpm_transparency_color(img->type))  
+      if (color != xpm_transparency_color(XPM_8_8_8))  
         graphic_pixel(x + j, y + i, color);
     }
   }     
@@ -159,7 +159,6 @@ int graphic_cntrl_info(vg_vbe_contr_info_t *info) {
 
     reg86_t r;
     memset(&r, 0, sizeof(r)); //clears r
-    //r.ax = VBE_FUNCTION | RET_VBE_CONTROLLER; // VBE call, function 00h -- ret VBE controller information
     r.ax = VBE_FUNCTION|RET_VBE_CONTROLLER;
     r.es = PB2BASE(map.phys);
     r.di = PB2OFF(map.phys);
