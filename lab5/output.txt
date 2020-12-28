@@ -1,0 +1,6 @@
+seconds: 17
+minutes: 24
+hours: 19
+day: 28
+month: 12
+year: 20

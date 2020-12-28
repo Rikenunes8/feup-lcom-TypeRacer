@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include "rtc.h"
 
 // Any header files included below this line should have been created by you
 
@@ -30,24 +31,21 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
-//ports to access the RTC's registers 
-#define RTC_ADDR_REG 0x70 //must be loaded with the address of the RTC register to be accessed
-#define RTC_DATA_REG 0x71 //is used to transfer data to/from the RTC's register accessed
 
-//RTC's internal address space
-#define MINUTES 0x02
-#define HOURS 0x04
 
 int(video_test_init)(uint16_t mode, uint8_t delay) 
 {
-  uint32_t minutes = 0, hours = 0;
-	sys_outb(RTC_ADDR_REG, MINUTES);
-  sys_inb(RTC_DATA_REG, &minutes);
-  sys_outb(RTC_ADDR_REG, HOURS);
-  sys_inb(RTC_DATA_REG, &hours);
-
-  printf("minutes: %d\n", minutes);
-  printf("hours: %d\n", hours);
+  uint8_t time_date[6];
+  
+  rtc_read_time_date(time_date);
+  
+  printf("seconds: %d\n", time_date[0]);
+  printf("minutes: %d\n", time_date[1]);
+  printf("hours: %d\n", time_date[2]);
+  
+  printf("day: %d\n", time_date[3]);
+  printf("month: %d\n", time_date[4]);
+  printf("year: %d\n", time_date[5]);
 
 	return 0;
 }
