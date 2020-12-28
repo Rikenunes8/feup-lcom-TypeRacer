@@ -27,3 +27,12 @@ int (util_sys_inb)(int port, uint8_t *value)
   return 0;
 }
 
+int (bcd_to_binary)(uint8_t *value) {
+  uint8_t b=0;
+  uint8_t mask = 0x0F;
+  b = *value & mask;
+  b += (*value>>4)*10;
+  *value = b;
+  return 0;
+}
+

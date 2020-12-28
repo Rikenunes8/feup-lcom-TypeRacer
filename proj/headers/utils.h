@@ -35,6 +35,9 @@ int (util_get_MSB)(uint16_t val, uint8_t *msb);
  */
 int (util_sys_inb)(int port, uint8_t *value);
 
+int (bcd_to_binary)(uint8_t *value);
+
+
 /*int subscribe_int(uint8_t *bit_no, uint8_t irq, int policy);
 int unsubscribe_int();*/
 
