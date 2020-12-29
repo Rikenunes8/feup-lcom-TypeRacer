@@ -3,7 +3,6 @@
 
 
 extern uint32_t timer_counter;
-static uint8_t **letters_maps;
 
 static size_t MAX_LEN;
 static size_t len; // text lenght
@@ -32,9 +31,8 @@ static AnimSprite** bubbles;
 
 
 // Race page
-void race_init(const char *text, size_t l, uint8_t ** maps)
+void race_init(const char *text, size_t l)
 {
-  letters_maps = maps;
   len = l;
   car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
   back = create_sprite(background, 0, 0, 0, 0);
@@ -67,7 +65,7 @@ void race_end()
   return;
 }
 
-void race_process_timer_int(uint32_t counter) {
+void race_process_timer_int(uint32_t counter, Sprite* mouse) {
   if(counter % 60 == 0) {
     no_seconds++;
     set_results();
@@ -84,6 +82,7 @@ void race_process_timer_int(uint32_t counter) {
     draw_sprite(key_bar, key_bar->x, key_bar->y);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
+    draw_sprite(mouse, mouse->x, -mouse->y);
   }
 }
 
@@ -106,25 +105,7 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
 
 void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse)
 {
-  Menu_event event;
-  event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
-  switch (event) {
-    case click_on_race:  
-      *state = RACE;
-      break;
-    case click_on_exit:
-      *state = EXIT;
-      break;
-    case click_on_best_results:
-      *state = BEST_RESULTS;
-      break;
-    case click_on_race_with_friend:
-      *state = RACE_WITH_FRIEND;
-      break;
-    default:
-      break;
-  }
-
+  read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
 }
 
 
@@ -296,81 +277,11 @@ void display_race_background()
 
 }
 
-int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) 
-{
-  // Set chars to be drawn
-  uint16_t x = 0;
-  uint16_t y = 0;  
-  for (size_t i = 0; i < len; i++) {
-    // Set index of char draw in letters
-    text_Char[i].index = get_char_xpm(text[i]);
-    text_Char[i].state = NORMAL;
-    
-    // Set position where to be drawn
-    text_Char[i].posx = x_position + x*(CHAR_W+2);
-    text_Char[i].posy = y_position + y*(CHAR_H+3);
-    x++; // Next horizontal position
-    // If the char is ' ' and x passed the limit set next vertical position
-    if (x_position+x*(CHAR_W+2)>get_h_res()-100 && text_Char[i].index == SPACE) {
-        y++; 
-        x = 0;
-    }
-  }
-  // Draw text
-  for (size_t n = 0; n < len; n++) {
-    display_Char(&text_Char[n]);
-  }
-  return y+1;
-}
-
-void display_integer(int integer, uint16_t x, uint16_t y) {
-  char str[20];    //empty string to store no_seconds
-
-  sprintf(str, "%d", integer); //casts the number no_seconds to the string str
-  
-  Char* str_Char = malloc(strlen(str)*sizeof(Char)); // Convert string of chars to string of Chars
-
-  display_text(str, str_Char, strlen(str), x, y);
-
-  free(str_Char);
-}
-
-void display_float(float decimal, uint16_t x, uint16_t y) 
-{
-  char str[20];    //empty string to store no_seconds
-
-  sprintf(str, "%.2f", decimal); //casts the number no_seconds to the string str
-  
-  Char* str_Char = malloc(strlen(str)*sizeof(Char)); // Convert string of chars to string of Chars
-
-  display_text(str, str_Char, strlen(str), x, y);
-
-  free(str_Char);
-}
-
-void display_time(uint16_t seconds, uint16_t x, uint16_t y) {
-  char time[20]; 
-  sprintf(time, "%d : %d ", seconds/60, seconds%60); 
-  
-  Char* time_Char = malloc(strlen(time)*sizeof(Char)); // Convert string of chars to string of Chars
-
-  display_text(time, time_Char, strlen(time), x, y);
-
-  free(time_Char);
-}
-
-void display_Char(Char *c) {
-  /*uint8_t * map;
-  xpm_image_t img;
-  graphic_xpm_load(&map, &img, XPM_8_8_8, letters[c->index]);*/
-  graphic_Char_xpm(letters_maps[c->index], c->posx, c->posy, c->state);
-}
-
 void display_results(bool real_time)
 {
 
-  Char * text_Char = NULL;
-  char text[20];
+  Char * txt_Char = NULL;
+  char txt[20];
 
   if(real_time == true)
   {
@@ -378,51 +289,51 @@ void display_results(bool real_time)
     display_time(no_seconds, 110, 32);
 
     //displays caracters per minute (CPM)
-    sprintf(text, "%d cpm  ", CPM);
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 370, 32);
-    free(text_Char);
+    sprintf(txt, "%d cpm  ", CPM);
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), 370, 32);
+    free(txt_Char);
 
 
     //displays accuracy
-    sprintf(text, "%.1f %%  ", accuracy);
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 620, 32);
-    free(text_Char);
+    sprintf(txt, "%.1f %%  ", accuracy);
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), 620, 32);
+    free(txt_Char);
   }
   else //results page
   {
     draw_sprite(results_menu, 0, 0);
 
     //Speed text
-    sprintf(text, "Your speed: %d cpm   ", CPM);
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 250, 210);
-    free(text_Char);
+    sprintf(txt, "Your speed: %d cpm   ", CPM);
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), 250, 210);
+    free(txt_Char);
 
     //Time text
-    sprintf(text, "Time: %d : %d", no_seconds/60, no_seconds%60);
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 250, 290);
-    free(text_Char);
+    sprintf(txt, "Time: %d : %d", no_seconds/60, no_seconds%60);
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), 250, 290);
+    free(txt_Char);
 
     //Accuracy text
-    sprintf(text, "Accuracy: %.1f %%  ", accuracy);
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), 250, 370);
-    free(text_Char);
+    sprintf(txt, "Accuracy: %.1f %%  ", accuracy);
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), 250, 370);
+    free(txt_Char);
 
     //Try again text
-    sprintf(text, "TRY AGAIN");
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), try_again_x_left + 20, try_again_y_top + 20);
-    free(text_Char);
+    sprintf(txt, "TRY AGAIN");
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), try_again_x_left + 20, try_again_y_top + 20);
+    free(txt_Char);
 
     //Exit text
-    sprintf(text, "EXIT");
-    text_Char = malloc(strlen(text)*sizeof(Char));
-    display_text(text, text_Char, strlen(text), results_exit_x_left + 25, results_exit_y_top + 20);
-    free(text_Char);
+    sprintf(txt, "EXIT");
+    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), results_exit_x_left + 25, results_exit_y_top + 20);
+    free(txt_Char);
   }  
 }
 
@@ -457,9 +368,11 @@ void results_proccess_timer_int(uint32_t counter, Sprite* mouse)
 {
   if (counter%2 == 0) 
   {
+    Sprite m = *mouse;
     display_results(false);
+    mouse = &m;
     for (size_t i = 0; i < no_bubbles; i++)
-      move_bubbles(i);   
+      move_bubbles(i); 
     draw_sprite(mouse, mouse->x, -mouse->y);
   }
 }

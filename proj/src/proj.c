@@ -37,21 +37,12 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_init(mode);
   
 
-  //char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staray Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
+  char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staray Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
   //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
-  char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you?";
+  //char text[] = "Yeah, they got you where they want you.";
   //char text[] = "aa.";
 
-
-  // Load letters xpms
-  extern xpm_map_t letters[];
-  uint8_t **letters_maps = malloc(72*sizeof(uint8_t*));
-  xpm_image_t img;
-  for (size_t i = 0; i < 72;i++) {
-    letters_maps[i] = (uint8_t*)malloc(CHAR_W*CHAR_H*3);
-    graphic_xpm_load(&letters_maps[i], &img, XPM_8_8_8, letters[i]);
-  }
-  
+  Chars_init();
   /* Timer stuff */
   extern uint32_t timer_counter;
   timer_counter = 0;
@@ -145,27 +136,30 @@ int(proj_main_loop)(int argc, char *argv[])
         if (kbd_int) {
           menus_proccess_kbd_int(&state, aux_key);
           if (state == RACE)
-            race_init(text, strlen(text), letters_maps);
+            race_init(text, strlen(text));
         }
         if (mouse_int) {
           if (state != MENU) break;
           menus_proccess_mouse_int(&state, mouse_event, mouse);
           if (state == RACE)
-            race_init(text, strlen(text), letters_maps);
+            race_init(text, strlen(text));
         }
         break;
       case RACE:
         if (kbd_int) {
           race_process_kbd_int(&state, aux_key);
-          if (state == RESULTS) {
-            results_init();
-          }
+        }
+        if (mouse_int) {
+          race_process_mouse_int(&state, mouse_event, mouse);
         }
         if (timer_int) {
-          race_process_timer_int(timer_counter);
+          race_process_timer_int(timer_counter, mouse);
         }
         if (state != RACE)
           race_end();
+        if (state == RESULTS) {
+          results_init(mouse);
+        }  
         break;
       case RESULTS:
         if (timer_int) {
@@ -174,12 +168,12 @@ int(proj_main_loop)(int argc, char *argv[])
         if (kbd_int) {
           results_proccess_kbd_int(&state, aux_key);
           if (state == RACE)
-            race_init(text, strlen(text), letters_maps);
+            race_init(text, strlen(text));
         }
         if (mouse_int) {
           results_proccess_mouse_int(&state, mouse_event, mouse);
           if (state == RACE)
-            race_init(text, strlen(text), letters_maps);
+            race_init(text, strlen(text));
         }
         if (state != RESULTS)
           results_end();
@@ -206,10 +200,9 @@ int(proj_main_loop)(int argc, char *argv[])
   mouse_unsubscribe_int(); 
   kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
 
-
-  for (size_t i = 0; i < 72;i++)
-    free(letters_maps[i]);
-  free(letters_maps);
+  destroy_sprite(mouse);
+  destroy_sprite(main_menu);
+  Chars_end();
   destroy_fr_bufffer();
   vg_exit();
   return 0;
