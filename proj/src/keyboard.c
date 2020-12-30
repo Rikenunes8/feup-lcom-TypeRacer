@@ -42,8 +42,10 @@ void (kbc_ih)()
     printf("Error in sys_inb()");
     return;
   }
-  
+
   if ((st & AUX) != 0) return;
+  printf("kbd_byte\n");
+
   if ( (st & (PARITY | TIMEOUT)) == 0 ) //check if there was some communications error
   {
     if(st & OBF) // entra no if se output buffer está cheio e se tem algo para ler (o scancode)

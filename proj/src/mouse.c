@@ -39,9 +39,9 @@ void (mouse_ih)()
     //lê a informação de STAT_REG
   if(util_sys_inb(STAT_REG, &st) != OK)
     return;
-
   /* loop while 8042 output buffer is empty */
   if ((st & AUX) == 0) return;
+  printf("mouse_byte\n");
   if ((st & (PARITY | TIMEOUT)) == OK ) {  
     if ((st & OBF) != 0) {
       if(util_sys_inb(OUT_BUF, &packet_byte) != OK)

@@ -40,7 +40,7 @@ void race_init(const char *text, size_t len);
 
 void race_end();
 
-void race_process_timer_int(uint32_t counter, Sprite* mouse);
+void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse);
 
 void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
 

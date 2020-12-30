@@ -69,11 +69,12 @@ void race_end()
   return;
 }
 
-void race_process_timer_int(uint32_t counter, Sprite* mouse) {
+void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) {
   if(counter % 60 == 0) {
     no_seconds++;
     set_results();
   }
+ 
   if (counter%6 == 0) {
     display_race_background();
     display_results(true);
@@ -87,6 +88,11 @@ void race_process_timer_int(uint32_t counter, Sprite* mouse) {
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car, car->x, car->y);
     draw_sprite(mouse, mouse->x, -mouse->y);
+    
+    if (correct_keys == len) {
+      *state = RESULTS;
+      fr_buffer_to_video_mem();
+    }
   }
 }
 
@@ -101,9 +107,6 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   update_typed_text(aux_key);
   // Count matched keys (correct_keys) and paint text_Char depending on wheter the Chars match or not
   update_correct_keys();
-  if (correct_keys == len) {
-    *state = RESULTS;
-  }
   return;
 }
 
@@ -190,7 +193,6 @@ void update_typed_text(uint8_t aux_key)
 
     // Set key bar position
     set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
-
   }
 }
 
@@ -436,7 +438,7 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
 
 void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
   Menu_event event;
-  if (mouse_event.ev == LB_DOWN)
+  if (mouse_event.ev == LB_DOWN || mouse_event.ev == RB_DOWN)
     collison_mouse(mouse);
   event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
   switch (event) 

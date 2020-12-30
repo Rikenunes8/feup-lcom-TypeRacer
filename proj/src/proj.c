@@ -109,6 +109,7 @@ int(proj_main_loop)(int argc, char *argv[])
             if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {
               aux_key = get_scancode_char(scancode_bytes);
               kbd_int = true;
+              printf("key\n");
             }
           }
           if (msg.m_notify.interrupts & mouse_irq_set) {
@@ -118,6 +119,12 @@ int(proj_main_loop)(int argc, char *argv[])
               assemble_packet(&pp);
               mouse_events(&mouse_event, &pp);
               mouse_int = true; 
+              if (mouse_event.ev == MANY_DOWN) printf("MANY_DOWN\n");
+              if (mouse_event.ev == LB_DOWN) printf("LB_DOWN\n");
+              if (mouse_event.ev == RB_DOWN) printf("RB_DOWN\n");
+              if (mouse_event.ev == LB_UP) printf("LB_UP\n");
+              if (mouse_event.ev == RB_UP) printf("RB_UP\n");
+              if (mouse_event.ev == MOVE) printf("MOVE\n");
             }    
           }
           break;
@@ -135,54 +142,49 @@ int(proj_main_loop)(int argc, char *argv[])
       case MENU:
         if (timer_int)
           menus_process_timer_int(timer_counter, main_menu, mouse);
-        if (kbd_int) {
+        if (kbd_int)
           menus_process_kbd_int(&state, aux_key);
-          if (state == RACE)
-            race_init(text, strlen(text));
-          if (state == BEST_RESULTS)
-            br_init();  
-        }
-        if (mouse_int) {
-          if (state != MENU) break;
+        if (mouse_int)
           menus_process_mouse_int(&state, mouse_event, mouse);
-          if (state == RACE)
-            race_init(text, strlen(text));
-          if (state == BEST_RESULTS)
-            br_init();
-        }
+        
+        if (state == RACE)
+          race_init(text, strlen(text));
+        if (state == BEST_RESULTS)
+          br_init();  
         break;
+
       case RACE:
         if (kbd_int)
           race_process_kbd_int(&state, aux_key);
         if (mouse_int)
           race_process_mouse_int(&state, mouse_event, mouse);
         if (timer_int)
-          race_process_timer_int(timer_counter, mouse);
+          race_process_timer_int(&state, timer_counter, mouse);
+        
         if (state != RACE)
           race_end();
         if (state == RESULTS)
           results_init(mouse);
         break;
+
       case RESULTS:
-        if (timer_int) {
+        if (timer_int)
           results_process_timer_int(timer_counter, mouse);
-        }
-        if (kbd_int) {
-          results_process_kbd_int(&state, aux_key);
-          if (state == RACE)
-            race_init(text, strlen(text));
-        }
-        if (mouse_int) {
+        if (mouse_int)
           results_process_mouse_int(&state, mouse_event, mouse);
-          if (state == RACE)
-            race_init(text, strlen(text));
-        }
+        if (kbd_int)
+          results_process_kbd_int(&state, aux_key);
+
         if (state != RESULTS)
           results_end();
+        if (state == RACE)
+          race_init(text, strlen(text));
         break;
+
       case RACE_WITH_FRIEND:
         state = MENU;
         break;
+
       case BEST_RESULTS:
         if (timer_int)
           br_process_timer_int(timer_counter, mouse);
@@ -190,11 +192,14 @@ int(proj_main_loop)(int argc, char *argv[])
           br_process_kbd_int(&state, aux_key);
         if (mouse_int)
           br_process_mouse_int(&state, mouse_event, mouse);
+        
         if (state != BEST_RESULTS)
           br_end();
         break;
+
       case EXIT:
         break;
+
       default:
         break;
     }
