@@ -1,5 +1,6 @@
 #include "../headers/race.h"
 #include "../headers/best_results.h"
+#include "../headers/rtc.h"
 
 
 
@@ -48,7 +49,16 @@ void race_init(const char *text, size_t l)
   MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
   typed_text = malloc((MAX_LEN)*sizeof(Char));
 
+  // Set alarm according to text lenght
+  rtc_turn_on_alarm();
+  uint8_t time[3];
+  rtc_read_time(time);
+  uint16_t time_to_alarm = len*6/20 + 4;
+  uint8_t new_sec = time_to_alarm%60 + time[0];
+  uint8_t new_min = time_to_alarm/60 + time[1];
+  rtc_set_alarm(binary_to_bcd(new_sec%60), binary_to_bcd((new_sec/60+new_min)%60), DONT_CARE);
 
+  // Reset variables
   timer_counter = 0;
   no_seconds = 0;
   n_keys = 0;
@@ -74,6 +84,7 @@ void race_init(const char *text, size_t l)
 
 void race_end() 
 {
+  rtc_turn_off_alarm();
   destroy_sprite(car);
   destroy_sprite(back);
   destroy_sprite(key_bar);
@@ -97,7 +108,7 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) 
   
   if (counter%6 == 0) {
     display_race_background();
-    display_results(true);
+    if (begin_race) display_results(true);
     display_text_Char(text_Char, len);
     display_text_Char(typed_text, n_keys);
     draw_sprite(key_bar);
@@ -106,13 +117,19 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) 
     if (!begin_race) {
       animate_asprite(traffic_light);
       draw_asprite(traffic_light);
-    } 
+    }    
     draw_sprite(mouse);
     
     if (correct_keys == len) {
       *state = RESULTS;
       fr_buffer_to_video_mem();
     }
+  }
+  if (get_alarm()) {
+    use_alarm();
+    *state = RESULTS;
+    CPM = 0;
+    accuracy = 0;
   }
 }
 

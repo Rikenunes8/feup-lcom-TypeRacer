@@ -6,14 +6,20 @@
 
 #define RTC8_IRQ    8
 
+#define DONT_CARE   0xC0
+
+
 // ports to access the RTC's registers 
 #define RTC_ADDR_REG 0x70 //must be loaded with the address of the RTC register to be accessed
 #define RTC_DATA_REG 0x71 //is used to transfer data to/from the RTC's register accessed
 
 // RTC's internal address space
 #define SECONDS     0x00
+#define SECONDS_A   0x01
 #define MINUTES     0x02
+#define MINUTES_A   0x03
 #define HOURS       0x04
+#define HOURS_A     0x05
 #define DAY_WEEK    0x06
 #define DAY         0x07
 #define MONTH       0x08
@@ -54,9 +60,22 @@ int rtc_read_time(uint8_t* time);
 int rtc_read_date(uint8_t* date);
 int rtc_read_time_date(uint8_t* time_date);
 
+void rtc_turn_on_alarm();
+
+void rtc_turn_off_alarm();
+
+
+void rtc_set_alarm(uint8_t sec, uint8_t min, uint8_t h);
+
+
+
 void rtc_ih();
 
 void handle_alarm_int();
+
+bool get_alarm();
+
+void use_alarm();
 
 
 #endif

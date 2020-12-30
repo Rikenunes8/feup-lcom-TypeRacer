@@ -36,3 +36,10 @@ int (bcd_to_binary)(uint8_t *value) {
   return 0;
 }
 
+uint8_t (binary_to_bcd)(uint8_t value) {
+  uint8_t first = value%10;
+  uint8_t second = value/10;
+  value = first | (second<<4);
+  return value;
+}
+

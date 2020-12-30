@@ -3,6 +3,9 @@
 
 static int hook_id;
 
+static bool alarmed = false;
+
+
 
 int (rtc_subscribe_int)(uint8_t *bit_no) {
     hook_id = *bit_no;
@@ -91,6 +94,33 @@ int rtc_read_time_date(uint8_t* time_date) {
 }
 
 
+void rtc_turn_on_alarm() {
+  alarmed = false;
+  uint8_t byte;
+  rtc_read_register(REG_B, &byte);
+  byte = byte | AI;
+  rtc_write_register(REG_B, &byte);
+}
+
+void rtc_turn_off_alarm() {
+  uint8_t byte;
+  rtc_read_register(REG_B, &byte);
+  byte = byte & (~AI);
+  rtc_write_register(REG_B, &byte);
+}
+
+/* sec, min and h in hexadecimal*/
+void rtc_set_alarm(uint8_t sec, uint8_t min, uint8_t h) {
+  uint8_t byte;
+  rtc_read_register(REG_B, &byte);
+  byte = byte | SET;
+  rtc_write_register(REG_B, &byte);
+  rtc_write_register(SECONDS_A, &sec);
+  rtc_write_register(MINUTES_A, &min);  
+  rtc_write_register(HOURS_A, &h);
+  byte = byte & (~SET);
+  rtc_write_register(REG_B, &byte);
+}
 
 void rtc_ih() {
     uint8_t reg;
@@ -100,8 +130,13 @@ void rtc_ih() {
 }
 
 void handle_alarm_int() {
-    return;
+  alarmed = true;
+  return;
 }
+
+bool get_alarm() {return alarmed;}
+
+void use_alarm() {alarmed = false;}
 
 
 

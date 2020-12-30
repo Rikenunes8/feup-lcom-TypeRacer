@@ -37,6 +37,9 @@ int (util_sys_inb)(int port, uint8_t *value);
 
 int (bcd_to_binary)(uint8_t *value);
 
+uint8_t (binary_to_bcd)(uint8_t value);
+
+
 
 /*int subscribe_int(uint8_t *bit_no, uint8_t irq, int policy);
 int unsubscribe_int();*/
