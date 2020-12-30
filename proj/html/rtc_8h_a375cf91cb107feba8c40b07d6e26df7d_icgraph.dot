@@ -1,0 +1,13 @@
+digraph "rtc_read_month"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="rtc_read_month",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="rtc_read_date",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#a7af6be95897fac81dcd7bda5285121a4",tooltip=" "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="rtc_read_time_date",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$rtc_8c.html#ad66426d35709f782c78b71e3e300464b",tooltip=" "];
+}

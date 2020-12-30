@@ -1,0 +1,31 @@
+digraph "proj_main_loop"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="br_read_file",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__best__results.html#ga5fe68c08a0b347fe03b0a9feb3cee4bd",tooltip=" "];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="Chars_init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_chars_8h.html#aac9705031adf87e5818e86c4272d7824",tooltip=" "];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="create_sprite",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__sprite.html#gab80466bb75012fbb9c5051942fe11dc2",tooltip=" "];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="graphic_def",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphic_8h.html#a45c6365a39d5bf3c53cc90adc8fc4651",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="graphic_get_mode_info",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphic_8h.html#a99dc9db52c0f7227737c7883ce211fa6",tooltip=" "];
+  Node1 -> Node7 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="graphic_init",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphic_8h.html#a229e9db0d688e31fb674a248eca65213",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="kbc_write_byte",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$mouse_8h.html#a64f61f5254105e5e3229760dc9cf1d9b",tooltip=" "];
+  Node8 -> Node9 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="util_sys_inb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8h.html#a79a031a8611f5b2d6afa4158e92b0fb4",tooltip="Invokes sys_inb() system call but reads the value into a uint8_t variable."];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="kbd_subscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$keyboard_8h.html#a4ac9231a99a664d6a9f0b69767e0d707",tooltip=" "];
+  Node1 -> Node11 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node11 [label="mouse_subscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$mouse_8h.html#a20285aed4b3ef45812cd967532dd09db",tooltip=" "];
+  Node1 -> Node12 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node12 [label="timer_subscribe_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timer_8h.html#ac57a7e1140a7e00ad95ac5488d2a671b",tooltip=" "];
+}

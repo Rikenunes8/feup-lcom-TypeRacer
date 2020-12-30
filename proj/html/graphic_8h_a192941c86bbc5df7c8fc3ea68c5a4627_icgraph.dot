@@ -1,0 +1,13 @@
+digraph "aux_to_fr_buffer"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="aux_to_fr_buffer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="br_process_timer_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__best__results.html#ga4031b4f0ed892cf6bc82cc46c3f80684",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="results_process_timer_int",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$race_8c.html#a0a08cd8ffdd832db4993b607cf114d5b",tooltip=" "];
+}
