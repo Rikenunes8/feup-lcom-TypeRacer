@@ -21,13 +21,9 @@ typedef struct
     size_t cpm; /*!< Caracters per minute */
     float accuracy; /*!< Accuracy in percentage */
     uint8_t* date; /*!< Date and time when the game was played */
-    char name[12]; /*!< Name choosen by the player */
+    char name[20]; /*!< Name choosen by the player */
 } Score;
 
-static uint8_t MAX_SCORES = 3; /*!< Maximum number of scores that we want to show and save*/
-static Score* best_scores; /*!< Falta*/
-static char* aux_buffer; /*!< Falta*/
-static Sprite* best_results_page; /*!< Falta*/
 
 /** Reads the information of the file best_results.txt 
  * where we keep the 3 best scores obtained in the game.

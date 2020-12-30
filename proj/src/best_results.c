@@ -3,6 +3,11 @@
 #include "../headers/best_results.h"
 
 
+static uint8_t MAX_SCORES = 3; /*!< Maximum number of scores that we want to show and save*/
+static Score* best_scores; /*!< Falta*/
+static char* aux_buffer; /*!< Falta*/
+static Sprite* best_results_page; /*!< Falta*/
+
 int br_read_file() {
   best_scores = (Score*)malloc(MAX_SCORES*sizeof(Score));
 
@@ -124,7 +129,7 @@ int add_score(size_t CPM, float accuracy, char* name) {
   Score new; 
   new.cpm = CPM; 
   new.accuracy = accuracy;
-  strncpy(new.name, name, sizeof(new.name)-1); new.name[11] = '\0';
+  strncpy(new.name, name, sizeof(new.name)-1); new.name[19] = '\0';
   new.date = (uint8_t*)malloc(6*sizeof(uint8_t));
   rtc_read_time_date(new.date);
    

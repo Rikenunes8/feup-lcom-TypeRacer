@@ -68,6 +68,7 @@ void race_init(const char *text, size_t l)
   CPM = 0;
   accuracy = 0;
   begin_race = false;
+  if (strcmp(name, "Disqualified") == 0) strcpy(name, "noName");
 
   no_lines = convert_text_to_text_char(text, text_Char, len, X_TEXT, Y_TEXT);
   y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
@@ -130,6 +131,7 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) 
     *state = RESULTS;
     CPM = 0;
     accuracy = 0;
+    strcpy(name, "Disqualified");
   }
 }
 
@@ -395,7 +397,7 @@ void set_results() {
 
 // Results page
 void results_init() {
-  typed_text = (Char*)malloc(20*sizeof(Char));
+  typed_text = (Char*)malloc(25*sizeof(Char));
   n_keys = strlen(name);
   convert_text_to_text_char((const char*)name, typed_text, n_keys, 350, 490);
 
@@ -458,7 +460,7 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
     if (n_keys != 0)
       n_keys--;
   }
-  else if (aux_key != NOTHING && aux_key != SPACE && n_keys+1 < 11) {
+  else if (aux_key != NOTHING && aux_key != SPACE && n_keys+1 < 19) {
     Char key;
     key.index = aux_key;
     key.state = NORMAL;
