@@ -1,6 +1,11 @@
 #include "../headers/Chars.h"
 #include "../headers/keyboard.h"
 
+static char list_chars[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
+                            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+                            'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                            ' ', ':', ';', ',', '.', '!', '?', '\'', '\"', '%'};
+
 static uint8_t **letters_maps;
 static uint32_t BPP = 3;
 
@@ -47,8 +52,15 @@ int graphic_Char_xpm(uint8_t *map, uint16_t x, uint16_t y, Char_state state) {
 
 }
 
-int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) 
-{
+int convert_text_Char_to_text(char* text, Char* text_Char, size_t len) {
+  for (size_t i = 0; i < len; i++) {
+    text[i] = list_chars[text_Char[i].index];
+  }
+  text[len] = '\0';
+  return 0;
+}
+
+int convert_text_to_text_char(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) {
   // Set chars to be drawn
   uint16_t x = 0;
   uint16_t y = 0;  
@@ -67,11 +79,17 @@ int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_posit
         x = 0;
     }
   }
+  return y+1;
+}
+
+int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position) 
+{
+  uint16_t y = convert_text_to_text_char(text, text_Char, len, x_position, y_position);
   // Draw text
   for (size_t n = 0; n < len; n++) {
     display_Char(&text_Char[n]);
   }
-  return y+1;
+  return y;
 }
 
 void display_integer(int integer, uint16_t x, uint16_t y) {

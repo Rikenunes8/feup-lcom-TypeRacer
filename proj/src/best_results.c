@@ -12,7 +12,7 @@ int br_read_file() {
   best_scores = (Score*)malloc(MAX_SCORES*sizeof(Score));
 
   FILE *fp;
-  fp = fopen("/home/lcom/labs/proj/test.txt", "r");
+  fp = fopen("/home/lcom/labs/proj/best_results.txt", "r");
   for (int i = 0; i < MAX_SCORES; i++) {
     best_scores[i].date = (uint8_t*)malloc(6*sizeof(uint8_t));
     fscanf(fp, "%d %f\n", &best_scores[i].cpm, &best_scores[i].accuracy);
@@ -25,7 +25,7 @@ int br_read_file() {
 
 int br_write_file() {
   FILE *fp;
-  fp = fopen("/home/lcom/labs/proj/test.txt", "w");
+  fp = fopen("/home/lcom/labs/proj/best_results.txt", "w");
   for (int i = 0; i < MAX_SCORES; i++) {
     fprintf(fp, "%d %d\n", best_scores[i].cpm, (int)best_scores[i].accuracy);
     fprintf(fp, "%u %u %u %u %u %u\n", best_scores[i].date[0], best_scores[i].date[1], best_scores[i].date[2], best_scores[i].date[3], best_scores[i].date[4], best_scores[i].date[5]);
@@ -125,6 +125,7 @@ void br_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mo
 }
 
 int add_score(size_t CPM, float accuracy, char* name) {
+  bool better = false;
   Score new; 
   new.cpm = CPM; 
   new.accuracy = accuracy;
@@ -134,25 +135,20 @@ int add_score(size_t CPM, float accuracy, char* name) {
    
   for (int i = MAX_SCORES-1; i >= 0; i--) {
     if (new.cpm > best_scores[i].cpm || (new.cpm == best_scores[i].cpm && new.accuracy > best_scores[i].accuracy)) {
-        Score tmp = best_scores[i];
-        best_scores[i] = new;
-        if (i < MAX_SCORES-1)
-          best_scores[i+1] = tmp;
-        else
-          free(tmp.date);
+      better = true;
+      Score tmp = best_scores[i];
+      best_scores[i] = new;
+      if (i < MAX_SCORES-1)
+        best_scores[i+1] = tmp;
+      else
+        free(tmp.date);
     }
     else {
       break;
     }
   }
-  
-
-  for (int i = 0; i < MAX_SCORES; i++) {
-    printf("%d %d\n", best_scores[i].cpm, (int)best_scores[i].accuracy);
-    printf("%u %u %u %u %u %u\n", best_scores[i].date[0], best_scores[i].date[1], best_scores[i].date[2], best_scores[i].date[3], best_scores[i].date[4], best_scores[i].date[5]);
-    printf("%s\n", best_scores[i].name);
-  }
-
+  if (!better)
+    free(new.date);
   return 0;
 }
 

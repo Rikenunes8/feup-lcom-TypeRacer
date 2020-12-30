@@ -29,6 +29,7 @@ static Sprite* key_bar;
 
 static size_t no_bubbles;
 static AnimSprite** bubbles;
+static char name[20] = "noName";
 
 static char* aux_buffer;
 
@@ -312,30 +313,31 @@ void display_results(bool real_time)
     sprintf(txt, "Your speed: %d cpm   ", CPM);
     txt_Char = malloc(strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), 250, 210);
-    free(txt_Char);
 
     //Time text
     sprintf(txt, "Time: %d : %d", no_seconds/60, no_seconds%60);
-    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), 250, 290);
-    free(txt_Char);
 
     //Accuracy text
     sprintf(txt, "Accuracy: %.1f %%  ", accuracy);
-    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), 250, 370);
-    free(txt_Char);
 
     //Try again text
     sprintf(txt, "TRY AGAIN");
-    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), try_again_x_left + 20, try_again_y_top + 20);
-    free(txt_Char);
 
     //Exit text
     sprintf(txt, "EXIT");
-    txt_Char = malloc(strlen(txt)*sizeof(Char));
+    txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), results_exit_x_left + 25, results_exit_y_top + 20);
+
+    //Name text
+    sprintf(txt, "Name:");
+    txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
+    display_text(txt, txt_Char, strlen(txt), 250, 490);
     free(txt_Char);
   }  
 }
@@ -349,6 +351,10 @@ void set_results() {
 
 // Results page
 void results_init() {
+  typed_text = (Char*)malloc(20*sizeof(Char));
+  n_keys = strlen(name);
+  convert_text_to_text_char((const char*)name, typed_text, n_keys, 350, 490);
+
   aux_buffer = (char*)malloc(get_h_res()*get_v_res()*get_BPP());
   int32_t pos[] = {400,300, 100,100, 600,50, 100,450, 300,0, 500,300, 450,100};
   int8_t speeds[] = {1,-2, 2,1, 2,3, 1,-5, -4,2, 5,5, -2,9};
@@ -366,7 +372,12 @@ void results_init() {
 }
 
 void results_end() {
-  add_score(CPM, accuracy, "noName");
+  if (n_keys != 0)
+    convert_text_Char_to_text(name, typed_text, n_keys);
+  else
+    strcpy(name, "noName");
+  add_score(CPM, accuracy, name);
+  free(typed_text);
   free(aux_buffer);
   for (size_t i = 0; i < no_bubbles; i++)
     destroy_asprite(bubbles[i]);
@@ -375,9 +386,11 @@ void results_end() {
 
 void results_process_timer_int(uint32_t counter, Sprite* mouse) 
 {
-  if (counter%2 == 0) 
-  {
+  if (counter%2 == 0) {
     aux_to_fr_buffer(aux_buffer);
+    for (size_t n = 0; n < n_keys; n++) {
+      display_Char(&typed_text[n]);
+    }    
     for (size_t i = 0; i < no_bubbles; i++)
       move_bubbles(i); 
     draw_sprite(mouse, mouse->x, -mouse->y);
@@ -385,18 +398,40 @@ void results_process_timer_int(uint32_t counter, Sprite* mouse)
 }
 
 void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
-  Menu_event event;
-  event = read_kbd_event(aux_key);
-  switch (event) {
-    case type_left_arrow:  
-      *state = RACE;
-      break;
-    case type_right_arrow:
-      *state = MENU;
-      break;
-    default:
-      break;
+  if (aux_key == L_ARROW || aux_key == R_ARROW || aux_key == T_ARROW || aux_key == D_ARROW || aux_key == ESC) {
+    Menu_event event;
+    event = read_kbd_event(aux_key);
+    switch (event) {
+      case type_left_arrow:  
+        *state = RACE;
+        break;
+      case type_right_arrow:
+        *state = MENU;
+        break;
+      default:
+        break;
+    }
   }
+  else if (aux_key == BACKSPACE) {
+    if (n_keys != 0)
+      n_keys--;
+  }
+  else if (aux_key != NOTHING && aux_key != SPACE && n_keys+1 < 11) {
+    Char key;
+    key.index = aux_key;
+    key.state = NORMAL;
+    if (n_keys == 0) {
+      key.posx = 350; 
+      key.posy = 490;
+    }
+    else {
+      key.posx = typed_text[n_keys-1].posx + (CHAR_W+2);
+      key.posy = typed_text[n_keys-1].posy;
+    }
+    typed_text[n_keys] = key;
+    n_keys++;
+  }
+
 }
 
 void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {

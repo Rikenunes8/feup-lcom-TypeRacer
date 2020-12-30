@@ -36,6 +36,13 @@ int Chars_end();
 
 int graphic_Char_xpm(uint8_t *map, uint16_t x, uint16_t y, Char_state state);
 
+int convert_text_Char_to_text(char* text, Char* text_Char, size_t len);
+
+/**
+ * Convert array of chars to array of Chars
+ */ 
+int convert_text_to_text_char(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position);
+
 /**
  * Displays text defined
  * @param text: text to display on the screen

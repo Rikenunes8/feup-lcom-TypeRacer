@@ -260,5 +260,5 @@ uint8_t get_scancode_char(uint8_t *bytes) {
       default: return NOTHING;
     }
   }
-  return 100;
+  return NOTHING;
 }
