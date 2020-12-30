@@ -92,6 +92,13 @@ int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_posit
   return y;
 }
 
+int display_text_Char(Char* text_Char, size_t len) {
+  for (size_t i = 0; i < len; i++) {
+    display_Char(&text_Char[i]);
+  }
+  return 0;
+}
+
 void display_integer(int integer, uint16_t x, uint16_t y) {
   char str[20];    //empty string to store no_seconds
 

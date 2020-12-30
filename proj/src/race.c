@@ -24,9 +24,11 @@ static Char * typed_text;
 
 static Sprite* back;
 static Sprite* car;
-static Sprite* results_menu;
 static Sprite* key_bar;
+static AnimSprite* traffic_light;
+static bool begin_race;
 
+static Sprite* results_menu;
 static size_t no_bubbles;
 static AnimSprite** bubbles;
 static char name[20] = "noName";
@@ -38,6 +40,7 @@ static char* aux_buffer;
 void race_init(const char *text, size_t l)
 {
   len = l;
+  traffic_light = create_asprite(600, 70, 0, 0, 10, 4, traffic_light_red_xpm, traffic_light_red_xpm, traffic_light_yellow_xpm, traffic_light_green_xpm);
   car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
   back = create_sprite(background, 0, 0, 0, 0);
   key_bar = create_sprite(key_bar_xpm, X_TYPE-1, y_pos_typed, 0, 0);
@@ -45,17 +48,27 @@ void race_init(const char *text, size_t l)
   MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
   typed_text = malloc((MAX_LEN)*sizeof(Char));
 
+
   timer_counter = 0;
   no_seconds = 0;
   n_keys = 0;
   current_key = 0;
   correct_keys = 0;
   count_backspaces = 0;
+  CPM = 0;
+  accuracy = 0;
+  begin_race = false;
 
-  no_lines = display_text(text, text_Char, len, X_TEXT, Y_TEXT);
-  display_race_background(no_lines);
+  no_lines = convert_text_to_text_char(text, text_Char, len, X_TEXT, Y_TEXT);
   y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
-
+  
+  display_race_background(no_lines);
+  for (size_t i = 0; i < len; i++) {
+    display_Char(&text_Char[i]);
+  }
+  display_results(true);
+  draw_sprite(car);
+  draw_asprite(traffic_light);
 
 }
 
@@ -70,23 +83,30 @@ void race_end()
 }
 
 void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) {
+
   if(counter % 60 == 0) {
     no_seconds++;
-    set_results();
+    if (begin_race) set_results();
   }
  
+  if (!begin_race && no_seconds == 3) {
+    begin_race = true;
+    destroy_asprite(traffic_light);
+    no_seconds = 0;
+  }
+  
   if (counter%6 == 0) {
     display_race_background();
     display_results(true);
-    for (size_t i = 0; i < len; i++) {
-      display_Char(&text_Char[i]);
-    }
-    for (size_t i = 0; i < n_keys; i++) {
-      display_Char(&typed_text[i]);
-    }
+    display_text_Char(text_Char, len);
+    display_text_Char(typed_text, n_keys);
     draw_sprite(key_bar);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car);
+    if (!begin_race) {
+      animate_asprite(traffic_light);
+      draw_asprite(traffic_light);
+    } 
     draw_sprite(mouse);
     
     if (correct_keys == len) {
@@ -97,6 +117,7 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) 
 }
 
 void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
+  if (!begin_race) return;
   if (aux_key == NOTHING || aux_key == D_ARROW || aux_key == T_ARROW) return; // If not a char to draw, break
   if (aux_key == ESC) {
     *state = MENU;
@@ -281,6 +302,10 @@ void display_race_background()
   draw_text_box(X_BOX, Y_BOX, BOX_WIDTH);
   draw_text_box(X_BOX, Y_BOX + (CHAR_H+3)*no_lines+2*Y_BOX_MARGIN+Y_BTW_BOXES, BOX_WIDTH);
 
+  graphic_draw_rectangle(714, 70, 22, 52, BLACK);
+  for (int i = 0; i < 5; i++)
+    graphic_draw_rectangle(715+(i%2)*10, 71+i*10, 10, 10, WHITE);
+
 }
 
 void display_results(bool real_time)
@@ -390,9 +415,7 @@ void results_process_timer_int(uint32_t counter, Sprite* mouse)
 {
   if (counter%2 == 0) {
     aux_to_fr_buffer(aux_buffer);
-    for (size_t n = 0; n < n_keys; n++) {
-      display_Char(&typed_text[n]);
-    }    
+    display_text_Char(typed_text, n_keys);
     for (size_t i = 0; i < no_bubbles; i++)
       move_bubbles(i); 
     draw_sprite(mouse);

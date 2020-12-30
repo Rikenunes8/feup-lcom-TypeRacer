@@ -69,6 +69,11 @@ int(proj_main_loop)(int argc, char *argv[])
   Mouse_event mouse_event; mouse_event.ev = MOVE;
   Sprite* mouse = create_sprite((xpm_map_t)mouse_xpm, 0, 0, 0, 0);
 
+  /*RTC stuff*/
+  uint8_t rtc_bit_no = 8;
+  rtc_subscribe_int(&rtc_bit_no);
+  uint32_t rtc_irq_set = BIT(rtc_bit_no);
+
   Sprite* main_menu = create_sprite((xpm_map_t)menu, 0, 0, 0, 0);
 
   Menu_state state = MENU;
@@ -109,7 +114,6 @@ int(proj_main_loop)(int argc, char *argv[])
             if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {
               aux_key = get_scancode_char(scancode_bytes);
               kbd_int = true;
-              printf("key\n");
             }
           }
           if (msg.m_notify.interrupts & mouse_irq_set) {
@@ -119,13 +123,10 @@ int(proj_main_loop)(int argc, char *argv[])
               assemble_packet(&pp);
               mouse_events(&mouse_event, &pp);
               mouse_int = true; 
-              if (mouse_event.ev == MANY_DOWN) printf("MANY_DOWN\n");
-              if (mouse_event.ev == LB_DOWN) printf("LB_DOWN\n");
-              if (mouse_event.ev == RB_DOWN) printf("RB_DOWN\n");
-              if (mouse_event.ev == LB_UP) printf("LB_UP\n");
-              if (mouse_event.ev == RB_UP) printf("RB_UP\n");
-              if (mouse_event.ev == MOVE) printf("MOVE\n");
             }    
+          }
+          if (msg.m_notify.interrupts & rtc_irq_set) {
+            rtc_ih(); 
           }
           break;
         default:
@@ -213,6 +214,7 @@ int(proj_main_loop)(int argc, char *argv[])
   kbd_unsubscribe_int();
   mouse_unsubscribe_int(); 
   kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
+  rtc_unsubscribe_int();
 
   br_write_file();
 

@@ -54,6 +54,8 @@ int convert_text_to_text_char(const char* text, Char* text_Char, size_t len, uin
  */
 int display_text(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position);
 
+int display_text_Char(Char* text_Char, size_t len);
+
 /**
  * Converts an integer number to text and displays it
  * @param integer: number to convert to text and to display
