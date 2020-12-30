@@ -7,7 +7,7 @@ PROG=proj
 .PATH: ${.CURDIR}/xpm
 
 # source code files to be compiled
-SRCS = proj.c utils.c timer.c keyboard.c mouse.c graphic.c Chars.c race.c menus.c sprite.c rtc.c
+SRCS = proj.c utils.c timer.c keyboard.c mouse.c graphic.c Chars.c race.c menus.c sprite.c rtc.c best_results.c
 IPATHS = -I./src -I./headers
 
 # additional compilation flags

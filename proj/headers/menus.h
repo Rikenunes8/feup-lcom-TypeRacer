@@ -34,6 +34,7 @@ typedef enum
     click_on_results_exit,
     click_on_try_again_race,
     click_on_try_again_friends_race,
+    click_on_best_results_back,
     type_ESC,
     type_down_arrow,
     type_top_arrow,
@@ -79,23 +80,18 @@ typedef enum
 #define results_exit_y_top    420     //x down-right position of "Exit" rectangle
 #define results_exit_y_down   470     //y down-right position of "Exit" rectangle  
 
+/* "Back" option (x,y) positions from best results page*/
+#define best_results_back_x_left   685     //x left position of "Back" rectangle 
+#define best_results_back_x_right  785     //y right position of "Back" rectangle 
+#define best_results_back_y_top    520     //x top position of "Back" rectangle
+#define best_results_back_y_down   570     //y down position of "Back" rectangle  
 
-/*
- * Main menu
- * @return int: 0 if exits with success; 1 if error
- */
-//int main_menu(Menu_state *state);
 
-/*
- * Displays image for the main menu
- */
-//void display_main_menu();
+void menus_process_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse);
 
-void menus_proccess_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse);
+void menus_process_kbd_int(Menu_state *state, uint8_t aux_key);
 
-void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key);
-
-void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
+void menus_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
 
 /*

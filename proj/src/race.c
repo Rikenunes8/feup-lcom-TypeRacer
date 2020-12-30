@@ -1,4 +1,5 @@
 #include "../headers/race.h"
+#include "../headers/best_results.h"
 
 
 
@@ -28,6 +29,8 @@ static Sprite* key_bar;
 
 static size_t no_bubbles;
 static AnimSprite** bubbles;
+
+static char* aux_buffer;
 
 
 // Race page
@@ -346,6 +349,7 @@ void set_results() {
 
 // Results page
 void results_init() {
+  aux_buffer = (char*)malloc(get_h_res()*get_v_res()*get_BPP());
   int32_t pos[] = {400,300, 100,100, 600,50, 100,450, 300,0, 500,300, 450,100};
   int8_t speeds[] = {1,-2, 2,1, 2,3, 1,-5, -4,2, 5,5, -2,9};
 
@@ -356,28 +360,31 @@ void results_init() {
     set_asprite(bubbles[i], bubbles[i]->aspeed, bubbles[i]->cur_aspeed, 1);
   }
   results_menu = create_sprite(results_page, 0, 0, 0, 0);
+
+  display_results(false);
+  fr_buffer_to_aux(aux_buffer);
 }
 
 void results_end() {
+  add_score(CPM, accuracy, "noName");
+  free(aux_buffer);
   for (size_t i = 0; i < no_bubbles; i++)
     destroy_asprite(bubbles[i]);
   destroy_sprite(results_menu);
 }
 
-void results_proccess_timer_int(uint32_t counter, Sprite* mouse) 
+void results_process_timer_int(uint32_t counter, Sprite* mouse) 
 {
   if (counter%2 == 0) 
   {
-    Sprite m = *mouse;
-    display_results(false);
-    mouse = &m;
+    aux_to_fr_buffer(aux_buffer);
     for (size_t i = 0; i < no_bubbles; i++)
       move_bubbles(i); 
     draw_sprite(mouse, mouse->x, -mouse->y);
   }
 }
 
-void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
+void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   Menu_event event;
   event = read_kbd_event(aux_key);
   switch (event) {
@@ -392,7 +399,7 @@ void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
   }
 }
 
-void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
+void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
   Menu_event event;
   if (mouse_event.ev == LB_DOWN)
     collison_mouse(mouse);

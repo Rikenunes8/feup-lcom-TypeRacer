@@ -1,7 +1,7 @@
 #include "../headers/menus.h"
 
 
-void menus_proccess_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse) {
+void menus_process_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse) {
   if (counter%2 == 0) 
   {
     draw_sprite(main_menu, main_menu->x, main_menu->y);
@@ -9,7 +9,7 @@ void menus_proccess_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse
   }
 }
 
-void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
+void menus_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   Menu_event event;
   event = read_kbd_event(aux_key);
   switch (event) {
@@ -30,7 +30,7 @@ void menus_proccess_kbd_int(Menu_state *state, uint8_t aux_key) {
   }
 }
 
-void menus_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
+void menus_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
   Menu_event event;
   event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
   switch (event) {
@@ -94,7 +94,8 @@ Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y)
       return click_on_try_again_race;
     else if (*mouse_x > results_exit_x_left && *mouse_x < results_exit_x_right && -(*mouse_y) > results_exit_y_top &&  -(*mouse_y) < results_exit_y_down)
       return click_on_results_exit;
+    else if (*mouse_x > best_results_back_x_left && *mouse_x < best_results_back_x_right && -(*mouse_y) > best_results_back_y_top &&  -(*mouse_y) < best_results_back_y_down)
+      return click_on_best_results_back;
   }
-  
   return none;
 }

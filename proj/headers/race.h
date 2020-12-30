@@ -99,11 +99,11 @@ void results_init();
 
 void results_end();
 
-void results_proccess_timer_int(uint32_t counter, Sprite* mouse);
+void results_process_timer_int(uint32_t counter, Sprite* mouse);
 
-void results_proccess_kbd_int(Menu_state *state, uint8_t aux_key);
+void results_process_kbd_int(Menu_state *state, uint8_t aux_key);
 
-void results_proccess_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
+void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
 void collison_mouse(Sprite* mouse);
 

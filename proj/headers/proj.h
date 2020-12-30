@@ -9,6 +9,7 @@
 #include "../headers/race.h"
 #include "../headers/menus.h"
 #include "../headers/sprite.h"
+#include "../headers/best_results.h"
 #include <machine/int86.h>
 
 

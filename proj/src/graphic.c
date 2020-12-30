@@ -157,6 +157,14 @@ void fr_buffer_to_video_mem() {
   memcpy(video_mem, fr_buffer, h_res*v_res*BPP);
 }
 
+void aux_to_fr_buffer(char* aux) {
+  memcpy(fr_buffer, aux, h_res*v_res*BPP);
+}
+
+void fr_buffer_to_aux(char* aux) {
+  memcpy(aux, fr_buffer, h_res*v_res*BPP);
+}
+
 void graphic_set_background(uint32_t color) {
   memset(fr_buffer, color, h_res*v_res*BPP);
 }
@@ -242,6 +250,8 @@ uint8_t get_char_xpm(char c) {
 uint32_t get_h_res() {return h_res;}
 
 uint32_t get_v_res() {return v_res;}
+
+uint32_t get_BPP() {return BPP;}
 
 void destroy_fr_bufffer() {
   free(fr_buffer);

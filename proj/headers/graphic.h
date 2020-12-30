@@ -27,6 +27,10 @@ int graphic_cntrl_info(vg_vbe_contr_info_t *info);
 
 void fr_buffer_to_video_mem();
 
+void aux_to_fr_buffer(char* aux);
+
+void fr_buffer_to_aux(char* aux);
+
 void graphic_set_background(uint32_t color);
 
 uint8_t get_char_xpm(char c);
@@ -34,6 +38,8 @@ uint8_t get_char_xpm(char c);
 uint32_t get_h_res();
 
 uint32_t get_v_res();
+
+uint32_t get_BPP();
 
 void destroy_fr_bufffer();
 
