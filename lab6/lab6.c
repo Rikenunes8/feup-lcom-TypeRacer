@@ -35,17 +35,78 @@ int main(int argc, char *argv[]) {
 
 int(video_test_init)(uint16_t mode, uint8_t delay) 
 {
-  uint8_t time_date[6];
+  uint8_t time[3];
+  uint8_t bit_no = 8;
+
+  if (rtc_subscribe_int(&bit_no) != 0) {
+    printf("Error kbc_subscribe\n");
+    return 0;
+  }
+  uint8_t timer_bit_no = 0;
+  timer_subscribe_int(&timer_bit_no);
+  extern int timer_counter;
+  int no_seconds = 0;
+
+  rtc_turn_on_alarm();
+  rtc_set_alarm(0x00, DONT_CARE, DONT_CARE);
+
+  int ipc_status;
+  message msg;
+  uint32_t irq_set = BIT(bit_no);
+  uint32_t timer_irq_set = BIT(timer_bit_no);
+  int r = 0;
   
-  rtc_read_time_date(time_date);
-  
-  printf("seconds: %d\n", time_date[0]);
-  printf("minutes: %d\n", time_date[1]);
-  printf("hours: %d\n", time_date[2]);
-  
-  printf("day: %d\n", time_date[3]);
-  printf("month: %d\n", time_date[4]);
-  printf("year: %d\n", time_date[5]);
+  while( no_seconds < 60) { 
+    
+    /* Get a request message. */
+    if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+        printf("driver_receive failed with: %d", r);
+        continue;
+    }
+    if (is_ipc_notify(ipc_status)) 
+    {   /* received notification */
+      switch (_ENDPOINT_P(msg.m_source)) 
+      {
+        case HARDWARE: /* hardware interrupt notification */				
+          if (msg.m_notify.interrupts & irq_set) 
+          { 
+            rtc_ih();            
+          }
+          if (msg.m_notify.interrupts & timer_irq_set) 
+          { 
+            timer_int_handler();
+            if (timer_counter%60 == 0) {
+              rtc_read_time(time);
+              printf("\nTime\n");
+              printf("seconds: %d\n", time[0]);
+              printf("minutes: %d\n", time[1]);
+              printf("hours: %d\n", time[2]);
+
+              if (get_alarm()) {
+                printf("ALARMEEEEEEEEE\n");
+                use_alarm();
+              }
+              
+              no_seconds++;
+
+
+            }
+          }
+          break;
+        default:
+          printf("Receive no interrupt\n");
+          break; /* no other notifications expected: do nothing */	
+      }
+    } 
+    else {  
+      /* received a standard message, not a notification */
+       /* no standard messages expected: do nothing */
+    }
+    tickdelay(micros_to_ticks(20000));
+  }
+
+  timer_unsubscribe_int();
+  rtc_unsubscribe_int();
 
 	return 0;
 }

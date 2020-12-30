@@ -1,5 +1,8 @@
 #include "rtc.h"
 static int hook_id;
+static bool alarmed = false;
+
+
 int (util_sys_inb)(int port, uint8_t *value) 
 {  
   uint32_t a32;
@@ -108,7 +111,24 @@ int rtc_read_time_date(uint8_t* time_date) {
     return 0;
 }
 
+void rtc_turn_on_alarm() {
+  uint8_t byte;
+  rtc_read_register(REG_B, &byte);
+  byte = byte | AI;
+  rtc_write_register(REG_B, &byte);
+}
 
+void rtc_set_alarm(uint8_t sec, uint8_t min, uint8_t h) {
+  uint8_t byte;
+  rtc_read_register(REG_B, &byte);
+  byte = byte | SET;
+  rtc_write_register(REG_B, &byte);
+  rtc_write_register(SECONDS_A, &sec);
+  rtc_write_register(MINUTES_A, &min);  
+  rtc_write_register(HOURS_A, &h);
+  byte = byte & (~SET);
+  rtc_write_register(REG_B, &byte);
+}
 
 void rtc_ih() {
     uint8_t reg;
@@ -118,9 +138,12 @@ void rtc_ih() {
 }
 
 void handle_alarm_int() {
-    return;
+  alarmed = true;
+  return;
 }
 
+bool get_alarm() {return alarmed;}
 
+void use_alarm() {alarmed = false;}
 
 
