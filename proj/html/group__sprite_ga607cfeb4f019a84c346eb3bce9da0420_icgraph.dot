@@ -1,0 +1,13 @@
+digraph "destroy_sprite"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="destroy_sprite",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="destroy_asprite",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$group__sprite.html#ga05d186cb4268b897f3d8d7d890ed6cc4",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="race_end",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$race_8c.html#a3076ed00db71c8dfbf4cdcb0f363f850",tooltip=" "];
+}

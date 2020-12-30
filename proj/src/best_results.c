@@ -1,12 +1,7 @@
-#include "../headers/best_results.h"
-#include "../headers/graphic.h"
-#include "../xpm/best_results_page.h"
-#include "../headers/rtc.h"
+#include <lcom/lcf.h>
 
-static uint8_t MAX_SCORES = 3;
-static Score* best_scores;
-static char* aux_buffer;
-static Sprite* best_results_page;
+#include "../headers/best_results.h"
+
 
 int br_read_file() {
   best_scores = (Score*)malloc(MAX_SCORES*sizeof(Score));
