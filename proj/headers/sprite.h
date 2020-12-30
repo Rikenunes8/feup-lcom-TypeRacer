@@ -67,7 +67,7 @@ void destroy_sprite(Sprite *sprite);
 
 int set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
 
-void draw_sprite(Sprite* sprite, int32_t x, int32_t y);
+void draw_sprite(Sprite* sprite);
 
 bool check_collison(Sprite* sprite, int32_t x, int32_t y);
 

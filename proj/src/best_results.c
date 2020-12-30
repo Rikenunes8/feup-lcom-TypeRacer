@@ -83,7 +83,7 @@ void br_init() {
   aux_buffer = (char*)malloc(get_h_res()*get_v_res()*get_BPP());
   best_results_page = create_sprite((xpm_map_t)best_results_xpm, 0, 0, 0, 0);
 
-  draw_sprite(best_results_page, 0, 0);
+  draw_sprite(best_results_page);
   br_draw_best_results();
   fr_buffer_to_aux(aux_buffer);
 }
@@ -96,7 +96,7 @@ void br_end() {
 void br_process_timer_int(uint32_t counter, Sprite* mouse) {
   if (counter%2 == 0) {
     aux_to_fr_buffer(aux_buffer);
-    draw_sprite(mouse, mouse->x, -mouse->y);
+    draw_sprite(mouse);
   }
 }
 

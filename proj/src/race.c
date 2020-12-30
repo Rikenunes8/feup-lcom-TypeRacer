@@ -84,10 +84,10 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) 
     for (size_t i = 0; i < n_keys; i++) {
       display_Char(&typed_text[i]);
     }
-    draw_sprite(key_bar, key_bar->x, key_bar->y);
+    draw_sprite(key_bar);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
-    draw_sprite(car, car->x, car->y);
-    draw_sprite(mouse, mouse->x, -mouse->y);
+    draw_sprite(car);
+    draw_sprite(mouse);
     
     if (correct_keys == len) {
       *state = RESULTS;
@@ -272,7 +272,7 @@ void draw_text_box(uint16_t x, uint16_t y, uint16_t width)
 
 void display_race_background()
 {
-  draw_sprite(back, 0, 0);
+  draw_sprite(back);
   graphic_draw_bordered_rectangle(X_BOX,16,BOX_WIDTH,120);
 
   //draws the text box with variable dimensions (incomplete)
@@ -309,7 +309,7 @@ void display_results(bool real_time)
   }
   else //results page
   {
-    draw_sprite(results_menu, 0, 0);
+    draw_sprite(results_menu);
 
     //Speed text
     sprintf(txt, "Your speed: %d cpm   ", CPM);
@@ -395,7 +395,7 @@ void results_process_timer_int(uint32_t counter, Sprite* mouse)
     }    
     for (size_t i = 0; i < no_bubbles; i++)
       move_bubbles(i); 
-    draw_sprite(mouse, mouse->x, -mouse->y);
+    draw_sprite(mouse);
   }
 }
 
@@ -454,15 +454,9 @@ void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprit
   }
 }
 
-/*void collisons() {
-  for (int i = 0; i < bubbles.size(); i++) {
-    
-  }
-}*/
-
 void collison_mouse(Sprite* mouse) {
   for (size_t i = 0; i < no_bubbles; i++) {
-    if (check_asp_collison(bubbles[i], mouse->x, -mouse->y)) {
+    if (check_asp_collison(bubbles[i], mouse->x, mouse->y)) {
       set_asprite(bubbles[i], bubbles[i]->aspeed, bubbles[i]->cur_aspeed, 5);
       break;
     }

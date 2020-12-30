@@ -44,7 +44,7 @@ void (kbc_ih)()
   }
 
   if ((st & AUX) != 0) return;
-  printf("kbd_byte\n");
+  //printf("kbd_byte\n");
 
   if ( (st & (PARITY | TIMEOUT)) == 0 ) //check if there was some communications error
   {

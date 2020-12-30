@@ -44,7 +44,7 @@ void destroy_sprite(Sprite *sprite)
 }
 
 
-void draw_sprite(Sprite* sprite, int32_t x, int32_t y) {
+void draw_sprite(Sprite* sprite) {
   uint32_t color;
   for (int32_t i = 0; i < sprite->height; i++) {
     for (int32_t j = 0; j < sprite->width; j++) {
@@ -56,7 +56,7 @@ void draw_sprite(Sprite* sprite, int32_t x, int32_t y) {
       }
       // If color is transparent don't draw it
       if (color != xpm_transparency_color(XPM_8_8_8))  
-        graphic_pixel(x + j, y + i, color);
+        graphic_pixel(sprite->x + j, sprite->y + i, color);
     }
   }
 }
