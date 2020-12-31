@@ -11,12 +11,12 @@
 #define X_TYPE          50          //!x position of typed text
 uint16_t y_pos_typed;               //!y position of typed text
 //#define Y_TYPE        426          
-#define X_TEXT          50          //!x position of displayed text
+#define X_TEXT          48          //!x position of displayed text
 #define Y_TEXT          170         //!y position of displayed text
-#define X_BOX           31          //!x position of first text box
+#define X_BOX           30          //!x position of first text box
 #define Y_BOX           160         //!y position of first text box
 #define Y_BOX_MARGIN    10          //! Y_BOX - Y_TEXT
-#define BOX_WIDTH       738
+#define BOX_WIDTH       740
 #define Y_BTW_BOXES     20          //! Height between text boxes
 
 #define MAX_NO_LINES 8 //maximum number of lines that the text can have

@@ -66,11 +66,11 @@ void race_init(const char *text, size_t l)
   rtc_turn_on_alarm();
   uint8_t time[3];
   rtc_read_time(time);
-  uint16_t time_to_alarm = len*60/50 + 3;
+  uint16_t time_to_alarm = len*60/50 + 2;
   uint8_t new_sec = time_to_alarm%60 + time[0];
   uint8_t new_min = time_to_alarm/60 + time[1];
   rtc_set_alarm(binary_to_bcd(new_sec%60), binary_to_bcd((new_sec/60+new_min)%60), DONT_CARE);
-
+  
   // Reset variables
   timer_counter = 0;
   no_seconds = 0;
@@ -84,12 +84,10 @@ void race_init(const char *text, size_t l)
   light = true;
   if (strcmp(name, "Disqualified") == 0) strcpy(name, "no_name");
 
-  
   display_race_background(no_lines);
   display_text_Char(text_Char, len);
   draw_sprite(car);
   draw_asprite(traffic_light);
-
 }
 
 void race_end() 
