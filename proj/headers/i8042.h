@@ -4,25 +4,25 @@
 #include <lcom/lcf.h>
 
 
-#define DELAY_US    20000
+#define DELAY_US    20000 
 
 
-#define KEYBOARD1_IRQ   1  /* Keyboard 1 IRQ line */
-#define MOUSE12_IRQ     12 /* Mouse 12 IRQ line */
+#define KEYBOARD1_IRQ   1  /** Keyboard 1 IRQ line */
+#define MOUSE12_IRQ     12 /** Mouse 12 IRQ line */
 
 /* Commands for KBC */
-#define READ_CB    0x20 /* Read command byte register */
-#define WRITE_CB   0x60 /* Write command byte register */
-#define DIS_MOUSE  0xA7 /* Disable mouse */
-#define ENB_MOUSE  0xA8 /* Enable mouse */
-#define WRT_MOUSE  0xD4 /* Write byte to mouse*/
+#define READ_CB    0x20 /** Read command byte register */
+#define WRITE_CB   0x60 /** Write command byte register */
+#define DIS_MOUSE  0xA7 /** Disable mouse */
+#define ENB_MOUSE  0xA8 /** Enable mouse */
+#define WRT_MOUSE  0xD4 /** Write byte to mouse*/
 
 /* Mouse commands */
-#define ENB_DR     0xF4 /* Enable ddata reporting */
-#define DIS_DR     0xF5 /* Disable data reporting */
-#define SET_RM     0xF0 /* Set remote mode */ 
-#define SET_SM     0xEA /* Set stream mode */
-#define READ_DATA  0xEB /* Get mouse configuration */
+#define ENB_DR     0xF4 /** Enable ddata reporting */
+#define DIS_DR     0xF5 /** Disable data reporting */
+#define SET_RM     0xF0 /** Set remote mode */ 
+#define SET_SM     0xEA /** Set stream mode */
+#define READ_DATA  0xEB /** Get mouse configuration */
 
 /* Mouse Byte 1 */
 #define LB      BIT(0)
@@ -35,38 +35,29 @@
 #define YOV     BIT(7)
 
 /* Flags send by mouse */
-#define ACK        0xFA /* Everything ok */
-#define NACK       0xFE /* Invalid byte */
-#define ERROR      0xFC /* Second consecutive invalid byte */
+#define ACK        0xFA /** Everything ok */
+#define NACK       0xFE /** Invalid byte */
+#define ERROR      0xFC /** Second consecutive invalid byte */
 
 /* I/O port addresses */
-#define OUT_BUF    0x60 /* Output buffer register */
-#define IN_BUF     0x64 /* Input buffer register */
+#define OUT_BUF    0x60 /** Output buffer register */
+#define IN_BUF     0x64 /** Input buffer register */
 
-#define STAT_REG   0x64 /* Status register */
+#define STAT_REG   0x64 /** Status register */
 
 
 /* Status register */
-#define OBF      BIT(0) /* Output buffer full */
-#define IBF      BIT(1) /* Input buffer is full */
-#define AUX      BIT(5) /* Mouse data */
-#define TIMEOUT  BIT(6) /* Receive time out error */
-#define PARITY   BIT(7) /* Parity error */
+#define OBF      BIT(0) /** Output buffer full */
+#define IBF      BIT(1) /** Input buffer is full */
+#define AUX      BIT(5) /** Mouse data */
+#define TIMEOUT  BIT(6) /** Receive time out error */
+#define PARITY   BIT(7) /** Parity error */
 
 
 /* Keys */
-#define ENTER_KEY   0x1c
-#define ESC_KEY     0x81
+#define ENTER_KEY   0x1c  /** Scancode of enter key */
+#define ESC_KEY     0x81  /** Scancode of esc key */
 
-/* Keys map */
-#define SPACE     62
-#define NOTHING   100
-#define BACKSPACE 200
-#define L_ARROW   101
-#define R_ARROW   102
-#define T_ARROW   103
-#define D_ARROW   104
-#define ESC       105
 
 
 #endif /* _LCOM_I8042_H */

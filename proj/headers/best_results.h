@@ -1,11 +1,8 @@
 #ifndef _LCOM_BEST_RESULTS_H
 #define _LCOM_BEST_RESULTS_H
 
-#include "../headers/graphic.h"
-#include "../xpm/best_results_page.h"
-#include "../headers/rtc.h"
+#include "../headers/sprite.h"
 #include "../headers/menus.h"
-#include "../headers/Chars.h"
 
 /** @defgroup best_results Best results
  * @{
@@ -14,7 +11,8 @@
  */
 
 
-/** Struct that keeps the game's results
+/** 
+ * @brief Struct that keeps the game's results
  */
 typedef struct 
 {
@@ -25,54 +23,69 @@ typedef struct
 } Score;
 
 
-/** Reads the information of the file best_results.txt 
- * where we keep the 3 best scores obtained in the game.
+/** 
+ * @brief Reads the information of the file best_results.txt 
+ * where are kept the 3 best scores obtained in the game.
+ * Put the information read in Score* best_scores. 
  * @return 0 if success (ainda não verifica erros)
  */
 int br_read_file();
 
-/** Writes the information of the 3 best scores obtained in the game ever
+/** 
+ * @brief Writes the information of the 3 best scores obtained in the game ever 
  * into the file best_results.txt 
  * @return 0 if success (ainda não verifica erros)
  */
 int br_write_file();
 
-/** Falta
- * @return 
+/** 
+ * @brief Draw the components of the table (titles and results)
+ * @return 0 if success
  */
 int br_draw_best_results();
 
-/** Falta
- * @return 
+/** 
+ * @brief Draw best results page and copy to an auxiliary buffer
  */
 void br_init();
 
-/** Falta
- * @return 
+/** 
+ * @brief Free auxiliary buffer and background
  */
 void br_end();
 
-/** Falta
- * @param
- * @return 
+/**
+ * @brief Process timer interrupt in best results page
+ * @details Draw auxiliary buffer and mouse 
+ * @param counter Timer count
+ * @param mouse Mouse sprite
  */
 void br_process_timer_int(uint32_t counter, Sprite* mouse);
 
-/** Falta
- * @param
- * @return 
+/**
+ * @brief Process keyboard interrupt in best results page
+ * @details Check if it is to leave the page and change state if so
+ * @param state Current state of state machine
+ * @param aux_key Key to process
  */
 void br_process_kbd_int(Menu_state *state, uint8_t aux_key);
 
-/** Falta
- * @param
- * @return 
+/**
+ * @brief Process mouse interrupt in best results page
+ * @details Check if it is to leave the page and change state if so. Move mouse.
+ * @param state Current state of state machine
+ * @param mouse_event Mouse event
+ * @param mouse Mouse sprite
  */
 void br_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
-/** Falta
- * @param
- * @return 
+/**
+ * @brief Compare new score with current best scores and replace if the case. Get the current date from RTC
+ * 
+ * @param CPM Characters per minute of new score
+ * @param accuracy Accuracy of new score
+ * @param name Name of new score
+ * @return int 0 if success
  */
 int add_score(size_t CPM, float accuracy, char* name);
 

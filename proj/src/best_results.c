@@ -2,11 +2,16 @@
 
 #include "../headers/best_results.h"
 
+#include "../headers/graphic.h"
+#include "../headers/rtc.h"
+#include "../headers/Chars.h"
+#include "../xpm/best_results_page.h"
+
 
 static uint8_t MAX_SCORES = 3; /*!< Maximum number of scores that we want to show and save*/
-static Score* best_scores; /*!< Falta*/
-static char* aux_buffer; /*!< Falta*/
-static Sprite* best_results_page; /*!< Falta*/
+static Score* best_scores; /*!< Scores read in best_results.txt, ordered by CPM*/
+static char* aux_buffer; /*!< Auxiliar buffer*/
+static Sprite* best_results_page; /*!< Background of best results page*/
 
 int br_read_file() {
   best_scores = (Score*)malloc(MAX_SCORES*sizeof(Score));

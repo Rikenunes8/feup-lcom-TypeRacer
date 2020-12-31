@@ -1,10 +1,10 @@
+#include <lcom/lcf.h>
+
 #include <../headers/keyboard.h>
+#include <../headers/i8042.h>
 
 static int hook_id;
 uint32_t scancode;
-
-static bool shift_right = false;
-static bool shift_left = false;
 
 int (kbd_subscribe_int)(uint8_t *bit_no) 
 {
@@ -154,116 +154,4 @@ void print_scancode(uint8_t *bytes) {
 }
 
 
-uint8_t get_scancode_char(uint8_t *bytes) {
-  //indicates that is a two_byte scancode
-  if (bytes[0] == 0xE0) {
-    switch (bytes[1]) {
-      case 0x4b: return L_ARROW; //left arrow
-      case 0x4d: return R_ARROW; //right arrow
-      case 0x48: return T_ARROW; //top arrow
-      case 0x50: return D_ARROW; //down arrow
-    }
-  }
-  else 
-  {
-    //scancodes when shift key is not pressed
-    if (!shift_right && !shift_left) 
-    {
-      switch (bytes[0]) {
-        case 0x0b: return 0; // '0'
-        case 0x02: return 1; // '1'
-        case 0x03: return 2;
-        case 0x04: return 3;
-        case 0x05: return 4;
-        case 0x06: return 5;
-        case 0x07: return 6;
-        case 0x08: return 7;
-        case 0x09: return 8;
-        case 0x0a: return 9;
-        case 0x1e: return 36; // 'a'
-        case 0x30: return 37;
-        case 0x2e: return 38;
-        case 0x20: return 39;
-        case 0x12: return 40;
-        case 0x21: return 41;
-        case 0x22: return 42;
-        case 0x23: return 43;
-        case 0x17: return 44;
-        case 0x24: return 45;
-        case 0x25: return 46;
-        case 0x26: return 47;
-        case 0x32: return 48;
-        case 0x31: return 49;
-        case 0x18: return 50;
-        case 0x19: return 51;
-        case 0x10: return 52;
-        case 0x13: return 53;
-        case 0x1f: return 54;
-        case 0x14: return 55;
-        case 0x16: return 56;
-        case 0x2f: return 57;
-        case 0x11: return 58;
-        case 0x2d: return 59;
-        case 0x15: return 60;
-        case 0x2c: return 61;
-        case 0x33: return 65; // ','
-        case 0x34: return 66; // '.'
-        case 0x0c: return 69; // '''
-        case 0x35: return 73; // '-'
-      }
-    }
-    else 
-    {
-      //scancodes when shift key is pressed
-      switch (bytes[0]) {
-        case 0x1e: return 10; // 'A'
-        case 0x30: return 11;
-        case 0x2e: return 12;
-        case 0x20: return 13;
-        case 0x12: return 14;
-        case 0x21: return 15;
-        case 0x22: return 16;
-        case 0x23: return 17;
-        case 0x17: return 18;
-        case 0x24: return 19;
-        case 0x25: return 20;
-        case 0x26: return 21;
-        case 0x32: return 22;
-        case 0x31: return 23;
-        case 0x18: return 24;
-        case 0x19: return 25;
-        case 0x10: return 26;
-        case 0x13: return 27;
-        case 0x1f: return 28;
-        case 0x14: return 29;
-        case 0x16: return 30;
-        case 0x2f: return 31;
-        case 0x11: return 32;
-        case 0x2d: return 33;
-        case 0x15: return 34;
-        case 0x2c: return 35; // 'Z'
-        case 0x34: return 63; // ':'
-        case 0x33: return 64; // ';'
-        case 0x02: return 67; // '!'
-        case 0x0c: return 68; // '?'
-        case 0x03: return 70; // '"'
-        case 0x06: return 71; // '%'
-        case 0x08: return 72; // '/'
-        case 0x35: return 74; // '_'
-      }
-    }
 
-    //other scancodes
-    switch (bytes[0]) {
-      case 0x39: return SPACE; // ' '
-      case 0x36: shift_left = true; return NOTHING;
-      case 0x2a: shift_right = true; return NOTHING;
-      case 0xb6: shift_left = false; return NOTHING;
-      case 0xaa: shift_right = false; return NOTHING;
-      case 0x0e: return BACKSPACE; // backspace
-      case 0x81: return ESC;
-      default: return NOTHING;
-    }
-  }
-  return NOTHING;
-}

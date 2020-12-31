@@ -55,7 +55,7 @@ void (mouse_ih)()
   return;
 }
 
-int (kbc_write_byte)(uint8_t cmd, uint8_t arg) {
+int kbc_write_byte(uint8_t cmd, uint8_t arg) {
   uint8_t st;
   int i=0;
   while (i<5) {

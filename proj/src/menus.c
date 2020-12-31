@@ -1,4 +1,11 @@
+#include <lcom/lcf.h>
+
 #include "../headers/menus.h"
+
+#include "../headers/timer.h"
+#include "../headers/keyboard.h"
+#include "../headers/graphic.h"
+#include "../headers/Chars.h"
 
 
 void menus_process_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse) {
