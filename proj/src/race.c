@@ -489,10 +489,14 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
 }
 
 void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse) {
+  bool colision = false;
   Menu_event event;
   if (mouse_event.ev == LB_DOWN || mouse_event.ev == RB_DOWN)
-    collison_mouse(mouse);
+    colision = collison_mouse(mouse);
+  
   event = read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
+
+  if (colision) return; // Destroy bubble has priority to button clicks
   switch (event) 
   {
     case click_on_results_exit:  
@@ -506,13 +510,14 @@ void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprit
   }
 }
 
-void collison_mouse(Sprite* mouse) {
+bool collison_mouse(Sprite* mouse) {
   for (size_t i = 0; i < no_bubbles; i++) {
     if (check_asp_collison(bubbles[i], mouse->x, mouse->y)) {
       set_asprite(bubbles[i], bubbles[i]->aspeed, bubbles[i]->cur_aspeed, 5);
-      break;
+      return 1;
     }
   }
+  return 0;
 }
 
 void bubbles_erase(size_t n) {

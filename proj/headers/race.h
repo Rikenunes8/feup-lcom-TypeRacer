@@ -125,21 +125,61 @@ void set_results();
 
 
 
-
+/**
+ * @brief Initialize results page and allocate memory
+ * 
+ */
 void results_init();
-
+/**
+ * @brief Free alocated memory in results_init and call add_score
+ * 
+ */
 void results_end();
-
+/**
+ * @brief Process timer interrupt in results page
+ * @details Copy auxiliary buffer to frame buffer, draw name, draw bubbles and draw mouse
+ * 
+ * @param counter Timer count
+ * @param mouse Mouse sprite
+ */
 void results_process_timer_int(uint32_t counter, Sprite* mouse);
-
+/**
+ * @brief Process keyboard interrupt in results page
+ * @details Check if it is to leave results page and handle name writing
+ * @param state Current state of state machine
+ * @param aux_key Key to process
+ */
 void results_process_kbd_int(Menu_state *state, uint8_t aux_key);
-
+/**
+ * @brief Process mouse interrupt in race page
+ * @details Check if it is to leave results page, move mouse and 
+ * check colisions of the mouse with the bubbles by clicking on it
+ * 
+ * @param state Current state of state machine
+ * @param mouse_event Mouse event
+ * @param mouse Mouse sprite
+ */
 void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
-
-void collison_mouse(Sprite* mouse);
-
+/**
+ * @brief Check if mouse collided with some bubble and prepare bubble to be destroyed if it is the case
+ * 
+ * @param mouse Mouse sprite
+ * @return True in case of any collision, false otherwise
+ */
+bool collison_mouse(Sprite* mouse);
+/**
+ * @brief Remove bubble to be erased of the array of bubbles and destroy it
+ * 
+ * @param n Index of the bubble to be destroyed in array of bubbles
+ */
 void bubbles_erase(size_t n);
-
+/**
+ * @brief Move bubbles
+ * @details Check collisions with screen bounderies and change bubble speed directions.
+ * Animate bubble. Erase bubble if it is the case
+ * 
+ * @param n Index of the bubble to me moved in array of bubbles
+ */
 void move_bubbles(size_t n);
 
 
