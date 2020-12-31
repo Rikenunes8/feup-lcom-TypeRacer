@@ -112,7 +112,7 @@ void display_float(float decimal, uint16_t x, uint16_t y)
 
 void display_time(uint16_t seconds, uint16_t x, uint16_t y) {
   char time[20]; 
-  sprintf(time, "%d : %d ", seconds/60, seconds%60); 
+  sprintf(time, "%d : %02d ", seconds/60, seconds%60); 
   
   Char* time_Char = malloc(strlen(time)*sizeof(Char)); // Convert string of chars to string of Chars
 
