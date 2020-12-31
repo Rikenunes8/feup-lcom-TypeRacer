@@ -1,6 +1,9 @@
-#include "../headers/sprite.h"
-#include "../headers/graphic.h"
+#include <lcom/lcf.h>
 #include <stdarg.h>
+
+#include "../headers/sprite.h"
+
+#include "../headers/graphic.h"
 
 static uint8_t BPP = 3;
 
@@ -17,19 +20,17 @@ Sprite * create_sprite(xpm_map_t xpm, int32_t x, int32_t y, int8_t x_speed, int8
   return sprite;
 }  
 
-int animate_sprite(Sprite* sprite) 
+void animate_sprite(Sprite* sprite) 
 {
   sprite->x += sprite->xspeed;
   sprite->y += sprite->yspeed;
-  return 0;
 }
 
-int set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed) {
+void set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed) {
   sprite->x = x;
   sprite->y = y;
   sprite->xspeed = x_speed;
   sprite->yspeed = y_speed;  
-  return 0;
 }
 
 void destroy_sprite(Sprite *sprite) 
@@ -40,7 +41,6 @@ void destroy_sprite(Sprite *sprite)
     free(sprite->map);
   free(sprite);
   sprite = NULL;
-  return;
 }
 
 

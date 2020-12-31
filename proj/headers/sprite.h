@@ -1,12 +1,6 @@
-/**
- *  @author Joao Cardoso (jcard@fe.up.pt) ????
- *  Added by pfs@fe.up.pt
- */
-
 #ifndef _SPRITE_H_
 #define _SPRITE_H_
 
-#include <lcom/lcf.h>
 
 /** @defgroup sprite Sprite
  * @{
@@ -14,84 +8,140 @@
  * Sprite related functions
  */
 
-/** A Sprite is an "object" that contains all needed information to
- * create, animate, and destroy a pixmap.  The functions assume that
- * the background is BLACK and they take into account collision with
- * other graphical objects or the screen limits. 
+/** 
+ * @brief A Sprite is an "object" that contains all needed information to
+ * create, animate, and destroy a pixmap.
  */
 typedef struct {
   int32_t x,y;             /**< current sprite position */
   uint16_t width, height;   /**< sprite dimensions */
   int32_t xspeed, yspeed;  /**< current speeds in the x and y direction */
-  uint8_t *map;           /**< the sprite pixmap (use read_xpm()) */
+  uint8_t *map;           /**< the sprite pixmap (use xpm_load()) */
 } Sprite;
 
-/** An Animated Sprite is a "sub-classing" of Sprites
+/**
+ * @brief An Animated Sprite is a "sub-classing" of Sprites
  *  where each Sprite is manipulated using Sprite functions
  */
 typedef struct {
-	Sprite *sp;		///< pointer to first Sprite, the one with overall properties
-	uint8_t aspeed;		///< no. frames per pixmap 
-	uint8_t cur_aspeed; // no. frames left to next change
-	uint8_t num_fig; 	///< number of pixmaps 
-	uint8_t cur_fig; 	///< current pixmap 
-	uint8_t **map;     ///< pointer to array of each AnimSprite pixmaps
+	Sprite *sp;		      //!< pointer to first Sprite, the one with overall properties
+	uint8_t aspeed;		  //!< no. frames per pixmap 
+	uint8_t cur_aspeed; //! no. frames left to next change
+	uint8_t num_fig; 	  //!< number of pixmaps 
+	uint8_t cur_fig; 	  //!< current pixmap 
+	uint8_t **map;      //!< pointer to array of each AnimSprite pixmaps
 } AnimSprite;
 
-/** Creates with random speeds (not zero) and position
- * (within the screen limits), a new sprite with pixmap "pic", in
- * memory whose address is "base";
- * Returns NULL on invalid pixmap.
+
+/**
+ * @brief Create a sprite
+ * 
+ * @param xpm XPM to be load
+ * @param x X position
+ * @param y Y position
+ * @param x_speed X speed
+ * @param y_speed Y speed
+ * @return Returns NULL on invalid pixmap.
  */
 Sprite * create_sprite(xpm_map_t xpm, int32_t x, int32_t y, int8_t x_speed, int8_t y_speed);
 
-/** Animate the sprite "fig" according to its attributes in memory,
- * whose address is "base".  The animation detects the screen borders
- * and change the speed according; it also detects collision with
- * other objects, including the player pad. Collisions with the screen
- * border generates a perfect reflection, while collision with other
- * objects generates a random perturbation in the object speed. Other
- * strategies can be devised: use quasi-elastic collision based on the
- * objects "mass" and speed, generate spin effect based on amount of
- * tangential speed direction relative to the object center of
- * "mass"...  Returns the kind of collision detected, RIGHT_HIT or
- * LEFT_HIT, if a collision with the players pad (WHITE colored!) is
- * detected.
+/** 
+ * @brief Update sprite according to its attributes
+ * @param sprite Sprite to update
  */
-int animate_sprite(Sprite* sprite);
+void animate_sprite(Sprite* sprite);
 
-/** The "fig" sprite is erased from memory whose address is "base"
- * and used resources released.
+/** 
+ * @brief Free memory alocated by sprite
  */
 void destroy_sprite(Sprite *sprite);
-
-int set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
-
+/**
+ * @brief Set the sprite
+ * 
+ * @param sprite Sprite to set
+ * @param x New x position
+ * @param y New y position
+ * @param x_speed New x speed
+ * @param y_speed New y speed
+ */
+void set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
+/**
+ * @brief Draw sprite
+ * 
+ * @param sprite Sprite to be drawn
+ */
 void draw_sprite(Sprite* sprite);
-
+/**
+ * @brief Check if a position is inside the sprite
+ * 
+ * @param sprite Sprite
+ * @param x x coordinate
+ * @param y y coordinate
+ * @return Return true if colision, false otherwise 
+ */
 bool check_collison(Sprite* sprite, int32_t x, int32_t y);
 
 
-/** Create an Animated Sprite from multiple pixmaps
-*   At least one pixmap must be specified.
-*/
+/**
+ * @brief Create an Animated Sprite from multiple pixmaps
+ * At least one pixmap must be specified.
+ * 
+ * @param x X position
+ * @param y Y position
+ * @param x_speed X speed
+ * @param y_speed Y speed
+ * @param aspeed Number of frames to change figure
+ * @param no_xpm Number of figures
+ * @param xpm First figure
+ * @param ... More figures
+ * @return Returns NULL on invalid pixmap.
+ */
 AnimSprite * create_asprite(int32_t x, int32_t y, int8_t x_speed, int8_t y_speed, uint8_t aspeed, uint8_t no_xpm, xpm_map_t xpm, ...);
 
-/** Animate an Animated Sprite
-*/
+/** 
+ * @brief Update an Animated Sprite according to its atributtes
+ * @param asp Animated sprite to be animated
+ */
 void animate_asprite(AnimSprite *asp);
-
+/**
+ * @brief Set the animated sprite
+ * 
+ * @param asp Animated sprite to be set
+ * @param aspeed New number of frames until change to next figure
+ * @param cur_aspeed New current frames left to next figure
+ * @param num_fig New number of figures
+ */
 void set_asprite(AnimSprite* asp, uint8_t aspeed, uint8_t cur_aspeed, uint8_t num_fig);
-
+/**
+ * @brief Set the sprite of animated sprite
+ * 
+ * @param asp Animated sprite to be set
+ * @param x New x position
+ * @param y new y position
+ * @param x_speed New x speed
+ * @param y_speed New y speed
+ */
 void set_asprite_sprite(AnimSprite* asp, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
 
-/** Destroy an Animated Sprite from video memoty and
-* release all resources allocated.
-*/
+/** 
+ * @brief Destroy an Animated Sprite, release all resources allocated.
+ * @param asp Animated sprite
+ */
 void destroy_asprite(AnimSprite *asp);
-
+/**
+ * @brief Draw animated sprite
+ * 
+ * @param asp Anmated sprite to be drawn
+ */
 void draw_asprite(AnimSprite* asp);
-
+/**
+ * @brief Check if a position is inside the animated sprite
+ * 
+ * @param asp Animated sprite
+ * @param x x coordinate
+ * @param y y coordinate
+ * @return Return true if colision, false otherwise 
+ */
 bool check_asp_collison(AnimSprite* asp, int32_t x, int32_t y);
 
 
