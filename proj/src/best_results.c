@@ -70,7 +70,7 @@ int br_draw_best_results() {
     sprintf(txt, "%.1f", best_scores[i].accuracy);
     txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), 445, 275+65*i);
-    sprintf(txt, "%u:%u  %u:%u", best_scores[i].date[2], best_scores[i].date[1], best_scores[i].date[3], best_scores[i].date[4]);
+    sprintf(txt, "%u:%u - %u/%u", best_scores[i].date[2], best_scores[i].date[1], best_scores[i].date[3], best_scores[i].date[4]);
     txt_Char = realloc(txt_Char, strlen(txt)*sizeof(Char));
     display_text(txt, txt_Char, strlen(txt), 570, 275+65*i);
     free(txt_Char);

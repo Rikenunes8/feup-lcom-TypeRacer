@@ -243,6 +243,9 @@ uint8_t get_char_xpm(char c) {
     case '\'': return 69;
     case '\"': return 70;
     case '%': return 71;
+    case '/': return 72;
+    case '-': return 73;
+    case '_': return 74;
     default: return 100;
   }
 }

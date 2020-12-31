@@ -1,21 +1,24 @@
 #include "../headers/Chars.h"
 #include "../headers/keyboard.h"
 
+
+static size_t no_chars = 75;
 static char list_chars[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 
                             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
                             'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
-                            ' ', ':', ';', ',', '.', '!', '?', '\'', '\"', '%'};
+                            ' ', ':', ';', ',', '.', '!', '?', '\'', '\"', '%', '/', '-', '_'};
 
 static uint8_t **letters_maps;
 static uint32_t BPP = 3;
 
 
+
 int Chars_init() {
   // Load letters xpms
   extern xpm_map_t letters[];
-  letters_maps =(uint8_t**)malloc(72*sizeof(uint8_t*));
+  letters_maps =(uint8_t**)malloc(no_chars*sizeof(uint8_t*));
   xpm_image_t img;
-  for (size_t i = 0; i < 72;i++) {
+  for (size_t i = 0; i < no_chars;i++) {
     letters_maps[i] = (uint8_t*)malloc(CHAR_W*CHAR_H*3);
     graphic_xpm_load(&letters_maps[i], &img, XPM_8_8_8, letters[i]);
   }
@@ -23,7 +26,7 @@ int Chars_init() {
 }
 
 int Chars_end() {
-  for (size_t i = 0; i < 72;i++)
+  for (size_t i = 0; i < no_chars; i++)
     free(letters_maps[i]);
   free(letters_maps);
   return 0;
