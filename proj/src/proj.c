@@ -55,11 +55,15 @@ int(proj_main_loop)(int argc, char *argv[])
   graphic_init(mode);
   
 
-  //char text[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staray Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
-  //char text[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
-  char text[] = "Yeah, they got you where they want you.";
-  //char text[] = "aa.";
-
+  char text1[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staray Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
+  char text2[] = "Yeah, they got you where they want you. There's a better life and you think about it, don't you? It's a rich man's game no matter what they call it and you spend your life putting money in his wallet."; 
+  char text3[] = "Yeah, they got you where they want you.";
+  char text4[] = "Getting information off the internet is like taking a drink from a fire hydrant.";
+  char text5[] = "Look into my eyes and it's easy to see, one and one make two, two and one make three, it was destiny. Once every hundred thousand years or so, when the sun doth shine and the moon doth glow and the grass doth grow.";
+  char text6[] = "Kid, I've flown from one side of this galaxy to the other, and I've seen a lot of strange stuff. But I've never seen anything to make me believe that there's one all-powerful Force controlling everything. There's no mystical energy field that controls MY destiny.";
+  char* texts[] = {text1, text2, text3, text4, text5, text6};
+  uint8_t text_choice = 0;
+  uint8_t no_texts = 6;
   Chars_init();
   
   br_read_file();
@@ -166,8 +170,10 @@ int(proj_main_loop)(int argc, char *argv[])
         if (mouse_int)
           menus_process_mouse_int(&state, mouse_event, mouse);
         
-        if (state == RACE)
-          race_init(text, strlen(text));
+        if (state == RACE) {
+          rtc_read_second(&text_choice);
+          race_init(texts[text_choice%no_texts], strlen(texts[text_choice%no_texts]));
+        }
         if (state == BEST_RESULTS)
           br_init();  
         break;
@@ -197,7 +203,7 @@ int(proj_main_loop)(int argc, char *argv[])
         if (state != RESULTS)
           results_end();
         if (state == RACE)
-          race_init(text, strlen(text));
+          race_init(texts[text_choice%no_texts], strlen(texts[text_choice%no_texts]));
         break;
 
       case RACE_WITH_FRIEND:

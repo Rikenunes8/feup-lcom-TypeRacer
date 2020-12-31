@@ -51,19 +51,21 @@ static char* aux_buffer;
 void race_init(const char *text, size_t l)
 {
   len = l;
-  traffic_light = create_asprite(600, 70, 0, 0, 10, 3, traffic_light_red_xpm, traffic_light_yellow_xpm, traffic_light_green_xpm);
-  car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
-  back = create_sprite(background, 0, 0, 0, 0);
-  key_bar = create_sprite(key_bar_xpm, X_TYPE-1, y_pos_typed, 0, 0);
   text_Char = malloc(len*sizeof(Char));
+  no_lines = convert_text_to_text_char(text, text_Char, len, X_TEXT, Y_TEXT);
+  y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
   MAX_LEN = len+5; // Margin of 10 more Chars to write in typed_text
   typed_text = malloc((MAX_LEN)*sizeof(Char));
+  key_bar = create_sprite(key_bar_xpm, X_TYPE-1, y_pos_typed, 0, 0);
+  back = create_sprite(background, 0, 0, 0, 0);
+  traffic_light = create_asprite(600, 70, 0, 0, 10, 3, traffic_light_red_xpm, traffic_light_yellow_xpm, traffic_light_green_xpm);
+  car = create_sprite(yellow_car_xpm, 50, 80, 0, 0);
 
   // Set alarm according to text lenght
   rtc_turn_on_alarm();
   uint8_t time[3];
   rtc_read_time(time);
-  uint16_t time_to_alarm = len*6/20 + 3;
+  uint16_t time_to_alarm = len*60/50 + 3;
   uint8_t new_sec = time_to_alarm%60 + time[0];
   uint8_t new_min = time_to_alarm/60 + time[1];
   rtc_set_alarm(binary_to_bcd(new_sec%60), binary_to_bcd((new_sec/60+new_min)%60), DONT_CARE);
@@ -80,13 +82,9 @@ void race_init(const char *text, size_t l)
   begin_race = false;
   if (strcmp(name, "Disqualified") == 0) strcpy(name, "no_name");
 
-  no_lines = convert_text_to_text_char(text, text_Char, len, X_TEXT, Y_TEXT);
-  y_pos_typed = Y_BOX + (CHAR_H+3)*no_lines+3*Y_BOX_MARGIN+Y_BTW_BOXES;
   
   display_race_background(no_lines);
-  for (size_t i = 0; i < len; i++) {
-    display_Char(&text_Char[i]);
-  }
+  display_text_Char(text_Char, len);
   draw_sprite(car);
   draw_asprite(traffic_light);
 
