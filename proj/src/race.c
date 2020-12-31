@@ -1,6 +1,15 @@
+#include <lcom/lcf.h>
+
 #include "../headers/race.h"
-#include "../headers/best_results.h"
+
+#include "../headers/graphic.h"
 #include "../headers/rtc.h"
+#include "../headers/best_results.h"
+#include "../xpm/letters.h"
+#include "../xpm/others.h"
+#include "../xpm/bubbles.h"
+#include "../xpm/background.h"
+#include "../xpm/results_page.h"
 
 
 
