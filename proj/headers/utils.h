@@ -34,13 +34,18 @@ int (util_get_MSB)(uint16_t val, uint8_t *msb);
  * @return Return 0 upon success and non-zero otherwise
  */
 int (util_sys_inb)(int port, uint8_t *value);
-
+/**
+ * @brief Convert 8 bit BCD to binary
+ * 
+ * @param value a pointer to the variabel to be converted
+ * 
+ */
 int (bcd_to_binary)(uint8_t *value);
-
+/**
+ * @brief Convert 2 decimal digits in binary to BCD
+ * 
+ * @param value a pointer to the variabel to be converted
+ */
 uint8_t (binary_to_bcd)(uint8_t value);
 
-
-
-/*int subscribe_int(uint8_t *bit_no, uint8_t irq, int policy);
-int unsubscribe_int();*/
 

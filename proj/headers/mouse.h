@@ -1,8 +1,9 @@
 #ifndef _LCOM_MOUSE_H
 #define _LCOM_MOUSE_H
 
-#include <lcom/lcf.h>
 #include <../headers/i8042.h>
+
+
 /**
  * @brief Mouse events by pressing, releasing and move
  * 

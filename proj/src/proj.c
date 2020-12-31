@@ -1,4 +1,22 @@
+#include <lcom/lcf.h>
+
+#include <stdint.h>
+#include <stdio.h>
+#include <machine/int86.h>
+
 #include "../headers/proj.h"
+#include "../headers/timer.h"
+#include "../headers/keyboard.h"
+#include "../headers/mouse.h"
+#include "../headers/graphic.h"
+#include "../headers/rtc.h"
+#include "../headers/sprite.h"
+#include "../headers/menus.h"
+#include "../headers/race.h"
+#include "../headers/best_results.h"
+
+#include "../xpm/menu.h"
+#include "../xpm/others.h"
 
 
 int main(int argc, char *argv[]) {

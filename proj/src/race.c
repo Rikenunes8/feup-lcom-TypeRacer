@@ -5,6 +5,7 @@
 #include "../headers/graphic.h"
 #include "../headers/rtc.h"
 #include "../headers/best_results.h"
+#include "../headers/utils.h"
 #include "../xpm/letters.h"
 #include "../xpm/others.h"
 #include "../xpm/bubbles.h"

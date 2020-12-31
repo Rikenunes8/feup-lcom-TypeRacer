@@ -1,6 +1,8 @@
 #ifndef _LCOM_KEYBOARD_H_
 #define _LCOM_KEYBOARD_H_
 
+#include <../headers/i8042.h>
+
 /**
  * @brief Subscribes and enables Keyboard interrupts
  *

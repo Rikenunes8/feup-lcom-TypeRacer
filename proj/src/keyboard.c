@@ -1,7 +1,6 @@
 #include <lcom/lcf.h>
 
 #include <../headers/keyboard.h>
-#include <../headers/i8042.h>
 
 static int hook_id;
 uint32_t scancode;
