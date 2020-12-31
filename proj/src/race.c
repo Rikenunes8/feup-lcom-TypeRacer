@@ -38,6 +38,7 @@ static Sprite* car;
 static Sprite* key_bar;
 static AnimSprite* traffic_light;
 static bool begin_race;
+static bool light;
 
 static Sprite* results_menu;
 static size_t no_bubbles;
@@ -80,6 +81,7 @@ void race_init(const char *text, size_t l)
   CPM = 0;
   accuracy = 0;
   begin_race = false;
+  light = true;
   if (strcmp(name, "Disqualified") == 0) strcpy(name, "no_name");
 
   
@@ -102,15 +104,20 @@ void race_end()
 }
 
 void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) {
-
+  if (light && begin_race && counter == 179) {
+    destroy_asprite(traffic_light);
+    light = false;
+  }
+  
   if(counter % 60 == 0) {
     no_seconds++;
-    if (begin_race) set_results();
+    if (begin_race) {
+      set_results();
+    }
   }
  
-  if (!begin_race && no_seconds == 3) {
+  if (!begin_race && no_seconds == 2) {
     begin_race = true;
-    destroy_asprite(traffic_light);
     no_seconds = 0;
   }
   
@@ -122,7 +129,7 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse) 
     draw_sprite(key_bar);
     set_sprite(car, 50+correct_keys*520/len, car->y, car->xspeed, car->yspeed);    
     draw_sprite(car);
-    if (!begin_race) {
+    if (light) {
       animate_asprite(traffic_light);
       draw_asprite(traffic_light);
     }    
