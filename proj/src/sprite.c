@@ -76,6 +76,7 @@ AnimSprite * create_asprite(int32_t x, int32_t y, int8_t x_speed, int8_t y_speed
   asp->num_fig = no_xpm;
   asp->cur_fig = 0;
   asp->aspeed = aspeed;
+  asp->cur_aspeed = aspeed;
   asp->map = malloc((no_xpm) * sizeof(uint8_t *));
   asp->map[0] = asp->sp->map;
   va_list ap;
