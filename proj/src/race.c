@@ -328,9 +328,7 @@ void display_race_background()
   draw_sprite(back);
   graphic_draw_bordered_rectangle(X_BOX,16,BOX_WIDTH,120);
 
-  //draws the text box with variable dimensions (incomplete)
-  //passar numero de linhas como argumento, definir heigth consoante esse numero e não exceder max_height
-  //graphic_draw_rectangle(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color)
+  //draws the texts boxes with variable dimensions
   draw_text_box(X_BOX, Y_BOX, BOX_WIDTH);
   draw_text_box(X_BOX, Y_BOX + (CHAR_H+3)*no_lines+2*Y_BOX_MARGIN+Y_BTW_BOXES, BOX_WIDTH);
 

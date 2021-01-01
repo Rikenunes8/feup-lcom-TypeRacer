@@ -44,8 +44,6 @@ int main(int argc, char *argv[]) {
 }
 
 
-
-
 int(proj_main_loop)(int argc, char *argv[])
 { 
   vbe_mode_info_t info;

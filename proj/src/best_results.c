@@ -8,10 +8,10 @@
 #include "../xpm/best_results_page.h"
 
 
-static uint8_t MAX_SCORES = 3; /*!< Maximum number of scores that we want to show and save*/
-static Score* best_scores; /*!< Scores read in best_results.txt, ordered by CPM*/
-static char* aux_buffer; /*!< Auxiliar buffer*/
-static Sprite* best_results_page; /*!< Background of best results page*/
+static uint8_t MAX_SCORES = 3; //! Maximum number of scores that we want to show and save
+static Score* best_scores; //! Scores read in best_results.txt, ordered by CPM
+static char* aux_buffer; //! Auxiliar buffer
+static Sprite* best_results_page; //! Background of best results page
 
 int br_read_file() {
   best_scores = (Score*)malloc(MAX_SCORES*sizeof(Score));

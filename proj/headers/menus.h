@@ -4,8 +4,14 @@
 #include "../headers/mouse.h"
 #include "../headers/sprite.h"
 
+/** @defgroup menus menus
+ * @{
+ *
+ * Menus related functions, variables and data structures
+ */
+
 /**
- * @brief Game main state machine
+ * @brief Enumerator with various states for the game main state machine
  * 
  */
 typedef enum
@@ -19,7 +25,7 @@ typedef enum
 } Menu_state;
 
 /**
- * @brief Possible events of keyboard and mouse typing or clicking in a button
+  @brief Enumerator with various possible keyboard and mouse events
  * 
  */
 typedef enum
@@ -41,49 +47,49 @@ typedef enum
 } Menu_event;
 
 /* "Race" option (x,y) positions */
-#define race_x_left  27
-#define race_x_right 173
-#define race_y_top   268
-#define race_y_down  328
+#define race_x_left  27  //!< x position for top-left side of "Race" rectangle from main menu
+#define race_x_right 173 //!< x position for down-right side of "Race" rectangle from main menu 
+#define race_y_top   268 //!< y position for top-left side of "Race" rectangle from main menu
+#define race_y_down  328 //!< x position for down-right side of "Race" rectangle from main menu 
 
 /* "Race with friend" option (x,y) positions */
-#define friend_race_x_left  303
-#define friend_race_x_right 496
-#define friend_race_y_top   448
-#define friend_race_y_down  532
+#define friend_race_x_left  303 //!< x position for top-left side of "Race with friend" rectangle from main menu
+#define friend_race_x_right 496 //!< x position for down-right side of "Race with friend" rectangle from main menu  
+#define friend_race_y_top   448 //!< y position for top-left side of "Race with friend" rectangle from main menu
+#define friend_race_y_down  532 //!< y position for down-right side of "Race with friend" rectangle from main menu   
 
 /* "Best results" option (x,y) positions */
-#define best_results_x_left  309
-#define best_results_x_right 488
-#define best_results_y_top   63
-#define best_results_y_down  141
+#define best_results_x_left  309 //!< x position for top-left side of "Best results" rectangle from main menu
+#define best_results_x_right 488 //!< x position for down-right side of "Best results" rectangle from main menu
+#define best_results_y_top   63  //!< y position for top-left side of "Best results" rectangle from main menu
+#define best_results_y_down  141 //!< y position for down-right side of "Best results" rectangle from main menu
 
 /* "Exit" option (x,y) positions */
-#define exit_x_left  625
-#define exit_x_right 771
-#define exit_y_top   267
-#define exit_y_down  329
+#define exit_x_left  625 //!< x position for top-left side of "Exit" rectangle from main menu
+#define exit_x_right 771 //!< x position for down-right side of "Exit" rectangle from main menu
+#define exit_y_top   267 //!< y position for top-left side of "Exit" rectangle from main menu
+#define exit_y_down  329 //!< y position for down-right side of "Exit" rectangle from main menu
 
 /* "Try again" option (x,y) positions */
-#define try_again_x_left   250     
-#define try_again_x_right  400     
-#define try_again_y_top    420     
-#define try_again_y_down   470      
+#define try_again_x_left   250 //!< x position for top-left side of "Try again" rectangle from "Results" page      
+#define try_again_x_right  400 //!< x position for down-right side of "Try again" rectangle from "Results" page      
+#define try_again_y_top    420 //!< y position for top-left side of "Try again" rectangle from "Results" page    
+#define try_again_y_down   470 //!< y position for down-right side of "Try again" rectangle from "Results" page       
 
 /* "Exit" option (x,y) positions from results page*/
-#define results_exit_x_left   450     //!x top-left position of "Exit" rectangle
-#define results_exit_x_right  550     //!y right position of "Exit" rectangle 
-#define results_exit_y_top    420     //!x top position of "Exit" rectangle
-#define results_exit_y_down   470     //!y down position of "Exit" rectangle  
+#define results_exit_x_left   450     //!< x position for top-left side of "Exit" rectangle from "Results" page
+#define results_exit_x_right  550     //!< x position for down_right side of "Exit" rectangle from "Results" page 
+#define results_exit_y_top    420     //!< y position for top-left side of "Exit" rectangle from "Results" page
+#define results_exit_y_down   470     //!< y position for down_right side of "Exit" rectangle from "Results" page 
 
 /* "Back" option (x,y) positions from best results page*/
-#define best_results_back_x_left   685     //!x left position of "Back" rectangle 
-#define best_results_back_x_right  785     //!y right position of "Back" rectangle 
-#define best_results_back_y_top    520     //!x top position of "Back" rectangle
-#define best_results_back_y_down   570     //!y down position of "Back" rectangle  
+#define best_results_back_x_left   685     //!< x position for top-left side of "Back" rectangle from "Best results" page
+#define best_results_back_x_right  785     //!< x position for down_right side of "Back" rectangle from "Best results" page
+#define best_results_back_y_top    520     //!< y position for top-left side of "Back" rectangle from "Best results" page
+#define best_results_back_y_down   570     //!< y position for down_right side of "Back" rectangle from "Best results" page
 
 /**
- * @brief Process timer interrupt in menu page
+ * @brief Processes timer interrupt in menu page
  * @details Draw main menu and mouse 
  * @param counter Timer count 
  * @param main_menu Main menu sprite
@@ -91,14 +97,14 @@ typedef enum
  */
 void menus_process_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse);
 /**
- * @brief Process keyboard interrupt in menu page
+ * @brief Processes keyboard interrupt in menu page
  * @details Check if it is to go to another page and change state if so
  * @param state Current state of state machine
  * @param aux_key Key to process
  */
 void menus_process_kbd_int(Menu_state *state, uint8_t aux_key);
 /**
- * @brief Process mouse interrupt in menu page
+ * @brief Processes mouse interrupt in menu page
  * @details Check if it is to go to another page and change state if so. Move mouse
  * @param state Current state of state machine
  * @param mouse_event Mouse event
@@ -108,14 +114,14 @@ void menus_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite*
 
 
 /**
- * @brief Get Menu event generated by keyboard action
+ * @brief Gets Menu event generated by keyboard action
  * 
  * @param aux_key Key to process
  * @return Menu_event 
  */
 Menu_event read_kbd_event(uint8_t aux_key);
 /**
- * @brief Get Menu event generated by mouse action
+ * @brief Gets Menu event generated by mouse action
  * 
  * @param ev Mouse event
  * @param mouse_x X position of mouse
