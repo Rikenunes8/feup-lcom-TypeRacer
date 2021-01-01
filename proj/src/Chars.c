@@ -19,7 +19,6 @@ static uint32_t BPP = 3;
 static bool shift_right = false;
 static bool shift_left = false;
 static bool caps_lock = false;
-static int count_capslk = 0;
 
 
 
@@ -253,18 +252,7 @@ uint8_t get_scancode_char(uint8_t *bytes)
       case 0xaa: shift_right = false; return NOTHING;
       case 0x0e: return BACKSPACE; // backspace
       case 0x81: return ESC;
-      case 0x3a: 
-        count_capslk++;
-        if(count_capslk == 1)
-        {
-          caps_lock = true;
-        }
-        else if(count_capslk == 2)
-        {
-          caps_lock = false;
-          count_capslk = 0;
-        }
-        return NOTHING; //caps lock
+      case 0x3a: caps_lock = !caps_lock; return NOTHING;
       default: return NOTHING;
     }
   }
