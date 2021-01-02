@@ -8,7 +8,7 @@
 /** @defgroup race race
  * @{
  *
- * Race related functions, variables and data structures
+ * Race page related functions, variables and data structures
  */
 
 
@@ -111,6 +111,14 @@ void draw_text_box(uint16_t x, uint16_t y, uint16_t width);
  */
 void display_race_background();
 
+/** @} end of race */
+
+/** @defgroup results results
+ * @{
+ *
+ * Results page related functions, variables and data structures
+ */
+
 /**
  * @brief Displays the results
  * 
@@ -183,6 +191,6 @@ void bubbles_erase(size_t n);
  */
 void move_bubbles(size_t n);
 
-
+/** @} end of results */
 
 #endif

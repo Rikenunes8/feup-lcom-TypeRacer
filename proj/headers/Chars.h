@@ -7,8 +7,6 @@
  * Chars related functions, variables and data structures
  */
 
-
-
 #define CHAR_W  10 //!< Char xpm width 
 #define CHAR_H  14 //!< Char xpm height 
 
@@ -136,6 +134,7 @@ void display_Char(Char* c);
  */
 uint8_t get_scancode_char(uint8_t *bytes);
 
+/** @} end of Chars */
 
 
 #endif

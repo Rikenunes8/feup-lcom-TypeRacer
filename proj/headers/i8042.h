@@ -3,6 +3,11 @@
 
 #include <lcom/lcf.h>
 
+/** @defgroup i8042 i8042
+ * @{
+ *
+ * Macros for i8042
+ */
 
 #define DELAY_US    20000 
 
@@ -58,6 +63,6 @@
 #define ENTER_KEY   0x1c  /** Scancode of enter key */
 #define ESC_KEY     0x81  /** Scancode of esc key */
 
-
+/** @} end of i8042 */
 
 #endif /* _LCOM_I8042_H */

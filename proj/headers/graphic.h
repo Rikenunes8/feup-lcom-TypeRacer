@@ -5,8 +5,14 @@
 #include <machine/int86.h>
 #include <../headers/vbe.h>
 
-#define WHITE   0xFFFFFF  /** 24 bits color white */
-#define BLACK   0x000000  /** 24 bits color black */
+/** @defgroup graphic graphic
+ * @{
+ *
+ * Graphic related functions, variables and data structures
+ */
+
+#define WHITE   0xFFFFFF  //!< 24 bits color white 
+#define BLACK   0x000000  //!< 24 bits color black 
 
 /**
  * @brief Get VBE mode info
@@ -125,6 +131,8 @@ uint32_t get_BPP();
  * 
  */
 void destroy_fr_bufffer();
+
+/** @} end of graphic */
 
 #endif /* _LCOM_VG_H */
 

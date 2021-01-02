@@ -89,6 +89,6 @@ void br_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mo
  */
 int add_score(size_t CPM, float accuracy, char* name);
 
-
+/** @} end of best_results */
 
 #endif
