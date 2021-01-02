@@ -4,7 +4,7 @@
 
 #include "../headers/i8254.h"
 
-/** @defgroup timer
+/** @defgroup timer timer
  * @{
  *
  * Timer related functions, variables and data structures

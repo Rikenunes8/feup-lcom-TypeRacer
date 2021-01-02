@@ -2,7 +2,7 @@
 #define _SPRITE_H_
 
 
-/** @defgroup sprite Sprite
+/** @defgroup sprite sprite
  * @{
  *
  * Sprite and animated sprites related functions, variables and data structures

@@ -11,6 +11,12 @@
  * and implemented the game state machine.
  */
 
+/**
+ * @brief Main function of the project
+ * 
+ */
+int(proj_main_loop)(int argc, char *argv[]);
+
 /** @} end of proj */
 
 

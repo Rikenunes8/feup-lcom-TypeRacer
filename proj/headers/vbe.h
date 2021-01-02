@@ -11,12 +11,12 @@
 
 
 /* To set AX register */
-#define SET_VBE_MODE 0x02         //! Set VBE mode
-#define RET_VBE_MODE 0x01         //! Return VBE mode information
-#define RET_VBE_CONTROLLER 0x00   //! Return VBE controller information
+#define SET_VBE_MODE 0x02         //!< Set VBE mode
+#define RET_VBE_MODE 0x01         //!< Return VBE mode information
+#define RET_VBE_CONTROLLER 0x00   //!< Return VBE controller information
 
 /* To set AH register */
-#define VBE_FUNCTION 0x4F00 //! Invoking a VBE function
+#define VBE_FUNCTION 0x4F00 //!< Invoking a VBE function
 
 /** @} end of vbe */
 
