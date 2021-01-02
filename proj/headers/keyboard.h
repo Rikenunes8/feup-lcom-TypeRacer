@@ -2,6 +2,12 @@
 #define _LCOM_KEYBOARD_H_
 
 #include <../headers/i8042.h>
+/** @defgroup keyboard keyboard
+ * @{
+ *
+ * Keyboard related functions, variables and data structures
+ */
+
 
 /**
  * @brief Subscribes and enables Keyboard interrupts
@@ -42,16 +48,18 @@ int read_cmd_byte(uint8_t *cmd);
  */
 int write_cmd_byte(uint8_t *cmd);
 /**
- * @brief Assemble the scancode byte(s) in an array of 2 bytes
+ * @brief Assembles the scancode byte(s) in an array of 2 bytes
  * 
  * @param bytes Complete scancode to be set
  */
 void assemble_scancode(uint8_t *bytes);
 /**
- * @brief Print scancode in human friendly way
+ * @brief Prints scancode in human friendly way
  * 
  * @param bytes Complete scancode to print
  */
 void print_scancode(uint8_t *bytes);
+
+/** @} end of keyboard */
 
 #endif /* _LCOM_KEYBOARD_H */

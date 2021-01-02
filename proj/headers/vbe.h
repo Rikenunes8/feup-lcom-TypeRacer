@@ -3,6 +3,13 @@
 
 #include <lcom/lcf.h>
 
+/** @defgroup vbe vbe
+ * @{
+ *
+ * VBE macros
+ */
+
+
 /* To set AX register */
 #define SET_VBE_MODE 0x02         //! Set VBE mode
 #define RET_VBE_MODE 0x01         //! Return VBE mode information
@@ -10,5 +17,7 @@
 
 /* To set AH register */
 #define VBE_FUNCTION 0x4F00 //! Invoking a VBE function
+
+/** @} end of vbe */
 
 #endif /* _LCOM_VBE_H */

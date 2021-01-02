@@ -50,13 +50,13 @@ int br_draw_best_results();
 void br_init();
 
 /** 
- * @brief Free auxiliary buffer and background
+ * @brief Frees auxiliary buffer and background
  */
 void br_end();
 
 /**
- * @brief Process timer interrupt in best results page
- * @details Draw auxiliary buffer and mouse 
+ * @brief Processes timer interrupt in best results page
+ * @details Draws auxiliary buffer and mouse 
  * @param counter Timer count
  * @param mouse Mouse sprite
  */
@@ -64,7 +64,7 @@ void br_process_timer_int(uint32_t counter, Sprite* mouse);
 
 /**
  * @brief Processes keyboard interrupt in best results page
- * @details Check if it is to leave the page and change state if so
+ * @details Checks if it is to leave the page and change state if so
  * @param state Current state of state machine
  * @param aux_key Key to process
  */
@@ -72,7 +72,7 @@ void br_process_kbd_int(Menu_state *state, uint8_t aux_key);
 
 /**
  * @brief Processes mouse interrupt in best results page
- * @details Check if it is to leave the page and change state if so. Move mouse.
+ * @details Checks if it is to leave the page and change state if so. Move mouse.
  * @param state Current state of state machine
  * @param mouse_event Mouse event
  * @param mouse Mouse sprite

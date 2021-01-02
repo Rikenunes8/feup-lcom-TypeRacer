@@ -11,5 +11,7 @@
  * and implemented the game state machine.
  */
 
+/** @} end of proj */
+
 
 #endif

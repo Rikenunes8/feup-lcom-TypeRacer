@@ -90,7 +90,7 @@ typedef enum
 
 /**
  * @brief Processes timer interrupt in menu page
- * @details Draw main menu and mouse 
+ * @details Draws main menu and mouse 
  * @param counter Timer count 
  * @param main_menu Main menu sprite
  * @param mouse Mouse sprite
@@ -98,14 +98,14 @@ typedef enum
 void menus_process_timer_int(uint32_t counter, Sprite* main_menu, Sprite* mouse);
 /**
  * @brief Processes keyboard interrupt in menu page
- * @details Check if it is to go to another page and change state if so
+ * @details Checks if it is to go to another page and changes state if so
  * @param state Current state of state machine
  * @param aux_key Key to process
  */
 void menus_process_kbd_int(Menu_state *state, uint8_t aux_key);
 /**
  * @brief Processes mouse interrupt in menu page
- * @details Check if it is to go to another page and change state if so. Move mouse
+ * @details Checks if it is to go to another page and changes state if so. Moves mouse
  * @param state Current state of state machine
  * @param mouse_event Mouse event
  * @param mouse Mouse sprite
@@ -129,5 +129,7 @@ Menu_event read_kbd_event(uint8_t aux_key);
  * @return Menu_event 
  */
 Menu_event read_mouse_event(Mouse_event *ev, int32_t *mouse_x, int32_t *mouse_y);
+
+/** @} end of menus */
 
 #endif /* _LCOM_MENUS_H */

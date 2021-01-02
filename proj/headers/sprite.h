@@ -5,7 +5,7 @@
 /** @defgroup sprite Sprite
  * @{
  *
- * Sprite related functions
+ * Sprite and animated sprites related functions, variables and data structures
  */
 
 /** 
@@ -34,7 +34,7 @@ typedef struct {
 
 
 /**
- * @brief Create a sprite
+ * @brief Creates a sprite
  * 
  * @param xpm XPM to be load
  * @param x X position
@@ -46,17 +46,17 @@ typedef struct {
 Sprite * create_sprite(xpm_map_t xpm, int32_t x, int32_t y, int8_t x_speed, int8_t y_speed);
 
 /** 
- * @brief Update sprite according to its attributes
+ * @brief Updates sprite according to its attributes
  * @param sprite Sprite to update
  */
 void animate_sprite(Sprite* sprite);
 
 /** 
- * @brief Free memory alocated by sprite
+ * @brief Frees memory alocated by sprite
  */
 void destroy_sprite(Sprite *sprite);
 /**
- * @brief Set the sprite
+ * @brief Sets the sprite
  * 
  * @param sprite Sprite to set
  * @param x New x position
@@ -66,13 +66,13 @@ void destroy_sprite(Sprite *sprite);
  */
 void set_sprite(Sprite* sprite, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
 /**
- * @brief Draw sprite
+ * @brief Draws sprite
  * 
  * @param sprite Sprite to be drawn
  */
 void draw_sprite(Sprite* sprite);
 /**
- * @brief Check if a position is inside the sprite
+ * @brief Checks if a position is inside the sprite
  * 
  * @param sprite Sprite
  * @param x x coordinate
@@ -83,7 +83,7 @@ bool check_collison(Sprite* sprite, int32_t x, int32_t y);
 
 
 /**
- * @brief Create an Animated Sprite from multiple pixmaps
+ * @brief Creates an Animated Sprite from multiple pixmaps
  * At least one pixmap must be specified.
  * 
  * @param x X position
@@ -99,12 +99,12 @@ bool check_collison(Sprite* sprite, int32_t x, int32_t y);
 AnimSprite * create_asprite(int32_t x, int32_t y, int8_t x_speed, int8_t y_speed, uint8_t aspeed, uint8_t no_xpm, xpm_map_t xpm, ...);
 
 /** 
- * @brief Update an Animated Sprite according to its atributtes
+ * @brief Updates an Animated Sprite according to its atributtes
  * @param asp Animated sprite to be animated
  */
 void animate_asprite(AnimSprite *asp);
 /**
- * @brief Set the animated sprite
+ * @brief Sets the animated sprite
  * 
  * @param asp Animated sprite to be set
  * @param aspeed New number of frames until change to next figure
@@ -113,7 +113,7 @@ void animate_asprite(AnimSprite *asp);
  */
 void set_asprite(AnimSprite* asp, uint8_t aspeed, uint8_t cur_aspeed, uint8_t num_fig);
 /**
- * @brief Set the sprite of animated sprite
+ * @brief Sest the sprite of animated sprite
  * 
  * @param asp Animated sprite to be set
  * @param x New x position
@@ -124,18 +124,18 @@ void set_asprite(AnimSprite* asp, uint8_t aspeed, uint8_t cur_aspeed, uint8_t nu
 void set_asprite_sprite(AnimSprite* asp, uint16_t x, uint16_t y, int32_t x_speed, int32_t y_speed);
 
 /** 
- * @brief Destroy an Animated Sprite, release all resources allocated.
+ * @brief Destroys an Animated Sprite, releases all resources allocated.
  * @param asp Animated sprite
  */
 void destroy_asprite(AnimSprite *asp);
 /**
- * @brief Draw animated sprite
+ * @brief Draws animated sprite
  * 
  * @param asp Anmated sprite to be drawn
  */
 void draw_asprite(AnimSprite* asp);
 /**
- * @brief Check if a position is inside the animated sprite
+ * @brief Checks if a position is inside the animated sprite
  * 
  * @param asp Animated sprite
  * @param x x coordinate

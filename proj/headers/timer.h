@@ -4,8 +4,15 @@
 
 #include "../headers/i8254.h"
 
+/** @defgroup timer
+ * @{
+ *
+ * Timer related functions, variables and data structures
+ */
+
+
 /**
- * @brief Set frequency of timer
+ * @brief Sets frequency of timer
  * 
  * @param timer Timer (0, 1 or 2)
  * @param freq New frequency
@@ -27,19 +34,19 @@ int (timer_subscribe_int)(uint8_t *bit_no);
 int (timer_unsubscribe_int)();
 /**
  * @brief Handles timer interrupts (C implementation)
- * @details Increase by one the timer counter.
+ * @details Increases by one the timer counter.
  *  All communication with other code must be done via global variables, static if possible.    
  */
 void (timer_ih)();
 /**
- * @brief Get configuration of timer
+ * @brief Gets configuration of timer
  * 
  * @param timer Timer (0, 1 or 2)
  * @param st Status byte to be set
  */
 int (timer_get_conf)(uint8_t timer, uint8_t *st);
 /**
- * @brief Display configuration of timer in a human friendly way
+ * @brief Displays configuration of timer in a human friendly way
  * 
  * @param timer Timer (0, 1 or 2)
  * @param st Status byte
@@ -47,5 +54,5 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st);
  */
 int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field);
 
-
+/** @} end of timer */
 #endif 

@@ -7,6 +7,12 @@
 #define BIT(n) (1 << (n))
 #endif
 
+/** @defgroup utils utils
+ * @{
+ *
+ * Utils related functions, variables and data structures
+ */
+
 
 /**
  * @brief Returns the LSB of a 2 byte integer
@@ -35,17 +41,19 @@ int (util_get_MSB)(uint16_t val, uint8_t *msb);
  */
 int (util_sys_inb)(int port, uint8_t *value);
 /**
- * @brief Convert 8 bit BCD to binary
+ * @brief Converts 8 bit BCD to binary
  * 
  * @param value a pointer to the variabel to be converted
  * 
  */
 int (bcd_to_binary)(uint8_t *value);
 /**
- * @brief Convert 2 decimal digits in binary to BCD
+ * @brief Converts 2 decimal digits in binary to BCD
  * 
  * @param value a pointer to the variabel to be converted
  */
 uint8_t (binary_to_bcd)(uint8_t value);
 
+
+/** @} end of utils */
 

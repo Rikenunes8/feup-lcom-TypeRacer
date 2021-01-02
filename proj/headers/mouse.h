@@ -3,6 +3,12 @@
 
 #include <../headers/i8042.h>
 
+/** @defgroup mouse mouse
+ * @{
+ *
+ * Mouse related functions, variables and data structures
+ */
+
 
 /**
  * @brief Mouse events by pressing, releasing and move
@@ -11,7 +17,7 @@
 typedef enum {LB_DOWN, LB_UP, MB_DOWN, MB_UP, RB_DOWN, RB_UP, MANY_DOWN, MOVE} Mouse_event_t;
 
 /**
- * @brief Represent the info of a mouse packet
+ * @brief Represents the info of a mouse packet
  * 
  */
 typedef struct {
@@ -53,17 +59,19 @@ void (mouse_ih)();
  */
 int kbc_write_byte(uint8_t cmd, uint8_t arg);
 /**
- * @brief Assemble the 3 packets bytes of the mouse
+ * @brief Assembles the 3 packets bytes of the mouse
  * 
  * @param pp Structure to be set with mouse packet bytes information
  */
 void assemble_packet(struct packet *pp);
 /**
- * @brief Convert mouse info to a more friendly structure
+ * @brief Converts mouse info to a more friendly structure
  * 
  * @param event New mouse info
  * @param pp Packet mouse info
  */
 void mouse_events(Mouse_event *event, struct packet *pp);
+
+/** @} end of mouse */
 
 #endif /* _LCOM_MOUSE_H */

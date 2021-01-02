@@ -48,7 +48,7 @@ typedef struct {
 int Chars_init();
 
 /**
- * @brief Free letters_maps
+ * @brief Frees letters_maps
  * 
  * @return 0 if success 
  */
@@ -78,7 +78,7 @@ int convert_text_Char_to_text(char* text, Char* text_Char, size_t len);
 uint16_t convert_text_to_text_char(const char* text, Char* text_Char, size_t len, uint16_t x_position, uint16_t y_position);
 
 /**
- * Converts text of normal chars to text of Chars structure and display it
+ * Converts text of normal chars to text of Chars structure and displays it
  * @param text Text to be converted
  * @param text_Char Place to write converted text
  * @param len Length of the text to be converted
@@ -113,7 +113,7 @@ void display_integer(int integer, uint16_t x, uint16_t y);
  */
 void display_float(float decimal, uint16_t x, uint16_t y);
 /**
- * @brief Converts seconds to text and display in format min:sec
+ * @brief Converts seconds to text and displays in format min:sec
  * @param seconds: number of seconds 
  * @param x_position: x position where start writing the text
  * @param y_position: y position where start writing the text

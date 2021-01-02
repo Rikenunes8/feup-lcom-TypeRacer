@@ -27,7 +27,7 @@ uint16_t y_pos_typed;        //!< y starting position of typed text
 
 /**
  * @brief Initializes race
- * @details Allocates space to objects need. Reset all variables need. Sets the alarm
+ * @details Allocates space to objects need. Resets all variables need. Sets the alarm
  * 
  * @param text Text to play with
  * @param len Length of the text
@@ -36,7 +36,7 @@ void race_init(const char *text, size_t len);
 
 /**
  * @brief Ends race
- * @details Free memory allocated in race init and destroy objects
+ * @details Frees memory allocated in race init and destroy objects
  * 
  */
 void race_end();
@@ -66,7 +66,7 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
 void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 
 /**
- * @brief Processeses the typed text and writes it to the screen 
+ * @brief Processes the typed text and writes it to the screen 
  * @details Processes all the keyboard inputs to write and erase characters, and to move the cursor to left or right
  * @param aux_key Key to process
  */
@@ -75,7 +75,7 @@ void update_typed_text(uint8_t aux_key);
 
 /**
  * @brief Compares the typed text with the displayed text and counts the correct chars typed
- * @details Checks if Chars of typed text are the same of text to type, set correct keys and draw text to type with new colors
+ * @details Checks if Chars of typed text are the same of text to type, sets correct keys and draws text to type with new colors
  */
 void update_correct_keys();
 /**
@@ -135,18 +135,18 @@ void set_results();
 
 
 /**
- * @brief Initializes results page and allocate memory
+ * @brief Initializes results page and allocates memory
  * 
  */
 void results_init();
 /**
- * @brief Free alocated memory in results_init and call add_score
+ * @brief Frees alocated memory in results_init and calls add_score function
  * 
  */
 void results_end();
 /**
  * @brief Processes timer interrupt in results page
- * @details Copies auxiliary buffer to frame buffer, draw name, draw bubbles and draw mouse
+ * @details Copies auxiliary buffer to frame buffer, draws name, draws bubbles and draws mouse
  * 
  * @param counter Timer count
  * @param mouse Mouse sprite
@@ -154,15 +154,15 @@ void results_end();
 void results_process_timer_int(uint32_t counter, Sprite* mouse);
 /**
  * @brief Processes keyboard interrupt in results page
- * @details Checks if it is to leave results page and handle name writing
+ * @details Checks if it is to leave results page and handles name writing
  * @param state Current state of state machine
  * @param aux_key Key to process
  */
 void results_process_kbd_int(Menu_state *state, uint8_t aux_key);
 /**
  * @brief Processes mouse interrupt in race page
- * @details Checks if it is to leave results page, move mouse and 
- * check colisions of the mouse with the bubbles by clicking on it
+ * @details Checks if it is to leave results page, moves mouse and 
+ * checks colisions of the mouse with the bubbles by clicking on it
  * 
  * @param state Current state of state machine
  * @param mouse_event Mouse event
@@ -170,22 +170,22 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key);
  */
 void results_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse);
 /**
- * @brief Checks if mouse collided with some bubble and prepare bubble to be destroyed if it is the case
+ * @brief Checks if mouse collided with some bubble and prepares bubble to be destroyed if it is the case
  * 
  * @param mouse Mouse sprite
  * @return True in case of any collision, false otherwise
  */
 bool collison_mouse(Sprite* mouse);
 /**
- * @brief Removes bubble to be erased of the array of bubbles and destroy it
+ * @brief Removes bubble to be erased of the array of bubbles and destroys it
  * 
  * @param n Index of the bubble to be destroyed in array of bubbles
  */
 void bubbles_erase(size_t n);
 /**
  * @brief Moves bubbles
- * @details Check collisions with screen bounderies and change bubble speed directions.
- * Animate bubble. Erase bubble if it is the case
+ * @details Checks collisions with screen bounderies and changes bubble speed directions.
+ * Animates bubble. Erases bubble if it is the case
  * 
  * @param n Index of the bubble to me moved in array of bubbles
  */

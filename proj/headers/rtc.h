@@ -1,8 +1,13 @@
 #ifndef _LCOM_RTC_H
 #define _LCOM_RTC_H
 
+/** @defgroup rtc rtc
+ * @{
+ *
+ * RTC related functions, variables and data structures
+ */
 
-#define RTC8_IRQ    8   /** RTC 8 IRQ line */
+#define RTC8_IRQ    8   //! RTC 8 IRQ line 
 
 #define DONT_CARE   0xC0 //! Don't care byte to alarm
 
@@ -27,12 +32,12 @@
 #define REG_D       0x0D  //! Resister D
 
 // RTC control/status bits
-#define UIP     BIT(7)  /** Update in progress */
-#define SET     BIT(7)  /** Inhibit updates of time/date registers */
-#define IRQF    BIT(7)  /** IRQ line active */
-#define PI      BIT(6)  /** Periodic interrupt */
-#define AI      BIT(5)  /** Alarm interrupt */
-#define UI      BIT(4)  /** Update interrupt */
+#define UIP     BIT(7)  //! RTC control/status bit: Update in progress 
+#define SET     BIT(7)  //! RTC control/status bit:  updates of time/date registers 
+#define IRQF    BIT(7)  //! RTC control/status bit: IRQ line active 
+#define PI      BIT(6)  //! RTC control/status bit: Periodic interrupt 
+#define AI      BIT(5)  //! RTC control/status bit: Alarm interrupt 
+#define UI      BIT(4)  //! RTC control/status bit: Update interrupt 
 
 
 /**
@@ -50,7 +55,7 @@ int (rtc_subscribe_int)(uint8_t *bit_no);
  */
 int (rtc_unsubscribe_int)();
 /**
- * @brief Read a register
+ * @brief Reads a register
  * 
  * @param port Register to read
  * @param byte Place to put the content read
@@ -58,7 +63,7 @@ int (rtc_unsubscribe_int)();
  */
 int rtc_read_register(int port, uint8_t* byte);
 /**
- * @brief Write a register
+ * @brief Writes a register
  * 
  * @param port Register to be wrote
  * @param byte Byte to write in register
@@ -66,7 +71,7 @@ int rtc_read_register(int port, uint8_t* byte);
  */
 int rtc_write_register(int port, uint8_t* byte);
 /**
- * @brief Check if rtc is updating
+ * @brief Checks if rtc is updating
  * 
  * @param update Return true if it's updating, false otherwise
  * @return int 
@@ -74,49 +79,49 @@ int rtc_write_register(int port, uint8_t* byte);
 int rtc_check_update(bool* update);
 
 /**
- * @brief Read seconds
+ * @brief Reads seconds
  * 
  * @param second Seconds in binary
  * @return 0 if success
  */
 int rtc_read_second(uint8_t *second);
 /**
- * @brief Read minutes
+ * @brief Reads minutes
  * 
  * @param minute Minutes in binary
  * @return 0 if success
  */
 int rtc_read_minute(uint8_t *minute);
 /**
- * @brief Read hours
+ * @brief Reads hours
  * 
  * @param hour Hours in binary
  * @return 0 if success
  */
 int rtc_read_hour(uint8_t *hour);
 /**
- * @brief Read day of week
+ * @brief Reads day of week
  * 
  * @param day_week Day of week in binary
  * @return 0 if success
  */
 int rtc_read_day_week(uint8_t *day_week);
 /**
- * @brief Read day
+ * @brief Reads day
  * 
  * @param day Day in binary
  * @return 0 if success
  */
 int rtc_read_day(uint8_t *day);
 /**
- * @brief Read month
+ * @brief Reads month
  * 
  * @param month Month in binary
  * @return 0 if success
  */
 int rtc_read_month(uint8_t *month);
 /**
- * @brief Read year
+ * @brief Reads year
  * 
  * @param year Year in binary
  * @return 0 if success
@@ -124,39 +129,39 @@ int rtc_read_month(uint8_t *month);
 int rtc_read_year(uint8_t *year);
 
 /**
- * @brief Read current second, minute and hour
+ * @brief Reads current second, minute and hour
  * 
  * @param time Array with seconds, minutes and hours
  * @return 0 if success
  */
 int rtc_read_time(uint8_t* time);
 /**
- * @brief Read current day, month and year
+ * @brief Reads current day, month and year
  * 
  * @param date Array with day, month and year
  * @return 0 if success
  */
 int rtc_read_date(uint8_t* date);
 /**
- * @brief Read time and date
+ * @brief Reads time and date
  * 
  * @param time_date Array with time and date
  * @return 0 if success
  */
 int rtc_read_time_date(uint8_t* time_date);
 /**
- * @brief Set alarm interrupts on
+ * @brief Sets alarm interrupts on
  * 
  */
 void rtc_turn_on_alarm();
 /**
- * @brief Set alarm interrupts off
+ * @brief Sets alarm interrupts off
  * 
  */
 void rtc_turn_off_alarm();
 
 /**
- * @brief Set alarm in BCD
+ * @brief Sets alarm in BCD
  * 
  * @param sec Seconds
  * @param min Minutes
@@ -167,27 +172,27 @@ void rtc_set_alarm(uint8_t sec, uint8_t min, uint8_t h);
 
 /**
  * @brief Handles RTC interrupts (C implementation)
- * @details Reads Register C and see why is the interrupt.
- * Call the handler of the respective interrupt
+ * @details Reads Register C and sees why is the interrupt.
+ * Calls the handler of the respective interrupt
  * All communication with other code must be done via global variables, static if possible.
  */
 void rtc_ih();
 /**
- * @brief Notify a alarm interrupt
+ * @brief Notifies an alarm interrupt
  * 
  */
 void handle_alarm_int();
 /**
- * @brief Check if there was an alarm interrupt
+ * @brief Checks if there was an alarm interrupt
  * 
  * @return True if alarm interrupt is notified, false otherwise
  */
 bool get_alarm();
 /**
- * @brief Clean notify of alarm interrupt
+ * @brief Cleans notify of alarm interrupt
  * 
  */
 void use_alarm();
 
-
+/** @} end of rtc */
 #endif
