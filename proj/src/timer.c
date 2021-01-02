@@ -52,7 +52,7 @@ int (timer_unsubscribe_int)() {
   
 }
 
-void (timer_int_handler)() {
+void (timer_ih)() {
   timer_counter++;
 }
 

@@ -46,11 +46,7 @@ int main(int argc, char *argv[]) {
 
 int(proj_main_loop)(int argc, char *argv[])
 { 
-  vbe_mode_info_t info;
-  uint16_t mode = 0x115;
-  graphic_get_mode_info(mode, &info);
-  graphic_def(&info);
-  graphic_init(mode);
+  proj_init();
   
 
   char text1[] = "The Brothers Karamazov is a passionate philosophical novel that enters deeply into questions of God, free will, and morality. It is a theological drama dealing with problems of faith, doubt and reason in the context of a modernizing Russia, with a plot that revolves around the subject of patricide. Dostoevsky composed much of the novel in Staray Russa, which inspired the main setting. It is one of the supreme achievements in world literature.";
@@ -62,38 +58,31 @@ int(proj_main_loop)(int argc, char *argv[])
   char* texts[] = {text1, text2, text3, text4, text5, text6};
   uint8_t text_choice = 0;
   uint8_t no_texts = 6;
-  Chars_init();
   
-  br_read_file();
 
   /* Timer stuff */
   extern uint32_t timer_counter;
   timer_counter = 0;
   uint8_t timer_bit_no = 0;
-  timer_subscribe_int(&timer_bit_no);
   uint32_t timer_irq_set = BIT(timer_bit_no);
 
   /*Keyboard stuff*/
   uint8_t scancode_bytes[2];
   uint8_t kbd_bit_no = 1;
-  kbd_subscribe_int(&kbd_bit_no);
   uint32_t kbd_irq_set = BIT(kbd_bit_no);
 
   /*Mouse stuff*/
-  kbc_write_byte(WRT_MOUSE, ENB_DR);
   uint8_t mouse_bit_no = 12;
-  mouse_subscribe_int(&mouse_bit_no);
   uint32_t mouse_irq_set = BIT(mouse_bit_no);
   struct packet pp;
   extern uint8_t packet_byte_counter;
   Mouse_event mouse_event; mouse_event.ev = MOVE;
-  Sprite* mouse = create_sprite((xpm_map_t)mouse_xpm, 0, 0, 0, 0);
 
   /*RTC stuff*/
   uint8_t rtc_bit_no = 8;
-  rtc_subscribe_int(&rtc_bit_no);
   uint32_t rtc_irq_set = BIT(rtc_bit_no);
 
+  Sprite* mouse = create_sprite((xpm_map_t)mouse_xpm, 0, 0, 0, 0);
   Sprite* main_menu = create_sprite((xpm_map_t)menu, 0, 0, 0, 0);
 
   Menu_state state = MENU;
@@ -104,6 +93,7 @@ int(proj_main_loop)(int argc, char *argv[])
   bool mouse_int = false;
 
 
+  if (subscribe_all_int(&timer_bit_no, &kbd_bit_no, &mouse_bit_no, &rtc_bit_no) != 0) return 1;
 
   int ipc_status;
   message msg;
@@ -122,7 +112,7 @@ int(proj_main_loop)(int argc, char *argv[])
             if (timer_counter%2 == 0) {
               fr_buffer_to_video_mem();
             }
-            timer_int_handler();
+            timer_ih();
             timer_int = true;
 
           }
@@ -232,20 +222,57 @@ int(proj_main_loop)(int argc, char *argv[])
   }
 
   
-  timer_unsubscribe_int();
-  kbd_unsubscribe_int();
-  mouse_unsubscribe_int(); 
-  kbc_write_byte(WRT_MOUSE, DIS_DR); // Disable data report
-  rtc_unsubscribe_int();
-
-  br_write_file();
+  
+  if (unsubscribe_all_int() != 0) return 1;
 
   destroy_sprite(mouse);
   destroy_sprite(main_menu);
+  proj_end();
+  
+  return 0;
+}
+
+
+int proj_init() {
+  vbe_mode_info_t info;
+  uint16_t mode = 0x115;
+  graphic_get_mode_info(mode, &info);
+  graphic_def(&info);
+  graphic_init(mode);
+
+  Chars_init();
+  
+  br_read_file();
+  return 0;
+}
+
+int proj_end() {
+  br_write_file();
+
   Chars_end();
+  
   destroy_fr_bufffer();
   vg_exit();
   return 0;
 }
+
+int subscribe_all_int(uint8_t *timer, uint8_t *kbd, uint8_t *mouse, uint8_t *rtc) {
+  if (timer_subscribe_int(timer) != 0) return 1;
+  if (kbd_subscribe_int(kbd) != 0) return 1;
+  if (kbc_write_byte(WRT_MOUSE, ENB_DR) != 0) return 1; // Enable data report
+  if (mouse_subscribe_int(mouse) != 0) return 1;
+  if (rtc_subscribe_int(rtc) != 0) return 1;
+  return 0;
+}
+
+int unsubscribe_all_int() {
+  if (timer_unsubscribe_int() != 0) return 1;
+  if (kbd_unsubscribe_int() != 0) return 1;
+  if (mouse_unsubscribe_int() != 0) return 1; 
+  if (kbc_write_byte(WRT_MOUSE, DIS_DR) != 0) return 1; // Disable data report
+  if (rtc_unsubscribe_int() != 0) return 1;
+  return 0;
+}
+
 
 
