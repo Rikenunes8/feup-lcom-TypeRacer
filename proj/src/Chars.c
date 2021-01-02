@@ -143,6 +143,10 @@ void display_Char(Char *c) {
   }     
 }
 
+bool collision_Char(Char* c, int32_t x, int32_t y) {
+  return (x > c->posx-2 && x < c->posx + CHAR_W && y > c->posy && y < c->posy + CHAR_H);
+}
+
 uint8_t get_scancode_char(uint8_t *bytes) 
 {
   //indicates that is a two_byte scancode

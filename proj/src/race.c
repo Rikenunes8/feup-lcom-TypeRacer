@@ -166,6 +166,20 @@ void race_process_kbd_int(Menu_state *state, uint8_t aux_key) {
 void race_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite* mouse)
 {
   read_mouse_event(&mouse_event, &mouse->x, &mouse->y);
+  if (mouse_event.ev == LB_DOWN) {
+    for (size_t i = 0; i < n_keys; i++) {
+      if (collision_Char(&typed_text[i], mouse->x, mouse->y)) {
+        current_key = i;
+        if (current_key == 0) set_sprite(key_bar, X_TYPE-1, y_pos_typed, 0, 0);
+        else set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
+        return;
+      }
+    }
+    if (mouse->x > typed_text[n_keys-1].posx + CHAR_W && mouse->y > typed_text[n_keys-1].posy && mouse->y < typed_text[n_keys-1].posy + CHAR_H) {
+      current_key = n_keys;
+      set_sprite(key_bar, typed_text[current_key-1].posx+CHAR_W, typed_text[current_key-1].posy, 0, 0);
+    }
+  }
 }
 
 

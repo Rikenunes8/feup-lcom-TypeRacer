@@ -127,6 +127,16 @@ void display_time(uint16_t seconds, uint16_t x, uint16_t y);
  */
 void display_Char(Char* c);
 /**
+ * @brief Checks if a coordinate is inside a Char
+ * 
+ * @param c Char
+ * @param x x position
+ * @param y y position
+ * @return True if the Char contains the coordinate, false otherwise
+ */
+bool collision_Char(Char* c, int32_t x, int32_t y);
+
+/**
  * @brief Gets the index of letters maps corresponding to the scancode passed as argument
  * 
  * @param bytes Scancode to index

@@ -58,7 +58,7 @@ void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse);
 void race_process_kbd_int(Menu_state *state, uint8_t aux_key);
 /**
  * @brief Processes mouse interrupt in race page
- * @details Moves mouse
+ * @details Moves mouse and changes the position of text's cursor if there is a mouse click above a typed Char
  * @param state Current state of state machine
  * @param mouse_event Mouse event
  * @param mouse Mouse sprite
