@@ -437,6 +437,8 @@ void results_init() {
     set_asprite(bubbles[i], bubbles[i]->aspeed, bubbles[i]->cur_aspeed, 1);
   }
   results_menu = create_sprite(results_page, 0, 0, 0, 0);
+  key_bar = create_sprite(key_bar_xpm, typed_text[n_keys-1].posx+CHAR_W, typed_text[n_keys-1].posy, 0, 0);
+
 
   display_results(false);
   fr_buffer_to_aux(aux_buffer);
@@ -452,6 +454,7 @@ void results_end() {
   free(aux_buffer);
   for (size_t i = 0; i < no_bubbles; i++)
     destroy_asprite(bubbles[i]);
+  destroy_sprite(key_bar);
   destroy_sprite(results_menu);
 }
 
@@ -460,6 +463,7 @@ void results_process_timer_int(uint32_t counter, Sprite* mouse)
   if (counter%2 == 0) {
     aux_to_fr_buffer(aux_buffer);
     display_text_Char(typed_text, n_keys);
+    draw_sprite(key_bar);
     for (size_t i = 0; i < no_bubbles; i++)
       move_bubbles(i); 
     draw_sprite(mouse);
@@ -484,6 +488,8 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   else if (aux_key == BACKSPACE) {
     if (n_keys != 0)
       n_keys--;
+    if (n_keys == 0) set_sprite(key_bar, X_TYPE-1, y_pos_typed, 0, 0);
+    else set_sprite(key_bar, typed_text[n_keys-1].posx+CHAR_W, typed_text[n_keys-1].posy, 0, 0);
   }
   else if (aux_key != NOTHING && aux_key != SPACE && n_keys+1 < 19) {
     Char key;
@@ -499,6 +505,7 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
     }
     typed_text[n_keys] = key;
     n_keys++;
+    set_sprite(key_bar, typed_text[n_keys-1].posx+CHAR_W, typed_text[n_keys-1].posy, 0, 0);
   }
 
 }

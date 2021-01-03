@@ -101,13 +101,7 @@ void fr_buffer_to_aux(char* aux);
  * @param color Color
  */
 void graphic_set_background(uint32_t color);
-/**
- * @brief Gets the index of char xpm object in array letters_maps
- * 
- * @param c char to get index
- * @return uint8_t index
- */
-uint8_t get_char_xpm(char c);
+
 /**
  * @brief Gets the height of VBE mode
  * 

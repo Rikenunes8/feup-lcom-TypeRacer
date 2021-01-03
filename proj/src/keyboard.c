@@ -28,7 +28,7 @@ int (kbd_unsubscribe_int)()
   
 }
 
-void (kbc_ih)()
+void (kbd_ih)()
 {
 
   //Read the scancode byte from the output buffer. 
@@ -43,7 +43,6 @@ void (kbc_ih)()
   }
 
   if ((st & AUX) != 0) return;
-  //printf("kbd_byte\n");
 
   if ( (st & (PARITY | TIMEOUT)) == 0 ) //check if there was some communications error
   {

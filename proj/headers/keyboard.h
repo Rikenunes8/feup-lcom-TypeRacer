@@ -32,7 +32,7 @@ int (kbd_unsubscribe_int)();
  *  If there was some error, the byte read from the OB should be discarded.
  *  All communication with other code must be done via global variables, static if possible.    
  */
-void (kbc_ih)();
+void (kbd_ih)();
 /**
  * @brief Reads the command byte of KBC i8042
  * 

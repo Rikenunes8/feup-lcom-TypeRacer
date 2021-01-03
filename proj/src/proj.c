@@ -118,7 +118,7 @@ int(proj_main_loop)(int argc, char *argv[])
           }
           if (msg.m_notify.interrupts & kbd_irq_set) {
             // keyboard interrupt 
-            kbc_ih();
+            kbd_ih();
             assemble_scancode(scancode_bytes);
             // If scancode is all set
             if (!(scancode_bytes[0] == 0xE0 && scancode_bytes[1] == 0x00)) {

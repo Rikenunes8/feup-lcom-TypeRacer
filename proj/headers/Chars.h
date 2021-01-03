@@ -144,6 +144,14 @@ bool collision_Char(Char* c, int32_t x, int32_t y);
  */
 uint8_t get_scancode_char(uint8_t *bytes);
 
+/**
+ * @brief Gets the index of char xpm object in array letters_maps
+ * 
+ * @param c char to get index
+ * @return uint8_t index
+ */
+uint8_t get_char_xpm(char c);
+
 /** @} end of Chars */
 
 
