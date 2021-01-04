@@ -66,7 +66,7 @@ void race_init(const char *text, size_t l)
   rtc_turn_on_alarm();
   uint8_t time[3];
   rtc_read_time(time);
-  uint16_t time_to_alarm = len*60/50 + 2;
+  uint16_t time_to_alarm = len*60/100 + 2;
   uint8_t new_sec = time_to_alarm%60 + time[0];
   uint8_t new_min = time_to_alarm/60 + time[1];
   rtc_set_alarm(binary_to_bcd(new_sec%60), binary_to_bcd((new_sec/60+new_min)%60), DONT_CARE);
@@ -277,7 +277,7 @@ void update_correct_keys() {
     n = 0;
   }
   // while keys match paint text_Char's Chars green
-  while (typed_text[n].index == text_Char[n].index && n<n_keys && n_keys<len+1) {
+  while (typed_text[n].index == text_Char[n].index && n<n_keys && n<len+1) {
     (correct_keys)++;
     text_Char[n].state = RIGHT;
     display_Char(&text_Char[n]);
@@ -491,7 +491,7 @@ void results_process_kbd_int(Menu_state *state, uint8_t aux_key) {
   else if (aux_key == BACKSPACE) {
     if (n_keys != 0)
       n_keys--;
-    if (n_keys == 0) set_sprite(key_bar, X_TYPE-1, y_pos_typed, 0, 0);
+    if (n_keys == 0) set_sprite(key_bar, 350, 490, 0, 0);
     else set_sprite(key_bar, typed_text[n_keys-1].posx+CHAR_W, typed_text[n_keys-1].posy, 0, 0);
   }
   else if (aux_key != NOTHING && aux_key != SPACE && n_keys+1 < 19) {
