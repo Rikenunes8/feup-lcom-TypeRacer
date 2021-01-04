@@ -37,6 +37,12 @@ int graphic_def(vbe_mode_info_t *info);
  */
 int graphic_init(uint16_t mode);
 /**
+ * @brief Changes the page and update pointer to where to draw
+ * 
+ * @return 0 if success, 1 otherwise
+ */
+int graphic_flip_page();
+/**
  * @brief Draws a pixel in frame buffer
  * 
  * @param x X position of the pixel to be drawn
@@ -120,11 +126,6 @@ uint32_t get_v_res();
  * @return uint32_t Bytes per pixel
  */
 uint32_t get_BPP();
-/**
- * @brief Frees frame buffer allocated in graphic_def() function
- * 
- */
-void destroy_fr_bufffer();
 
 /** @} end of graphic */
 

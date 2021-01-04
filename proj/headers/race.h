@@ -42,7 +42,8 @@ void race_init(const char *text, size_t len);
 void race_end();
 /**
  * @brief Processes timer interrupt in race page
- * @details
+ * @details Manages the traffic lights and the beggining of the race.
+ * Draw all page with a frame rate of 30. 
  * 
  * @param state Current state of state machine
  * @param counter Timer count
@@ -51,7 +52,7 @@ void race_end();
 void race_process_timer_int(Menu_state *state, uint32_t counter, Sprite* mouse);
 /**
  * @brief Processes keyboard interrupt in race page
- * @details 
+ * @details Calls the game logic functions: update_typed_text and update_correct_keys. Deals with giving up
  * @param state Current state of state machine
  * @param aux_key Key to process
  */

@@ -110,7 +110,7 @@ int(proj_main_loop)(int argc, char *argv[])
         case HARDWARE: // hardware interrupt notification 				
           if (msg.m_notify.interrupts & timer_irq_set) {
             if (timer_counter%2 == 0) {
-              fr_buffer_to_video_mem();
+              graphic_flip_page();
             }
             timer_ih();
             timer_int = true;
@@ -248,10 +248,7 @@ int proj_init() {
 
 int proj_end() {
   br_write_file();
-
   Chars_end();
-  
-  destroy_fr_bufffer();
   vg_exit();
   return 0;
 }

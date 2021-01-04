@@ -2,10 +2,12 @@
 
 static char *video_mem;  /* Address to which VRAM is mapped */
 static char *fr_buffer;  /* Address to auxiliar buffer */
+static uint8_t current_page; /* 0 -> front page; 1 -> back page */
+
 static uint32_t h_res;  /* Frame horizontal (x) resolution */
 static uint32_t v_res;  /* Frame vertical (y) resolution */
-static uint32_t bits_per_pixel;
-static uint32_t BPP;
+static uint32_t bits_per_pixel; /* Bits per pixel */
+static uint32_t BPP;    /* Bytes per pixel */
 
 int graphic_get_mode_info(uint16_t mode, vbe_mode_info_t *info) {
     mmap_t map;
@@ -43,7 +45,7 @@ int graphic_def(vbe_mode_info_t *info) {
 
     mr.mr_base = info->PhysBasePtr; // Start of virtual memory
     vram_size = h_res * v_res * BPP;
-    mr.mr_limit = mr.mr_base + vram_size; // End of virtual memory
+    mr.mr_limit = mr.mr_base + vram_size*2; // End of virtual memory
 
     //get permissions
     if (sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr) != OK) {
@@ -52,8 +54,9 @@ int graphic_def(vbe_mode_info_t *info) {
     }
 
     /* Map memory */
-    video_mem = vm_map_phys(SELF, (void*)mr.mr_base, vram_size); //endereço base 
-    fr_buffer = (char*)malloc(vram_size); // auxiliar buffer
+    video_mem = vm_map_phys(SELF, (void*)mr.mr_base, vram_size*2); //endereço base 
+    fr_buffer = video_mem + vram_size;
+    current_page = 0;
 
     if(video_mem == MAP_FAILED)
         panic("couldn't map video memory");
@@ -73,6 +76,26 @@ int graphic_init(uint16_t mode)
         return 1;
     }
     return 0;
+}
+
+int graphic_flip_page() {
+  reg86_t r;
+  memset(&r, 0, sizeof(r));
+  r.ax = VBE_FUNCTION | SET_DIS_START;
+  r.bl = SET_DS;
+  r.dx = current_page * v_res;
+  r.intno = 0x10;
+
+  if(sys_int86(&r) != OK) 
+  {
+    printf("sys_int86() failed \n");
+    return 1;
+  }
+
+  current_page = (current_page+1)%2;
+  fr_buffer = video_mem + h_res * v_res * BPP * current_page;
+
+  return 0;
 }
 
 int graphic_pixel(uint32_t x, uint32_t y, uint32_t color) {
@@ -174,8 +197,4 @@ uint32_t get_h_res() {return h_res;}
 uint32_t get_v_res() {return v_res;}
 
 uint32_t get_BPP() {return BPP;}
-
-void destroy_fr_bufffer() {
-  free(fr_buffer);
-}
 
