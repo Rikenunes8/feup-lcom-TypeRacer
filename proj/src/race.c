@@ -453,7 +453,7 @@ void results_end() {
   if (n_keys != 0)
     convert_text_Char_to_text(name, typed_text, n_keys);
   else
-    strcpy(name, "noName");
+    strcpy(name, "no_name");
   add_score(CPM, accuracy, name);
   free(typed_text);
   free(aux_buffer);
