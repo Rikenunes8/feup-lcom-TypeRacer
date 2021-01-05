@@ -1,0 +1,4 @@
+<map id="kbc_write_byte" name="kbc_write_byte">
+<area shape="rect" id="node1" title="Writes a command byte and the argument (if the case) to the kbc i8042." alt="" coords="5,5,115,32"/>
+<area shape="rect" id="node2" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="163,5,253,32"/>
+</map>

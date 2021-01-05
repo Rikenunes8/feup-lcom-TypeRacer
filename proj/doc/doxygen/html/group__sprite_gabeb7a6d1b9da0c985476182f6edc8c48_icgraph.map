@@ -1,0 +1,6 @@
+<map id="check_asp_collison" name="check_asp_collison">
+<area shape="rect" id="node1" title="Checks if a position is inside the animated sprite." alt="" coords="552,5,688,32"/>
+<area shape="rect" id="node2" href="$group__results.html#ga8d2b1527bf240d5e10e7ea6f6b77f19c" title="Checks if mouse collided with some bubble and prepares bubble to be destroyed if it is the case." alt="" coords="392,5,504,32"/>
+<area shape="rect" id="node3" href="$group__results.html#ga1f24aedbc2df96ad37c4b1084707f0b3" title="Processes mouse interrupt in race page." alt="" coords="163,5,344,32"/>
+<area shape="rect" id="node4" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

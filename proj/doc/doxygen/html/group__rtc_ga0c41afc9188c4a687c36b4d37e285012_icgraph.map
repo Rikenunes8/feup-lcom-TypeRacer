@@ -1,0 +1,5 @@
+<map id="handle_alarm_int" name="handle_alarm_int">
+<area shape="rect" id="node1" title="Notifies an alarm interrupt." alt="" coords="265,5,385,32"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga75dad42881d64cf07cf1bdc2979a7056" title="Handles RTC interrupts (C implementation)" alt="" coords="163,5,217,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="convert_text_to_text_char" name="convert_text_to_text_char">
+<area shape="rect" id="node1" title="Converts text of normal chars to text of Chars structure." alt="" coords="5,31,176,57"/>
+<area shape="rect" id="node2" href="$group___chars.html#ga9237847cbcc32233fa2d68dd7825509d" title="Gets the index of char xpm object in array letters_maps." alt="" coords="224,5,328,32"/>
+<area shape="rect" id="node3" href="$group__graphic.html#ga790ce9140cfb9031a913e9e66a7e82b6" title="Gets the height of VBE mode." alt="" coords="237,56,315,83"/>
+</map>

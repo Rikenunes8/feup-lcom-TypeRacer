@@ -1,0 +1,4 @@
+<map id="get_scancode_char" name="get_scancode_char">
+<area shape="rect" id="node1" title="Gets the index of letters maps corresponding to the scancode passed as argument." alt="" coords="163,5,297,32"/>
+<area shape="rect" id="node2" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="rtc_turn_off_alarm" name="rtc_turn_off_alarm">
+<area shape="rect" id="node1" title="Sets alarm interrupts off." alt="" coords="285,5,411,32"/>
+<area shape="rect" id="node2" href="$group__race.html#ga3076ed00db71c8dfbf4cdcb0f363f850" title="Ends race." alt="" coords="163,5,237,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

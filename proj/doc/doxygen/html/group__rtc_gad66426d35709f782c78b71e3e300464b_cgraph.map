@@ -1,0 +1,14 @@
+<map id="rtc_read_time_date" name="rtc_read_time_date">
+<area shape="rect" id="node1" title="Reads time and date." alt="" coords="5,145,139,172"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga7af6be95897fac81dcd7bda5285121a4" title="Reads current day, month and year." alt="" coords="187,95,288,121"/>
+<area shape="rect" id="node9" href="$group__rtc.html#ga00fde00701376185e8bcdedff5b30c34" title="Reads current second, minute and hour." alt="" coords="187,171,288,197"/>
+<area shape="rect" id="node3" href="$group__rtc.html#ga8d6a4c8ebb96bdf2cc635b0364d0d9a1" title="Reads day." alt="" coords="347,5,444,32"/>
+<area shape="rect" id="node7" href="$group__rtc.html#ga375cf91cb107feba8c40b07d6e26df7d" title="Reads month." alt="" coords="339,56,451,83"/>
+<area shape="rect" id="node8" href="$group__rtc.html#gaed9f9ab38ce54d8229f81eda6cea65b8" title="Reads year." alt="" coords="345,107,446,133"/>
+<area shape="rect" id="node4" href="$group__utils.html#gaa4f4783fc2ae125e0b964bf614e401b2" title="Converts 8 bit BCD to binary." alt="" coords="511,107,613,133"/>
+<area shape="rect" id="node5" href="$group__rtc.html#gab42ebfe661299e92bd2b69d3980ec5bd" title="Reads a register." alt="" coords="503,157,621,184"/>
+<area shape="rect" id="node6" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="669,157,760,184"/>
+<area shape="rect" id="node10" href="$group__rtc.html#gadbf9deca1f8394a16c58cf43d5a21e6c" title="Reads hours." alt="" coords="345,157,446,184"/>
+<area shape="rect" id="node11" href="$group__rtc.html#gae27a11fce0c32cda6ae920a12f74ae1d" title="Reads minutes." alt="" coords="338,208,453,235"/>
+<area shape="rect" id="node12" href="$group__rtc.html#gad3cbeffda4bae0684e35cbb4e210080a" title="Reads seconds." alt="" coords="336,259,455,285"/>
+</map>

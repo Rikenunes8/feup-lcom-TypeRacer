@@ -1,0 +1,6 @@
+<map id="rtc_turn_off_alarm" name="rtc_turn_off_alarm">
+<area shape="rect" id="node1" title="Sets alarm interrupts off." alt="" coords="5,31,131,57"/>
+<area shape="rect" id="node2" href="$group__rtc.html#gab42ebfe661299e92bd2b69d3980ec5bd" title="Reads a register." alt="" coords="180,5,299,32"/>
+<area shape="rect" id="node4" href="$group__rtc.html#gaf57aa6921ae828c33adcc0b550ddc9bb" title="Writes a register." alt="" coords="179,56,300,83"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="348,5,439,32"/>
+</map>

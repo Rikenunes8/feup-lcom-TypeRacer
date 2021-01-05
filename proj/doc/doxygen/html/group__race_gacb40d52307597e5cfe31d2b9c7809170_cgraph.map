@@ -1,0 +1,6 @@
+<map id="update_typed_text" name="update_typed_text">
+<area shape="rect" id="node1" title="Processes the typed text and writes it to the screen." alt="" coords="5,31,135,57"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga790ce9140cfb9031a913e9e66a7e82b6" title="Gets the height of VBE mode." alt="" coords="375,5,453,32"/>
+<area shape="rect" id="node3" href="$group__race.html#ga5f9da03cb7fdbe84bcd328b2568928b1" title="Rearranges coorinates of text of Chars." alt="" coords="183,31,327,57"/>
+<area shape="rect" id="node4" href="$group__sprite.html#ga8bcc287c4fad04206265cf54bf12d24f" title="Sets the sprite." alt="" coords="215,81,294,108"/>
+</map>

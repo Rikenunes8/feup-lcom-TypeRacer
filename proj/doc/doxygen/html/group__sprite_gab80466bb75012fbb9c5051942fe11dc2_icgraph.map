@@ -1,0 +1,8 @@
+<map id="create_sprite" name="create_sprite">
+<area shape="rect" id="node1" title="Creates a sprite." alt="" coords="448,107,545,133"/>
+<area shape="rect" id="node2" href="$group__best__results.html#ga46685af86c795c570f2f982fcfca5329" title="Draws best results page and copy to an auxiliary buffer." alt="" coords="319,5,377,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,81,115,108"/>
+<area shape="rect" id="node4" href="$group__sprite.html#ga0a250a6040a4bfa40d590e9f7438682d" title="Creates an Animated Sprite from multiple pixmaps At least one pixmap must be specified." alt="" coords="296,157,400,184"/>
+<area shape="rect" id="node5" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="170,107,241,133"/>
+<area shape="rect" id="node6" href="$group__results.html#gaad4a05e3111151f82aeb1a1aed506795" title="Initializes results page and allocates memory." alt="" coords="163,157,248,184"/>
+</map>

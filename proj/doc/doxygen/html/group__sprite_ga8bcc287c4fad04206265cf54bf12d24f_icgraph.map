@@ -1,0 +1,12 @@
+<map id="set_sprite" name="set_sprite">
+<area shape="rect" id="node1" title="Sets the sprite." alt="" coords="764,107,843,133"/>
+<area shape="rect" id="node2" href="$group__race.html#gab3544333555729079876ffbdada5f9f5" title="Processes mouse interrupt in race page." alt="" coords="165,5,331,32"/>
+<area shape="rect" id="node4" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="381,56,539,83"/>
+<area shape="rect" id="node5" href="$group__results.html#ga10c840de21db56755a9308a71a5684fc" title="Processes keyboard interrupt in results page." alt="" coords="167,107,329,133"/>
+<area shape="rect" id="node6" href="$group__sprite.html#ga57936e429a6a692e341728c48ca8db7b" title="Sest the sprite of animated sprite." alt="" coords="589,157,714,184"/>
+<area shape="rect" id="node9" href="$group__race.html#gacb40d52307597e5cfe31d2b9c7809170" title="Processes the typed text and writes it to the screen." alt="" coords="587,208,716,235"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,107,115,133"/>
+<area shape="rect" id="node7" href="$group__results.html#gac085bee34ca67ebbf926f4a0150253c0" title="Moves bubbles." alt="" coords="408,157,512,184"/>
+<area shape="rect" id="node8" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="163,157,333,184"/>
+<area shape="rect" id="node10" href="$group__race.html#gac14407909745a55ca98da89bcec8b460" title="Processes keyboard interrupt in race page." alt="" coords="385,208,535,235"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="menus_process_timer_int" name="menus_process_timer_int">
+<area shape="rect" id="node1" title="Processes timer interrupt in menu page." alt="" coords="5,5,176,32"/>
+<area shape="rect" id="node2" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="224,5,312,32"/>
+<area shape="rect" id="node3" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="360,5,459,32"/>
+</map>

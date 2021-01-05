@@ -1,0 +1,4 @@
+<map id="br_end" name="br_end">
+<area shape="rect" id="node1" title="Frees auxiliary buffer and background." alt="" coords="5,5,67,32"/>
+<area shape="rect" id="node2" href="$group__sprite.html#ga607cfeb4f019a84c346eb3bce9da0420" title="Frees memory alocated by sprite." alt="" coords="115,5,219,32"/>
+</map>

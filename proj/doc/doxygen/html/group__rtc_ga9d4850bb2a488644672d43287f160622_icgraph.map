@@ -1,0 +1,5 @@
+<map id="rtc_unsubscribe_int" name="rtc_unsubscribe_int">
+<area shape="rect" id="node1" title="Unsubscribes RTC interrupts." alt="" coords="344,5,479,32"/>
+<area shape="rect" id="node2" href="$group__proj.html#ga12acc03c0aee8e3a877650dbbfd50b1c" title="Unsubscribes all interrupts and disables mouse data reporting." alt="" coords="163,5,296,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

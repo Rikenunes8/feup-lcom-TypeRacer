@@ -1,0 +1,7 @@
+<map id="fr_buffer_to_aux" name="fr_buffer_to_aux">
+<area shape="rect" id="node1" title="Copies frame buffer to auxiliary buffer." alt="" coords="296,56,409,83"/>
+<area shape="rect" id="node2" href="$group__best__results.html#ga46685af86c795c570f2f982fcfca5329" title="Draws best results page and copy to an auxiliary buffer." alt="" coords="177,5,234,32"/>
+<area shape="rect" id="node4" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="170,56,241,83"/>
+<area shape="rect" id="node5" href="$group__results.html#gaad4a05e3111151f82aeb1a1aed506795" title="Initializes results page and allocates memory." alt="" coords="163,107,248,133"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,56,115,83"/>
+</map>

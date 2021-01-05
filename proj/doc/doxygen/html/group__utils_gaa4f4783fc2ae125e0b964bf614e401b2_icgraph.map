@@ -1,0 +1,17 @@
+<map id="bcd_to_binary" name="bcd_to_binary">
+<area shape="rect" id="node1" title="Converts 8 bit BCD to binary." alt="" coords="944,157,1047,184"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga8d6a4c8ebb96bdf2cc635b0364d0d9a1" title="Reads day." alt="" coords="780,5,877,32"/>
+<area shape="rect" id="node8" href="$group__rtc.html#ga6b06a2423b3dd39b31eaeeadbcb0051d" title="Reads day of week." alt="" coords="761,56,896,83"/>
+<area shape="rect" id="node9" href="$group__rtc.html#gadbf9deca1f8394a16c58cf43d5a21e6c" title="Reads hours." alt="" coords="778,208,879,235"/>
+<area shape="rect" id="node12" href="$group__rtc.html#gae27a11fce0c32cda6ae920a12f74ae1d" title="Reads minutes." alt="" coords="771,259,886,285"/>
+<area shape="rect" id="node13" href="$group__rtc.html#ga375cf91cb107feba8c40b07d6e26df7d" title="Reads month." alt="" coords="773,107,885,133"/>
+<area shape="rect" id="node14" href="$group__rtc.html#gad3cbeffda4bae0684e35cbb4e210080a" title="Reads seconds." alt="" coords="769,309,888,336"/>
+<area shape="rect" id="node15" href="$group__rtc.html#gaed9f9ab38ce54d8229f81eda6cea65b8" title="Reads year." alt="" coords="778,157,879,184"/>
+<area shape="rect" id="node3" href="$group__rtc.html#ga7af6be95897fac81dcd7bda5285121a4" title="Reads current day, month and year." alt="" coords="612,132,713,159"/>
+<area shape="rect" id="node4" href="$group__rtc.html#gad66426d35709f782c78b71e3e300464b" title="Reads time and date." alt="" coords="431,208,564,235"/>
+<area shape="rect" id="node5" href="$group__best__results.html#ga6122d3420e8b6bce76dfa97f615410d2" title="Compares new score with current best scores and replaces if the case. Gets the current date from RTC." alt="" coords="300,208,383,235"/>
+<area shape="rect" id="node6" href="$group__results.html#gafe2569d52e6f37fab44fbef5be3b7e89" title="Frees alocated memory in results_init and calls add_score function." alt="" coords="163,208,252,235"/>
+<area shape="rect" id="node7" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,259,115,285"/>
+<area shape="rect" id="node10" href="$group__rtc.html#ga00fde00701376185e8bcdedff5b30c34" title="Reads current second, minute and hour." alt="" coords="612,259,713,285"/>
+<area shape="rect" id="node11" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="306,259,377,285"/>
+</map>

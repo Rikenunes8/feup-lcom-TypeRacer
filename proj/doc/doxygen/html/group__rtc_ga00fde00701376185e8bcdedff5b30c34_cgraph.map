@@ -1,0 +1,9 @@
+<map id="rtc_read_time" name="rtc_read_time">
+<area shape="rect" id="node1" title="Reads current second, minute and hour." alt="" coords="5,56,107,83"/>
+<area shape="rect" id="node2" href="$group__rtc.html#gadbf9deca1f8394a16c58cf43d5a21e6c" title="Reads hours." alt="" coords="163,5,265,32"/>
+<area shape="rect" id="node6" href="$group__rtc.html#gae27a11fce0c32cda6ae920a12f74ae1d" title="Reads minutes." alt="" coords="157,56,271,83"/>
+<area shape="rect" id="node7" href="$group__rtc.html#gad3cbeffda4bae0684e35cbb4e210080a" title="Reads seconds." alt="" coords="155,107,273,133"/>
+<area shape="rect" id="node3" href="$group__utils.html#gaa4f4783fc2ae125e0b964bf614e401b2" title="Converts 8 bit BCD to binary." alt="" coords="329,31,432,57"/>
+<area shape="rect" id="node4" href="$group__rtc.html#gab42ebfe661299e92bd2b69d3980ec5bd" title="Reads a register." alt="" coords="321,81,440,108"/>
+<area shape="rect" id="node5" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="488,81,579,108"/>
+</map>

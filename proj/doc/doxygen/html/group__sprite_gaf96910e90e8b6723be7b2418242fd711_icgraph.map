@@ -1,0 +1,7 @@
+<map id="animate_asprite" name="animate_asprite">
+<area shape="rect" id="node1" title="Updates an Animated Sprite according to its atributtes." alt="" coords="533,31,648,57"/>
+<area shape="rect" id="node2" href="$group__results.html#gac085bee34ca67ebbf926f4a0150253c0" title="Moves bubbles." alt="" coords="381,5,485,32"/>
+<area shape="rect" id="node5" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="169,56,327,83"/>
+<area shape="rect" id="node3" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="163,5,333,32"/>
+<area shape="rect" id="node4" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,31,115,57"/>
+</map>

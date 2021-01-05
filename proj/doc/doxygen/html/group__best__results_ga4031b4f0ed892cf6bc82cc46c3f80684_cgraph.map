@@ -1,0 +1,6 @@
+<map id="br_process_timer_int" name="br_process_timer_int">
+<area shape="rect" id="node1" title="Processes timer interrupt in best results page." alt="" coords="5,31,148,57"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga192941c86bbc5df7c8fc3ea68c5a4627" title="Copies auxiliary buffer to frame buffer." alt="" coords="196,5,309,32"/>
+<area shape="rect" id="node3" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="209,56,297,83"/>
+<area shape="rect" id="node4" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="357,56,456,83"/>
+</map>

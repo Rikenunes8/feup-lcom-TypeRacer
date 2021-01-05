@@ -1,0 +1,8 @@
+<map id="race_end" name="race_end">
+<area shape="rect" id="node1" title="Ends race." alt="" coords="5,31,80,57"/>
+<area shape="rect" id="node2" href="$group__sprite.html#ga607cfeb4f019a84c346eb3bce9da0420" title="Frees memory alocated by sprite." alt="" coords="139,5,243,32"/>
+<area shape="rect" id="node3" href="$group__rtc.html#ga43506ee87390a80b6d33f1c0e9f71c59" title="Sets alarm interrupts off." alt="" coords="128,56,253,83"/>
+<area shape="rect" id="node4" href="$group__rtc.html#gab42ebfe661299e92bd2b69d3980ec5bd" title="Reads a register." alt="" coords="303,31,421,57"/>
+<area shape="rect" id="node6" href="$group__rtc.html#gaf57aa6921ae828c33adcc0b550ddc9bb" title="Writes a register." alt="" coords="301,81,423,108"/>
+<area shape="rect" id="node5" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="471,31,561,57"/>
+</map>

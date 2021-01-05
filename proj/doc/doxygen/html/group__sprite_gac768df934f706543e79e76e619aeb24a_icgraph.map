@@ -1,0 +1,8 @@
+<map id="draw_asprite" name="draw_asprite">
+<area shape="rect" id="node1" title="Draws animated sprite." alt="" coords="587,56,681,83"/>
+<area shape="rect" id="node2" href="$group__results.html#gac085bee34ca67ebbf926f4a0150253c0" title="Moves bubbles." alt="" coords="408,5,512,32"/>
+<area shape="rect" id="node5" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="213,56,283,83"/>
+<area shape="rect" id="node6" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="381,107,539,133"/>
+<area shape="rect" id="node3" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="163,5,333,32"/>
+<area shape="rect" id="node4" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,56,115,83"/>
+</map>

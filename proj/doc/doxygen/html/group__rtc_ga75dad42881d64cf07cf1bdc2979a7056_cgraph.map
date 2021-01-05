@@ -1,0 +1,6 @@
+<map id="rtc_ih" name="rtc_ih">
+<area shape="rect" id="node1" title="Handles RTC interrupts (C implementation)" alt="" coords="5,31,60,57"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga0c41afc9188c4a687c36b4d37e285012" title="Notifies an alarm interrupt." alt="" coords="108,5,228,32"/>
+<area shape="rect" id="node3" href="$group__rtc.html#gab42ebfe661299e92bd2b69d3980ec5bd" title="Reads a register." alt="" coords="109,56,227,83"/>
+<area shape="rect" id="node4" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="276,56,367,83"/>
+</map>

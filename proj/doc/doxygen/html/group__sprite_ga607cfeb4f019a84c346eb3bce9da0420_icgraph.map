@@ -1,0 +1,12 @@
+<map id="destroy_sprite" name="destroy_sprite">
+<area shape="rect" id="node1" title="Frees memory alocated by sprite." alt="" coords="900,159,1004,186"/>
+<area shape="rect" id="node2" href="$group__best__results.html#gaa868fee2526f31764ca66d2de262be17" title="Frees auxiliary buffer and background." alt="" coords="429,7,491,34"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,134,115,161"/>
+<area shape="rect" id="node4" href="$group__sprite.html#ga05d186cb4268b897f3d8d7d890ed6cc4" title="Destroys an Animated Sprite, releases all resources allocated." alt="" coords="741,159,852,186"/>
+<area shape="rect" id="node9" href="$group__results.html#gafe2569d52e6f37fab44fbef5be3b7e89" title="Frees alocated memory in results_init and calls add_score function." alt="" coords="595,210,685,237"/>
+<area shape="rect" id="node10" href="$group__race.html#ga3076ed00db71c8dfbf4cdcb0f363f850" title="Ends race." alt="" coords="211,261,285,287"/>
+<area shape="rect" id="node5" href="$group__results.html#ga1331472a759c90147affca7bab6c042c" title="Removes bubble to be erased of the array of bubbles and destroys it." alt="" coords="587,109,693,135"/>
+<area shape="rect" id="node8" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="381,159,539,186"/>
+<area shape="rect" id="node6" href="$group__results.html#gac085bee34ca67ebbf926f4a0150253c0" title="Moves bubbles." alt="" coords="408,109,512,135"/>
+<area shape="rect" id="node7" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="163,109,333,135"/>
+</map>

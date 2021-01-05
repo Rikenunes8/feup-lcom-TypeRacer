@@ -1,0 +1,29 @@
+<map id="graphic_pixel" name="graphic_pixel">
+<area shape="rect" id="node1" title="Draws a pixel in frame buffer." alt="" coords="1299,468,1397,494"/>
+<area shape="rect" id="node2" href="$group___chars.html#ga07b86e1a6e12c9c2e5455a42af7ad23f" title="Displays Char." alt="" coords="1153,404,1251,430"/>
+<area shape="rect" id="node18" href="$group__sprite.html#gac768df934f706543e79e76e619aeb24a" title="Draws animated sprite." alt="" coords="774,480,869,506"/>
+<area shape="rect" id="node20" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="597,302,685,329"/>
+<area shape="rect" id="node24" href="$group__graphic.html#ga187e82de55e220062925b91732a83a33" title="Draws a rectangle in frame buffer." alt="" coords="947,657,1105,684"/>
+<area shape="rect" id="node27" href="$group__graphic.html#ga0ce57b0fb21133a4dccda738c9aabaaa" title="Draws a xpm in frame buffer." alt="" coords="1154,569,1250,596"/>
+<area shape="rect" id="node3" href="$group___chars.html#gab23c292c3bb7187867e12103d2ae65a7" title="Displays text of Chars." alt="" coords="963,404,1089,430"/>
+<area shape="rect" id="node16" href="$group__race.html#ga55db394821d0dd7e5a288ae24dc6ad56" title="Compares the typed text with the displayed text and counts the correct chars typed." alt="" coords="955,353,1097,380"/>
+<area shape="rect" id="node4" href="$group___chars.html#ga527bd2670edafb70dc40075672cfaec8" title=" " alt="" coords="775,176,867,202"/>
+<area shape="rect" id="node11" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="163,302,320,329"/>
+<area shape="rect" id="node14" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="206,556,277,582"/>
+<area shape="rect" id="node15" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="368,454,539,481"/>
+<area shape="rect" id="node5" href="$group__best__results.html#ga98f74d5a4916bd2510f8da7c5651f1af" title="Draws the components of the table (titles and results)" alt="" coords="381,49,526,76"/>
+<area shape="rect" id="node8" href="$group___chars.html#gae2b27b4682e2bd118e795fcb371bba90" title="Converts a float number to text and displays it." alt="" coords="594,201,689,228"/>
+<area shape="rect" id="node9" href="$group___chars.html#gaeee85ccab29d775c40526ab83c6fa595" title="Converts an integer number to text and displays it." alt="" coords="587,100,696,126"/>
+<area shape="rect" id="node10" href="$group__results.html#ga43b01f62f162c9f0469b4f95ea7db7f2" title="Displays the results." alt="" coords="399,100,508,126"/>
+<area shape="rect" id="node13" href="$group___chars.html#ga682fd10bca088c340f33be2806e950d6" title="Converts seconds to text and displays in format min:sec." alt="" coords="594,150,689,177"/>
+<area shape="rect" id="node6" href="$group__best__results.html#ga46685af86c795c570f2f982fcfca5329" title="Draws best results page and copy to an auxiliary buffer." alt="" coords="213,150,270,177"/>
+<area shape="rect" id="node7" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,226,115,253"/>
+<area shape="rect" id="node12" href="$group__results.html#gaad4a05e3111151f82aeb1a1aed506795" title="Initializes results page and allocates memory." alt="" coords="199,100,284,126"/>
+<area shape="rect" id="node17" href="$group__race.html#gac14407909745a55ca98da89bcec8b460" title="Processes keyboard interrupt in race page." alt="" coords="747,49,896,76"/>
+<area shape="rect" id="node19" href="$group__results.html#gac085bee34ca67ebbf926f4a0150253c0" title="Moves bubbles." alt="" coords="589,454,693,481"/>
+<area shape="rect" id="node21" href="$group__best__results.html#ga4031b4f0ed892cf6bc82cc46c3f80684" title="Processes timer interrupt in best results page." alt="" coords="170,201,313,228"/>
+<area shape="rect" id="node22" href="$group__race.html#ga9fd9a5c0143c125f4099f9e159853893" title="Displays race background." alt="" coords="369,657,538,684"/>
+<area shape="rect" id="node23" href="$group__menus.html#ga8061898d92082578d1b71108239944c3" title="Processes timer interrupt in menu page." alt="" coords="368,252,539,278"/>
+<area shape="rect" id="node25" href="$group__race.html#gaf00ad95d9349bcbce1982374c4dfa99d" title="Draws a white rectangle with a black border." alt="" coords="744,708,899,750"/>
+<area shape="rect" id="node26" href="$group__race.html#ga9bf774e6bbfb8999c24e5d503842ecc1" title="Draws a text box." alt="" coords="588,708,695,734"/>
+</map>

@@ -1,0 +1,52 @@
+<map id="proj_main_loop" name="proj_main_loop">
+<area shape="rect" id="node1" title="Main function of the project." alt="" coords="5,841,115,868"/>
+<area shape="rect" id="node2" href="$group__mouse.html#ga30e8c7c85734629add7c3fa01006a904" title="Assembles the 3 packets bytes of the mouse." alt="" coords="191,5,315,32"/>
+<area shape="rect" id="node3" href="$group__keyboard.html#gaad0dda51e288a016d3b9278dfb14436d" title="Assembles the scancode byte(s) in an array of 2 bytes." alt="" coords="183,56,324,83"/>
+<area shape="rect" id="node4" href="$group__best__results.html#gaa868fee2526f31764ca66d2de262be17" title="Frees auxiliary buffer and background." alt="" coords="223,259,284,285"/>
+<area shape="rect" id="node5" href="$group__sprite.html#ga607cfeb4f019a84c346eb3bce9da0420" title="Frees memory alocated by sprite." alt="" coords="413,183,517,209"/>
+<area shape="rect" id="node6" href="$group__best__results.html#ga46685af86c795c570f2f982fcfca5329" title="Draws best results page and copy to an auxiliary buffer." alt="" coords="225,512,282,539"/>
+<area shape="rect" id="node8" href="$group__sprite.html#gab80466bb75012fbb9c5051942fe11dc2" title="Creates a sprite." alt="" coords="416,563,513,589"/>
+<area shape="rect" id="node14" href="$group__best__results.html#ga12b3c659b3825961b0c37f5703ffc5c8" title="Processes keyboard interrupt in best results page." alt="" coords="186,917,321,944"/>
+<area shape="rect" id="node16" href="$group__best__results.html#ga79723bb557e0661321a266d0e08cef8b" title="Processes mouse interrupt in best results page." alt="" coords="177,816,330,843"/>
+<area shape="rect" id="node18" href="$group__best__results.html#ga4031b4f0ed892cf6bc82cc46c3f80684" title="Processes timer interrupt in best results page." alt="" coords="182,309,325,336"/>
+<area shape="rect" id="node20" href="$group___chars.html#ga7d419926f30d22d703d8a25f1a90a8ea" title="Gets the index of letters maps corresponding to the scancode passed as argument." alt="" coords="186,1069,321,1096"/>
+<area shape="rect" id="node21" href="$group__graphic.html#gaf08fb48dc4e0d9996950a0a8fad19c72" title="Changes the page and update pointer to where to draw." alt="" coords="192,1120,315,1147"/>
+<area shape="rect" id="node22" href="$group__keyboard.html#gaca842ab89e3fc03d8cca103dd6808895" title="Handles keyboard interrupts (C implementation)" alt="" coords="223,1171,283,1197"/>
+<area shape="rect" id="node23" href="$group__menus.html#ga7860ad08f5a3c588a0b24e6f1191c179" title="Processes keyboard interrupt in menu page." alt="" coords="172,968,335,995"/>
+<area shape="rect" id="node24" href="$group__menus.html#gad1b5616c5bce03092770328102985085" title="Processes mouse interrupt in menu page." alt="" coords="163,867,344,893"/>
+<area shape="rect" id="node25" href="$group__menus.html#ga8061898d92082578d1b71108239944c3" title="Processes timer interrupt in menu page." alt="" coords="168,461,339,488"/>
+<area shape="rect" id="node26" href="$group__mouse.html#ga1ff8625feec8c43cf93bf29866e62e60" title="Converts mouse info to a more friendly structure." alt="" coords="201,1221,306,1248"/>
+<area shape="rect" id="node27" href="$group__mouse.html#ga210374b50462acdedab00df64d5cea3c" title="Handles mouse interrupts (C implementation)" alt="" coords="214,1272,293,1299"/>
+<area shape="rect" id="node29" href="$group__proj.html#gac76a6c878a3b1370b6b327474c2e8de6" title="Exits from video card game mode and frees memory allocated, ends Chars module and writes the best res..." alt="" coords="218,1323,289,1349"/>
+<area shape="rect" id="node32" href="$group__proj.html#gaf8e7c35f6c3aea48d12d4cf9d3ad8ddb" title="Initializes and configures the video card, initializes Chars module and call the function that read t..." alt="" coords="220,1373,287,1400"/>
+<area shape="rect" id="node36" href="$group__race.html#ga3076ed00db71c8dfbf4cdcb0f363f850" title="Ends race." alt="" coords="216,107,291,133"/>
+<area shape="rect" id="node37" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="218,613,289,640"/>
+<area shape="rect" id="node38" href="$group__race.html#gac14407909745a55ca98da89bcec8b460" title="Processes keyboard interrupt in race page." alt="" coords="179,1424,328,1451"/>
+<area shape="rect" id="node39" href="$group__race.html#gab3544333555729079876ffbdada5f9f5" title="Processes mouse interrupt in race page." alt="" coords="170,715,337,741"/>
+<area shape="rect" id="node40" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="175,360,332,387"/>
+<area shape="rect" id="node41" href="$group__results.html#gafe2569d52e6f37fab44fbef5be3b7e89" title="Frees alocated memory in results_init and calls add_score function." alt="" coords="209,157,298,184"/>
+<area shape="rect" id="node42" href="$group__results.html#gaad4a05e3111151f82aeb1a1aed506795" title="Initializes results page and allocates memory." alt="" coords="211,664,296,691"/>
+<area shape="rect" id="node43" href="$group__results.html#ga10c840de21db56755a9308a71a5684fc" title="Processes keyboard interrupt in results page." alt="" coords="172,1019,335,1045"/>
+<area shape="rect" id="node44" href="$group__results.html#ga1f24aedbc2df96ad37c4b1084707f0b3" title="Processes mouse interrupt in race page." alt="" coords="163,765,344,792"/>
+<area shape="rect" id="node45" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="168,411,339,437"/>
+<area shape="rect" id="node46" href="$group__rtc.html#ga75dad42881d64cf07cf1bdc2979a7056" title="Handles RTC interrupts (C implementation)" alt="" coords="226,1475,281,1501"/>
+<area shape="rect" id="node47" href="$group__rtc.html#gad3cbeffda4bae0684e35cbb4e210080a" title="Reads seconds." alt="" coords="194,1525,313,1552"/>
+<area shape="rect" id="node48" href="$group__proj.html#gaed3ae5e9fc9ce660b26833836443a4b2" title="Subscribes all interrupts and enables mouse data reporting." alt="" coords="194,1576,313,1603"/>
+<area shape="rect" id="node49" href="$group__timer.html#ga949875f081b370ebe2f78d0238d0e476" title="Handles timer interrupts (C implementation)" alt="" coords="219,1627,287,1653"/>
+<area shape="rect" id="node50" href="$group__proj.html#ga12acc03c0aee8e3a877650dbbfd50b1c" title="Unsubscribes all interrupts and disables mouse data reporting." alt="" coords="187,1677,320,1704"/>
+<area shape="rect" id="node7" href="$group__best__results.html#ga98f74d5a4916bd2510f8da7c5651f1af" title="Draws the components of the table (titles and results)" alt="" coords="392,411,537,437"/>
+<area shape="rect" id="node9" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="421,360,509,387"/>
+<area shape="rect" id="node10" href="$group__graphic.html#ga6ff36b6bcb3b357b3c259545704d1e60" title="Copies frame buffer to auxiliary buffer." alt="" coords="408,664,521,691"/>
+<area shape="rect" id="node11" href="$group__graphic.html#ga9105fbeb9f2f8d6ada7b22d68a61fae4" title="Gets number of bytes per pixel in VBE mode set." alt="" coords="427,613,502,640"/>
+<area shape="rect" id="node12" href="$group__graphic.html#ga790ce9140cfb9031a913e9e66a7e82b6" title="Gets the height of VBE mode." alt="" coords="585,816,664,843"/>
+<area shape="rect" id="node13" href="$group__graphic.html#gaa824fe357259dac616f3fe9f2eba1dab" title="Gets the width of VBE mode." alt="" coords="586,740,663,767"/>
+<area shape="rect" id="node15" href="$group__menus.html#ga45c52ba91805b34c9f77894950912100" title="Gets Menu event generated by keyboard action." alt="" coords="409,968,521,995"/>
+<area shape="rect" id="node17" href="$group__menus.html#ga5829b4e17402c172e055ec0491f94ac7" title="Gets Menu event generated by mouse action." alt="" coords="399,917,530,944"/>
+<area shape="rect" id="node19" href="$group__graphic.html#ga192941c86bbc5df7c8fc3ea68c5a4627" title="Copies auxiliary buffer to frame buffer." alt="" coords="408,309,521,336"/>
+<area shape="rect" id="node28" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="419,1221,510,1248"/>
+<area shape="rect" id="node30" href="$group__best__results.html#gab935b0b09f0eec7632a807c82b666b1b" title="Writes the information of the 3 best scores obtained in the game ever into the file best_results...." alt="" coords="419,1323,510,1349"/>
+<area shape="rect" id="node31" href="$group___chars.html#ga20b549e98b23184c80c282a3c3ae981e" title="Frees letters_maps." alt="" coords="423,1272,507,1299"/>
+<area shape="rect" id="node33" href="$group__best__results.html#ga5fe68c08a0b347fe03b0a9feb3cee4bd" title="Reads the information of the file best_results.txt where are kept the 3 best scores obtained in the g..." alt="" coords="421,1373,509,1400"/>
+<area shape="rect" id="node34" href="$group___chars.html#gaac9705031adf87e5818e86c4272d7824" title="Reads char&#39;s xpms and keeps their maps in uint8_t ** letters_maps." alt="" coords="425,1424,505,1451"/>
+<area shape="rect" id="node35" href="$group__graphic.html#ga45c6365a39d5bf3c53cc90adc8fc4651" title="Configures mode settings." alt="" coords="421,1475,509,1501"/>
+</map>

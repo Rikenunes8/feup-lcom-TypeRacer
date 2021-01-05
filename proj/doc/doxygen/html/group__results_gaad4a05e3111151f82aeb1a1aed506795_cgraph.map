@@ -1,0 +1,19 @@
+<map id="results_init" name="results_init">
+<area shape="rect" id="node1" title="Initializes results page and allocates memory." alt="" coords="5,230,91,256"/>
+<area shape="rect" id="node2" href="$group___chars.html#gae20c6897c1ed4b095d6b4ecbad27fb89" title="Converts text of normal chars to text of Chars structure." alt="" coords="585,27,756,54"/>
+<area shape="rect" id="node4" href="$group__graphic.html#ga790ce9140cfb9031a913e9e66a7e82b6" title="Gets the height of VBE mode." alt="" coords="817,78,895,104"/>
+<area shape="rect" id="node5" href="$group__sprite.html#ga0a250a6040a4bfa40d590e9f7438682d" title="Creates an Animated Sprite from multiple pixmaps At least one pixmap must be specified." alt="" coords="143,179,247,206"/>
+<area shape="rect" id="node6" href="$group__sprite.html#gab80466bb75012fbb9c5051942fe11dc2" title="Creates a sprite." alt="" coords="300,128,397,155"/>
+<area shape="rect" id="node7" href="$group__results.html#ga43b01f62f162c9f0469b4f95ea7db7f2" title="Displays the results." alt="" coords="141,230,250,256"/>
+<area shape="rect" id="node14" href="$group__graphic.html#ga6ff36b6bcb3b357b3c259545704d1e60" title="Copies frame buffer to auxiliary buffer." alt="" coords="139,280,252,307"/>
+<area shape="rect" id="node15" href="$group__graphic.html#ga9105fbeb9f2f8d6ada7b22d68a61fae4" title="Gets number of bytes per pixel in VBE mode set." alt="" coords="158,331,233,358"/>
+<area shape="rect" id="node16" href="$group__graphic.html#gaa824fe357259dac616f3fe9f2eba1dab" title="Gets the width of VBE mode." alt="" coords="157,382,234,408"/>
+<area shape="rect" id="node17" href="$group__sprite.html#gaf27f4d37e2ae5aad688af55eb92bc8e2" title="Sets the animated sprite." alt="" coords="152,432,239,459"/>
+<area shape="rect" id="node3" href="$group___chars.html#ga9237847cbcc32233fa2d68dd7825509d" title="Gets the index of char xpm object in array letters_maps." alt="" coords="804,27,908,54"/>
+<area shape="rect" id="node8" href="$group___chars.html#ga527bd2670edafb70dc40075672cfaec8" title=" " alt="" coords="445,180,537,207"/>
+<area shape="rect" id="node12" href="$group___chars.html#ga682fd10bca088c340f33be2806e950d6" title="Converts seconds to text and displays in format min:sec." alt="" coords="301,230,396,256"/>
+<area shape="rect" id="node13" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="447,278,535,304"/>
+<area shape="rect" id="node9" href="$group___chars.html#gab23c292c3bb7187867e12103d2ae65a7" title="Displays text of Chars." alt="" coords="607,183,734,210"/>
+<area shape="rect" id="node10" href="$group___chars.html#ga07b86e1a6e12c9c2e5455a42af7ad23f" title="Displays Char." alt="" coords="807,190,905,216"/>
+<area shape="rect" id="node11" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="956,227,1055,254"/>
+</map>

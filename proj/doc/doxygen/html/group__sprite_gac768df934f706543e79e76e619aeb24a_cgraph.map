@@ -1,0 +1,4 @@
+<map id="draw_asprite" name="draw_asprite">
+<area shape="rect" id="node1" title="Draws animated sprite." alt="" coords="5,5,100,32"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="148,5,247,32"/>
+</map>

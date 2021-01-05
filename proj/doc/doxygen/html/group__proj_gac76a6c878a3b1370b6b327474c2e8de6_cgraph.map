@@ -1,0 +1,5 @@
+<map id="proj_end" name="proj_end">
+<area shape="rect" id="node1" title="Exits from video card game mode and frees memory allocated, ends Chars module and writes the best res..." alt="" coords="5,31,76,57"/>
+<area shape="rect" id="node2" href="$group__best__results.html#gab935b0b09f0eec7632a807c82b666b1b" title="Writes the information of the 3 best scores obtained in the game ever into the file best_results...." alt="" coords="124,5,215,32"/>
+<area shape="rect" id="node3" href="$group___chars.html#ga20b549e98b23184c80c282a3c3ae981e" title="Frees letters_maps." alt="" coords="127,56,211,83"/>
+</map>

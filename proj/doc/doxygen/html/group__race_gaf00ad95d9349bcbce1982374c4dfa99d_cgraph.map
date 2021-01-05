@@ -1,0 +1,5 @@
+<map id="graphic_draw_bordered_rectangle" name="graphic_draw_bordered_rectangle">
+<area shape="rect" id="node1" title="Draws a white rectangle with a black border." alt="" coords="5,5,160,47"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga187e82de55e220062925b91732a83a33" title="Draws a rectangle in frame buffer." alt="" coords="208,13,367,39"/>
+<area shape="rect" id="node3" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="415,13,513,39"/>
+</map>

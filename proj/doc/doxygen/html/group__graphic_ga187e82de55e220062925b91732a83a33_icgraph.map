@@ -1,0 +1,8 @@
+<map id="graphic_draw_rectangle" name="graphic_draw_rectangle">
+<area shape="rect" id="node1" title="Draws a rectangle in frame buffer." alt="" coords="856,5,1015,32"/>
+<area shape="rect" id="node2" href="$group__race.html#ga9fd9a5c0143c125f4099f9e159853893" title="Displays race background." alt="" coords="281,27,451,53"/>
+<area shape="rect" id="node5" href="$group__race.html#gaf00ad95d9349bcbce1982374c4dfa99d" title="Draws a white rectangle with a black border." alt="" coords="653,27,808,69"/>
+<area shape="rect" id="node3" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="163,27,233,53"/>
+<area shape="rect" id="node4" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,27,115,53"/>
+<area shape="rect" id="node6" href="$group__race.html#ga9bf774e6bbfb8999c24e5d503842ecc1" title="Draws a text box." alt="" coords="499,77,605,104"/>
+</map>

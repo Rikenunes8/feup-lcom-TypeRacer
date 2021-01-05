@@ -1,0 +1,6 @@
+<map id="draw_text_box" name="draw_text_box">
+<area shape="rect" id="node1" title="Draws a text box." alt="" coords="499,5,605,32"/>
+<area shape="rect" id="node2" href="$group__race.html#ga9fd9a5c0143c125f4099f9e159853893" title="Displays race background." alt="" coords="281,5,451,32"/>
+<area shape="rect" id="node3" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="163,5,233,32"/>
+<area shape="rect" id="node4" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

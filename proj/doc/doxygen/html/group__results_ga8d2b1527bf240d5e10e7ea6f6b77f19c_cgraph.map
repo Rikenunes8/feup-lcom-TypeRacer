@@ -1,0 +1,6 @@
+<map id="collison_mouse" name="collison_mouse">
+<area shape="rect" id="node1" title="Checks if mouse collided with some bubble and prepares bubble to be destroyed if it is the case." alt="" coords="5,31,117,57"/>
+<area shape="rect" id="node2" href="$group__sprite.html#gabeb7a6d1b9da0c985476182f6edc8c48" title="Checks if a position is inside the animated sprite." alt="" coords="165,5,301,32"/>
+<area shape="rect" id="node4" href="$group__sprite.html#gaf27f4d37e2ae5aad688af55eb92bc8e2" title="Sets the animated sprite." alt="" coords="190,56,277,83"/>
+<area shape="rect" id="node3" href="$sprite_8c.html#a362de6394c1394543d9dde7e2f9f424e" title=" " alt="" coords="349,5,479,32"/>
+</map>

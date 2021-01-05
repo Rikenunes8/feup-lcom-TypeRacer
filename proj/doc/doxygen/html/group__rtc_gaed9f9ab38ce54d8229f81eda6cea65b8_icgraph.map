@@ -1,0 +1,8 @@
+<map id="rtc_read_year" name="rtc_read_year">
+<area shape="rect" id="node1" title="Reads year." alt="" coords="761,5,863,32"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga7af6be95897fac81dcd7bda5285121a4" title="Reads current day, month and year." alt="" coords="612,5,713,32"/>
+<area shape="rect" id="node3" href="$group__rtc.html#gad66426d35709f782c78b71e3e300464b" title="Reads time and date." alt="" coords="431,5,564,32"/>
+<area shape="rect" id="node4" href="$group__best__results.html#ga6122d3420e8b6bce76dfa97f615410d2" title="Compares new score with current best scores and replaces if the case. Gets the current date from RTC." alt="" coords="300,5,383,32"/>
+<area shape="rect" id="node5" href="$group__results.html#gafe2569d52e6f37fab44fbef5be3b7e89" title="Frees alocated memory in results_init and calls add_score function." alt="" coords="163,5,252,32"/>
+<area shape="rect" id="node6" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="display_race_background" name="display_race_background">
+<area shape="rect" id="node1" title="Displays race background." alt="" coords="5,72,175,99"/>
+<area shape="rect" id="node2" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="411,5,499,32"/>
+<area shape="rect" id="node4" href="$group__race.html#ga9bf774e6bbfb8999c24e5d503842ecc1" title="Draws a text box." alt="" coords="223,47,329,73"/>
+<area shape="rect" id="node5" href="$group__race.html#gaf00ad95d9349bcbce1982374c4dfa99d" title="Draws a white rectangle with a black border." alt="" coords="377,65,532,106"/>
+<area shape="rect" id="node6" href="$group__graphic.html#ga187e82de55e220062925b91732a83a33" title="Draws a rectangle in frame buffer." alt="" coords="580,72,739,99"/>
+<area shape="rect" id="node3" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="787,47,885,73"/>
+</map>

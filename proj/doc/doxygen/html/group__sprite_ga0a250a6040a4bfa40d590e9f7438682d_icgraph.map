@@ -1,0 +1,6 @@
+<map id="create_asprite" name="create_asprite">
+<area shape="rect" id="node1" title="Creates an Animated Sprite from multiple pixmaps At least one pixmap must be specified." alt="" coords="296,31,400,57"/>
+<area shape="rect" id="node2" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="170,5,241,32"/>
+<area shape="rect" id="node4" href="$group__results.html#gaad4a05e3111151f82aeb1a1aed506795" title="Initializes results page and allocates memory." alt="" coords="163,56,248,83"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,31,115,57"/>
+</map>

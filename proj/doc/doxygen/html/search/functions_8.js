@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['main_587',['main',['../proj_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'proj.c']]],
+  ['menus_5fprocess_5fkbd_5fint_588',['menus_process_kbd_int',['../group__menus.html#ga7860ad08f5a3c588a0b24e6f1191c179',1,'menus_process_kbd_int(Menu_state *state, uint8_t aux_key):&#160;menus.c'],['../group__menus.html#ga7860ad08f5a3c588a0b24e6f1191c179',1,'menus_process_kbd_int(Menu_state *state, uint8_t aux_key):&#160;menus.c']]],
+  ['menus_5fprocess_5fmouse_5fint_589',['menus_process_mouse_int',['../group__menus.html#gad1b5616c5bce03092770328102985085',1,'menus_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite *mouse):&#160;menus.c'],['../group__menus.html#gad1b5616c5bce03092770328102985085',1,'menus_process_mouse_int(Menu_state *state, Mouse_event mouse_event, Sprite *mouse):&#160;menus.c']]],
+  ['menus_5fprocess_5ftimer_5fint_590',['menus_process_timer_int',['../group__menus.html#ga8061898d92082578d1b71108239944c3',1,'menus_process_timer_int(uint32_t counter, Sprite *main_menu, Sprite *mouse):&#160;menus.c'],['../group__menus.html#ga8061898d92082578d1b71108239944c3',1,'menus_process_timer_int(uint32_t counter, Sprite *main_menu, Sprite *mouse):&#160;menus.c']]],
+  ['mouse_5fevents_591',['mouse_events',['../group__mouse.html#ga1ff8625feec8c43cf93bf29866e62e60',1,'mouse_events(Mouse_event *event, struct packet *pp):&#160;mouse.c'],['../group__mouse.html#ga1ff8625feec8c43cf93bf29866e62e60',1,'mouse_events(Mouse_event *event, struct packet *pp):&#160;mouse.c']]],
+  ['mouse_5fih_592',['mouse_ih',['../group__mouse.html#ga210374b50462acdedab00df64d5cea3c',1,'mouse_ih():&#160;mouse.c'],['../group__mouse.html#ga210374b50462acdedab00df64d5cea3c',1,'mouse_ih():&#160;mouse.c']]],
+  ['mouse_5fsubscribe_5fint_593',['mouse_subscribe_int',['../group__mouse.html#ga20285aed4b3ef45812cd967532dd09db',1,'mouse_subscribe_int(uint8_t *bit_no):&#160;mouse.c'],['../group__mouse.html#ga20285aed4b3ef45812cd967532dd09db',1,'mouse_subscribe_int(uint8_t *bit_no):&#160;mouse.c']]],
+  ['mouse_5funsubscribe_5fint_594',['mouse_unsubscribe_int',['../group__mouse.html#ga3ecf823d80520009ae5e0d76ae40a3c3',1,'mouse_unsubscribe_int():&#160;mouse.c'],['../group__mouse.html#ga3ecf823d80520009ae5e0d76ae40a3c3',1,'mouse_unsubscribe_int():&#160;mouse.c']]],
+  ['move_5fbubbles_595',['move_bubbles',['../group__results.html#gac085bee34ca67ebbf926f4a0150253c0',1,'move_bubbles(size_t n):&#160;race.c'],['../group__results.html#gac085bee34ca67ebbf926f4a0150253c0',1,'move_bubbles(size_t n):&#160;race.c']]]
+];

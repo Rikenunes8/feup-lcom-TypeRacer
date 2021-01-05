@@ -1,0 +1,4 @@
+<map id="AnimSprite" name="AnimSprite">
+<area shape="rect" id="node1" title="An Animated Sprite is a &quot;sub&#45;classing&quot; of Sprites where each Sprite is manipulated using Sprite funct..." alt="" coords="5,233,107,369"/>
+<area shape="rect" id="node2" href="$struct_sprite.html" title="A Sprite is an &quot;object&quot; that contains all needed information to create, animate, and destroy a pixmap..." alt="" coords="18,5,94,171"/>
+</map>

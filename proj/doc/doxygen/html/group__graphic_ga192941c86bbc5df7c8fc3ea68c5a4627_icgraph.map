@@ -1,0 +1,7 @@
+<map id="aux_to_fr_buffer" name="aux_to_fr_buffer">
+<area shape="rect" id="node1" title="Copies auxiliary buffer to frame buffer." alt="" coords="381,56,495,83"/>
+<area shape="rect" id="node2" href="$group__best__results.html#ga4031b4f0ed892cf6bc82cc46c3f80684" title="Processes timer interrupt in best results page." alt="" coords="177,5,319,32"/>
+<area shape="rect" id="node4" href="$group__race.html#ga07c59587be6ba891de2c642af639654e" title="Processes timer interrupt in race page." alt="" coords="169,56,327,83"/>
+<area shape="rect" id="node5" href="$group__results.html#ga0a08cd8ffdd832db4993b607cf114d5b" title="Processes timer interrupt in results page." alt="" coords="163,107,333,133"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,56,115,83"/>
+</map>

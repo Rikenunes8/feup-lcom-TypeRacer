@@ -1,0 +1,5 @@
+<map id="br_read_file" name="br_read_file">
+<area shape="rect" id="node1" title="Reads the information of the file best_results.txt where are kept the 3 best scores obtained in the g..." alt="" coords="277,5,365,32"/>
+<area shape="rect" id="node2" href="$group__proj.html#gaf8e7c35f6c3aea48d12d4cf9d3ad8ddb" title="Initializes and configures the video card, initializes Chars module and call the function that read t..." alt="" coords="163,5,229,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

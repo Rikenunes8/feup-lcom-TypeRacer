@@ -1,0 +1,9 @@
+<map id="rtc_read_second" name="rtc_read_second">
+<area shape="rect" id="node1" title="Reads seconds." alt="" coords="761,17,880,44"/>
+<area shape="rect" id="node2" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,43,115,69"/>
+<area shape="rect" id="node3" href="$group__rtc.html#ga00fde00701376185e8bcdedff5b30c34" title="Reads current second, minute and hour." alt="" coords="612,43,713,69"/>
+<area shape="rect" id="node4" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="306,43,377,69"/>
+<area shape="rect" id="node5" href="$group__rtc.html#gad66426d35709f782c78b71e3e300464b" title="Reads time and date." alt="" coords="431,93,564,120"/>
+<area shape="rect" id="node6" href="$group__best__results.html#ga6122d3420e8b6bce76dfa97f615410d2" title="Compares new score with current best scores and replaces if the case. Gets the current date from RTC." alt="" coords="300,93,383,120"/>
+<area shape="rect" id="node7" href="$group__results.html#gafe2569d52e6f37fab44fbef5be3b7e89" title="Frees alocated memory in results_init and calls add_score function." alt="" coords="163,93,252,120"/>
+</map>

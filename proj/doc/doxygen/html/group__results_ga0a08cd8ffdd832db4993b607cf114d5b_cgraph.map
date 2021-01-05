@@ -1,0 +1,19 @@
+<map id="results_process_timer_int" name="results_process_timer_int">
+<area shape="rect" id="node1" title="Processes timer interrupt in results page." alt="" coords="5,81,176,108"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga192941c86bbc5df7c8fc3ea68c5a4627" title="Copies auxiliary buffer to frame buffer." alt="" coords="231,5,344,32"/>
+<area shape="rect" id="node3" href="$group___chars.html#gab23c292c3bb7187867e12103d2ae65a7" title="Displays text of Chars." alt="" coords="224,56,351,83"/>
+<area shape="rect" id="node6" href="$group__sprite.html#ga7ed9017bedc1ab40ccaa2f37ca23426e" title="Draws sprite." alt="" coords="243,107,331,133"/>
+<area shape="rect" id="node7" href="$group__results.html#gac085bee34ca67ebbf926f4a0150253c0" title="Moves bubbles." alt="" coords="235,259,339,285"/>
+<area shape="rect" id="node4" href="$group___chars.html#ga07b86e1a6e12c9c2e5455a42af7ad23f" title="Displays Char." alt="" coords="413,56,510,83"/>
+<area shape="rect" id="node5" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="578,107,677,133"/>
+<area shape="rect" id="node8" href="$group__sprite.html#gaf96910e90e8b6723be7b2418242fd711" title="Updates an Animated Sprite according to its atributtes." alt="" coords="404,208,519,235"/>
+<area shape="rect" id="node10" href="$group__results.html#ga1331472a759c90147affca7bab6c042c" title="Removes bubble to be erased of the array of bubbles and destroys it." alt="" coords="408,259,515,285"/>
+<area shape="rect" id="node13" href="$group__sprite.html#gac768df934f706543e79e76e619aeb24a" title="Draws animated sprite." alt="" coords="414,157,509,184"/>
+<area shape="rect" id="node14" href="$group__graphic.html#ga790ce9140cfb9031a913e9e66a7e82b6" title="Gets the height of VBE mode." alt="" coords="422,309,501,336"/>
+<area shape="rect" id="node15" href="$group__graphic.html#gaa824fe357259dac616f3fe9f2eba1dab" title="Gets the width of VBE mode." alt="" coords="423,360,500,387"/>
+<area shape="rect" id="node16" href="$group__sprite.html#ga57936e429a6a692e341728c48ca8db7b" title="Sest the sprite of animated sprite." alt="" coords="399,411,524,437"/>
+<area shape="rect" id="node9" href="$group__sprite.html#ga972de96220c62ebe73d3bcbe1bd2f52a" title="Updates sprite according to its attributes." alt="" coords="574,208,681,235"/>
+<area shape="rect" id="node11" href="$group__sprite.html#ga05d186cb4268b897f3d8d7d890ed6cc4" title="Destroys an Animated Sprite, releases all resources allocated." alt="" coords="572,259,683,285"/>
+<area shape="rect" id="node12" href="$group__sprite.html#ga607cfeb4f019a84c346eb3bce9da0420" title="Frees memory alocated by sprite." alt="" coords="731,259,835,285"/>
+<area shape="rect" id="node17" href="$group__sprite.html#ga8bcc287c4fad04206265cf54bf12d24f" title="Sets the sprite." alt="" coords="588,411,667,437"/>
+</map>

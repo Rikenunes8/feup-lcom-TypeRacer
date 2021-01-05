@@ -1,0 +1,4 @@
+<map id="create_asprite" name="create_asprite">
+<area shape="rect" id="node1" title="Creates an Animated Sprite from multiple pixmaps At least one pixmap must be specified." alt="" coords="5,5,109,32"/>
+<area shape="rect" id="node2" href="$group__sprite.html#gab80466bb75012fbb9c5051942fe11dc2" title="Creates a sprite." alt="" coords="157,5,255,32"/>
+</map>

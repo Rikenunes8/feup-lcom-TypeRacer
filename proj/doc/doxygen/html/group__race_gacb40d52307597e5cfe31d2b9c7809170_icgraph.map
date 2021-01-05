@@ -1,0 +1,5 @@
+<map id="update_typed_text" name="update_typed_text">
+<area shape="rect" id="node1" title="Processes the typed text and writes it to the screen." alt="" coords="360,5,489,32"/>
+<area shape="rect" id="node2" href="$group__race.html#gac14407909745a55ca98da89bcec8b460" title="Processes keyboard interrupt in race page." alt="" coords="163,5,312,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

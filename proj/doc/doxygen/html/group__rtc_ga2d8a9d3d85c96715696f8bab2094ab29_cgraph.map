@@ -1,0 +1,5 @@
+<map id="rtc_check_update" name="rtc_check_update">
+<area shape="rect" id="node1" title="Checks if rtc is updating." alt="" coords="5,5,131,32"/>
+<area shape="rect" id="node2" href="$group__rtc.html#gab42ebfe661299e92bd2b69d3980ec5bd" title="Reads a register." alt="" coords="179,5,297,32"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="345,5,436,32"/>
+</map>

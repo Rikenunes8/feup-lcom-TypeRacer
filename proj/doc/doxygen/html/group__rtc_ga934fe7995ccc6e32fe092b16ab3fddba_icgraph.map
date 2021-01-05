@@ -1,0 +1,5 @@
+<map id="rtc_set_alarm" name="rtc_set_alarm">
+<area shape="rect" id="node1" title="Sets alarm in BCD." alt="" coords="281,5,383,32"/>
+<area shape="rect" id="node2" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="163,5,233,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

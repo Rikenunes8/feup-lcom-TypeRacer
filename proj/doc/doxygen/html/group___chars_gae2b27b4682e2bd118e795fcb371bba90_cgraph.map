@@ -1,0 +1,10 @@
+<map id="display_float" name="display_float">
+<area shape="rect" id="node1" title="Converts a float number to text and displays it." alt="" coords="5,81,100,108"/>
+<area shape="rect" id="node2" href="$group___chars.html#ga527bd2670edafb70dc40075672cfaec8" title=" " alt="" coords="148,81,240,108"/>
+<area shape="rect" id="node3" href="$group___chars.html#gae20c6897c1ed4b095d6b4ecbad27fb89" title="Converts text of normal chars to text of Chars structure." alt="" coords="288,56,459,83"/>
+<area shape="rect" id="node6" href="$group___chars.html#gab23c292c3bb7187867e12103d2ae65a7" title="Displays text of Chars." alt="" coords="310,107,437,133"/>
+<area shape="rect" id="node4" href="$group___chars.html#ga9237847cbcc32233fa2d68dd7825509d" title="Gets the index of char xpm object in array letters_maps." alt="" coords="507,5,611,32"/>
+<area shape="rect" id="node5" href="$group__graphic.html#ga790ce9140cfb9031a913e9e66a7e82b6" title="Gets the height of VBE mode." alt="" coords="519,56,598,83"/>
+<area shape="rect" id="node7" href="$group___chars.html#ga07b86e1a6e12c9c2e5455a42af7ad23f" title="Displays Char." alt="" coords="510,107,607,133"/>
+<area shape="rect" id="node8" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="659,107,757,133"/>
+</map>

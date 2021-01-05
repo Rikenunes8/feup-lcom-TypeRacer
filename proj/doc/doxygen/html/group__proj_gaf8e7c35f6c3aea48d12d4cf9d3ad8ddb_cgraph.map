@@ -1,0 +1,9 @@
+<map id="proj_init" name="proj_init">
+<area shape="rect" id="node1" title="Initializes and configures the video card, initializes Chars module and call the function that read t..." alt="" coords="5,107,72,133"/>
+<area shape="rect" id="node2" href="$group__best__results.html#ga5fe68c08a0b347fe03b0a9feb3cee4bd" title="Reads the information of the file best_results.txt where are kept the 3 best scores obtained in the g..." alt="" coords="153,5,241,32"/>
+<area shape="rect" id="node3" href="$group___chars.html#gaac9705031adf87e5818e86c4272d7824" title="Reads char&#39;s xpms and keeps their maps in uint8_t ** letters_maps." alt="" coords="157,56,237,83"/>
+<area shape="rect" id="node5" href="$group__graphic.html#ga45c6365a39d5bf3c53cc90adc8fc4651" title="Configures mode settings." alt="" coords="153,107,241,133"/>
+<area shape="rect" id="node6" href="$group__graphic.html#ga99dc9db52c0f7227737c7883ce211fa6" title="Gets VBE mode info." alt="" coords="120,157,275,184"/>
+<area shape="rect" id="node7" href="$group__graphic.html#ga229e9db0d688e31fb674a248eca65213" title="Initializes VBE mode." alt="" coords="153,208,241,235"/>
+<area shape="rect" id="node4" href="$group__graphic.html#ga6ce85ece2cff0f8e86ac66a7b5e8c015" title="Loads a xpm." alt="" coords="323,56,449,83"/>
+</map>

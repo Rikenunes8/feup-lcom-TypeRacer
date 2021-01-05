@@ -1,0 +1,4 @@
+<map id="check_asp_collison" name="check_asp_collison">
+<area shape="rect" id="node1" title="Checks if a position is inside the animated sprite." alt="" coords="5,5,141,32"/>
+<area shape="rect" id="node2" href="$sprite_8c.html#a362de6394c1394543d9dde7e2f9f424e" title=" " alt="" coords="189,5,319,32"/>
+</map>

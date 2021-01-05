@@ -1,0 +1,4 @@
+<map id="display_Char" name="display_Char">
+<area shape="rect" id="node1" title="Displays Char." alt="" coords="5,5,103,32"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="151,5,249,32"/>
+</map>

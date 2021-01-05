@@ -1,0 +1,9 @@
+<map id="unsubscribe_all_int" name="unsubscribe_all_int">
+<area shape="rect" id="node1" title="Unsubscribes all interrupts and disables mouse data reporting." alt="" coords="5,107,139,133"/>
+<area shape="rect" id="node2" href="$group__mouse.html#gac7c037d34757344099fd2e8940065e6f" title="Writes a command byte and the argument (if the case) to the kbc i8042." alt="" coords="211,5,321,32"/>
+<area shape="rect" id="node4" href="$group__keyboard.html#gaee0a7b54ee426fade9c780418d110fe0" title="Unsubscribes Keyboard interrupts." alt="" coords="195,56,337,83"/>
+<area shape="rect" id="node5" href="$group__mouse.html#ga3ecf823d80520009ae5e0d76ae40a3c3" title="Unsubscribes Mouse interrupts." alt="" coords="187,107,345,133"/>
+<area shape="rect" id="node6" href="$group__rtc.html#ga9d4850bb2a488644672d43287f160622" title="Unsubscribes RTC interrupts." alt="" coords="199,157,333,184"/>
+<area shape="rect" id="node7" href="$group__timer.html#gafabd21de449be154dd65d5fdb2d8045d" title="Unsubscribes Timer interrupts." alt="" coords="191,208,341,235"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="393,5,484,32"/>
+</map>

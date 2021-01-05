@@ -1,0 +1,4 @@
+<map id="Chars_init" name="Chars_init">
+<area shape="rect" id="node1" title="Reads char&#39;s xpms and keeps their maps in uint8_t ** letters_maps." alt="" coords="5,5,85,32"/>
+<area shape="rect" id="node2" href="$group__graphic.html#ga6ce85ece2cff0f8e86ac66a7b5e8c015" title="Loads a xpm." alt="" coords="133,5,260,32"/>
+</map>

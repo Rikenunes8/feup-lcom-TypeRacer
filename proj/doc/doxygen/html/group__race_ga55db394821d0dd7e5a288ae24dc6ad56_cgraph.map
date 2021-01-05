@@ -1,0 +1,5 @@
+<map id="update_correct_keys" name="update_correct_keys">
+<area shape="rect" id="node1" title="Compares the typed text with the displayed text and counts the correct chars typed." alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node2" href="$group___chars.html#ga07b86e1a6e12c9c2e5455a42af7ad23f" title="Displays Char." alt="" coords="196,5,293,32"/>
+<area shape="rect" id="node3" href="$group__graphic.html#ga1dc47c0dacb0ca6da5f1e97e75e8f1b4" title="Draws a pixel in frame buffer." alt="" coords="341,5,440,32"/>
+</map>

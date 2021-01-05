@@ -1,0 +1,9 @@
+<map id="subscribe_all_int" name="subscribe_all_int">
+<area shape="rect" id="node1" title="Subscribes all interrupts and enables mouse data reporting." alt="" coords="5,107,124,133"/>
+<area shape="rect" id="node2" href="$group__mouse.html#gac7c037d34757344099fd2e8940065e6f" title="Writes a command byte and the argument (if the case) to the kbc i8042." alt="" coords="190,5,299,32"/>
+<area shape="rect" id="node4" href="$group__keyboard.html#ga4ac9231a99a664d6a9f0b69767e0d707" title="Subscribes and enables Keyboard interrupts." alt="" coords="181,56,308,83"/>
+<area shape="rect" id="node5" href="$group__mouse.html#ga20285aed4b3ef45812cd967532dd09db" title="Subscribes and enables Mouse interrupts." alt="" coords="172,107,317,133"/>
+<area shape="rect" id="node6" href="$group__rtc.html#ga6bbe679f115cec90d36d50eb2aac1b89" title="Subscribes and enables RTC interrupts." alt="" coords="184,157,305,184"/>
+<area shape="rect" id="node7" href="$group__timer.html#gac57a7e1140a7e00ad95ac5488d2a671b" title="Subscribes and enables Keyboard interrupts." alt="" coords="177,208,312,235"/>
+<area shape="rect" id="node3" href="$group__utils.html#ga79a031a8611f5b2d6afa4158e92b0fb4" title="Invokes sys_inb() system call but reads the value into a uint8_t variable." alt="" coords="365,5,456,32"/>
+</map>

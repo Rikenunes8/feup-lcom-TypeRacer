@@ -1,0 +1,9 @@
+<map id="rtc_write_register" name="rtc_write_register">
+<area shape="rect" id="node1" title="Writes a register." alt="" coords="460,56,581,83"/>
+<area shape="rect" id="node2" href="$group__rtc.html#ga934fe7995ccc6e32fe092b16ab3fddba" title="Sets alarm in BCD." alt="" coords="298,5,399,32"/>
+<area shape="rect" id="node5" href="$group__rtc.html#ga43506ee87390a80b6d33f1c0e9f71c59" title="Sets alarm interrupts off." alt="" coords="286,107,411,133"/>
+<area shape="rect" id="node7" href="$group__rtc.html#gae0f4164cfaff93dc8ab4ac75a2e20684" title="Sets alarm interrupts on." alt="" coords="285,56,412,83"/>
+<area shape="rect" id="node3" href="$group__race.html#ga7be19fcced91c447bbcda85eb163bdf0" title="Initializes race." alt="" coords="165,56,235,83"/>
+<area shape="rect" id="node4" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,81,115,108"/>
+<area shape="rect" id="node6" href="$group__race.html#ga3076ed00db71c8dfbf4cdcb0f363f850" title="Ends race." alt="" coords="163,107,237,133"/>
+</map>

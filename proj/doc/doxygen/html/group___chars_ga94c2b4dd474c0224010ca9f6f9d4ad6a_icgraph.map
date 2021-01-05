@@ -1,0 +1,5 @@
+<map id="collision_Char" name="collision_Char">
+<area shape="rect" id="node1" title="Checks if a coordinate is inside a Char." alt="" coords="377,5,480,32"/>
+<area shape="rect" id="node2" href="$group__race.html#gab3544333555729079876ffbdada5f9f5" title="Processes mouse interrupt in race page." alt="" coords="163,5,329,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

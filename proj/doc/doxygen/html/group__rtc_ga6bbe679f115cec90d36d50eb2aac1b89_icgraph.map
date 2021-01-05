@@ -1,0 +1,5 @@
+<map id="rtc_subscribe_int" name="rtc_subscribe_int">
+<area shape="rect" id="node1" title="Subscribes and enables RTC interrupts." alt="" coords="329,5,451,32"/>
+<area shape="rect" id="node2" href="$group__proj.html#gaed3ae5e9fc9ce660b26833836443a4b2" title="Subscribes all interrupts and enables mouse data reporting." alt="" coords="163,5,281,32"/>
+<area shape="rect" id="node3" href="$group__proj.html#ga2a16f651eccbd248e1ad3b3b924b143b" title="Main function of the project." alt="" coords="5,5,115,32"/>
+</map>

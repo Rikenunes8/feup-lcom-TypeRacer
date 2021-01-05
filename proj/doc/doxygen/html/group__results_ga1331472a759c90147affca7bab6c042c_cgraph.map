@@ -1,0 +1,5 @@
+<map id="bubbles_erase" name="bubbles_erase">
+<area shape="rect" id="node1" title="Removes bubble to be erased of the array of bubbles and destroys it." alt="" coords="5,5,112,32"/>
+<area shape="rect" id="node2" href="$group__sprite.html#ga05d186cb4268b897f3d8d7d890ed6cc4" title="Destroys an Animated Sprite, releases all resources allocated." alt="" coords="160,5,271,32"/>
+<area shape="rect" id="node3" href="$group__sprite.html#ga607cfeb4f019a84c346eb3bce9da0420" title="Frees memory alocated by sprite." alt="" coords="319,5,423,32"/>
+</map>
